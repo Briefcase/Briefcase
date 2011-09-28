@@ -1,5 +1,15 @@
 <html>
   <head>
+    <script type="text/javascript">
+      function checkKey(e) {
+        //var unicode = e.charCode // Future version
+        var unicode = e.keyCode ? e.keyCode : e.charCode;
+        if (unicode == 122) {
+          
+        }
+      }
+      document.onkeypress=checkKey;
+    </script>
   </head>
   <body>
     Begin of canvas
@@ -43,6 +53,10 @@
       
       context.strokeStyle = "#000";
       context.stroke();
+      
+      context.font = "bold 12px sans-serif";
+      context.fillText("x", 248, 43);
+      context.fillText("y", 58, 165);
     </script>
   </body>
 </html>

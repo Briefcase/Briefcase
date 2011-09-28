@@ -143,3 +143,5 @@ LOGGING = {
         },
     }
 }
+
+#AUTH_PROFILE_MODULE = ('briefcase.registration.models.UserProfile')

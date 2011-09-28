@@ -5,8 +5,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^registration/$', 'registration.views.index'),
     # Examples:
-    # url(r'^$', 'briefcase.views.home', name='home'),
+    #url(r'^$', 'briefcase.views.home', name='home'),
     # url(r'^briefcase/', include('briefcase.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

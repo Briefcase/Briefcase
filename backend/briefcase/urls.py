@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^accounts/$', 'accounts.views.index'),
     url(r'^accounts/register', 'accounts.views.register'),
-    url(r'^accounts/confirm', 'accounts.views.confirm'),
+    #url(r'^accounts/confirm', 'accounts.views.confirm'),
     # Examples:
     #url(r'^$', 'briefcase.views.home', name='home'),
     # url(r'^briefcase/', include('briefcase.foo.urls')),

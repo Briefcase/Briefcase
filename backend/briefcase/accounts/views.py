@@ -2,7 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.mail import send_mail
 from briefcase.accounts.forms import RegistrationForm
-#from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.core.context_processors import csrf
+from django.template import RequestContext
+
 
 def index(request):
     return HttpResponse("Hi there. Would you like a cookie? - Account stuff here")
@@ -12,16 +15,18 @@ def register(request):
         # return render_to_response('register.html', {'has_account': True})
     if request.method == 'POST':   
         form = RegistrationForm(request.POST)
-        #form = UserCreationForm(request.POST)
+        
         if form.is_valid():
             username = form.cleaned_data['username']
             email =  form.cleaned_data['email']
-            password = form.cleaned_data['pw2']
+            password = form.cleaned_data['password_again']
             
             #do some other stuff here with the data
+            user = User.objects.create_user(username, email, password)
+            user.is_active = False
+            user.save()
+        form = RegistrationForm()
             
-            #return HttpResponse('thanks') #redirect to thanks page after POST
     else:
             form = RegistrationForm()
-            #form = UserCreationForm()
-    return render_to_response('accounts/register.html', {'form':form})
+    return render_to_response('accounts/register.html', {'form':form}, context_instance =  RequestContext(request))

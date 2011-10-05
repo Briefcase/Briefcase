@@ -5,7 +5,7 @@
         //var unicode = e.charCode // Future version
         var unicode = e.keyCode ? e.keyCode : e.charCode;
         if (unicode == 122) {
-          
+          document.write("FullscreenMode");
         }
       }
       document.onkeypress=checkKey;
@@ -57,6 +57,14 @@
       context.font = "bold 12px sans-serif";
       context.fillText("x", 248, 43);
       context.fillText("y", 58, 165);
+      
+      
+      
+      var myGradient = context.createLinearGradient(0,0,100,0);
+      myGradient.addColorStop(0, "#cccccc");
+      myGradient.addColorStop(1, "#ffffff");
+      context.fillStyle = myGradient;
+      context.fillRect(20,20,120,120);
     </script>
   </body>
 </html>

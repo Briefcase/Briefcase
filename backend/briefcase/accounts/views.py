@@ -11,13 +11,11 @@ def index(request):
     return HttpResponse("Hi there. Would you like a cookie? - Account stuff here")
 
 def register(request):
-    # if request.user.is_authenticated():
-        # return render_to_response('register.html', {'has_account': True})
+    form = RegistrationForm()
     if request.method == 'POST':   
         form = RegistrationForm(request.POST)
-        
         if form.is_valid():
-            username = form.cleaned_data['username']
+            username = form.cleaned_data.get('username')
             email =  form.cleaned_data['email']
             password = form.cleaned_data['password_again']
             
@@ -25,8 +23,8 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.is_active = False
             user.save()
-        form = RegistrationForm()
-            
-    else:
             form = RegistrationForm()
+                
+        else:
+            form = RegistrationForm(request.POST)
     return render_to_response('accounts/register.html', {'form':form}, context_instance =  RequestContext(request))

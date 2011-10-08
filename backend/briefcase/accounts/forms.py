@@ -8,7 +8,7 @@ def isValidUsername(value):
         User.objects.get(username = value)
     except User.DoesNotExist:
         return
-    raise validators.ValidationError('The username "$s" is already taken.' % value)
+    raise forms.ValidationError('The username is already taken')
         
 class RegistrationForm(forms.Form):
         username = forms.CharField(max_length = 30, validators = [isValidUsername])
@@ -22,7 +22,11 @@ class RegistrationForm(forms.Form):
             password_again = cleaned_data.get("password_again")
             if password and password_again:
                 if password!=password_again:
-                    raise forms.ValidationError("passwords must match")
+                        msg = u"passwords must match"
+                        self._errors["password_again"] = self.error_class([msg])
+                        del cleaned_data["password"]
+                        del cleaned_data["password_again"]
+                        #raise forms.ValidationError("passwords must match")
             return cleaned_data
  
 

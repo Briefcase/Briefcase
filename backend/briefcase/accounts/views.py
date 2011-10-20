@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
 
 
@@ -37,10 +37,12 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.is_active = False
             user.save()
-            form = RegistrationForm()
+            #form = RegistrationForm()
+            return HttpResponse("Registration successful")
                 
         else:
             form = RegistrationForm(request.POST)
+    
     return render_to_response('accounts/register.html', {'form':form}, context_instance =  RequestContext(request))
     
 def userlogin(request):
@@ -55,8 +57,13 @@ def userlogin(request):
                 login(request, user)
                 return HttpResponseRedirect('../')
             else:
+                logout(request)
                 return HttpResponse("inactive - fail")
         else:
+            logout(request)
             return HttpResponse("fail")
     return render_to_response('accounts/login.html', {'form':form}, context_instance = RequestContext(request))
-        
+
+def userlogout(request):
+    logout(request)
+    return HttpResponseRedirect('login.html')

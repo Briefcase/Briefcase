@@ -22,21 +22,21 @@ def register(request):
             email =  form.cleaned_data['email']
             password = form.cleaned_data['password_again']
             
-            f=open('/home/shared/briefcase/backend/briefcase/accounts/test.txt','w')
-            #myfile=File(f)
-            #myfile.write('hey there everyone')
-            f.write(username + '\n')
-            f.write(email + '\n')
-            #myfile.close()
-            f.close()
+            #just testing some file output stuff
+            # f=open('/home/shared/briefcase/backend/briefcase/accounts/test.txt','w')
+            # f.write(username + '\n')
+            # f.write(email + '\n')
+            # f.close()
   
-            #print(username)
-            #print(email)
             
-            #do some other stuff here with the data
+            #create user and save
             user = User.objects.create_user(username, email, password)
             user.is_active = False
             user.save()
+            
+            #send email - need to set up the email stuff still
+            # send_mail('Registration Successful', 'You\'re registration with briefcasedocs.com was successful.', 'from@example.com',[email],fail_silently=False)
+            
             #form = RegistrationForm()
             return HttpResponse("Registration successful")
                 

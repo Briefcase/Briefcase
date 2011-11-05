@@ -6,6 +6,9 @@ var data = new Array();
 var cellHeight = 18;
 var cellWidth = 110;
 
+var xdownClick;
+var ydownClick;
+
 var lastx = -1;
 var lasty = -1;
 var currentx = -1;
@@ -61,6 +64,9 @@ function mouseDetect(e) {
 
 
 function clickHandler(e) {
+  if (currentx != downx || currenty != downy) {
+    return;
+  }
   //alert(currentx);
   context = document.getElementById("application").getContext("2d");
   context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
@@ -116,13 +122,19 @@ function redrawFrame() {
   context.stroke();
 }
 
+function blockordrag() {
+  downx = currentx;
+  downy = currenty;
+  // there are no drag formats yet
+}
 
 
 window.onload = function () {    
   redrawFrame()
   
   window.onresize = resizedraw;
-  document.onmousedown = clickHandler;
+  document.onmousedown = blockordrag;
+  document.onmouseup = clickHandler;
   document.onmousemove = mouseDetect;
   document.onkeypress = keypress;
   

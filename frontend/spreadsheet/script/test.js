@@ -13,7 +13,7 @@ var currenty = -1;
 
 function moveTextBox (xpos, ypos) {
   document.getElementById("datain").style.top = ypos + 'px';
-  document.getElementById("datain").style.left = xpos + 'px';
+  document.getElementById("datain").style.left = (xpos - 2.5) + 'px';
 }
 
 
@@ -67,7 +67,9 @@ function clickHandler(e) {
   context.font = "12px sans-serif";
   
   //
-  data[lastx+','+lasty] = document.getElementById("inputbox").value;
+  if (data[currentx+','+currenty] != undefined || document.getElementById("inputbox").value != "") {
+    data[lastx+','+lasty] = document.getElementById("inputbox").value;
+  }  
   context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
   
   //Move Input Box
@@ -120,7 +122,7 @@ window.onload = function () {
   redrawFrame()
   
   window.onresize = resizedraw;
-  document.onclick = clickHandler;
+  document.onmousedown = clickHandler;
   document.onmousemove = mouseDetect;
   document.onkeypress = keypress;
   

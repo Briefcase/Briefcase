@@ -121,7 +121,7 @@ function finishInput() {
   context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
   context.font = "12px sans-serif";
   if (equation[0]=='=') {
-    context.fillText("#FUNCTION",(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
+    context.fillText(eparse(equation.substring(1,equation.length)),(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
   }
   else {
     context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);

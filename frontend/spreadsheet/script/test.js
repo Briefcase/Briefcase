@@ -1,14 +1,12 @@
-var pageWidth = 10;
-var pageHeight= 10;
-
+// the data contained within the cell
 var data = new Array();
-
+// predefined sizes for cells (soon to be arrays or something)
 var cellHeight = 18;
 var cellWidth = 110;
-
+// detecting if the mouse is clicking or dragging
 var xdownClick;
 var ydownClick;
-
+// maintaining the position of the mouse
 var lastx = -1;
 var lasty = -1;
 var currentx = -1;
@@ -28,7 +26,7 @@ function keypress(e) {
     data[lastx+','+lasty] = document.getElementById("inputbox").value;
     context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
   
-  //Move Input Box
+    //Move Input Box
     moveTextBox(-100,-100);
     document.getElementById("inputbox").value = "";
     document.getElementById("inputbox").focus();
@@ -92,10 +90,6 @@ function clickHandler(e) {
   
 }
 
-
-function resizedraw (e) {
-  redrawFrame();
-}
 function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
@@ -130,13 +124,13 @@ function blockordrag() {
 
 
 window.onload = function () {    
-  redrawFrame()
+  redrawFrame(); // draw the frame
   
-  window.onresize = resizedraw;
-  document.onmousedown = blockordrag;
-  document.onmouseup = clickHandler;
-  document.onmousemove = mouseDetect;
-  document.onkeypress = keypress;
+  window.onresize = redrawFrame; // redraw the frame on resize
+  document.onmousedown = blockordrag; // be able to handle click and drag
+  document.onmouseup = clickHandler; // detect if it is a click or a drag
+  document.onmousemove = mouseDetect; // easy way to maintain mouse position
+  document.onkeypress = keypress; // keyboard shortcuts
   
   moveTextBox(-100,-100);
 }

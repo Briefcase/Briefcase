@@ -19,7 +19,7 @@ function moveTextBox (xpos, ypos) {
 
 function keypress(e) {
   if (e.keyCode == 13) {
-  
+    data[lastx+','+lasty] = document.getElementById("inputbox").value;
     finishInput(); // scans the input and displays a result
   
     //Move Input Box
@@ -120,7 +120,6 @@ function finishInput() {
     context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
     context.font = "12px sans-serif";
     
-    data[lastx+','+lasty] = document.getElementById("inputbox").value;
     context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
 }
 

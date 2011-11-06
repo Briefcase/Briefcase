@@ -17,14 +17,10 @@ function moveTextBox (xpos, ypos) {
   document.getElementById("datain").style.left = (xpos - 2.5) + 'px';
 }
 
-
 function keypress(e) {
   if (e.keyCode == 13) {
-    context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
-    context.font = "12px sans-serif";
-    
-    data[lastx+','+lasty] = document.getElementById("inputbox").value;
-    context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
+  
+    finishInput(); // scans the input and displays a result
   
     //Move Input Box
     moveTextBox(-100,-100);
@@ -58,23 +54,19 @@ function mouseDetect(e) {
   
   currentx = x;
   currenty = y;
-}
+} 
 
 
 function clickHandler(e) {
   if (currentx != downx || currenty != downy) {
     return;
-  }
-  //alert(currentx);
-  context = document.getElementById("application").getContext("2d");
-  context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
-  context.font = "12px sans-serif";
-  
+  }  
   //
   if (data[currentx+','+currenty] != undefined || document.getElementById("inputbox").value != "") {
     data[lastx+','+lasty] = document.getElementById("inputbox").value;
   }  
-  context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
+  
+  finishInput();
   
   //Move Input Box
   moveTextBox((currentx*cellWidth),(currenty*cellHeight)-2.5);
@@ -87,7 +79,6 @@ function clickHandler(e) {
   document.getElementById("inputbox").focus();
   lastx=currentx;
   lasty=currenty;
-  
 }
 
 function redrawFrame() {
@@ -122,6 +113,16 @@ function blockordrag() {
   // there are no drag formats yet
 }
 
+//detects changes
+function finishInput() {
+    var c_canvas = document.getElementById("application");
+    var context = c_canvas.getContext("2d");
+    context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
+    context.font = "12px sans-serif";
+    
+    data[lastx+','+lasty] = document.getElementById("inputbox").value;
+    context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
+}
 
 window.onload = function () {    
   redrawFrame(); // draw the frame

@@ -115,12 +115,17 @@ function blockordrag() {
 
 //detects changes
 function finishInput() {
-    var c_canvas = document.getElementById("application");
-    var context = c_canvas.getContext("2d");
-    context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
-    context.font = "12px sans-serif";
-    
+  var equation = document.getElementById("inputbox").value;
+  var c_canvas = document.getElementById("application");
+  var context = c_canvas.getContext("2d");
+  context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
+  context.font = "12px sans-serif";
+  if (equation[0]=='=') {
+    context.fillText("#FUNCTION",(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
+  }
+  else {
     context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
+  }
 }
 
 window.onload = function () {    

@@ -55,9 +55,50 @@ function _ASMATH(input) {
   else {output += addon;}
   return output;
 }
-
+// this is not done yet
 function _MDMATH (input) {
   //alert("value found" + input);
+  var output = 0;
+  var lastpoint = 0;
+  var parenCount = 0;
+  var divideSwitch = false;
+  var first = true;
+  
+  for (var i = 0; i < input.length; i++) {
+    if ((input[i] == '*' || input[i] == '/') && !parenCount) {
+      var addon;
+      if (_RESMATH(input.substring(lastpoint,i))) {
+        addon = _ASMATH (input.substring(lastpoint+1, i-1));
+      }
+      else {
+        addon = _FIND(input.substring(lastpoint,i));
+      }
+      
+      if (divideSwitch) { output /= addon; }
+      else if (first) { output = addon; first=false;}
+      else {output *= addon;}
+      
+      divideSwitch = (input[i] == '/');
+      lastpoint = i+1;
+    }
+    else if (input[i] == '(') {parenCount++;}
+    else if (input[i] == ')') {parenCount--;}
+  }
+  
+  var addon;
+  if (_RESMATH(input.substring(lastpoint,input.length))){
+    addon = _ASMATH(input.substring(lastpoint+1,input.length-1));
+  }
+  else {
+    addon = _FIND(input.substring(lastpoint,input.length));
+  }
+  if (divideSwitch) output /= addon;
+  else if (first) {output = addon; first=false;}
+  else {output *= addon;}
+  return output;
+}
+
+function _FIND(input){
   return parseInt(input);
 }
 

@@ -105,6 +105,22 @@ function redrawFrame() {
   // Write the changes to the screen
   context.strokeStyle = "#ddd";
   context.stroke();
+  
+  // draw all the text
+  for (var i in data) {
+	  coordPair = i.split(',');
+	  x_pos=parseInt(coordPair[0]);
+	  y_pos=parseInt(coordPair[1]);
+	  
+	  context.font = "12px sans-serif";
+	  
+	  if (data[i][0]=='=') {
+      context.fillText(eparse(equation.substring(1,data[i].length)),(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
+    }
+    else {
+      context.fillText(data[i],(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
+    }
+  }
 }
 
 function blockordrag() {
@@ -118,7 +134,7 @@ function finishInput() {
   var equation = document.getElementById("inputbox").value;
   var c_canvas = document.getElementById("application");
   var context = c_canvas.getContext("2d");
-  context.clearRect ((currentx*cellWidth)+1,(currenty*cellHeight)+1,cellWidth-1,cellHeight-1);
+  context.clearRect ((lastx*cellWidth)+1,(lasty*cellHeight)+1,cellWidth-1,cellHeight-1);
   context.font = "12px sans-serif";
   if (equation[0]=='=') {
     context.fillText(eparse(equation.substring(1,equation.length)),(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);

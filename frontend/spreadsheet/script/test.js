@@ -115,7 +115,7 @@ function redrawFrame() {
 	  context.font = "12px sans-serif";
 	  
 	  if (data[i][0]=='=') {
-      context.fillText(eparse(equation.substring(1,data[i].length)),(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
+      context.fillText(eparse(data[i].substring(1,data[i].length)),(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
     }
     else {
       context.fillText(data[i],(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);

@@ -15,7 +15,6 @@ function _RMWHITE (input) {
       output+=input[i];
     }
   }
-  alert(output);
   return output;
 }
 

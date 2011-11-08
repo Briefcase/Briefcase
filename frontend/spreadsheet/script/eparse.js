@@ -1,5 +1,22 @@
+// a wrapper function
 function eparse(input) {
-  return _ASMATH(input);
+  return _ASMATH(_RMWHITE(input));
+}
+
+//remove equational whitespace
+function _RMWHITE (input) {
+  var output = "";
+  var inquote = false;
+  for (var i = 0; i < input.length; i++) {
+    if ((input[i] == "'" || input[i] == '"')) {
+      inquote = !inquote;
+    }
+    if (input[i] != " " || inquote == true) {
+      output+=input[i];
+    }
+  }
+  alert(output);
+  return output;
 }
 
 //_ASMATH handles additions and subtractions in math
@@ -55,9 +72,8 @@ function _ASMATH(input) {
   else {output += addon;}
   return output;
 }
-// this is not done yet
+// MD math handles multiplication and division
 function _MDMATH (input) {
-  //alert("value found" + input);
   var output = 0;
   var lastpoint = 0;
   var parenCount = 0;
@@ -99,6 +115,9 @@ function _MDMATH (input) {
 }
 
 function _FIND(input){
+  if (_INQUOTES(input)) {
+    return input.substring(1,input.length-1);
+  }
   return parseInt(input);
 }
 
@@ -111,6 +130,16 @@ function _RESMATH(block) {
       // if pcount is zero then it is not just one big parenthase group
       if (pcout == 0) return false;
     }
+    return true;
+  }
+  return false;
+}
+function _INQUOTES(block) {
+  if (block.length < 2) {
+    return false;
+  }
+  if ((block[0] == '"' || block[0]=="'") && (block[block.length-1] == '"' || block[block.length-1] == "'")) {
+    // more tests may need to be in here
     return true;
   }
   return false;

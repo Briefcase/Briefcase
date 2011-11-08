@@ -60,15 +60,23 @@ function mouseDetect(e) {
   else { 
     x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
     y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
-  } 
+  }
+  
   x -= document.getElementById("application").offsetLeft;
   y -= document.getElementById("application").offsetTop;
   
-  x = ~~(x / cellWidth); // truncate using ~~ (IDK WHAT IT DOES THOUGH)
-  y = ~~(y / cellHeight);
-  
-  var c_canvas = document.getElementById("application");
-  var context = c_canvas.getContext("2d");
+  if (x > 0) {
+    x = ~~(x / cellWidth); // truncate using ~~ (IDK WHAT IT DOES THOUGH)
+  }
+  else {
+    x = x = ~~(x / cellWidth)-1;
+  }
+  if (y > 0) {
+    y = ~~(y / cellHeight);
+  }
+  else{
+    y = ~~(y / cellHeight)-1;
+  }
   
   currentx = x;
   currenty = y;

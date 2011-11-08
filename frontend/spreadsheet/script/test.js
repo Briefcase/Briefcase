@@ -13,7 +13,7 @@ var currentx = -1;
 var currenty = -1;
 
 function moveTextBox (xpos, ypos) {
-  document.getElementById("datain").style.top = ypos + 'px';
+  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop + 'px';
   document.getElementById("datain").style.left = (xpos - 2.5) + 'px';
 }
 
@@ -56,11 +56,13 @@ function mouseDetect(e) {
   currenty = y;
 } 
 
-
 function clickHandler(e) {
   if (currentx != downx || currenty != downy) {
     return;
-  }  
+  } 
+  if (currentx < 0 || currenty < 0) {
+    return;
+  } 
   //
   if (data[currentx+','+currenty] != undefined || document.getElementById("inputbox").value != "") {
     data[lastx+','+lasty] = document.getElementById("inputbox").value;

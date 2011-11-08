@@ -123,8 +123,8 @@ function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
 
-  c_canvas.height = window.innerHeight;
-  c_canvas.width = window.innerWidth;
+  c_canvas.height = window.innerHeight - 100;
+  c_canvas.width = window.innerWidth-50;
 
 
   var context = c_canvas.getContext("2d");

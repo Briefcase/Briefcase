@@ -12,6 +12,15 @@ var lasty = -1;
 var currentx = -1;
 var currenty = -1;
 
+// maintain which textbox has focus
+var functionfocus = false;
+var textfocus = false;
+
+function functionOnFocus() { functionfocus = true; }
+function functionOnBlur() { functionfocus = false; }
+function textboxOnFocus() { textfocus = true; }
+function textboxOnBlur() { textfoucs = false; }
+
 function moveTextBox (xpos, ypos) {
   document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop + 'px';
   document.getElementById("datain").style.left = (xpos - 2.5) + 'px';
@@ -28,6 +37,15 @@ function keypress(e) {
     document.getElementById("inputbox").focus();
     lastx=-1;
     lasty=-1;
+  }
+}
+function syncBox(e) {
+  // Sync Function box and text box
+  if (functionfocus) {
+    document.getElementById("inputbox").value = document.getElementById("functionbox").value;
+  }
+  else if (textfocus) {
+    document.getElementById("functionbox").value = document.getElementById("inputbox").value;
   }
 }
 
@@ -85,6 +103,7 @@ function clickHandler(e) {
   else {
     document.getElementById("inputbox").value = data[currentx+','+currenty];
   }
+  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
   document.getElementById("inputbox").focus();
   lastx=currentx;
   lasty=currenty;
@@ -155,7 +174,7 @@ function finishInput() {
 
 window.onload = function () {    
   redrawFrame(); // draw the frame
-  
+  document.onkeyup = syncBox;
   window.onresize = redrawFrame; // redraw the frame on resize
   document.onmousedown = blockordrag; // be able to handle click and drag
   document.onmouseup = clickHandler; // detect if it is a click or a drag

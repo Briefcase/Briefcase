@@ -38,8 +38,10 @@ function keypress(e) {
     lastx=-1;
     lasty=-1;
   }
+  setTimeout("delaySync()",0);
 }
-function syncBox(e) {
+// Gaa, this feels so hackish makeing it delay for 1 before syncing, but it works
+function delaySync(){
   // Sync Function box and text box
   if (functionfocus) {
     document.getElementById("inputbox").value = document.getElementById("functionbox").value;
@@ -182,7 +184,6 @@ function finishInput() {
 
 window.onload = function () {    
   redrawFrame(); // draw the frame
-  document.onkeyup = syncBox;
   window.onresize = redrawFrame; // redraw the frame on resize
   document.onmousedown = blockordrag; // be able to handle click and drag
   document.onmouseup = clickHandler; // detect if it is a click or a drag

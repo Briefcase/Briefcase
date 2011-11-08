@@ -22,7 +22,8 @@ function _RMWHITE (input) {
 //_ASMATH handles additions and subtractions in math
 function _ASMATH(input) {
   var lastpoint = 0;
-  var output = 0;
+  var output;
+  var first = true;
   var negativeSwitch = false;
   var parenCount = 0; // keep track of parenthasese
   var i = 0;
@@ -45,6 +46,7 @@ function _ASMATH(input) {
       
       // add or subtract result
       if (negativeSwitch) {output -= addon;}
+      else if (first) { output = addon; first=false;}
       else {output += addon}
       
       // check to see if the symbol is a subtraction sign
@@ -69,6 +71,7 @@ function _ASMATH(input) {
   }
   
   if (negativeSwitch) {output -= addon;}
+  else if (first) { output = addon; first=false;}
   else {output += addon;}
   return output;
 }

@@ -57,12 +57,19 @@ function mouseDetect(e) {
 } 
 
 function clickHandler(e) {
+  // if a person is dragging their mouse over multiple frames dont select the
+  // last one thir mouse is over
   if (currentx != downx || currenty != downy) {
     return;
   } 
+  // if a mouse is above or to the left of the spreadsheet, dont create a box
   if (currentx < 0 || currenty < 0) {
     return;
   } 
+  // Dont redo this function if clicking on the same square
+  if (currentx == lastx && currenty == lasty) {
+    return;
+  }
   //
   if (data[currentx+','+currenty] != undefined || document.getElementById("inputbox").value != "") {
     data[lastx+','+lasty] = document.getElementById("inputbox").value;

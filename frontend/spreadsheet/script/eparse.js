@@ -150,8 +150,6 @@ function isFunction(block) {
       }
     }
     if (parencount == 0) {
-      //alert ("function name" + block.substring(0,parenStart));
-      //alert ("arguments " + block.substring(parenStart+1,block.length-1));
       return block.substring(parenStart+1,block.length-1) + ',' + block.substring(0,parenStart);
     }
   }

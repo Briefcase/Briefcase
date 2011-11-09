@@ -150,14 +150,25 @@ function isFunction(block) {
       }
     }
     if (parencount == 0) {
-      return block.substring(parenStart+1,block.length-1) + ',' + block.substring(0,parenStart);
+      var functionName = block.substring(0,parenStart).split('.',-1);
+      if (functionName.length == 1) {
+        functionName[1]=functionName[0];
+        functionName[0]='default';
+      }
+      if (functionName.length > 2) {
+        alert("split failed badly");
+      }
+      return block.substring(parenStart+1,block.length-1) + ',' + functionName[0]+'_'+functionName[1];
     }
   }
   else {
     return "false";
   }
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// the find function parses an element of the arithmatic and determines if it //
+// is a function, a number, or a cell name                                    //
+////////////////////////////////////////////////////////////////////////////////
 function _FIND(input){
   // a string
   if (_INQUOTES(input)) {
@@ -169,7 +180,12 @@ function _FIND(input){
     // call function
     var parsed = functData.split(',');
     var functionName = parsed.pop();
-    return window[functionName].apply(this,parsed);
+    if (window[functionName] == undefined) {
+      alert("Function Not Found");
+    }
+    else {
+      return window[functionName].apply(this,parsed);
+    }
   }
   // A string
   return parseInt(input);

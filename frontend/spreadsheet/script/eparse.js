@@ -116,10 +116,64 @@ function _MDMATH (input) {
   return output;
 }
 
+function isDigit(character) {
+  return (character == '1' ||
+          character == '2' ||
+          character == '3' ||
+          character == '4' ||
+          character == '5' ||
+          character == '6' ||
+          character == '7' ||
+          character == '8' ||
+          character == '9' ||
+          character == '0');
+}
+
+function isFunction(block) {
+  if (block[block.length-1] == ')' && !isDigit(block[0])) {
+    // check for function
+    var parencount = 0;
+    var parenStart = -1;
+    for (var i = 0; i < block.length; i ++) {
+      if (parencount == 0 && parenStart != -1){
+        // ERROR
+        return "false";
+      }
+      if (block[i] == '(') {
+        if (parenStart == -1) {
+          parenStart = i;
+        }
+        parencount++;
+      }
+      else if (block[i] == ')') {
+        parencount--;
+      }
+    }
+    if (parencount == 0) {
+      //alert ("function name" + block.substring(0,parenStart));
+      //alert ("arguments " + block.substring(parenStart+1,block.length-1));
+      return block.substring(parenStart+1,block.length-1) + ',' + block.substring(0,parenStart);
+    }
+  }
+  else {
+    return "false";
+  }
+}
+
 function _FIND(input){
+  // a string
   if (_INQUOTES(input)) {
     return input.substring(1,input.length-1);
   }
+  // a function
+  var functData = isFunction(input);
+  if (functData != "false") {
+    // call function
+    var parsed = functData.split(',');
+    var functionName = parsed.pop();
+    return window[functionName].apply(this,parsed);
+  }
+  // A string
   return parseInt(input);
 }
 

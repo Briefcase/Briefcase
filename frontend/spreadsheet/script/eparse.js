@@ -165,6 +165,33 @@ function isFunction(block) {
     return "false";
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+//
+////////////////////////////////////////////////////////////////////////////////
+function _splitcomma (block) {
+  var data = block.split(',');
+  alert ("INSIDE " + data);
+  var parenCount = 0;
+  for (var i = 0; i < data.length; i++) {
+    for (var j = 0; j < data[i].length; j++) {
+      if (data[i][j] == '(') {
+        parenCount++;
+      }
+      else if (data[i][j] == ')') {
+        parenCount--;
+      }
+    }
+    if (parenCount > 0) {
+      alert("Merging next " + data[i]);
+      data[i] += ',' + data.splice(i+1,1);
+      alert("Merged into " + data[i]);
+      parenCount = 0;
+      i--;
+    }
+  }
+  return data;
+}
 ////////////////////////////////////////////////////////////////////////////////
 // the find function parses an element of the arithmatic and determines if it //
 // is a function, a number, or a cell name                                    //
@@ -178,7 +205,9 @@ function _FIND(input){
   var functData = isFunction(input);
   if (functData != "false") {
     // call function
-    var parsed = functData.split(',');
+    ///var parsed = functData.split(',');
+    var parsed = _splitcomma (functData);
+    alert(parsed);
     var functionName = parsed.pop();
     if (window[functionName] == undefined) {
       alert("Function Not Found");

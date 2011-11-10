@@ -184,6 +184,9 @@ function _FIND(input){
       alert("Function Not Found");
     }
     else {
+      for (var i = 0; i < parsed.length; i++) {
+        parsed[i] = eparse(parsed[i]);
+      }
       return window[functionName].apply(this,parsed);
     }
   }

@@ -31,4 +31,5 @@ function math_min() {
       minimum = arguments[i];
     }
   }
+  return minimum;
 }

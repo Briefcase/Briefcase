@@ -24,3 +24,11 @@ function math_max() {
   return maximum;
 }
 
+function math_min() {
+  var minimum = arguments[0];
+  for (var i = 1; i < arguments.length; i++) {
+    if (minimum > arguments[i]) {
+      minimum = arguments[i];
+    }
+  }
+}

@@ -12,6 +12,8 @@ var lasty = -1;
 var currentx = -1;
 var currenty = -1;
 
+var rowBegin = -1; // used in conjunction with tabbing and enter hotkeys
+
 // maintain which textbox has focus
 var functionfocus = false;
 var textfocus = false;
@@ -28,9 +30,10 @@ function moveTextBox (xpos, ypos) {
 
 function keypress(e) {
   if (e.keyCode == 13) {
+    // Enter is pressed
     data[lastx+','+lasty] = document.getElementById("inputbox").value;
     finishInput(); // scans the input and displays a result
-  
+    
     //Move Input Box
     moveTextBox(-100,-100);
     document.getElementById("inputbox").value = "";
@@ -38,6 +41,18 @@ function keypress(e) {
     lastx=-1;
     lasty=-1;
   }
+  if (e.keycode == 9) {
+    //tab is pressed
+    data[lastx+','+lasty] = document.getElementById("inputbox").value;
+    finishInput(); // scans the input and displays a result
+    
+    //Move Input Box
+    lastx++;
+    moveTextBox(-100,-100);
+    document.getElementById("inputbox").value = "";
+    document.getElementById("inputbox").focus();
+  }
+  // sync the input box and the function box on keypress
   setTimeout("delaySync()",0);
 }
 // Gaa, this feels so hackish makeing it delay for 1 before syncing, but it works
@@ -99,7 +114,7 @@ function clickHandler(e) {
     return;
   }
   //
-  if (data[currentx+','+currenty] != undefined || document.getElementById("inputbox").value != "") {
+  if (data[lastx+','+lasty] != undefined || document.getElementById("inputbox").value != "") {
     data[lastx+','+lasty] = document.getElementById("inputbox").value;
   }  
   

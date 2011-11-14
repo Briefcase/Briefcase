@@ -35,11 +35,16 @@ function keypress(e) {
     finishInput(); // scans the input and displays a result
     
     //Move Input Box
-    moveTextBox(-100,-100);
-    document.getElementById("inputbox").value = "";
+    lasty++;
+    lastx = rowBegin;
+    moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
+    if (data[lastx+','+lasty] == undefined) {
+      document.getElementById("inputbox").value = "";
+    }
+    else {
+      document.getElementById("inputbox").value = data[lastx+','+lasty];
+    }
     document.getElementById("inputbox").focus();
-    lastx=-1;
-    lasty=-1;
   }
   if (e.keyCode == 9) {
     //tab is pressed
@@ -136,6 +141,7 @@ function clickHandler(e) {
   document.getElementById("inputbox").focus();
   lastx=currentx;
   lasty=currenty;
+  rowBegin = currentx;
 }
 
 function redrawFrame() {

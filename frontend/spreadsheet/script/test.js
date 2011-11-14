@@ -47,11 +47,17 @@ function keypress(e) {
     document.getElementById("inputbox").focus();
   }
   if (e.keyCode == 9) {
+    
     //tab is pressed
     data[lastx+','+lasty] = document.getElementById("inputbox").value;
     finishInput(); // scans the input and displays a result
     //Move Input Box
-    lastx++;
+    if (e.shiftKey) {
+      lastx--;
+    }
+    else {
+      lastx++;
+    }
     moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
     if (data[lastx+','+lasty] == undefined) {
       document.getElementById("inputbox").value = "";

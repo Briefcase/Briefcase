@@ -36,7 +36,7 @@ function _ASMATH(input) {
     if ((input[i] == '+' || input[i] == '-') && parenCount == 0) {
       // parse block
       var addon;
-      if (_RESMATH(input.substring(lastpoint,i))) {
+      if (_INPAREN(input.substring(lastpoint,i))) {
         addon = _ASMATH(input.substring(lastpoint+1,i-1));
       }
       else {
@@ -62,7 +62,7 @@ function _ASMATH(input) {
   }
   // parse the final block, lastpoint to end
   var addon;
-  if (_RESMATH(input.substring(lastpoint,input.length))) {
+  if (_INPAREN(input.substring(lastpoint,input.length))) {
     addon = _ASMATH (input.substring(lastpoint+1,input.length-1));
   }
   else{
@@ -85,11 +85,11 @@ function _MDMATH (input) {
   for (var i = 0; i < input.length; i++) {
     if ((input[i] == '*' || input[i] == '/') && !parenCount) {
       var addon;
-      if (_RESMATH(input.substring(lastpoint,i))) {
+      if (_INPAREN(input.substring(lastpoint,i))) {
         addon = _ASMATH (input.substring(lastpoint+1, i-1));
       }
       else {
-        addon = _FIND(input.substring(lastpoint,i));
+        addon = _ANALYZEATOM(input.substring(lastpoint,i));
       }
       
       if (divideSwitch) { output /= addon; }
@@ -104,11 +104,11 @@ function _MDMATH (input) {
   }
   
   var addon;
-  if (_RESMATH(input.substring(lastpoint,input.length))){
+  if (_INPAREN(input.substring(lastpoint,input.length))){
     addon = _ASMATH(input.substring(lastpoint+1,input.length-1));
   }
   else {
-    addon = _FIND(input.substring(lastpoint,input.length));
+    addon = _ANALYZEATOM(input.substring(lastpoint,input.length));
   }
   if (divideSwitch) output /= addon;
   else if (first) {output = addon; first=false;}
@@ -187,28 +187,28 @@ function letterValue (character) {
   else if (character == 'Z' || character == 'z') { return 25; }
 }
 
-function isFunction(block) {
-  if (block[block.length-1] == ')' && !isDigit(block[0])) {
+function isFunction(atom) {
+  if (atom[atom.length-1] == ')' && !isDigit(atom[0])) {
     // check for function
     var parencount = 0;
     var parenStart = -1;
-    for (var i = 0; i < block.length; i ++) {
+    for (var i = 0; i < atom.length; i ++) {
       if (parencount == 0 && parenStart != -1){
         // ERROR
         return "false";
       }
-      if (block[i] == '(') {
+      if (atom[i] == '(') {
         if (parenStart == -1) {
           parenStart = i;
         }
         parencount++;
       }
-      else if (block[i] == ')') {
+      else if (atom[i] == ')') {
         parencount--;
       }
     }
     if (parencount == 0) {
-      var functionName = block.substring(0,parenStart).split('.',-1);
+      var functionName = atom.substring(0,parenStart).split('.',-1);
       if (functionName.length == 1) {
         functionName[1]=functionName[0];
         functionName[0]='default';
@@ -216,7 +216,7 @@ function isFunction(block) {
       if (functionName.length > 2) {
         alert("split failed badly");
       }
-      return block.substring(parenStart+1,block.length-1) + ',' + functionName[0]+'_'+functionName[1];
+      return atom.substring(parenStart+1,atom.length-1) + ',' + functionName[0]+'_'+functionName[1];
     }
   }
   else {
@@ -248,32 +248,32 @@ function _splitcomma (block) {
   return data;
 }
 ////////////////////////////////////////////////////////////////////////////////
-//
+// a check to see if an atom is a cell
 ////////////////////////////////////////////////////////////////////////////////
-function isCell (block) {
+function isCell (atom) {
   var atNumbers = false;
   var splitPosition = -1;
-  if (!isCapLetter(block[0])) {
+  if (!isCapLetter(atom[0])) {
     return "false";
   }
-  for (var i = 0; i < block.length; i++) {
-    if (isCapLetter(block[i]) && !atNumbers) {
+  for (var i = 0; i < atom.length; i++) {
+    if (isCapLetter(atom[i]) && !atNumbers) {
       continue;
     }
     atNumbers=true;
     splitPosition = i;
-    if (isDigit(block[i])) {
+    if (isDigit(atom[i])) {
       continue;
     }
     return "false";
   }
   // Convert Letters to numbers
-  var letters = block.substring(0,splitPosition);
+  var letters = atom.substring(0,splitPosition);
   var resultingNumber = 0;
   for (var i = 0; i < letters.length; i++) {
     resultingNumber += Math.pow(26,i) * letterValue (letters[i]);
   }
-  return (resultingNumber+','+block.substring(splitPosition,block.length));
+  return (resultingNumber+','+aotm.substring(splitPosition,atom.length));
 }
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -281,11 +281,14 @@ function isCell (block) {
 function getCellValue (cell) {
   return data[cell];
 }
+/******************************** ANALYZE ATOM ********************************\
+|
+\******************************************************************************/
 ////////////////////////////////////////////////////////////////////////////////
 // the find function parses an element of the arithmatic and determines if it //
 // is a function, a number, or a cell name                                    //
 ////////////////////////////////////////////////////////////////////////////////
-function _FIND(input){
+function _ANALYZEATOM(input){
   // Input is a String
   if (_INQUOTES(input)) {
     return input.substring(1,input.length-1);
@@ -322,16 +325,21 @@ function _FIND(input){
   // Input is a Number
   return parseInt(input);
 }
-////////////////////////////////////////////////////////////////////////////////
-// Resmath checks to see if the block is encapsulated in Parentheses, if so   //
-// then the function returns true, if not the function returns false          //
-////////////////////////////////////////////////////////////////////////////////
-function _RESMATH(block) {
+
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// ENCAPSULATORS ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/******************************* IN PARENTHESES *******************************\
+| inparen checks to see if the atom is encapsulated in Parentheses, if so      |
+| then the function returns true, if not the function returns false            |
+\******************************************************************************/
+function _INPAREN(atom) {
   var pcout = 1;
-  if (block[0] == '(' && block[block.length-1] == ')') {
-    for (var i = 1; i < block.length-1; i++) {
-      if (block[i] == '(') pcout++;
-      else if (block[i] == ')') pcout--;
+  if (atom[0] == '(' && atom[atom.length-1] == ')') {
+    for (var i = 1; i < atom.length-1; i++) {
+      if (atom[i] == '(') pcout++;
+      else if (atom[i] == ')') pcout--;
       // if pcount is zero then it is not just one big parenthase group
       if (pcout == 0) return false;
     }
@@ -339,16 +347,16 @@ function _RESMATH(block) {
   }
   return false;
 }
-////////////////////////////////////////////////////////////////////////////////
-// This function is very similar to resmath but it functions for quotes       //
-// instead of Parentheses                                                     //
-////////////////////////////////////////////////////////////////////////////////
-function _INQUOTES(block) {
-  if (block.length < 2) {
+/********************************** IN QUOTES *********************************\
+| This function is very similar to resmath but it functions for quotes         |
+| instead of Parentheses                                                       |
+\******************************************************************************/
+function _INQUOTES(atom) {
+  if (atom.length < 2) {
     return false;
   }
-  if ((block[0] == '"' || block[0]=="'") && (block[block.length-1] == '"' || block[block.length-1] == "'")) {
-    // more tests may need to be in here
+  if ((atom[0] == '"' || atom[0]=="'") && (atom[atom.length-1] == '"' || atom[atom.length-1] == "'")) {
+    // more tests may need to be in here, for quotes and parentheses inside each other
     return true;
   }
   return false;

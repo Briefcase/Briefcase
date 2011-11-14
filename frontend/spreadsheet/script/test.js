@@ -54,8 +54,7 @@ function keypress(e) {
     else {
       document.getElementById("inputbox").value = data[lastx+','+lasty];
     }
-    document.getElementById("inputbox").focus();
-    
+    setTimeout("document.getElementById('inputbox').focus()",0);
   }
   // sync the input box and the function box on keypress
   setTimeout("delaySync()",0);

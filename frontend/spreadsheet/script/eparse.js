@@ -74,6 +74,10 @@ function _ASMATH(input) {
   else {output += addon;}
   return output;
 }
+/**************************** MULTIPLY DIVIDE MATH ****************************\
+|
+\******************************************************************************/
+
 // MD math handles multiplication and division
 function _MDMATH (input) {
   var output = 0;
@@ -273,7 +277,7 @@ function isCell (atom) {
   for (var i = 0; i < letters.length; i++) {
     resultingNumber += Math.pow(26,i) * letterValue (letters[i]);
   }
-  return (resultingNumber+','+aotm.substring(splitPosition,atom.length));
+  return (resultingNumber+','+atom.substring(splitPosition,atom.length));
 }
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -281,13 +285,15 @@ function isCell (atom) {
 function getCellValue (cell) {
   return data[cell];
 }
+
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// ATOM PARSING ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
 /******************************** ANALYZE ATOM ********************************\
-|
+| the Analyse Atom function parses an element of the arithmatic and determines |
+| if it is a function, a number, or a cell name                                |
 \******************************************************************************/
-////////////////////////////////////////////////////////////////////////////////
-// the find function parses an element of the arithmatic and determines if it //
-// is a function, a number, or a cell name                                    //
-////////////////////////////////////////////////////////////////////////////////
 function _ANALYZEATOM(input){
   // Input is a String
   if (_INQUOTES(input)) {

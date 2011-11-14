@@ -41,16 +41,21 @@ function keypress(e) {
     lastx=-1;
     lasty=-1;
   }
-  if (e.keycode == 9) {
+  if (e.keyCode == 9) {
     //tab is pressed
     data[lastx+','+lasty] = document.getElementById("inputbox").value;
     finishInput(); // scans the input and displays a result
-    
     //Move Input Box
     lastx++;
-    moveTextBox(-100,-100);
-    document.getElementById("inputbox").value = "";
+    moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
+    if (data[lastx+','+lasty] == undefined) {
+      document.getElementById("inputbox").value = "";
+    }
+    else {
+      document.getElementById("inputbox").value = data[lastx+','+lasty];
+    }
     document.getElementById("inputbox").focus();
+    
   }
   // sync the input box and the function box on keypress
   setTimeout("delaySync()",0);

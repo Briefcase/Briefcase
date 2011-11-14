@@ -1,9 +1,12 @@
-// a wrapper function
+// a wrapper function for the entire eparse functionality
 function eparse(input) {
   return _ASMATH(_RMWHITE(input));
 }
 
-//remove equational whitespace
+/****************************** REMOVE WHITESPACE *****************************\
+| remove equational whitespace to make parsing the equations alot easier for   |
+| the rest of the code to parse it                                             |
+\******************************************************************************/
 function _RMWHITE (input) {
   var output = "";
   var inquote = false;
@@ -17,8 +20,13 @@ function _RMWHITE (input) {
   }
   return output;
 }
+  //////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////// ARITHIMATIC PARSERS ////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
-//_ASMATH handles additions and subtractions in math
+/****************************** ADD SUBTRACT MATH *****************************\
+| _ASMATH handles additions and subtractions in math
+\******************************************************************************/
 function _ASMATH(input) {
   var lastpoint = 0;
   var output;
@@ -26,41 +34,49 @@ function _ASMATH(input) {
   var negativeSwitch = false;
   var parenCount = 0; // keep track of parenthasese
   var i = 0;
+  
   // if the first number is negative
   if (input[0]=='-') {
+  
+    // swap the negative switch to true
     negativeSwitch = true;
+    
+    // ignore the first character of the input
     i=1;
     lastpoint = 1; 
   }
   for (; i < input.length; i++) {
     if ((input[i] == '+' || input[i] == '-') && parenCount == 0) {
-      // parse block
+      // If another addition or subtraction symbol is found outside parenthasese
       var addon;
+      
+      // if the block is in parenthathese then run addition subtration again withouth the parenthethese
       if (_INPAREN(input.substring(lastpoint,i))) {
         addon = _ASMATH(input.substring(lastpoint+1,i-1));
       }
+      // otherwise run the multiplication and division on the block
       else {
         addon = _MDMATH(input.substring(lastpoint,i));
       }
       
-      // add or subtract result
-      if (negativeSwitch) {output -= addon;}
-      else if (first) { output = addon; first=false;}
+      // change the sign of the number based on the negative switch
+      if (negativeSwitch) {addon = -addon;}
+      
+      // modify the output number
+      if (first) { output = addon; first=false;}
       else {output += addon}
       
       // check to see if the symbol is a subtraction sign
       negativeSwitch = (input[i] == '-');
+      
       // make the next block start after the symbol
       lastpoint = i+1;
     }
-    else if (input[i] == '('){
-      parenCount++;
-    }
-    else if (input[i] == ')'){
-      parenCount--;
-    }
+    // Maintain a count of parenthathese
+    else if (input[i] == '(') { parenCount++; }
+    else if (input[i] == ')') { parenCount--; }
   }
-  // parse the final block, lastpoint to end
+  // parse the final block from the lastpoint to the end
   var addon;
   if (_INPAREN(input.substring(lastpoint,input.length))) {
     addon = _ASMATH (input.substring(lastpoint+1,input.length-1));
@@ -75,10 +91,9 @@ function _ASMATH(input) {
   return output;
 }
 /**************************** MULTIPLY DIVIDE MATH ****************************\
-|
+| This function breaks up all the multiplication and division symbols in the   |
+| aritmatic and parses those blocks                                            |
 \******************************************************************************/
-
-// MD math handles multiplication and division
 function _MDMATH (input) {
   var output = 0;
   var lastpoint = 0;
@@ -120,6 +135,14 @@ function _MDMATH (input) {
   return output;
 }
 
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////// CHAR AND INT HELPER FUNCTIONS ///////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+ /*
+ | There are probably better ways of implementing these functions but I do not
+ | yet know how to do that. For now they will stay the way they are
+*/
 function isDigit(character) {
   return (character == '1' ||
           character == '2' ||
@@ -191,46 +214,16 @@ function letterValue (character) {
   else if (character == 'Z' || character == 'z') { return 25; }
 }
 
-function isFunction(atom) {
-  if (atom[atom.length-1] == ')' && !isDigit(atom[0])) {
-    // check for function
-    var parencount = 0;
-    var parenStart = -1;
-    for (var i = 0; i < atom.length; i ++) {
-      if (parencount == 0 && parenStart != -1){
-        // ERROR
-        return "false";
-      }
-      if (atom[i] == '(') {
-        if (parenStart == -1) {
-          parenStart = i;
-        }
-        parencount++;
-      }
-      else if (atom[i] == ')') {
-        parencount--;
-      }
-    }
-    if (parencount == 0) {
-      var functionName = atom.substring(0,parenStart).split('.',-1);
-      if (functionName.length == 1) {
-        functionName[1]=functionName[0];
-        functionName[0]='default';
-      }
-      if (functionName.length > 2) {
-        alert("split failed badly");
-      }
-      return atom.substring(parenStart+1,atom.length-1) + ',' + functionName[0]+'_'+functionName[1];
-    }
-  }
-  else {
-    return "false";
-  }
-}
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////// ATOM PARSING HELPERS ////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/******************************* SPLIT ON COMMA *******************************\
+| This function acts similarly to string.split(',') however it ignores commas  |
+| that are within parenthathes
+\******************************************************************************/
 function _splitcomma (block) {
   var data = block.split(',');
   var parenCount = 0;
@@ -251,37 +244,10 @@ function _splitcomma (block) {
   }
   return data;
 }
-////////////////////////////////////////////////////////////////////////////////
-// a check to see if an atom is a cell
-////////////////////////////////////////////////////////////////////////////////
-function isCell (atom) {
-  var atNumbers = false;
-  var splitPosition = -1;
-  if (!isCapLetter(atom[0])) {
-    return "false";
-  }
-  for (var i = 0; i < atom.length; i++) {
-    if (isCapLetter(atom[i]) && !atNumbers) {
-      continue;
-    }
-    atNumbers=true;
-    splitPosition = i;
-    if (isDigit(atom[i])) {
-      continue;
-    }
-    return "false";
-  }
-  // Convert Letters to numbers
-  var letters = atom.substring(0,splitPosition);
-  var resultingNumber = 0;
-  for (var i = 0; i < letters.length; i++) {
-    resultingNumber += Math.pow(26,i) * letterValue (letters[i]);
-  }
-  return (resultingNumber+','+atom.substring(splitPosition,atom.length));
-}
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
+/******************************* GET CELL VALUE *******************************\
+| This function gets the value of a cell in the spreadsheet. It is a very      |
+| simple function but allows for the code to be read more easily               |
+\******************************************************************************/
 function getCellValue (cell) {
   return data[cell];
 }
@@ -330,6 +296,75 @@ function _ANALYZEATOM(input){
   }
   // Input is a Number
   return parseInt(input);
+}
+/********************************* IS FUNCTION ********************************\
+| Checks to see if an atom is a function, if it is this function returns a     |
+| comma seperated string with the values for the function call and the         |
+| arguments                                                                    |
+\******************************************************************************/
+function isFunction(atom) {
+  if (atom[atom.length-1] == ')' && !isDigit(atom[0])) {
+    // check for function
+    var parencount = 0;
+    var parenStart = -1;
+    for (var i = 0; i < atom.length; i ++) {
+      if (parencount == 0 && parenStart != -1){
+        // ERROR
+        return "false";
+      }
+      if (atom[i] == '(') {
+        if (parenStart == -1) {
+          parenStart = i;
+        }
+        parencount++;
+      }
+      else if (atom[i] == ')') {
+        parencount--;
+      }
+    }
+    if (parencount == 0) {
+      var functionName = atom.substring(0,parenStart).split('.',-1);
+      if (functionName.length == 1) {
+        functionName[1]=functionName[0];
+        functionName[0]='default';
+      }
+      if (functionName.length > 2) {
+        alert("split failed badly");
+      }
+      return atom.substring(parenStart+1,atom.length-1) + ',' + functionName[0]+'_'+functionName[1];
+    }
+  }
+  else {
+    return "false";
+  }
+}
+/*********************************** IS CELL **********************************\
+| A check to see if an atom is a cell name or not
+\******************************************************************************/
+function isCell (atom) {
+  var atNumbers = false;
+  var splitPosition = -1;
+  if (!isCapLetter(atom[0])) {
+    return "false";
+  }
+  for (var i = 0; i < atom.length; i++) {
+    if (isCapLetter(atom[i]) && !atNumbers) {
+      continue;
+    }
+    atNumbers=true;
+    splitPosition = i;
+    if (isDigit(atom[i])) {
+      continue;
+    }
+    return "false";
+  }
+  // Convert Letters to numbers
+  var letters = atom.substring(0,splitPosition);
+  var resultingNumber = 0;
+  for (var i = 0; i < letters.length; i++) {
+    resultingNumber += Math.pow(26,i) * letterValue (letters[i]);
+  }
+  return (resultingNumber+','+atom.substring(splitPosition,atom.length));
 }
 
   //////////////////////////////////////////////////////////////////////////////

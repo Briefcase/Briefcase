@@ -48,23 +48,23 @@ function _ASMATH(input) {
   for (; i < input.length; i++) {
     if ((input[i] == '+' || input[i] == '-') && parenCount == 0) {
       // If another addition or subtraction symbol is found outside parenthasese
-      var addon;
+      var calculatedNumber;
       
       // if the block is in parenthathese then run addition subtration again withouth the parenthethese
       if (_INPAREN(input.substring(lastpoint,i))) {
-        addon = _ASMATH(input.substring(lastpoint+1,i-1));
+        calculatedNumber = _ASMATH(input.substring(lastpoint+1,i-1));
       }
       // otherwise run the multiplication and division on the block
       else {
-        addon = _MDMATH(input.substring(lastpoint,i));
+        calculatedNumber = _MDMATH(input.substring(lastpoint,i));
       }
       
       // change the sign of the number based on the negative switch
-      if (negativeSwitch) {addon = -addon;}
+      if (negativeSwitch) {calculatedNumber = -calculatedNumber;}
       
       // modify the output number
-      if (first) { output = addon; first=false;}
-      else {output += addon}
+      if (first) { output = calculatedNumber; first=false;}
+      else {output += calculatedNumber}
       
       // check to see if the symbol is a subtraction sign
       negativeSwitch = (input[i] == '-');
@@ -77,17 +77,19 @@ function _ASMATH(input) {
     else if (input[i] == ')') { parenCount--; }
   }
   // parse the final block from the lastpoint to the end
-  var addon;
+  var calculatedNumber;
   if (_INPAREN(input.substring(lastpoint,input.length))) {
-    addon = _ASMATH (input.substring(lastpoint+1,input.length-1));
+    calculatedNumber = _ASMATH (input.substring(lastpoint+1,input.length-1));
   }
   else{
-    addon = _MDMATH (input.substring(lastpoint,input.length));
+    calculatedNumber = _MDMATH (input.substring(lastpoint,input.length));
   }
   
-  if (negativeSwitch) {output -= addon;}
-  else if (first) { output = addon; first=false;}
-  else {output += addon;}
+  if (negativeSwitch) {calculatedNumber = -calculatedNumber;}
+  
+  if (first) { output = calculatedNumber; first=false;}
+  else {output += calculatedNumber;}
+  
   return output;
 }
 /**************************** MULTIPLY DIVIDE MATH ****************************\
@@ -103,17 +105,17 @@ function _MDMATH (input) {
   
   for (var i = 0; i < input.length; i++) {
     if ((input[i] == '*' || input[i] == '/') && !parenCount) {
-      var addon;
+      var calculatedNumber;
       if (_INPAREN(input.substring(lastpoint,i))) {
-        addon = _ASMATH (input.substring(lastpoint+1, i-1));
+        calculatedNumber = _ASMATH (input.substring(lastpoint+1, i-1));
       }
       else {
-        addon = _ANALYZEATOM(input.substring(lastpoint,i));
+        calculatedNumber = _ANALYZEATOM(input.substring(lastpoint,i));
       }
       
-      if (divideSwitch) { output /= addon; }
-      else if (first) { output = addon; first=false;}
-      else {output *= addon;}
+      if (divideSwitch) { output /= calculatedNumber; }
+      else if (first) { output = calculatedNumber; first=false;}
+      else {output *= calculatedNumber;}
       
       divideSwitch = (input[i] == '/');
       lastpoint = i+1;
@@ -122,16 +124,16 @@ function _MDMATH (input) {
     else if (input[i] == ')') {parenCount--;}
   }
   
-  var addon;
+  var calculatedNumber;
   if (_INPAREN(input.substring(lastpoint,input.length))){
-    addon = _ASMATH(input.substring(lastpoint+1,input.length-1));
+    calculatedNumber = _ASMATH(input.substring(lastpoint+1,input.length-1));
   }
   else {
-    addon = _ANALYZEATOM(input.substring(lastpoint,input.length));
+    calculatedNumber = _ANALYZEATOM(input.substring(lastpoint,input.length));
   }
-  if (divideSwitch) output /= addon;
-  else if (first) {output = addon; first=false;}
-  else {output *= addon;}
+  if (divideSwitch) output /= calculatedNumber;
+  else if (first) {output = calculatedNumber; first=false;}
+  else {output *= calculatedNumber;}
   return output;
 }
 

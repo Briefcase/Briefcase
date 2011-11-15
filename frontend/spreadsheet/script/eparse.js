@@ -35,26 +35,25 @@ function _ASMATH(input) {
   var parenCount = 0; // keep track of parenthasese
   var i = 0;
   
-  // if the first number is negative
+  // if the first number is negative skip the first character and set the
+  // negative switch to true
   if (input[0]=='-') {
-  
-    // swap the negative switch to true
-    negativeSwitch = true;
-    
-    // ignore the first character of the input
     i=1;
-    lastpoint = 1; 
+    lastpoint = 1;
+    negativeSwitch = true;
   }
+  
   for (; i < input.length; i++) {
+    // If another addition or subtraction symbol is found outside parenthasese
     if ((input[i] == '+' || input[i] == '-') && parenCount == 0) {
-      // If another addition or subtraction symbol is found outside parenthasese
+      
       var calculatedNumber;
       
-      // if the block is in parenthathese then run addition subtration again withouth the parenthethese
+      // check to see if the math functions need to be run again on the inside
+      // of the block, or if the block can be passed on to the next function
       if (_INPAREN(input.substring(lastpoint,i))) {
         calculatedNumber = _ASMATH(input.substring(lastpoint+1,i-1));
       }
-      // otherwise run the multiplication and division on the block
       else {
         calculatedNumber = _MDMATH(input.substring(lastpoint,i));
       }
@@ -62,17 +61,17 @@ function _ASMATH(input) {
       // change the sign of the number based on the negative switch
       if (negativeSwitch) {calculatedNumber = -calculatedNumber;}
       
-      // modify the output number
+      // modify the output number using the calculated number
       if (first) { output = calculatedNumber; first=false;}
       else {output += calculatedNumber}
       
-      // check to see if the symbol is a subtraction sign
+      // check to see if the symbol that was just read is a subtraction sign
       negativeSwitch = (input[i] == '-');
       
-      // make the next block start after the symbol
+      // make the next block start right after the + or - that was just read
       lastpoint = i+1;
     }
-    // Maintain a count of parenthathese
+    // Ohterwise maintain a count of parenthathese
     else if (input[i] == '(') { parenCount++; }
     else if (input[i] == ')') { parenCount--; }
   }
@@ -378,13 +377,13 @@ function isCell (atom) {
 | then the function returns true, if not the function returns false            |
 \******************************************************************************/
 function _INPAREN(atom) {
-  var pcout = 1;
+  var parentheseCount = 1;
   if (atom[0] == '(' && atom[atom.length-1] == ')') {
     for (var i = 1; i < atom.length-1; i++) {
-      if (atom[i] == '(') pcout++;
-      else if (atom[i] == ')') pcout--;
+      if (atom[i] == '(') parentheseCount++;
+      else if (atom[i] == ')') parentheseCount--;
       // if pcount is zero then it is not just one big parenthase group
-      if (pcout == 0) return false;
+      if (parentheseCount == 0) return false;
     }
     return true;
   }

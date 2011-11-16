@@ -24,6 +24,24 @@ function _RMWHITE (input) {
  ///////////////////////////// ARITHIMATIC PARSERS ////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
+function _CALCULATEADDATOM(input,lastpoint,currentpoint,negativeSwitch) {
+  var calculatedNumber;
+      
+  // check to see if the math functions need to be run again on the inside
+  // of the block, or if the block can be passed on to the next function
+  if (_INPAREN(input.substring(lastpoint,currentpoint))) {
+    calculatedNumber = _ASMATH(input.substring(lastpoint+1,currentpoint-1));
+  }
+  else {
+    calculatedNumber = _MDMATH(input.substring(lastpoint,currentpoint));
+  }
+  
+  // change the sign of the number based on the negative switch
+  if (negativeSwitch) {calculatedNumber = -calculatedNumber;}
+  
+  return calculatedNumber;
+}
+
 /****************************** ADD SUBTRACT MATH *****************************\
 | _ASMATH handles additions and subtractions in math
 \******************************************************************************/
@@ -49,17 +67,7 @@ function _ASMATH(input) {
       
       var calculatedNumber;
       
-      // check to see if the math functions need to be run again on the inside
-      // of the block, or if the block can be passed on to the next function
-      if (_INPAREN(input.substring(lastpoint,i))) {
-        calculatedNumber = _ASMATH(input.substring(lastpoint+1,i-1));
-      }
-      else {
-        calculatedNumber = _MDMATH(input.substring(lastpoint,i));
-      }
-      
-      // change the sign of the number based on the negative switch
-      if (negativeSwitch) {calculatedNumber = -calculatedNumber;}
+      calculatedNumber = _CALCULATEADDATOM(input,lastpoint,i,negativeSwitch);
       
       // modify the output number using the calculated number
       if (first) { output = calculatedNumber; first=false;}
@@ -142,7 +150,8 @@ function _MDMATH (input) {
 
  /*
  | There are probably better ways of implementing these functions but I do not
- | yet know how to do that. For now they will stay the way they are
+ | yet know how to do that. For now they will stay the way they are. Because
+ | they are so simple I will not comment them
 */
 function isDigit(character) {
   return (character == '1' ||

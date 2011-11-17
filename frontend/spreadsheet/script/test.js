@@ -153,9 +153,11 @@ function clickHandler(e) {
 function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
-
-  c_canvas.height = window.innerHeight - 100;
-  c_canvas.width = window.innerWidth-50;
+  document.getElementById("framecontain").style.height = window.innerHeight - 30 + "px";
+  document.getElementById("framecontain").style.width = window.innerWidth + "px";
+  
+  c_canvas.height = window.innerHeight*2;
+  c_canvas.width = window.innerWidth*2;
 
 
   var context = c_canvas.getContext("2d");

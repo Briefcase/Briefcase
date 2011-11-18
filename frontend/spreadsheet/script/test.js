@@ -1,3 +1,25 @@
+/******************************************************************************\
+|                                     ,,                                       |
+|                    db             `7MM                                       |
+|                   ;MM:              MM                                       |
+|                  ,V^MM.    ,pP"Ybd  MMpMMMb.  .gP"Ya `7Mb,od8                |
+|                 ,M  `MM    8I   `"  MM    MM ,M'   Yb  MM' "'                |
+|                 AbmmmqMA   `YMMMa.  MM    MM 8M""""""  MM                    |
+|                A'     VML  L.   I8  MM    MM YM.    ,  MM                    |
+|              .AMA.   .AMMA.M9mmmP'.JMML  JMML.`Mbmmd'.JMML.                  |
+|                                                                              |
+|                                                                              |
+|                                ,,    ,,                                      |
+|                     .g8"""bgd `7MM    db        `7MM                         |
+|                   .dP'     `M   MM                MM                         |
+|                   dM'       `   MM  `7MM  ,p6"bo  MM  ,MP'                   |
+|                   MM            MM    MM 6M'  OO  MM ;Y                      |
+|                   MM.    `7MMF' MM    MM 8M       MM;Mm                      |
+|                   `Mb.     MM   MM    MM YM.    , MM `Mb.                    |
+|                     `"bmmmdPY .JMML..JMML.YMbmd'.JMML. YA.                   |
+|                                                                              |
+\******************************************************************************/
+
 // the data contained within the cell
 var data = new Array();
 // predefined sizes for cells (soon to be arrays or something)
@@ -55,7 +77,6 @@ function keypress(e) {
     document.getElementById("inputbox").focus();
   }
   if (e.keyCode == 9) {
-    
     //tab is pressed
     data[lastx+','+lasty] = document.getElementById("inputbox").value;
     finishInput(); // scans the input and displays a result
@@ -96,8 +117,14 @@ function delaySync(){
     document.getElementById("functionbox").value = document.getElementById("inputbox").value;
   }
 }
-
-
+/******************************** MOUSE DETECT ********************************\
+|////////////////////////////// TO BE DEPRECATED //////////////////////////////|
+| The mouse detect function is used to detect which cell the mouse is          |
+| currently over. It is called whenever the mouse is moved. I know for sure    |
+| that this is not the best way to keep track of the mouse position however at |
+| this point when all the cells are the same size it is not too much of a cost |
+| to pay for simplicity                                                        |
+\******************************************************************************/
 function mouseDetect(e) {
   var x;
   var y;
@@ -129,7 +156,11 @@ function mouseDetect(e) {
   currentx = x;
   currenty = y;
 } 
-
+/******************************** CLICK HANDLER *******************************\
+| The click handler function is run whenever the mouse is clicked (onclick)    |
+| It handles moving the text box and writing the value of the previoss cell to |
+| the hash table and to the canvas element                                     |
+\******************************************************************************/
 function clickHandler(e) {
   // if a person is dragging their mouse over multiple frames dont select the
   // last one thir mouse is over

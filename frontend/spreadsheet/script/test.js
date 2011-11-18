@@ -24,8 +24,8 @@ function textboxOnFocus() { textfocus = true; }
 function textboxOnBlur() { textfoucs = false; }
 
 function moveTextBox (xpos, ypos) {
-  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop + 'px';
-  document.getElementById("datain").style.left = (xpos - 2.5) + 'px';
+  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop - document.getElementById("framecontain").scrollTop + 'px';
+  document.getElementById("datain").style.left = (xpos - 2.5) - document.getElementById("framecontain").scrollLeft + 'px';
 }
 
 function keypress(e) {
@@ -65,7 +65,7 @@ function keypress(e) {
     else {
       document.getElementById("inputbox").value = data[lastx+','+lasty];
     }
-    setTimeout("document.getElementById('inputbox').focus()",0);
+    setTimeout("document.getElementById('inputbox').focus();",0);
   }
   // sync the input box and the function box on keypress
   setTimeout("delaySync()",0);
@@ -86,12 +86,12 @@ function mouseDetect(e) {
   var x;
   var y;
   if (e.pageX || e.pageY) { 
-    x = e.pageX;
-    y = e.pageY;
+    x = e.pageX + document.getElementById("framecontain").scrollLeft;
+    y = e.pageY + document.getElementById("framecontain").scrollTop;
   }
   else { 
-    x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
-    y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+    x = e.clientX + document.getElementById("framecontain").scrollLeft + document.body.scrollLeft + document.documentElement.scrollLeft; 
+    y = e.clientY + document.getElementById("framecontain").scrollTop + document.body.scrollTop + document.documentElement.scrollTop; 
   }
   
   x -= document.getElementById("application").offsetLeft;

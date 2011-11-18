@@ -23,11 +23,19 @@ function functionOnBlur() { functionfocus = false; }
 function textboxOnFocus() { textfocus = true; }
 function textboxOnBlur() { textfoucs = false; }
 
+
+/******************************** MOVE TEXT BOX *******************************\
+| This function will take in a cell number in the x position and a cell number |
+| in the y postion and will move and resise the text box accordingly           |
+\******************************************************************************/
 function moveTextBox (xpos, ypos) {
   document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop - document.getElementById("framecontain").scrollTop + 'px';
   document.getElementById("datain").style.left = (xpos - 2.5) - document.getElementById("framecontain").scrollLeft + 'px';
 }
-
+/********************************* ON KEYPRESS ********************************\
+| This function is the keypress handler, it handles every keypress made, then  |
+| splits them up and reacts differently depending on which key was pressed     |
+\******************************************************************************/
 function keypress(e) {
   if (e.keyCode == 13) {
     // Enter is pressed
@@ -69,8 +77,16 @@ function keypress(e) {
   }
   // sync the input box and the function box on keypress
   setTimeout("delaySync()",0);
+  
 }
 // Gaa, this feels so hackish makeing it delay for 1 before syncing, but it works
+/********************************* DELAY SYNC *********************************\
+| This funtion syncs the text box and the function box so that they display    |
+| the same thing, it is called after every keypress using setTimeout() with a  |
+| timeout of 0. This method feels very hackish but I have not found a better   |
+| way to sync the boxes the moment after the key is pressed instead of right   |
+| when the key is pressed                                                      |
+\******************************************************************************/
 function delaySync(){
   // Sync Function box and text box
   if (functionfocus) {

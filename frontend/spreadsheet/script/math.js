@@ -17,6 +17,7 @@ function math_max() {
   return maximum;
 }
 function math_min() {
+  alert(arguments.length);
   var minimum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {
     if (minimum > arguments[i]) {
@@ -26,14 +27,9 @@ function math_min() {
   return minimum;
 }
 ////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
+function debug_zachClapper(){
+  return ":(";
+}
 ////////////////////////////////////////////////////////////////////////////////
 function default_sum() {
   var output = 0;

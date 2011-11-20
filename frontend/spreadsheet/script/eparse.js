@@ -147,12 +147,11 @@ function _MDMATH (input) {
   //////////////////////////////////////////////////////////////////////////////
  //////////////////////// CHAR AND INT HELPER FUNCTIONS ///////////////////////
 //////////////////////////////////////////////////////////////////////////////
-
- /*
- | There are probably better ways of implementing these functions but I do not
- | yet know how to do that. For now they will stay the way they are. Because
- | they are so simple I will not comment them
-*/
+/********************************** IS DIGIT **********************************\
+| This function should only be passed one character of a string. It checks to  |
+| see if that character is a number character (1234567890) or not and returns  |
+| the result.                                                                  |
+\******************************************************************************/
 function isDigit (character) {
   return (typeof character == 'string' && character.length == 1 &&
           character.charCodeAt() >= 48 && character.charCodeAt() <= 57)

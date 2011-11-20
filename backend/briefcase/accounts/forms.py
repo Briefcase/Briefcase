@@ -33,4 +33,10 @@ class RegistrationForm(forms.Form):
                         del cleaned_data["password_again"]
             return cleaned_data
  
+ 
+ 
+class SaveFileForm(forms.Form):
+    file=forms.FileField()
+    
+
 

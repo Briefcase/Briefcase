@@ -1,13 +1,14 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.mail import send_mail
-from briefcase.accounts.forms import RegistrationForm
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
+
+from briefcase.accounts.forms import RegistrationForm, SaveFileForm
 
 
 def index(request):
@@ -67,3 +68,20 @@ def userlogin(request):
 def userlogout(request):
     logout(request)
     return HttpResponseRedirect('login.html')
+    
+    
+def save_file(request):
+    if request.method =='POST':
+        form = SaveFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            #handle the file
+            f=request.FILES['file']
+            destination = open('accounts/userfiles/test.txt','wb+')
+            for chunk in f.chunks():
+                destination.write(chunk)
+            destination.close()
+            return HttpResponse("success")
+    else:
+        form=SaveFileForm()
+    return render_to_response('accounts/uploadfile.html',{'form':form}, context_instance = RequestContext(request))
+        

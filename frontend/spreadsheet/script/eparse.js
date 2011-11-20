@@ -236,6 +236,7 @@ function letterValue (character) {
 \******************************************************************************/
 function _splitcomma (block) {
   var data = block.split(',');
+  alert(data.length + " " + data + " " + block);
   var parenCount = 0;
   for (var i = 0; i < data.length; i++) {
     for (var j = 0; j < data[i].length; j++) {
@@ -252,6 +253,7 @@ function _splitcomma (block) {
       i--;
     }
   }
+  alert(data.length);
   return data;
 }
 /******************************* GET CELL VALUE *******************************\
@@ -341,7 +343,9 @@ function isFunction(atom) {
       if (functionName.length > 2) {
         alert("split failed badly");
       }
-      return atom.substring(parenStart+1,atom.length-1) + ',' + functionName[0]+'_'+functionName[1];
+      var argumentList = atom.substring(parenStart+1,atom.length-1);
+      if (argumentList.length != 0) {argumentList += ',';} // only put a comma if there are actual elements
+      return argumentList + functionName[0]+'_'+functionName[1];
     }
   }
   else {

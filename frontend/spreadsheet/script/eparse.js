@@ -153,75 +153,18 @@ function _MDMATH (input) {
  | yet know how to do that. For now they will stay the way they are. Because
  | they are so simple I will not comment them
 */
-function isDigit(character) {
-  return (character == '1' ||
-          character == '2' ||
-          character == '3' ||
-          character == '4' ||
-          character == '5' ||
-          character == '6' ||
-          character == '7' ||
-          character == '8' ||
-          character == '9' ||
-          character == '0');
+function isDigit (character) {
+  return (typeof character == 'string' && character.length == 1 &&
+          character.charCodeAt() >= 48 && character.charCodeAt() <= 57)
 }
 
 function isCapLetter (character) {
-  return (character == 'A' ||
-          character == 'B' ||
-          character == 'C' ||
-          character == 'D' ||
-          character == 'E' ||
-          character == 'F' ||
-          character == 'G' ||
-          character == 'H' ||
-          character == 'I' ||
-          character == 'J' ||
-          character == 'K' ||
-          character == 'L' ||
-          character == 'M' ||
-          character == 'N' ||
-          character == 'O' ||
-          character == 'P' ||
-          character == 'Q' ||
-          character == 'R' ||
-          character == 'S' ||
-          character == 'T' ||
-          character == 'U' ||
-          character == 'V' ||
-          character == 'W' ||
-          character == 'X' ||
-          character == 'Y' ||
-          character == 'Z');
+  return (typeof character == 'string' && character.length == 1 &&
+          character.charCodeAt() >= 65 && character.charCodeAt() <= 90)
 }
 
 function letterValue (character) {
-  if (character == 'A' || character == 'a') { return 0; }
-  else if (character == 'B' || character == 'b') { return 1; }
-  else if (character == 'C' || character == 'c') { return 2; }
-  else if (character == 'D' || character == 'd') { return 3; }
-  else if (character == 'E' || character == 'e') { return 4; }
-  else if (character == 'F' || character == 'f') { return 5; }
-  else if (character == 'G' || character == 'g') { return 6; }
-  else if (character == 'H' || character == 'h') { return 7; }
-  else if (character == 'I' || character == 'i') { return 8; }
-  else if (character == 'J' || character == 'j') { return 9; }
-  else if (character == 'K' || character == 'k') { return 10; }
-  else if (character == 'L' || character == 'l') { return 11; }
-  else if (character == 'M' || character == 'm') { return 12; }
-  else if (character == 'N' || character == 'n') { return 13; }
-  else if (character == 'O' || character == 'o') { return 14; }
-  else if (character == 'P' || character == 'p') { return 15; }
-  else if (character == 'Q' || character == 'q') { return 16; }
-  else if (character == 'R' || character == 'r') { return 17; }
-  else if (character == 'S' || character == 's') { return 18; }
-  else if (character == 'T' || character == 't') { return 19; }
-  else if (character == 'U' || character == 'u') { return 20; }
-  else if (character == 'V' || character == 'v') { return 21; }
-  else if (character == 'W' || character == 'w') { return 22; }
-  else if (character == 'X' || character == 'x') { return 23; }
-  else if (character == 'Y' || character == 'y') { return 24; }
-  else if (character == 'Z' || character == 'z') { return 25; }
+  return character.toUpperCase().charCodeAt() - 64;
 }
 
 

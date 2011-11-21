@@ -195,3 +195,24 @@ function default_sum() {
   }
   return output;
 }
+////////////////////////////////////////////////////////////////////////////////
+//other unary functions
+function math_fib( x ){
+  if( x % 1 != 0 || x < 0 ) return "ERR";
+  if(x == 0 || x == 1)return 1;
+  return math_fib( x - 1 ) + math_fib( x - 2 );
+}
+////////////////////////////////////////////////////////////////////////////////
+//random
+function math_random(){
+  switch( arguments.length ){
+  //arg[0] = max
+  case 1:
+    return Math.random() * arguments[0];
+    break;
+  //arg[0] = min; arg[1] = max;
+  case 2:
+    return Math.random() * (arguments[1]-arguments[0]) + arguments[0];
+  default:
+    return Math.random();
+}

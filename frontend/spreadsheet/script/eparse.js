@@ -263,7 +263,7 @@ function _ANALYZEATOM(input){
     return cellValue;
   }
   // Input is a Number
-  return parseInt(input);
+  return parseFloat(input);
 }
 /********************************* IS FUNCTION ********************************\
 | Checks to see if an atom is a function, if it is this function returns a     |

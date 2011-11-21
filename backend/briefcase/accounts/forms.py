@@ -33,4 +33,15 @@ class RegistrationForm(forms.Form):
                         del cleaned_data["password_again"]
             return cleaned_data
  
+ 
+ 
+class SaveFileForm(forms.Form):
+    file=forms.FileField()
+    
+#class LoadFileForm(forms.Form):
+    #FILE_CHOICES = (
+    
+    
+    
+
 

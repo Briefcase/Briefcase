@@ -92,6 +92,11 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.messages.context_processors.messages',
+    'django.contrib.auth.context_processors.auth'
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -121,6 +126,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'briefcase.accounts',
+    
 )
 
 # A sample logging configuration. The only tangible logging
@@ -146,7 +153,7 @@ LOGGING = {
     }
 }
 
-AUTH_PROFILE_MODULE = ('briefcase.accounts.models.UserProfile')
+AUTH_PROFILE_MODULE = ('accounts.UserProfile')
 
 # EMAIL_HOST =
 # EMAIL_PORT =

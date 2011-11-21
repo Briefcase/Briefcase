@@ -1,0 +1,32 @@
+edit->project settings -> editor
+ENABLE EXTERNAL VERSION CONTROL - CLICK THAT BUTTON
+->separates meta data-> DONT MOVE IT
+
+
+graph icon next to audio - turns grid on and off
+
+you can mix and match your scripts - nice but DANGEROUS
+boo, javascript, c#
+-> leave class names alone
+
+rotation measured in degrees--- we think?
+
+
+there are a different ways to send messages, access variables between scripts/actors
+
+
+unity has DOCUMENTATION - "unity's documentation sucks the least"
+
+--------------------------
+terrain
+
+terrain->create terrain 
+inspector -> play with icons under position stuff
+raise/lower with different brushes
+texture ->import new assets
+    opacity to layer textures in
+    
+-------------------------
+physics stuff
+
+stay away from the wheel collider

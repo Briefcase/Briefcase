@@ -1,13 +1,17 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.mail import send_mail
-from briefcase.accounts.forms import RegistrationForm
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
+
+from briefcase.accounts.forms import RegistrationForm, SaveFileForm
+from briefcase.accounts.models import UserProfile
+
+import os
 
 
 def index(request):
@@ -22,17 +26,19 @@ def register(request):
             email =  form.cleaned_data['email']
             password = form.cleaned_data['password_again']
             
-            #just testing some file output stuff
-            # f=open('/home/shared/briefcase/backend/briefcase/accounts/test.txt','w')
-            # f.write(username + '\n')
-            # f.write(email + '\n')
-            # f.close()
-  
-            
             #create user and save
             user = User.objects.create_user(username, email, password)
             user.is_active = False
             user.save()
+            #put user in a UserProfile
+            profile = UserProfile(name = username,user =user, randomfield='hi')
+            profile.save()
+            
+            #create file storage folder
+            filename = 'accounts/userfiles/' + username + '/imaginaryfile.txt'
+            dir = os.path.dirname(filename)
+            if not os.path.exists(dir):
+                os.makedirs(dir)
             
             #send email - need to set up the email stuff still
             # send_mail('Registration Successful', 'You\'re registration with briefcasedocs.com was successful.', 'from@example.com',[email],fail_silently=False)
@@ -67,3 +73,25 @@ def userlogin(request):
 def userlogout(request):
     logout(request)
     return HttpResponseRedirect('login.html')
+    
+    
+def save_file(request):
+    if request.method =='POST':
+        form = SaveFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            #handle the file
+            f=request.FILES['file']
+            destination = open('accounts/userfiles/' + request.user.username + '/test.txt','wb+')
+            for chunk in f.chunks():
+                destination.write(chunk)
+            destination.close()
+            return HttpResponse("success")
+    else:
+        form=SaveFileForm()
+    return render_to_response('accounts/uploadfile.html',{'form':form}, context_instance = RequestContext(request))
+    
+    
+#def load_file(request):
+    
+    
+        

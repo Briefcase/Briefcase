@@ -7,6 +7,7 @@ function math_pow (base,exponent) {
   return output;
 }
 ////////////////////////////////////////////////////////////////////////////////
+//statistical
 function math_max() {
   var maximum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {
@@ -17,7 +18,6 @@ function math_max() {
   return maximum;
 }
 function math_min() {
-  alert(arguments.length);
   var minimum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {
     if (minimum > arguments[i]) {
@@ -26,6 +26,163 @@ function math_min() {
   }
   return minimum;
 }
+function math_average() {
+  var sum = arguments[0];
+  for (var i = 1; i < arguments.length; i++) {
+    sum+=arguments[i];
+  }
+  return sum/arguments.length;
+}
+// standard deviation
+function math_stdev() {
+  var average = arguments[0];
+  for (var i = 1; i < arguments.length; i++) {
+    average+=arguments[i];
+  }
+  average = average/arguments.length;
+  var deviation = 0;
+  for (var i = 0; i < arguments.length; i++) {
+    deviation+=(arguments[i]-average)*(arguments[i]-average);
+  }
+  return Math.sqrt(deviation/arguments.length);
+}
+function math_sum() {
+  var output = 0;
+  for (var i =0; i < arguments.length; i++){
+    output += arguments[i];
+  }
+  return output;
+}
+function math_sumsq() {
+  var output = 0;
+  for (var i =0; i < arguments.length; i++){
+    output += arguments[i]*arguments[i];
+  }
+  return output;
+}
+function math_product() {
+  var output = arguments[0];
+  for (var i =1; i < arguments.length; i++){
+    output *= arguments[i];
+  }
+  return output;
+}
+////////////////////////////////////////////////////////////////////////////////
+// simple unary functions
+function math_abs(number) {
+  return Math.abs(number);
+}
+function math_sqrt(number) {
+  return Math.sqrt(number);
+}
+function math_quotient(numerator,denomenator) {
+  return Math.floor(numerator/denomenator);
+}
+function math_mod(numerator,denomenator) {
+  return numerator%denomenator;
+}
+function math_exp(number) {
+  return Math.exp(number);
+}
+function math_ln(number) {
+  return Math.log(number);
+}
+// rounding
+function math_round(number) {
+  return Math.round(number);
+}
+function math_round_up(number) {
+  return Math.ceil(number);
+}
+function math_round_down(number) {
+  return Math.floor(number);
+}
+// angle conversion
+function math_degree(radian) {
+  return radian * (180/Math.PI)
+}
+function math_radian(radian) {
+  return degree * (Math.PI/180)
+}
+// even/odd
+function math_iseven(number) {
+  return Math.floor(number/2)==number/2;
+}
+function math_isodd(number) {
+  return (Math.floor(number/2)+0.5==number/2);
+}
+////////////////////////////////////////////////////////////////////////////////
+// trig functions
+function math_sin(number) {
+  return Math.sin(number);
+}
+function math_cos(number) {
+  return Math.cos(number);
+}
+function math_tan(number) {
+  return Math.tan(number);
+}
+function math_cot(number) {
+  return 1/Math.tan(number);
+}
+function math_sec(number) {
+  return 1/Math.cos(number);
+}
+function math_csc(number) {
+  return 1/Math.sin(number);
+}
+// inverse trig functions
+function math_asin(number) {
+  return Math.asin(number);
+}
+function math_acos(number) {
+  return Math.acos(number);
+}
+function math_atan(number) {
+  return Math.atan(number);
+}
+function math_atan2(a,b) {
+  return Math.atan2(a,b);
+}
+function math_acot(number) {
+  return Math.acot(1/number);
+}
+function math_asec(number) {
+  return Math.acos(1/number);
+}
+function math_acsc(number) {
+  return Math.asin(1/number);
+}
+// hyperbolic functions
+function math_sinh(number) {
+  return 0.5*(Math.exp(number)-Math.exp(-number));
+}
+function math_cosh(number) {
+  return 0.5*(Math.exp(number)+Math.exp(-number));
+}
+function math_tanh(number) {
+  return (Math.exp(2*number)-1)/(Math.exp(2*number)+1);
+}
+// inverse hyperbolic functions
+function math_asinh(number) {
+  return Math.log(number+Math.sqrt(1+number*number));
+}
+function math_acosh(number) {
+  return Math.log(number+Math.sqrt(number+1)*Math.sqrt(number-1));
+}
+function math_atanh(number) {
+  return (Math.log(1+number)-Math.log(1-number))/2
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// constants
+function math_pi() {
+  return Math.PI;
+}
+function math_e() {
+  return Math.E;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 function debug_zachClapper(){
   return ":(";

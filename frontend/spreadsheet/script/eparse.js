@@ -9,12 +9,25 @@ function eparse(input) {
 \******************************************************************************/
 function _RMWHITE (input) {
   var output = "";
-  var inquote = false;
+  var inquote = 0;
   for (var i = 0; i < input.length; i++) {
-    if ((input[i] == "'" || input[i] == '"')) {
-      inquote = !inquote;
-    }
-    if (input[i] != " " || inquote == true) {
+    if (inquote == 1) {
+      if (input[i]=='"') {
+        inquote=0;
+      }
+      output+=input[i];
+    } else if (inquote == 2) {
+      if (input[i]=="'") {
+        inquote=0;
+      }
+      output+=input[i];
+    } else if (input[i] == '"') {
+      inquote=1;
+      output+='"';
+    } else if (input[i] == "'") {
+      inquote=2;
+      output+="'"
+    } else if (input[i] != " " && input[i] != "\t") {
       output+=input[i];
     }
   }
@@ -250,7 +263,7 @@ function _ANALYZEATOM(input){
     return cellValue;
   }
   // Input is a Number
-  return parseInt(input);
+  return parseFloat(input);
 }
 /********************************* IS FUNCTION ********************************\
 | Checks to see if an atom is a function, if it is this function returns a     |

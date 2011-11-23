@@ -188,14 +188,6 @@ function debug_zachClapper(){
   return ":(";
 }
 ////////////////////////////////////////////////////////////////////////////////
-function default_sum() {
-  var output = 0;
-  for (var i =0; i < arguments.length; i++){
-    output += arguments[i];
-  }
-  return output;
-}
-////////////////////////////////////////////////////////////////////////////////
 //other unary functions
 function math_fib(x) {
   var nums = new Array(0,1);
@@ -220,4 +212,50 @@ function math_random(){
   default:
     return Math.random();
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+function default_sum() {
+  var output = 0;
+  for (var i =0; i < arguments.length; i++){
+    output += arguments[i];
+  }
+  return output;
+}
+function default_true() {
+  return true;
+}
+function default_false() {
+  return false;
+}
+function default_if(expression, iftrue, iffalse) {
+  if (expression) {
+    return iftrue;
+  }
+  return iffalse;
+}
+function default_and() {
+  var ret = true;
+  for (var i=0; i<arguments.length; ++i) {
+    ret = ret && arguments[i];
+  }
+  return ret;
+}
+function default_or() {
+  var ret = false;
+  for (var i=0; i<arguments.length && ret==false; ++i) {
+    ret = ret || arguments[i];
+  }
+  return ret;
+}
+function default_not(x) {
+  return !x;
+}
+function default_equal() {
+  for (var i=1; i<arguments.length; ++i) {
+    if (arguments[0]!=arguments[i]) {
+      return false;
+    }
+  }
+  return true;
 }

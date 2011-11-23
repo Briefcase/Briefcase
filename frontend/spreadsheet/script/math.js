@@ -197,10 +197,14 @@ function default_sum() {
 }
 ////////////////////////////////////////////////////////////////////////////////
 //other unary functions
-function math_fib( x ){
-  if( x % 1 != 0 || x < 0 ) return "ERR";
-  if(x == 0 || x == 1)return 1;
-  return math_fib( x - 1 ) + math_fib( x - 2 );
+function math_fib(x) {
+  var nums = new Array(0,1);
+  while (x > 1) {
+    nums[0] = nums[0] + nums[1];
+    nums[1] = nums[0] + nums[1];
+    x-=2;
+  }
+  return nums[x];
 }
 ////////////////////////////////////////////////////////////////////////////////
 //random
@@ -215,4 +219,5 @@ function math_random(){
     return Math.random() * (arguments[1]-arguments[0]) + arguments[0];
   default:
     return Math.random();
+  }
 }

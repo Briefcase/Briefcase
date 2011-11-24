@@ -232,6 +232,9 @@ function _ANALYZEATOM(input){
   if (_INQUOTES(input)) {
     return input.substring(1,input.length-1);
   }
+  // Input is a boolean
+  if (input == "true"||input=="True"||input=="TRUE") return true;
+  if (input == "false"||input=="False"||input=="FALSE") return false;
   // Input is a Function
   var functData = isFunction(input);
   if (functData != "false") {

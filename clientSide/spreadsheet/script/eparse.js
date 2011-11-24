@@ -176,7 +176,7 @@ function isCapLetter (character) {
 }
 
 function letterValue (character) {
-  return character.toUpperCase().charCodeAt() - 64;
+  return character.toUpperCase().charCodeAt() - 65;
 }
 
 

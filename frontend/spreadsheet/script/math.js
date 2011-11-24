@@ -222,12 +222,6 @@ function default_sum() {
   }
   return output;
 }
-function default_true() {
-  return true;
-}
-function default_false() {
-  return false;
-}
 function default_if(expression, iftrue, iffalse) {
   if (expression) {
     return iftrue;
@@ -235,18 +229,21 @@ function default_if(expression, iftrue, iffalse) {
   return iffalse;
 }
 function default_and() {
-  var ret = true;
   for (var i=0; i<arguments.length; ++i) {
-    ret = ret && arguments[i];
+    if (arguments[i]==false || arguments[i]==0 || arguments[i] == "") return false;
   }
-  return ret;
+  return true;
 }
 function default_or() {
   var ret = false;
   for (var i=0; i<arguments.length && ret==false; ++i) {
     ret = ret || arguments[i];
   }
-  return ret;
+  // force return type to be bool
+  if (ret) {
+    return true;
+  }
+  return false;
 }
 function default_not(x) {
   return !x;

@@ -211,11 +211,11 @@ function redrawFrame() {
 
 
   // draw the grid lines
-  for (var x = 0.5; x < c_canvas.width; x += 110) {
+  for (var x = 0.5; x < c_canvas.width; x += cellWidth) {
     context.moveTo(x,0);
     context.lineTo(x,c_canvas.height);
   }
-  for (var y = 0.5; y < c_canvas.height; y += 18) {
+  for (var y = 0.5; y < c_canvas.height; y += cellHeight) {
     context.moveTo(0,y);
     context.lineTo(c_canvas.width,y);
   }

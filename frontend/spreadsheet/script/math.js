@@ -188,19 +188,15 @@ function debug_zachClapper(){
   return ":(";
 }
 ////////////////////////////////////////////////////////////////////////////////
-function default_sum() {
-  var output = 0;
-  for (var i =0; i < arguments.length; i++){
-    output += arguments[i];
-  }
-  return output;
-}
-////////////////////////////////////////////////////////////////////////////////
 //other unary functions
-function math_fib( x ){
-  if( x % 1 != 0 || x < 0 ) return "ERR";
-  if(x == 0 || x == 1)return 1;
-  return math_fib( x - 1 ) + math_fib( x - 2 );
+function math_fib(x) {
+  var nums = new Array(0,1);
+  while (x > 1) {
+    nums[0] = nums[0] + nums[1];
+    nums[1] = nums[0] + nums[1];
+    x-=2;
+  }
+  return nums[x];
 }
 ////////////////////////////////////////////////////////////////////////////////
 //random
@@ -215,4 +211,48 @@ function math_random(){
     return Math.random() * (arguments[1]-arguments[0]) + arguments[0];
   default:
     return Math.random();
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+function default_sum() {
+  var output = 0;
+  for (var i =0; i < arguments.length; i++){
+    output += arguments[i];
+  }
+  return output;
+}
+function default_if(expression, iftrue, iffalse) {
+  if (expression) {
+    return iftrue;
+  }
+  return iffalse;
+}
+function default_and() {
+  for (var i=0; i<arguments.length; ++i) {
+    if (arguments[i]==false || arguments[i]==0 || arguments[i] == "") return false;
+  }
+  return true;
+}
+function default_or() {
+  var ret = false;
+  for (var i=0; i<arguments.length && ret==false; ++i) {
+    ret = ret || arguments[i];
+  }
+  // force return type to be bool
+  if (ret) {
+    return true;
+  }
+  return false;
+}
+function default_not(x) {
+  return !x;
+}
+function default_equal() {
+  for (var i=1; i<arguments.length; ++i) {
+    if (arguments[0]!=arguments[i]) {
+      return false;
+    }
+  }
+  return true;
 }

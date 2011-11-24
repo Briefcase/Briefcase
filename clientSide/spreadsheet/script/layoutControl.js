@@ -262,6 +262,10 @@ function finishInput() {
   }
 }
 
+function appScroll() {
+  moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
+}
+
 window.onload = function () {    
   redrawFrame(); // draw the frame
   window.onresize = redrawFrame; // redraw the frame on resize
@@ -269,6 +273,6 @@ window.onload = function () {
   document.onmouseup = clickHandler; // detect if it is a click or a drag
   document.onmousemove = mouseDetect; // easy way to maintain mouse position
   document.onkeypress = keypress; // keyboard shortcuts
-  
+  document.getElementById("framecontain").onscroll = appScroll;
   moveTextBox(-100,-100);
 }

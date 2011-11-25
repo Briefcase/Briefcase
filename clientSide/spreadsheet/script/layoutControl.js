@@ -211,11 +211,11 @@ function redrawFrame() {
 
 
   // draw the grid lines
-  for (var x = 0.5; x < c_canvas.width; x += 110) {
+  for (var x = 0.5; x < c_canvas.width; x += cellWidth) {
     context.moveTo(x,0);
     context.lineTo(x,c_canvas.height);
   }
-  for (var y = 0.5; y < c_canvas.height; y += 18) {
+  for (var y = 0.5; y < c_canvas.height; y += cellHeight) {
     context.moveTo(0,y);
     context.lineTo(c_canvas.width,y);
   }
@@ -262,6 +262,10 @@ function finishInput() {
   }
 }
 
+function appScroll() {
+  moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
+}
+
 window.onload = function () {    
   redrawFrame(); // draw the frame
   window.onresize = redrawFrame; // redraw the frame on resize
@@ -269,6 +273,6 @@ window.onload = function () {
   document.onmouseup = clickHandler; // detect if it is a click or a drag
   document.onmousemove = mouseDetect; // easy way to maintain mouse position
   document.onkeypress = keypress; // keyboard shortcuts
-  
+  document.getElementById("framecontain").onscroll = appScroll;
   moveTextBox(-100,-100);
 }

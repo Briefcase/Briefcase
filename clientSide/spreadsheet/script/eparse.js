@@ -176,7 +176,7 @@ function isCapLetter (character) {
 }
 
 function letterValue (character) {
-  return character.toUpperCase().charCodeAt() - 64;
+  return character.toUpperCase().charCodeAt() - 65;
 }
 
 
@@ -232,6 +232,9 @@ function _ANALYZEATOM(input){
   if (_INQUOTES(input)) {
     return input.substring(1,input.length-1);
   }
+  // Input is a Boolean
+  if (input == "true"||input=="True"||input=="TRUE") return true;
+  if (input == "false"||input=="False"||input=="FALSE") return false;
   // Input is a Function
   var functData = isFunction(input);
   if (functData != "false") {
@@ -313,6 +316,9 @@ function isFunction(atom) {
 function isCell (atom) {
   var atNumbers = false;
   var splitPosition = -1;
+  if (atom[0] == '$') { // if the cell is an absolute cell value, ignore the $
+    atom=atom.substring(1,atom.length);
+  }
   if (!isCapLetter(atom[0])) {
     return "false";
   }

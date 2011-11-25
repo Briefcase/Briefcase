@@ -8,6 +8,9 @@ function math_pow (base,exponent) {
 }
 ////////////////////////////////////////////////////////////////////////////////
 //statistical
+
+// Alternate Arguments:
+// Example:
 function math_max() {
   var maximum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {

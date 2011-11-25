@@ -1,4 +1,4 @@
-template = open("output.html","r").read()
+template = open("template.html","r").read()
 #print template
 templateElements = template.split("<!-- # DELIMITER # -->")
 #print templateElements

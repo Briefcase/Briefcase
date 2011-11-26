@@ -13,10 +13,11 @@ for function in functions:
 
 outputData = templateElements[0]
 for function in functions:
-  outputData += function[0] + templateElements[1]
-  outputData += function[1] + templateElements[2]
-  outputData += templateElements[3]
-outputData += templateElements[4]
+  outputData += templateElements[1]
+  outputData += function[0] + templateElements[2]
+  outputData += function[1] + templateElements[3]
+  outputData += "No description" + templateElements[4]
+outputData += templateElements[5]
 
 outputFile = open("docs.html","w")
 outputFile.write(outputData);

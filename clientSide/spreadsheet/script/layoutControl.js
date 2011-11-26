@@ -22,9 +22,12 @@
 
 // the data contained within the cell
 var data = new Array();
-// predefined sizes for cells (soon to be arrays or something)
+// predefined sizes for cells (soon to be arrays or something similar)
 var cellHeight = 18;
 var cellWidth = 110;
+// maintain cell offsets for scroling
+var offsetx = 1;
+var offsety = 1;
 // detecting if the mouse is clicking or dragging
 var xdownClick;
 var ydownClick;
@@ -100,7 +103,7 @@ function keypress(e) {
   setTimeout("delaySync()",0);
   
 }
-// Gaa, this feels so hackish makeing it delay for 1 before syncing, but it works
+// Gaa, this feels so hackish makeing it delay for 0 before syncing, but it works
 /********************************* DELAY SYNC *********************************\
 | This funtion syncs the text box and the function box so that they display    |
 | the same thing, it is called after every keypress using setTimeout() with a  |
@@ -239,6 +242,10 @@ function redrawFrame() {
       context.fillText(data[i],(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
     }
   }
+  // draw the row lables
+  for (var i = 0; i < c_canvas.height/cellHeight; i++) {
+    context.fillText(i,
+  }
 }
 
 function blockordrag() {
@@ -264,6 +271,7 @@ function finishInput() {
 
 function appScroll() {
   moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
+  document.getElementById("application").style.left = document.getElementById("framecontain").scrollLeft + 'px';
 }
 
 window.onload = function () {    

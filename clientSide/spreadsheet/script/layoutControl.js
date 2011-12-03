@@ -244,7 +244,7 @@ function redrawFrame() {
   }
   // draw the row lables
   for (var i = 0; i < c_canvas.height/cellHeight; i++) {
-    context.fillText(i,
+    //context.fillText(i,
   }
 }
 

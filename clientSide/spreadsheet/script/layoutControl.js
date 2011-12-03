@@ -199,7 +199,11 @@ function clickHandler(e) {
   lasty=currenty;
   rowBegin = currentx;
 }
-
+/******************************** REDRAW FRAME ********************************\
+| This function redraws the entire frame, it is a very usefull function and    |
+| will soon be the only function that does any drawing at all, this way we     |
+| we wont get any errors with visualizations                                   |
+\******************************************************************************/
 function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
@@ -257,6 +261,9 @@ function blockordrag() {
 //detects changes
 function finishInput() {
   var equation = document.getElementById("inputbox").value;
+  
+  
+  
   var c_canvas = document.getElementById("application");
   var context = c_canvas.getContext("2d");
   context.clearRect ((lastx*cellWidth)+1,(lasty*cellHeight)+1,cellWidth-1,cellHeight-1);
@@ -266,6 +273,11 @@ function finishInput() {
   }
   else {
     context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
+  }
+  
+  // reap dead cells
+  if (equation == "") {
+    delete data[lastx+","+lasty];
   }
 }
 

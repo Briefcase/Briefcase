@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^accounts/logout','accounts.views.userlogout'),
     url(r'^accounts/uploadfile','accounts.views.save_file'),
     url(r'^$', 'frontend.views.index'),
+    url(r'^spreadsheet', 'frontend.views.spreadsheet'),
     #url(r'^accounts/confirm', 'accounts.views.confirm'),
     # Examples:
     #url(r'^$', 'briefcase.views.home', name='home'),

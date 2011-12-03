@@ -2,8 +2,12 @@
 |
 \******************************************************************************/
 function save() {
-  var myJSONText = JSON.stringify(data, replacer);
-  alert(myJSONText);
+  var output = "{";
+  for (var i in data) {
+    output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
+  }
+  output = output.slice(0, -1)+ "}";
+  alert(output);
 }
 /************************************ LOAD ************************************\
 |

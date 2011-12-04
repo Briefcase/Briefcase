@@ -1,4 +1,5 @@
-////////////////////////////////////////////////////////////////////////////////
+/*
+*/
 function math_pow (base,exponent) {
   var output = base;
   for (var i = 1; i < exponent; i ++) {
@@ -29,7 +30,11 @@ function math_min() {
   }
   return minimum;
 }
+/* MATH - AVERAGE *\
+|
+\******************/
 function math_average() {
+  // this used to have a comment
   var sum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {
     sum+=arguments[i];

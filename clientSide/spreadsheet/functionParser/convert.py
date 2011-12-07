@@ -7,7 +7,9 @@ templateElements = template.split("<!-- # DELIMITER # -->")
 scriptFile = open("math.js").read()
 
 
-##
+################################################################################
+############################## FIX OR ADD COMMENTS #############################
+################################################################################
 fullComments = ""
 createTemplates = scriptFile.split("/*")
 if createTemplates[0] == "":
@@ -27,7 +29,21 @@ for i in range(0,len(createTemplates)):
       j = j[0:j.find(')')].split('(')
       removeUnderscore = j[0].split('_',1)
       print removeUnderscore[0]
-      fullComments += "/*" + removeUnderscore[0]+' - '+removeUnderscore[1] + "*\\\n|\n\\****/\n" + functionContext 
+      
+      commentName = removeUnderscore[0].upper()+' - '+removeUnderscore[1].upper()
+      
+      half = (74-len(commentName))/2;  
+      
+      fullComments += "/*"
+      for k in range(0,half):
+        fullComments += '*'
+      if (len(commentName)%2 == 1):
+        fullComments += '*'
+      fullComments += ' ' + commentName + ' '
+      for k in range(0,half):
+        fullComments += '*'
+      
+      fullComments += "*\\\n| Alternate Arguments:\n| Example:\n| Summary:\n|\n\\******************************************************************************/\n" + functionContext 
       
 outputFile = open("fullComments.js","w")
 outputFile.write(fullComments);

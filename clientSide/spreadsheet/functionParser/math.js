@@ -1,5 +1,4 @@
-/*
-*/
+////////////////////////////////////////////////////////////////////////////////
 function math_pow (base,exponent) {
   var output = base;
   for (var i = 1; i < exponent; i ++) {
@@ -8,10 +7,8 @@ function math_pow (base,exponent) {
   return output;
 }
 ////////////////////////////////////////////////////////////////////////////////
-//statistical
 
-// Alternate Arguments:
-// Example:
+
 function math_max() {
   var maximum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {
@@ -30,11 +27,7 @@ function math_min() {
   }
   return minimum;
 }
-/* MATH - AVERAGE *\
-|
-\******************/
 function math_average() {
-  // this used to have a comment
   var sum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {
     sum+=arguments[i];
@@ -75,8 +68,13 @@ function math_product() {
   }
   return output;
 }
-////////////////////////////////////////////////////////////////////////////////
-// simple unary functions
+  //////////////////////////////////////////////////////////////////////////////
+ /////////////////////////// SIMPLE UNARY FUNCTIONS ///////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/**************************** MATH - ABSOLUTE VALUE ***************************\
+|
+\******************************************************************************/
 function math_abs(number) {
   return Math.abs(number);
 }

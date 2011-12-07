@@ -266,7 +266,7 @@ function finishInput() {
   
   var c_canvas = document.getElementById("application");
   var context = c_canvas.getContext("2d");
-  context.clearRect ((lastx*cellWidth)+1,(lasty*cellHeight)+1,cellWidth-1,cellHeight-1);
+  //context.clearRect ((lastx*cellWidth)+1,(lasty*cellHeight)+1,cellWidth-1,cellHeight-1);
   context.font = "12px sans-serif";
   if (equation[0]=='=') {
     context.fillText(eparse(equation.substring(1,equation.length)),(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
@@ -279,6 +279,8 @@ function finishInput() {
   if (equation == "") {
     delete data[lastx+","+lasty];
   }
+  
+  redrawFrame()
 }
 
 function appScroll() {

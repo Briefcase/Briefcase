@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <style type="text/css">
+      div.background
+      {
+        overflow:hidden;
+        height: 400px;
+        width: 400px;
+        background: #0F0;
+        position: relative;
+        left: 100px;
+        top: 100px;
+      }
+      div.scrollbar
+      {
+        overflow:scroll;
+        height: 400px;
+        width: 400px;
+        position:absolute;
+        left:0;
+        top:0;
+      }
+      div.scrollsize
+      {
+        width: 800px;
+        height: 800px;
+      }
+    </style>
+    <script type="text/javascript">
+      function scrollme() {
+        document.getElementById("textStuff").innerHTML = parseInt(document.getElementById("scrollbar").scrollTop/50) + ":" + parseInt(document.getElementById("scrollbar").scrollLeft/50);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="background">
+        <span id="textStuff">0:0</span>
+        <div class="scrollbar" onscroll="scrollme()" id="scrollbar">
+          <div class="scrollsize">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

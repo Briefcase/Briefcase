@@ -1,15 +1,19 @@
 <html>
   <head>
     <style type="text/css">
+      div.wrapper
+      {
+      }
       div.background
       {
         overflow:hidden;
         height: 400px;
         width: 400px;
-        background: #0F0;
+        background: #EEE;
         position: relative;
-        left: 100px;
-        top: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 250px;
       }
       div.scrollbar
       {
@@ -27,19 +31,50 @@
       }
     </style>
     <script type="text/javascript">
+      var divWidth;
+      var divHeight;
+      function loadall() {
+        divWidth = parseInt(document.getElementById("scrollsize").offsetWidth/100);
+        divHeight = parseInt(document.getElementById("scrollsize").offsetHeight/100);
+      }
       function scrollme() {
-        document.getElementById("textStuff").innerHTML = parseInt(document.getElementById("scrollbar").scrollTop/50) + ":" + parseInt(document.getElementById("scrollbar").scrollLeft/50);
+        var scrollHeight = parseInt((document.getElementById("scrollbar").scrollTop+400)   /100);
+        var scrollWidth = parseInt((document.getElementById("scrollbar").scrollLeft+400)  /100);
+        document.getElementById("textStuff").innerHTML = scrollHeight + ":" + scrollWidth;
+      }
+      function stopScroll() {
+        var scrollHeight = parseInt((document.getElementById("scrollbar").scrollTop+400)   /100);
+        var scrollWidth = parseInt((document.getElementById("scrollbar").scrollLeft+400)  /100);
+        
+        if (scrollHeight == divHeight) {
+          document.getElementById("scrollsize").style.height = divHeight*200;
+          divHeight = parseInt(document.getElementById("scrollsize").offsetHeight/100);
+        }
+        
+        if (scrollWidth == divWidth) {
+          document.getElementById("scrollsize").style.width = divWidth*200;
+          divWidth = parseInt(document.getElementById("scrollsize").offsetWidth/100);
+        }
       }
     </script>
   </head>
-  <body>
+  <body onload="loadall()">
+    This page contains automaticly resizing scrollbars
     <div class="wrapper">
+      
+
       <div class="background">
+        
+        
         <span id="textStuff">0:0</span>
-        <div class="scrollbar" onscroll="scrollme()" id="scrollbar">
-          <div class="scrollsize">
+        
+        
+        <div class="scrollbar" onscroll="scrollme()" onmouseup="stopScroll()" id="scrollbar">
+          <div class="scrollsize" id="scrollsize">
           </div>
         </div>
+        
+        
       </div>
     </div>
   </body>

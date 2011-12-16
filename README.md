@@ -14,7 +14,7 @@ Sanity Check #1, November 25
 
 Planned Applications
 ====================
-Spreadsheet [In Development 40%]  
+Spreadsheet [In Development] [31.40%]  
 Math Calculator [--0%--]  
 
 Text Editors:  

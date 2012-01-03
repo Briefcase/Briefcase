@@ -210,8 +210,8 @@ function redrawFrame() {
   document.getElementById("framecontain").style.height = window.innerHeight - 30 + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
-  c_canvas.height = window.innerHeight*2;
-  c_canvas.width = window.innerWidth*2;
+  c_canvas.height = window.innerHeight;
+  c_canvas.width = window.innerWidth;
 
 
   var context = c_canvas.getContext("2d");
@@ -246,19 +246,27 @@ function redrawFrame() {
       context.fillText(data[i],(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
     }
   }
+  
   // draw the row lables
-  for (var i = 0; i < c_canvas.height/cellHeight; i++) {
-    //context.fillText(i,
+  for (var i = 1; i < c_canvas.height/cellHeight; i++) {
+    context.fillText(i, 3, (i*cellHeight+14));
+  }
+  // draw the column lables
+  for (var i = 1; i < c_canvas.width/cellWidth; i++) {
+    context.fillText(i,(i*cellWidth+3),14);
   }
 }
-
+/******************************** BLOCK OR DRAG *******************************\
+|
+\******************************************************************************/
 function blockordrag() {
   downx = currentx;
   downy = currenty;
   // there are no drag formats yet
 }
-
-//detects changes
+/******************************** FINSIH INPUT ********************************\
+| detects changes and act accordingly: more documentation required             |
+\******************************************************************************/
 function finishInput() {
   var equation = document.getElementById("inputbox").value;
   
@@ -282,12 +290,16 @@ function finishInput() {
   
   redrawFrame()
 }
-
+/********************************* APP SCROLL *********************************\
+|
+\******************************************************************************/  
 function appScroll() {
   moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
   document.getElementById("application").style.left = document.getElementById("framecontain").scrollLeft + 'px';
 }
-
+/********************************* ONLOAD SET *********************************\
+|
+\******************************************************************************/
 window.onload = function () {    
   redrawFrame(); // draw the frame
   window.onresize = redrawFrame; // redraw the frame on resize

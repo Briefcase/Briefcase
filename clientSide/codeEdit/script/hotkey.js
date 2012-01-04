@@ -16,8 +16,11 @@ function keypress(e) {
     //alert('enter');
   }
   if (e.keyCode == 9) {
-    // tab
-    alert('WTF');
+    // TAB
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    printBeforeCursor("  ");
   }
   
   // update position
@@ -27,7 +30,9 @@ function keypress(e) {
   setTimeout("getCursorPos()",0);
 }
 
-
+function printBeforeCursor(text) {
+  
+}
 
 
 function getCursorPosition () {
@@ -81,7 +86,7 @@ function sanityParse (){
     saveoffset = sel.anchorOffset;
     
     //alert(sel.anchorOffset);
-    //sel.removeAllRanges();
+    
     
     
     
@@ -101,12 +106,12 @@ function sanityParse (){
   var sampleNode = nodes[0];
   //alert(sampleNode == nodes[0]);
   for (var i = 0; i < nodes.length; i++) {
-    alert(nodes[i]);
+    //alert(nodes[i]);
     if (nodes[i].toString() != "[object Text]") continue;
     // RUN THROUGH THE REPLACEMENTS
-    alert ("node");
+    //alert ("node");
     while (nodes[i].nodeValue.indexOf("\n") != -1) {
-      alert("found newline");
+      //alert("found newline");
       var tempv = nodes[i].nodeValue;
       var second = tempv.substring(tempv.indexOf("\n")+1,tempv.length);
       tempv = tempv.substring(0,tempv.indexOf("\n"));
@@ -115,28 +120,28 @@ function sanityParse (){
       var newBR = document.createElement('br');
       // Create a new text node filled with the remainder of the text
       var newTXT = document.createTextNode(second);
+      
       // set the new text element equal to the remainder of the string
-      nodes.insert(i,newTXT);
-      nodes.insert(i,newBR);
-      alert(nodes);
+      nodes[i].parentNode.appendChild(newBR);
+      nodes[i].parentNode.appendChild(newTXT);
+      
+      //alert(nodes);
     }
     nodes[i].nodeValue = nodes[i].nodeValue.replace("&nbsp;"," ");
   }
-  //alert(sampleNode == nodes[0]);
 
-  /* depricated *\
-  if (document.getElementById("codeDoc").innerHTML != doc) {
-    document.getElementById("codeDoc").innerHTML = doc;
-  }*/
   
-  // set the cursor
+  // set the cursor position after all the effort
   if (window.getSelection) {
     var sel = window.getSelection();
     var range = document.createRange();
-    range.setStart(savespot,saveoffset);
-    range.setEnd(savespot,saveoffset);
     
+    range.setStart(savespot,saveoffset);
+    range.collapse(true);
+    
+    sel.removeAllRanges();  
     sel.addRange(range);
+    
   }
   
 }
@@ -146,6 +151,9 @@ function sanityParse (){
 \******************************************************************************/
 function codeChildren () {
   return document.getElementById("codeDoc").childNodes;
+}
+function focusCode() {
+  document.getElementById("codeDoc").focus();
 }
 
 /***************************** GET CURSOR POSITION ****************************\

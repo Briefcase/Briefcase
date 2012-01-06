@@ -30,92 +30,44 @@ function keypress(e) {
   setTimeout("getCursorPos()",0);
 }
 
+
+
 function printBeforeCursor(text) {
   
 }
-
-
-function getCursorPosition () {
-  var selObj = window.getSelection();
-  column = selObj.anchorOffset;
-  
-  displayLineInfo();
-  
-  var range = document.createRange();
-  
-  var startNode = document.getElementById("codeDoc");
-  var startOffset = 0;
-  range.setStart(startNode,startOffset);
-  
-  var endNode = selObj;
-  var endOffset = 0;
-  range.setEnd(endNode,endOffset);
-}
-
-function displayLineInfo() {
-  document.getElementById('footerinfo').innerHTML = "Column: "+column+" Line: "+line;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /******************************** SANITY PARSE ********************************\
 | This function goes through and parses the code doing all the important thigs |
 | like code hilighing and deomination managing (\n vs <br> and &nbsp; vs " "   |
 | as well as moving the cursor position when nessassary                        |
 \******************************************************************************/
-function sanityParse (){
+function backgroundFormat (){
   var savespot;
   var saveoffset;
+
+  // Save the current cursor anchor position in node-offset form
   if (window.getSelection) {
     var sel = window.getSelection();
     savespot = sel.anchorNode;
     saveoffset = sel.anchorOffset;
-    
-    //alert(sel.anchorOffset);
-    
-    
-    
-    
-    
   }
-  /*else if (document.selection) {
-    var textRange = document.body.createTextRange();
-    textRange.moveToElementText(element);
-    textRange.select();
-  }*/
-
 
 
 
   // GET THE DOCUMENT IN QUESTION
   var nodes = codeChildren();
   var sampleNode = nodes[0];
-  //alert(sampleNode == nodes[0]);
   for (var i = 0; i < nodes.length; i++) {
-    //alert(nodes[i]);
+    // If the object is not a text object do not search it
     if (nodes[i].toString() != "[object Text]") continue;
-    // RUN THROUGH THE REPLACEMENTS
-    //alert ("node");
+    
+    // Split text objects on newlines seperated by a break
     while (nodes[i].nodeValue.indexOf("\n") != -1) {
-      //alert("found newline");
       var tempv = nodes[i].nodeValue;
       var second = tempv.substring(tempv.indexOf("\n")+1,tempv.length);
       tempv = tempv.substring(0,tempv.indexOf("\n"));
       nodes[i].nodeValue = tempv;
+      
       // create a new break element
       var newBR = document.createElement('br');
       // Create a new text node filled with the remainder of the text
@@ -124,14 +76,14 @@ function sanityParse (){
       // set the new text element equal to the remainder of the string
       nodes[i].parentNode.appendChild(newBR);
       nodes[i].parentNode.appendChild(newTXT);
-      
-      //alert(nodes);
     }
+    
+    // Replace non-breaking spaces with spaces
     nodes[i].nodeValue = nodes[i].nodeValue.replace("&nbsp;"," ");
   }
 
   
-  // set the cursor position after all the effort
+  // Place the cursor once again
   if (window.getSelection) {
     var sel = window.getSelection();
     var range = document.createRange();
@@ -143,25 +95,30 @@ function sanityParse (){
     sel.addRange(range);
     
   }
-  
 }
-
 /******************************** CODECHILDREN ********************************\
-| 
+| A simple function to return the children of the <pre> that contains the code |
 \******************************************************************************/
 function codeChildren () {
   return document.getElementById("codeDoc").childNodes;
 }
+/********************************** FOCUSCODE *********************************\
+| A simple function to bring focus to the code block
+\******************************************************************************/
 function focusCode() {
   document.getElementById("codeDoc").focus();
 }
+
+
+function getFullString
+
 
 /***************************** GET CURSOR POSITION ****************************\
 | the cursor position (via column and line) are obtained and set to the line   |
 | and collumn variables                                                        |
 \******************************************************************************/
 function getCursorPos() {
-  sanityParse();
+  backgroundFormat();
   var cursorPos;
   if (window.getSelection) {
     var selObj = window.getSelection();

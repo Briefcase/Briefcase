@@ -5,14 +5,10 @@ window.onload = function () {
   
   var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n}"
   backgroundFormat ();
-  
-  
-  
 }
 
 var column = 0;
 var line = 0;
-
 
 
 function keypress(e) {
@@ -56,13 +52,29 @@ function printBeforeCursor(text) {
 function backgroundFormat (){
   var savespot;
   var saveoffset;
+  
+  var saveRange;
 
   // Save the current cursor anchor position in node-offset form
   if (window.getSelection) {
+    
+    // this works to get the begining point but no end point
     var sel = window.getSelection();
     savespot = sel.anchorNode;
     saveoffset = sel.anchorOffset;
+    
+    
+    /*var sel = window.getSelection().getRangeAt(0);
+    savespot = sel.startContainer;
+    saveoffset = sel.startOffset;*/
   }
+  // Dont return the curser to a break
+  if (savespot == codeNode()) {
+    savespot = codeChildren()[saveoffset];
+    saveoffset = 0;
+  }
+  
+  
 
   // GET THE DOCUMENT IN QUESTION
   var nodes = codeChildren();
@@ -122,9 +134,8 @@ function backgroundFormat (){
 
 
   // Dont return the curser to a break
-  if (savespot == codeNode()) {
-    alert("true")
-    savespot = codeChildren()[saveoffset-1];
+  if (savespot.toString() == "[object HTMLBRElement]") {
+    savespot = previousNode(savespot);
     saveoffset = savespot.length;
   }
   
@@ -140,6 +151,18 @@ function backgroundFormat (){
     sel.addRange(range);
     
   }
+}
+
+function nodeIndex(node) {
+  var list = node.parentNode.childNodes;
+  for (var i = 0; i < list.length; i++) {
+    if (list[i] == node) {
+      return i;
+    }
+  }
+}
+function previousNode(node) {
+  return node.parentNode.childNodes[nodeIndex(node)-1];
 }
 /******************************** CODECHILDREN ********************************\
 | A simple function to return the children of the <pre> that contains the code |

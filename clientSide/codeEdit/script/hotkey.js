@@ -1,6 +1,6 @@
 window.onload = function () {
   document.onkeypress = keypress;
-  
+  document.onclick = mouseclick;
   
   
   var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n}"
@@ -38,6 +38,9 @@ function keypress(e) {
   setTimeout("getCursorPos()",0);
 }
 
+function mouseclick(e) {
+  setTimeout("getCursorPos()",0);
+}
 
 /***************************** PRINT BEFORE CURSOR ****************************\
 |
@@ -60,14 +63,6 @@ function backgroundFormat (){
     savespot = sel.anchorNode;
     saveoffset = sel.anchorOffset;
   }
-
-
-  // Dont land on a break
-  if (savespot == codeNode()) {
-    savespot = codeChildren()[saveoffset-1];
-    saveoffset = savespot.length;
-  }
-
 
   // GET THE DOCUMENT IN QUESTION
   var nodes = codeChildren();
@@ -124,6 +119,14 @@ function backgroundFormat (){
     nodes[i].nodeValue = nodes[i].nodeValue.replace("&nbsp;"," ");
   }
 
+
+
+  // Dont return the curser to a break
+  if (savespot == codeNode()) {
+    alert("true")
+    savespot = codeChildren()[saveoffset-1];
+    saveoffset = savespot.length;
+  }
   
   // Place the cursor once again
   if (window.getSelection) {

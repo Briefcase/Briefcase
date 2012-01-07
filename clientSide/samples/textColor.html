@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <style type="text/css">
+      .green
+      {
+        color: green;
+      }
+    </style>
+    <script>
+      function loader () {
+        var blackTXT = document.createTextNode("I am black ");
+        var greenTXT = document.createTextNode("green");
+        var redTXT = document.createTextNode(" red");
+        
+        document.getElementById("main").appendChild(blackTXT);
+        document.getElementById("main").appendChild(greenTXT);
+        document.getElementById("main").appendChild(redTXT);
+        
+        greenTXT.color = 'color:green;';
+        redTXT.style = "color:red;";
+      }
+    </script>
+  </head>
+  <body id="main" onload="loader();">
+  </body>
+</html>   

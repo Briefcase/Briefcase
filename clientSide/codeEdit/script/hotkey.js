@@ -15,9 +15,6 @@ function keypress(e) {
   if (e.keyCode == 13) {
     // enter
     // find number of spaces
-    var code = document.getElementById("codeDoc").innerHTML;
-    var lines = code.split('\n');
-    //alert('enter');
   }
   if (e.keyCode == 9) {
     // TAB
@@ -42,6 +39,30 @@ function mouseclick(e) {
 |
 \******************************************************************************/
 function printBeforeCursor(text) {
+  
+  
+  if (window.getSelection) {
+    // this works to get the begining point but no end point
+    var sel = window.getSelection();
+    savespot = sel.anchorNode;
+    saveoffset = sel.anchorOffset;
+  }
+  
+  savespot.nodeValue = savespot.nodeValue.substring(0, saveoffset) + text + savespot.nodeValue.substring(saveoffset);
+  
+  saveoffset += text.length;
+  
+  
+  if (window.getSelection) {
+    var sel = window.getSelection();
+    var range = document.createRange();
+    
+    range.setStart(savespot,saveoffset);
+    range.collapse(true);
+    
+    sel.removeAllRanges();  
+    sel.addRange(range);
+  }
   
 }
 

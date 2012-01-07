@@ -1,5 +1,13 @@
 window.onload = function () {
   document.onkeypress = keypress;
+  
+  
+  
+  var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n}"
+  backgroundFormat ();
+  
+  
+  
 }
 
 var column = 0;
@@ -31,15 +39,16 @@ function keypress(e) {
 }
 
 
-
+/***************************** PRINT BEFORE CURSOR ****************************\
+|
+\******************************************************************************/
 function printBeforeCursor(text) {
   
 }
 
-/******************************** SANITY PARSE ********************************\
-| This function goes through and parses the code doing all the important thigs |
-| like code hilighing and deomination managing (\n vs <br> and &nbsp; vs " "   |
-| as well as moving the cursor position when nessassary                        |
+/****************************** BACKGROUND FORMAT *****************************\
+| this function runs through and makes sure that everything is formatted in    |
+| same manner for, that way
 \******************************************************************************/
 function backgroundFormat (){
   var savespot;
@@ -53,13 +62,45 @@ function backgroundFormat (){
   }
 
 
+  // Dont land on a break
+  if (savespot == codeNode()) {
+    savespot = codeChildren()[saveoffset-1];
+    saveoffset = savespot.length;
+  }
+
 
   // GET THE DOCUMENT IN QUESTION
   var nodes = codeChildren();
   var sampleNode = nodes[0];
+  var lastElement = "";
   for (var i = 0; i < nodes.length; i++) {
     // If the object is not a text object do not search it
+    
+    
+    if (nodes[i].toString() == "[object HTMLBRElement]" && lastElement == "[object HTMLBRElement]") {
+      var emptyText = document.createTextNode("");
+      codeNode().insertBefore(emptyText, nodes[i]);
+      i++;
+    }
+    
+    //Clean up the extranious Text objects and make sure two are not in a row
+    if (nodes[i].toString() == "[object Text]" && lastElement == "[object Text]") {
+      //alert(i);
+      nodes[i-1].nodeValue += nodes[i].nodeValue;
+      //alert(nodes[i-1].nodeValue);
+      codeNode().removeChild(nodes[i]);
+      i-=2;
+      lastElement = "";
+      continue;
+    }
+    
+    lastElement = nodes[i].toString();  
+    
+    
     if (nodes[i].toString() != "[object Text]") continue;
+    
+    
+    
     
     // Split text objects on newlines seperated by a break
     while (nodes[i].nodeValue.indexOf("\n") != -1) {
@@ -74,6 +115,7 @@ function backgroundFormat (){
       var newTXT = document.createTextNode(second);
       
       // set the new text element equal to the remainder of the string
+      
       nodes[i].parentNode.appendChild(newBR);
       nodes[i].parentNode.appendChild(newTXT);
     }
@@ -102,6 +144,9 @@ function backgroundFormat (){
 function codeChildren () {
   return document.getElementById("codeDoc").childNodes;
 }
+function codeNode() {
+  return document.getElementById("codeDoc");
+}
 /********************************** FOCUSCODE *********************************\
 | A simple function to bring focus to the code block
 \******************************************************************************/
@@ -110,7 +155,9 @@ function focusCode() {
 }
 
 
-function getFullString
+function getFullString(node) {
+  if (node.toString() == "");
+}
 
 
 /***************************** GET CURSOR POSITION ****************************\
@@ -125,7 +172,7 @@ function getCursorPos() {
     var selRange = selObj.getRangeAt(0);
     column = selObj.anchorOffset;
     line =  findNode(selObj.anchorNode.parentNode.childNodes, selObj.anchorNode) / 2 + 1;
-    displayLineInfo();
+    ///displayLineInfo();
   }
 }
 

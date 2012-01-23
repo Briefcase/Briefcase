@@ -5,6 +5,8 @@ div.codeBlock {
   background: #FFF;
   border: black 1px solid;
   padding:0px;
+  width:100%;
+  overflow: auto;
 }
 
 pre {

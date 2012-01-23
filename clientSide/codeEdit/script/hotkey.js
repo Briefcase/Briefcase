@@ -56,32 +56,60 @@ window.onload = function () {
 
 var column = 0;
 var line = 0;
+  //////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////// USER EVENTS ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
-
+/********************************* ON KEYPRESS ********************************\
+|
+\******************************************************************************/
 function keypress(e) {
   if (e.keyCode == 13) {
     // enter
+    
     // find number of spaces
+    newline();
   }
-  if (e.keyCode == 9) {
+  else if (e.keyCode == 9) {
     // TAB
     if (e.preventDefault) {
       e.preventDefault();
     }
     printBeforeCursor("  ");
-    alert("Tabbed");
+    //alert("Tabbed");
+    setTimeout("getCursorPos()",0);
   }
   
   // update position
   // run text hilighter
   
-  
-  setTimeout("getCursorPos()",0);
+  else {
+    setTimeout("getCursorPos()",0);
+  }
+}
+/******************************* ON MOUSE CLICK *******************************\
+| this funciton checks to see if the mouse click was on the code document, if  |
+| it was then it runs the text box code                                        |
+\******************************************************************************/
+function mouseclick(e) {
+
+  // if (the cursor is in the text box)
+    //setTimeout("getCursorPos()",0);
 }
 
-function mouseclick(e) {
-  //setTimeout("getCursorPos()",0);
+/*********************************** NEWLINE **********************************\
+| This function handles the creation of new lines in the code document         |
+\******************************************************************************/
+function newline() {	
+  
+  var line = getLineText()
+  var i = 0;
+  while (line[i] == " "){
+    i++;
+  }
+  getCursorPos();
 }
+
 
 /***************************** PRINT BEFORE CURSOR ****************************\
 | this function prints a number of characters before the cursor
@@ -102,35 +130,35 @@ function printBeforeCursor(text) {
     endoffset = saverange.endOffset;
     startoffset = saverange.startOffset;
     
-    endcontainor = saverange.
-    startcontainor = 
+    endcontainor = saverange.endContainer;
+    startcontainor = saverange.startContainer;
   }
-  alert( saverange.endOffset + "," + saverange.startOffset );
+  //alert( saverange.endOffset + "," + saverange.startOffset );
   
   
   savespot.nodeValue = savespot.nodeValue.substring(0, saveoffset) + text + savespot.nodeValue.substring(saveoffset);
   
-  saveoffset += text.length;
-  
+  startoffset += 2;
+  endoffset += 2;
   
   
   
   if (window.getSelection) {
-    /*
     var sel = window.getSelection();
     var range = document.createRange();
     
-    range.setStart(savespot,saveoffset);
-    range.collapse(true);
+    range.setStart(startcontainor,startoffset);
+    range.setEnd(endcontainor,endoffset);
     
     sel.removeAllRanges();  
     sel.addRange(range);
-    */
     
-    var sel = window.getSelection();
-    alert( saverange.endOffset + "," + saverange.startOffset );
+    
+    
+    /*var sel = window.getSelection();
+    alert ( saverange.endOffset + "," + saverange.startOffset );
     sel.removeAllRanges();
-    sel.addRange(saverange);
+    sel.addRange(saverange);*/
   }
   
 }
@@ -267,13 +295,9 @@ function codeNode() {
 function focusCode() {
   document.getElementById("codeDoc").focus();
 }
-
-
 function getFullString(node) {
   if (node.toString() == "");
 }
-
-
 /***************************** GET CURSOR POSITION ****************************\
 | the cursor position (via column and line) are obtained and set to the line   |
 | and collumn variables                                                        |
@@ -289,7 +313,10 @@ function getCursorPos() {
     ///displayLineInfo();
   }
 }
-
+/********************************** FIND NODE *********************************\
+|----------------------------------DEPRECATION---------------------------------|
+| does some stuff, needs to be revisited                                       |
+\******************************************************************************/
 function findNode(list, node) {
   var retval = -1;
   var nodes = "";
@@ -302,6 +329,7 @@ function findNode(list, node) {
     nodes += nodename;
     if (nodename == "[object Text]") {
       nodename = list[i].nodeValue;
+      
       if (i == 2) {
         //list[i].style.color="#FF0000";
       }

@@ -13,27 +13,48 @@ from briefcase.accounts.models import UserProfile
 
 import os
 
-def loginfunction(request, htmlpage):
-    form = AuthenticationForm()
-    if request.method == 'POST':
-        form = AuthenticationForm(request.POST)
-        un =request.POST['username']
-        pw = request.POST['password']
-        user = authenticate(username =un, password = pw)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('spreadsheet')
-            else:
-                logout(request)
-                return HttpResponse("inactive - fail")
-        else:
-            logout(request)
-            return HttpResponse("fail")
-    return render_to_response(htmlpage, {'form':form},context_instance= RequestContext(request))
+#function that will take an hmtl page and make the form on that page the login form
+# def loginfunction(request, htmlpage):
+    # form = AuthenticationForm()
+    # if request.method == 'POST':
+        # form = AuthenticationForm(request.POST)
+        # un =request.POST['username']
+        # pw = request.POST['password']
+        # user = authenticate(username =un, password = pw)
+        # if user is not None:
+            # if user.is_active:
+                # login(request, user)
+                # return HttpResponseRedirect('spreadsheet')
+            # else:
+                # logout(request)
+                # return HttpResponse("inactive - fail")
+        # else:
+            # logout(request)
+            # return HttpResponse("fail")
+    # return render_to_response(htmlpage, {'form':form},context_instance= RequestContext(request))
         
 def index(request):
-    return loginfunction(request,'welcome.html')
+    if request.user.is_authenticated():
+        return render_to_response('accounts/', context_instance=RequestContext(request))
+    
+    form=AuthenticationForm()
+    if request.method=='POST':
+        form=AuthenticationForm(request.POST)
+        un=request.POST['username']
+        pw=request.POST['password']
+        user=authenticate(username=un, password=pw)
+        if user is not None:
+            if users.is_activce:
+                login(request,user)
+                return render_to_response('spreadsheet.html', context_instance=RequestContext(request))
+            else:
+                logout(request)
+                return render_to_response('welcome.html', {'form':form}, context_instance=RequestContext(request))
+        else:
+            logout(request)
+            return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
+    #return loginfunction(request,'welcome.html')
+    return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
     
 def spreadsheet(request):
     if not request.user.is_authenticated():

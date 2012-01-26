@@ -25,6 +25,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
+
+#serves static files - ONLY FOR USE IN DEVELOPMENT
 if settings.DEBUG:
     urlpatterns += patterns('django.contrib.staticfiles.views',
         url(r'^spreadsheet/static/(?P<path>.*)$', 'serve'),

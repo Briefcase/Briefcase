@@ -61,7 +61,8 @@ var line = 0;
 //////////////////////////////////////////////////////////////////////////////
 
 /********************************* ON KEYPRESS ********************************\
-|
+| this checks when a key is pressed, the two keys monitored right now are tab  |
+| and enter because their behavior needs to be altered                         |
 \******************************************************************************/
 function keypress(e) {
   if (e.keyCode == 13) {

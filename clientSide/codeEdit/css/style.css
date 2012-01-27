@@ -13,8 +13,11 @@ pre {
   padding:5px;
   margin:0px;
 }
+
 div.linecount {
-  
+  width: 5px;
+  height: 5px;
+  background-color: #F00;
 }
 
 pre {

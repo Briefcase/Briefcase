@@ -30,7 +30,7 @@ function save() {
   //xmlhttp.send(output);
   
   */
-  
+  var serverURL = "/spreadsheet/save";
   $.ajax({
     type: "GET",
     url: serverURL,

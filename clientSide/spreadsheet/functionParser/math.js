@@ -7,10 +7,8 @@ function math_pow (base,exponent) {
   return output;
 }
 ////////////////////////////////////////////////////////////////////////////////
-//statistical
 
-// Alternate Arguments:
-// Example:
+
 function math_max() {
   var maximum = arguments[0];
   for (var i = 1; i < arguments.length; i++) {
@@ -70,8 +68,13 @@ function math_product() {
   }
   return output;
 }
-////////////////////////////////////////////////////////////////////////////////
-// simple unary functions
+  //////////////////////////////////////////////////////////////////////////////
+ /////////////////////////// SIMPLE UNARY FUNCTIONS ///////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/**************************** MATH - ABSOLUTE VALUE ***************************\
+|
+\******************************************************************************/
 function math_abs(number) {
   return Math.abs(number);
 }

@@ -1,3 +1,4 @@
+var savedFile;
 /************************************ SAVE ************************************\
 |
 \******************************************************************************/
@@ -8,19 +9,22 @@ function save() {
   }
   output = output.slice(0, -1)+ "}";
   alert(output);
+  savedFile = output;
 }
 /************************************ LOAD ************************************\
 |
 \******************************************************************************/
 function load() {
+  var test = JSON.parse(savedFile);
+  delete data;
   
-}
-/****************************** REPLACER FUNCTION *****************************\
-|
-\******************************************************************************/
-function replacer(key, value) {
-    if (typeof value === 'number' && !isFinite(value)) {
-        return String(value);
-    }
-    return value;
+  for (i in data) {
+    delete data[i];
+  }
+  
+  for (i in test) {
+    //alert(i+"("+test[i]+")");
+    data[i] = test[i];
+  }
+  redrawFrame();
 }

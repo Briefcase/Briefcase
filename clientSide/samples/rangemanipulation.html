@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <script>
+      var newrange;
+      var oldrange;
+      var insideRange;
+      window.onload = function () {
+          document.onkeypress = keypress;
+          document.onclick = mouseclick;
+          newrange = getNewRange();
+          oldrange = getTextRange();
+          updateCoords();
+      }
+      function keypress(e) {
+        if (e.keyCode == 13) {
+          newrange = getNewRange();
+          oldrange = getTextRange();
+        }
+        //updateCoords();
+      }
+      function mouseclick(e) {
+        updateCoords();
+      }
+      function updateCoords() {
+        document.getElementById("coprange").innerHTML = "NEW RANGE:" + newrange.startOffset + "," + newrange.endOffset;
+        document.getElementById("refrange").innerHTML = "OLDRANGE:" + oldrange.startOffset +"," + oldrange.endOffset;
+        document.getElementById("allrange").innerHTML = "INSIDE RANGE:" + insideRange.startOffset + "," + insideRange.endOffset;
+      }
+      function getTextRange() {
+        var saverange;
+        if (window.getSelection) {
+          // this works to get the begining point but no end point ( thing to fix )
+          var sel = window.getSelection();
+          saverange = sel.getRangeAt(0);
+        }
+        insideRange = saverange;
+        document.getElementById("docu").innerHTML += "z";
+        return saverange;
+      }
+      function getNewRange() {
+        var startcontainor;
+        var endcontainor;
+        var startoffset;
+        var endoffset;
+        
+        if (window.getSelection) {
+          // this works to get the begining point but no end point ( thing to fix )
+          var sel = window.getSelection();
+          saverange = sel.getRangeAt(0);
+          
+          endoffset = saverange.endOffset;
+          startoffset = saverange.startOffset;
+          
+          endcontainor = saverange.endContainer;
+          startcontainor = saverange.startContainer;
+        }
+        var range = document.createRange();
+    
+        range.setStart(startcontainor,startoffset);
+        range.setEnd(endcontainor,endoffset);
+        return range;
+      }
+    </script>
+  </head>
+  <body>
+  <div id="docu">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin neque vitae quam tempor in tincidunt tellus bibendum. Morbi facilisis, nisl a varius rutrum, elit nulla posuere lorem, sed luctus neque purus eget lorem. Maecenas placerat facilisis semper. Pellentesque eleifend est congue nulla imperdiet sed pellentesque elit auctor. Nullam neque mi, molestie eu sagittis ut, semper consectetur neque. Ut scelerisque dictum dolor sed eleifend. Suspendisse dapibus suscipit tempor. Duis sed sem massa, a eleifend diam. Pellentesque ultricies molestie tempus. Sed dictum massa nec augue elementum luctus. Maecenas ullamcorper quam non ipsum pellentesque rutrum. Suspendisse velit augue, facilisis convallis vulputate nec, iaculis in ligula. Sed eleifend leo dolor, vitae viverra felis. Sed neque diam, commodo quis facilisis sit amet, pulvinar sed orci.
+    </p>
+<p>
+Proin viverra mollis enim, at euismod est feugiat quis. Aliquam erat volutpat. Etiam mi magna, varius at cursus vitae, posuere ac lacus. Mauris pellentesque varius egestas. Praesent a turpis nec massa fermentum dictum. Mauris eleifend hendrerit neque sit amet venenatis. In hac habitasse platea dictumst. Donec condimentum orci ac ipsum adipiscing cursus. Aenean malesuada varius nulla, accumsan elementum est dapibus vitae. Quisque arcu magna, dictum a suscipit ac, accumsan quis erat. Sed blandit dui mattis ipsum volutpat eget euismod mi facilisis. In vitae ultricies tortor.
+</p>
+<p>
+Nunc et risus eget sem consectetur pretium sit amet eleifend nisl. Integer auctor tortor in nunc cursus cursus. Suspendisse congue pellentesque magna sit amet dictum. Nullam placerat dignissim metus, id convallis sem varius non. Vivamus sagittis enim vel nibh ullamcorper et fermentum ante pretium. Nam augue quam, placerat vitae placerat convallis, iaculis sit amet lorem. Integer blandit euismod velit, vitae suscipit dolor ultrices ut.
+</p>
+<p>
+Nulla mattis gravida lacus vitae convallis. Etiam at eros justo. Proin metus eros, vehicula nec iaculis nec, blandit eu risus. Sed blandit scelerisque nisl, a adipiscing turpis mollis quis. In eget sem ac ipsum euismod imperdiet. Sed accumsan quam id dui dignissim imperdiet. Suspendisse mollis sapien at diam adipiscing congue. Suspendisse in est et erat commodo pretium. Phasellus a urna pharetra sem ultrices ullamcorper at sit amet justo.
+</p>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec diam purus, ac feugiat tellus. Pellentesque in ligula elit, non aliquam eros. Donec vel magna arcu, sed tincidunt nulla. Maecenas lobortis urna in libero malesuada et molestie velit fermentum. Cras nisl orci, aliquam vitae elementum ac, cursus id lorem. Donec at tortor ac quam dapibus eleifend eget sit amet nunc. Nam in justo vel metus tincidunt vehicula in et justo. 
+</p>
+</div>
+<div id="coprange"></div>
+<div id="refrange"></div>
+<div id="allrange"></div>
+  </body>
+</html>

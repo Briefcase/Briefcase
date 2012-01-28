@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <style type="text/css">
+      div.wrapper
+      {
+      }
+      div.background
+      {
+        overflow:hidden;
+        height: 400px;
+        width: 400px;
+        background: #EEE;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 250px;
+      }
+      div.scrollbar
+      {
+        overflow:scroll;
+        height: 400px;
+        width: 400px;
+        position:absolute;
+        left:0;
+        top:0;
+      }
+      div.scrollsize
+      {
+        width: 800px;
+        height: 800px;
+      }
+    </style>
+    <script type="text/javascript">
+      var divWidth;
+      var divHeight;
+      function loadall() {
+        divWidth = parseInt(document.getElementById("scrollsize").offsetWidth/100);
+        divHeight = parseInt(document.getElementById("scrollsize").offsetHeight/100);
+      }
+      function scrollme() {
+        var scrollHeight = parseInt((document.getElementById("scrollbar").scrollTop+400)/100);
+        var scrollWidth = parseInt((document.getElementById("scrollbar").scrollLeft+400)/100);
+        document.getElementById("textStuff").innerHTML = scrollHeight + ":" + scrollWidth;
+      }
+      function stopScroll() {
+        var scrollHeight = parseInt((document.getElementById("scrollbar").scrollTop+400)/100);
+        var scrollWidth = parseInt((document.getElementById("scrollbar").scrollLeft+400)/100);
+        
+        if (scrollHeight == divHeight) {
+          document.getElementById("scrollsize").style.height = divHeight*200;
+          divHeight = parseInt(document.getElementById("scrollsize").offsetHeight/100);
+        }
+        
+        if (scrollWidth == divWidth) {
+          document.getElementById("scrollsize").style.width = divWidth*200;
+          divWidth = parseInt(document.getElementById("scrollsize").offsetWidth/100);
+        }
+      }
+    </script>
+  </head>
+  <body onload="loadall()">
+    This page contains automaticly resizing scrollbars, when you scroll down to the bottom of the page they will extend farther (feature from excell)
+    the top left corner displayes the coordinates (100,100)
+    <div class="wrapper">
+      
+
+      <div class="background">
+        
+        
+        <span id="textStuff">0:0</span>
+        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut tincidunt risus. Ut dolor lectus, scelerisque vitae viverra eget, imperdiet eget felis. Vestibulum molestie, mauris tincidunt aliquam rhoncus, leo sapien elementum sapien, ut placerat ligula urna eu ipsum. Morbi cursus justo eu dui ultrices egestas eget a odio. Nulla feugiat rutrum lorem, at commodo sem aliquam sit amet. Sed dignissim ante posuere orci lobortis fermentum. Aenean congue auctor enim, vitae feugiat leo consectetur eget. Sed euismod fringilla porttitor. In lacinia ultrices eleifend. Sed malesuada nibh malesuada urna porta nec blandit lacus commodo. Donec nec dictum orci. Mauris a mauris ut nunc faucibus gravida.
+
+Proin sapien turpis, aliquam a rutrum eget, fermentum sed neque. Suspendisse vitae tincidunt metus. Nunc turpis arcu, semper sed ullamcorper a, volutpat non sem. Vestibulum ultricies molestie tortor ac faucibus. In dignissim commodo nibh, sed vulputate mi gravida sit amet. Cras adipiscing dictum placerat. Proin quis urna ante, sed imperdiet elit.
+
+Aenean imperdiet viverra mauris, ut vestibulum ipsum euismod eu. Aenean suscipit arcu in nisi dignissim sollicitudin. Nunc ultrices molestie elit et rhoncus. Aliquam erat volutpat. Vivamus auctor purus egestas erat semper id imperdiet augue pretium. Nulla eros justo, laoreet id pellentesque id, accumsan sagittis ante. Maecenas erat nibh, semper sit amet adipiscing quis, adipiscing sed eros. Integer ornare viverra lorem, sit amet malesuada massa molestie eu. Aliquam in dolor tortor, eget cursus elit. Nulla tincidunt lacus ac lacus venenatis in euismod velit semper. Nam vel elit vel erat fringilla varius. Sed vel orci quam. Praesent fermentum dolor quis justo aliquet laoreet. Nullam varius sem nunc, ut commodo urna.
+
+Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur vulputate condimentum purus id tempor. Proin tristique lacus id tortor pharetra sed luctus nisl commodo. Quisque aliquet, diam at cursus molestie, lectus libero molestie dolor, ac imperdiet augue metus pharetra tortor. Phasellus bibendum nisl vitae ipsum scelerisque semper. Phasellus vulputate faucibus neque eget pulvinar. In molestie porttitor mi eget volutpat. Etiam tempus porttitor elit sit amet fringilla.
+
+Aliquam convallis, augue vel tincidunt tempor, lacus purus blandit sapien, eu fringilla erat tellus suscipit elit. Duis a nisl ut eros iaculis pharetra egestas ac est. Cras vitae risus et urna fermentum consectetur. Praesent a blandit sapien. Ut aliquam tempor tellus ac euismod. Aenean feugiat orci eget lorem molestie porta. Sed suscipit, nisl in viverra sodales, elit turpis aliquam enim, id mattis justo lorem eget magna. Nullam fermentum sodales arcu, et ultricies felis fringilla in. Nam at pretium tellus. 
+        
+        <div class="scrollbar" onscroll="scrollme()" onmouseup="stopScroll()" id="scrollbar">
+          <div class="scrollsize" id="scrollsize">
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+  </body>
+</html>

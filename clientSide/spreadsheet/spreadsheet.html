@@ -2,10 +2,11 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
+    <!-- Page Functionality -->
     <script type="text/javascript" src="script/eparse.js"></script>
     <script type="text/javascript" src="script/layoutControl.js"></script>
     <script type="text/javascript" src="script/saveload.js"></script>
-    <!-- Libraries -->
+    <!-- Function Libraries -->
     <script type="text/javascript" src="script/math.js"></script>
     
     
@@ -22,23 +23,28 @@
   </head>
   <body style="margin:0;padding:0;">
     <!-- Input box -->
-  <div class="datain" id="datain"><input type="text" onfocus="textboxOnFocus()" onblur="textboxOnBlur()" style='width:110px;' id="inputbox"/> </div>
-  <!-- Menu -->
-  <div style="width:100%; height:30px;">
-    <div>
-      <div style="height:25px; float: left; background-color:#CCC;"><a href="#" onclick="save()">SAVE</a></div>
-      <div style="height:25px; float: left; background-color:#DDD;"><a>LOAD</a></div>
+    <div class="datain" id="datain"><input type="text" onfocus="textboxOnFocus()" onblur="textboxOnBlur()" style='width:110px;' id="inputbox"/>
     </div>
-    <div style="height: 25px;">
-      <input type="text" id="functionbox" onfocus="functionOnFocus()" onblur="functionOnBlur()"style="width:90%; height:25px; border-style:solid; padding:0px; margin-left:5px;" />
+    <!-- Menu -->
+    <div style="width:100%; height:30px;">
+      <div style="height: 25px;">
+        <input type="button" onclick="save()" value="Save" />
+        <input type="button" onclick="load()" value="Load" />
+        <input type="text" id="functionbox" onfocus="functionOnFocus()" onblur="functionOnBlur()"style="width:80%; height:25px; border-style:solid; padding:0px; margin-left:5px;" />
+      </div>
     </div>
   </div>
-  <div style="width:100%;overflow:scroll" id="framecontain" class="framecontain">
-    
   
+  <!-- Actual canvas Div for the application -->
+  <div style="width:100%;overflow:hidden" id="framecontain" class="framecontain">
     <canvas id="application" name="application" width="200" height="375">
-      Im sorry your browser is too outdated to know what this canvas element is <br > you should update
+      Im sorry your browser is too outdated to know what this canvas element is <br > you should update to the newest version so you can use this program (and keep your computer secure)
     </canvas>
+  </div>
+  <!-- Scrollbar div for movement -->
+  <div class="scrollbars" id="scrollbars">
+    <div class="scrollsize" id="scrollsize">
+    </div>
   </div>
   </body>
 </html>

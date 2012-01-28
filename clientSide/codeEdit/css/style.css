@@ -1,0 +1,29 @@
+body {
+  background: #CCC;
+}
+div.codeBlock {
+  background: #FFF;
+  border: black 1px solid;
+  padding:0px;
+  width:100%;
+  overflow: auto;
+}
+
+pre {
+  padding:5px;
+  margin:0px;
+}
+
+div.linecount {
+  width: 5px;
+  height: 5px;
+  background-color: #F00;
+}
+
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  /*white-space: -moz-pre-wrap;  /* Mozilla, since 1999 *
+  white-space: -pre-wrap;      /* Opera 4-6 *
+  white-space: -o-pre-wrap;    /* Opera 7 *
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}

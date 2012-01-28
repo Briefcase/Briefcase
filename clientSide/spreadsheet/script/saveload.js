@@ -21,11 +21,10 @@ function save() {
       alert (xmlhttp.responseText);
     }
   }
-  window.location = "/spreadsheet/save";
-  alert("lol");
-  xmlhttp.open("POST","/spreadsheet/save",true);
-  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  xmlhttp.send(output);
+  xmlhttp.open("GET","/spreadsheet/save",true);
+  xmlhttp.send();
+  //xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  //xmlhttp.send(output);
   
   // save to a local variable, probably not needed in the end
   savedFile = output;

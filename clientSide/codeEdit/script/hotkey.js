@@ -50,7 +50,7 @@ window.onload = function () {
   document.onclick = mouseclick;
   
   
-  var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n}"
+  var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
   backgroundFormat ();
 }
 
@@ -67,9 +67,13 @@ var line = 0;
 function keypress(e) {
   if (e.keyCode == 13) {
     // enter
-    
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
     // find number of spaces
     newline();
+    //printBeforeCursor("JJ");
+    //setTimeout("getCursorPos()",0);
   }
   else if (e.keyCode == 9) {
     // TAB
@@ -95,22 +99,35 @@ function keypress(e) {
 function mouseclick(e) {
 
   // if (the cursor is in the text box)
-    //setTimeout("getCursorPos()",0);
+    setTimeout("getCursorPos()",0);
 }
 
 /*********************************** NEWLINE **********************************\
 | This function handles the creation of new lines in the code document         |
 \******************************************************************************/
 function newline() {	
-  
-  var line = getLineText()
-  var i = 0;
-  while (line[i] == " "){
-    i++;
+  /*var line = getLineText()
+  var whitespace = "";
+  while (line[whitespace] == " "){
+    whitespace+=" ";
   }
-  getCursorPos();
+  whitespace+="";
+  printBeforeCursor(whitespace);*/
+  printBeforeCursor("\n");
 }
-
+/******************************** GET LINE TEXT *******************************\
+| This gets the fill line of text of where the cursor currently is, from the   |
+| last break to the next break (or begining and end of the files)      
+\******************************************************************************/
+function getLineText() {
+  var containor;
+  if (window.getSelection) {
+    var sel = window.getSelection();
+    containor = sel.anchorNode;
+  }
+  alert(containor.nodeValue);
+  return containor.nodeValue;
+}
 
 /***************************** PRINT BEFORE CURSOR ****************************\
 | this function prints a number of characters before the cursor
@@ -182,7 +199,6 @@ function backgroundFormat (){
     savespot = sel.anchorNode;
     saveoffset = sel.anchorOffset;
     
-    
     /*var sel = window.getSelection().getRangeAt(0);
     savespot = sel.startContainer;
     saveoffset = sel.startOffset;*/
@@ -193,8 +209,6 @@ function backgroundFormat (){
     saveoffset = 0;
   }
   
-  
-
   // GET THE DOCUMENT IN QUESTION
   var nodes = codeChildren();
   var sampleNode = nodes[0];
@@ -220,11 +234,7 @@ function backgroundFormat (){
     
     lastElement = nodes[i].toString();  
     
-    
     if (nodes[i].toString() != "[object Text]") continue;
-    
-    
-    
     
     // Split text objects on newlines seperated by a break
     while (nodes[i].nodeValue.indexOf("\n") != -1) {

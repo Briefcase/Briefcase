@@ -21,6 +21,8 @@ function save() {
       alert (xmlhttp.responseText);
     }
   }
+  window.location = "/spreadsheet/save";
+  alert("lol");
   xmlhttp.open("POST","/spreadsheet/save",true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send(output);

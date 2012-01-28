@@ -74,7 +74,10 @@ def userlogout(request):
     logout(request)
     return HttpResponseRedirect('login.html')
     
-    
+def save(request):
+    if request.method =='POST':
+        print("save")
+        
 def save_file(request):
     if request.method =='POST':
         form = SaveFileForm(request.POST, request.FILES)

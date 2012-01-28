@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^accounts/uploadfile','accounts.views.save_file'),
     url(r'^$', 'frontend.views.index'),
     url(r'^spreadsheet', 'frontend.views.spreadsheet'),
+    url(r'^spreadsheet/save', 'accounts.views.save'),
     
     #url(r'^accounts/confirm', 'accounts.views.confirm'),
     # Examples:

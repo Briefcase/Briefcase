@@ -76,13 +76,7 @@ function save() {
 		data: "howdy!",
 		dataType: "html",
 		success: function(data){
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        alert (xmlhttp.responseText);
-      }
-      else {
-        alert ("SOMETHING ELSE HAPPENED!");
-        alert ("ReadyState:" + xmlhttp.readyState);
-      }
+        alert (data);
 		},
 		error: function(html){alert("error")}
   });

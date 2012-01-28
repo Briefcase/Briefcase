@@ -32,7 +32,7 @@ function save() {
   */
   var serverURL = "/spreadsheet/save";
   $.ajax({
-    type: "GET",
+    type: "POST",
     url: serverURL,
 		  data: "howdy!",
 		  dataType: "html",

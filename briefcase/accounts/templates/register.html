@@ -1,0 +1,8 @@
+<form action = "/accounts/register/" method="post">{% csrf_token %}
+{{form.as_p}}
+<input type = "submit" value = "Submit" />
+</form>
+<p></p>
+<p>Already have an account?</p>
+
+<input type=button onClick="location.href='../'" value="Log In">

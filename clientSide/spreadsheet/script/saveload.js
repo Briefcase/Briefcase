@@ -76,8 +76,12 @@ function save() {
 		data: "howdy!",
 		dataType: "html",
 		success: function(data){
-      if (xmlhttp.redyState == 4 && xmlhttp.status == 200) {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         alert (xmlhttp.responseText);
+      }
+      else {
+        alert ("SOMETHING ELSE HAPPENED!");
+        alert ("ReadyState:" + xmlhttp.readyState);
       }
 		},
 		error: function(html){alert("error")}

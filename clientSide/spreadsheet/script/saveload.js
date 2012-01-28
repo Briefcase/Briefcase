@@ -30,7 +30,7 @@ function save() {
   //xmlhttp.send(output);
   
   */
-  var serverURL = "/spreadsheet/save";
+  /*var serverURL = "/spreadsheet/save";
   $.ajax({
     type: "POST",
     url: serverURL,
@@ -41,8 +41,16 @@ function save() {
           alert (xmlhttp.responseText);
         }
 		  },
-		  error: function(html){$("#running_plugins").html("<p>Error loading data</p>")}
-  });
+		  error: function(html){alert("error")}
+  });*/
+  $.post("/spreadsheet/save", {
+    name: "hello",
+    friut, "apple"
+    },
+    function(data) {
+      alert(data);
+    }
+  };
   
   
   // save to a local variable, probably not needed in the end

@@ -50,7 +50,7 @@ function save() {
     function(data) {
       alert(data);
     }
-  };
+  );
   
   
   // save to a local variable, probably not needed in the end

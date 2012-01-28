@@ -8,7 +8,12 @@ function save() {
     output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
   }
   output = output.slice(0, -1)+ "}";
+  
+  
+  
   // send ajax request
+  
+  /*
   var xmlhttp;
   if (window.XMLHttpRequest) {
     xmlhttp = new XMLHttpRequest();
@@ -17,14 +22,28 @@ function save() {
     alert("FAILED TO CREATE OBJECT");
   }
   xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.redyState == 4 && xmlhttp.status == 200) {
-      alert (xmlhttp.responseText);
-    }
+    
   }
   xmlhttp.open("GET","/spreadsheet/save",true);
   xmlhttp.send();
   //xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   //xmlhttp.send(output);
+  
+  */
+  
+  $.ajax({
+    type: "GET",
+    url: serverURL,
+		  data: "howdy!",
+		  dataType: "html",
+		  success: function(data){
+        if (xmlhttp.redyState == 4 && xmlhttp.status == 200) {
+          alert (xmlhttp.responseText);
+        }
+		  },
+		  error: function(html){$("#running_plugins").html("<p>Error loading data</p>")}
+  });
+  
   
   // save to a local variable, probably not needed in the end
   savedFile = output;

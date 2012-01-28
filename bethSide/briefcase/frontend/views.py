@@ -35,7 +35,7 @@ import os
         
 def index(request):
     if request.user.is_authenticated():
-        return render_to_response('accounts/', context_instance=RequestContext(request))
+        return render_to_response('spreadsheet.html', context_instance=RequestContext(request))
     
     form=AuthenticationForm()
     if request.method=='POST':

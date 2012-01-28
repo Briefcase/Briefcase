@@ -75,8 +75,11 @@ def userlogout(request):
     return HttpResponseRedirect('login.html')
     
 def save(request):
-    if request.method =='POST':
-        print("save")
+    if request.is_ajax():
+        message= "Hello AJAX"
+    else:
+        message="I miss my ajax"
+    return HttpResponse(message, context_instance = RequestContext(request))
         
 def save_file(request):
     if request.method =='POST':

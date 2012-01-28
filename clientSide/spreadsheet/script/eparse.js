@@ -191,7 +191,7 @@ function letterValue (character) {
 \******************************************************************************/
 function _splitcomma (block) {
   var data = block.split(',');
-  alert(data.length + " " + data + " " + block);
+  //alert(data.length + " " + data + " " + block);
   var parenCount = 0;
   for (var i = 0; i < data.length; i++) {
     for (var j = 0; j < data[i].length; j++) {
@@ -208,7 +208,7 @@ function _splitcomma (block) {
       i--;
     }
   }
-  alert(data.length);
+  //alert(data.length);
   return data;
 }
 /******************************* GET CELL VALUE *******************************\

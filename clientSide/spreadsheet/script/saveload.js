@@ -9,6 +9,7 @@ function save() {
   }
   output = output.slice(0, -1)+ "}";
   
+
   // DJANGO CSRF (cross site request forgery)
   $(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
@@ -45,14 +46,14 @@ function save() {
     if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
-  });
+});
   
-  // ajax post request
+  
   var serverURL = "/spreadsheet/save";
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: output,
+		data: howdy,
 		dataType: "html",
 		success: function(data){
         alert (data);

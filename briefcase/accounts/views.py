@@ -11,7 +11,7 @@ from django.core.files import File
 from briefcase.accounts.forms import RegistrationForm, SaveFileForm
 from briefcase.accounts.models import UserProfile
 
-import os
+import os,cStringIO
 
 
 def index(request):
@@ -76,14 +76,19 @@ def userlogout(request):
     
 def save(request):
     if request.is_ajax():
-        message= request.POST
-        filename="test.txt"
-        destination = open('accounts/userfiles/' + request.user.username + '/' + filename, 'wb+')
-        destination.write(message)
+        data=request.read()
+        destination = open('accounts/userfiles/' + request.user.username + '/test.txt', 'wb+')
+        destination.write(data)
         destination.close()
-    else:
-        message="I miss my ajax"
-    return HttpResponse(message)
+        return HttpResponse("saved")
+    else return HttpResponse("failed")
+    
+def load(request):
+    if request.is_ajax():
+        file=open('accounts/userfiles/' + request.user.username + '/test.txt')
+        return HttpResponse(file.read())
+    else return HttpResponse("failed")
+        
         
 def save_file(request):
     if request.method =='POST':

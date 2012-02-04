@@ -9,28 +9,7 @@ function save() {
   }
   output = output.slice(0, -1)+ "}";
   
-  
-  
-  // send ajax request
-  
-  /*
-  var xmlhttp;
-  if (window.XMLHttpRequest) {
-    xmlhttp = new XMLHttpRequest();
-  }
-  else {
-    alert("FAILED TO CREATE OBJECT");
-  }
-  xmlhttp.onreadystatechange = function() {
-    
-  }
-  xmlhttp.open("GET","/spreadsheet/save",true);
-  xmlhttp.send();
-  //xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  //xmlhttp.send(output);
-  
-  */
-  
+  // DJANGO CSRF (cross site request forgery)
   $(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
         var cookieValue = null;
@@ -66,14 +45,14 @@ function save() {
     if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
-});
+  });
   
-  
+  // ajax post request
   var serverURL = "/spreadsheet/save";
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: "howdy!",
+		data: output,
 		dataType: "html",
 		success: function(data){
         alert (data);

@@ -53,12 +53,12 @@ function save() {
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: "howdy!",
+		data: output,
 		dataType: "html",
 		success: function(data){
         alert (data);
 		},
-		error: function(html){alert("error")}
+		error: function(html){alert("error: "+html)}
   });
   
   

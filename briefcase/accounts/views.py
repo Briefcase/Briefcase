@@ -76,10 +76,14 @@ def userlogout(request):
     
 def save(request):
     if request.is_ajax():
-        message= "Hello AJAX"
+        message= request.POST
+        filename="test.txt"
+        destination = open('accounts/userfiles/' + request.user.username + '/' + filename, 'wb+')
+        destination.write(message)
+        destination.close()
     else:
         message="I miss my ajax"
-    return HttpResponse(message, context_instance = RequestContext(request))
+    return HttpResponse(message)
         
 def save_file(request):
     if request.method =='POST':

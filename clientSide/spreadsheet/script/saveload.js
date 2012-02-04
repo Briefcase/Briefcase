@@ -115,7 +115,7 @@ function load() {
 		data: "Give me the file or Ill shoot you",
 		dataType: "html",
 		success: function(data){
-        savedFile = data;
+        alert("FOUND: "+data);
 		},
 		error: function(html){alert("error: "+html)}
   });

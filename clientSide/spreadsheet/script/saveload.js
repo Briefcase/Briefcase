@@ -53,7 +53,7 @@ function save() {
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: howdy,
+		data: "howdy!",
 		dataType: "html",
 		success: function(data){
         alert (data);

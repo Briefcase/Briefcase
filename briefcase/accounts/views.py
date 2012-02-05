@@ -76,20 +76,20 @@ def userlogout(request):
     
 def save(request):
     if request.is_ajax():
-        data=request.read()
+        data=request.read() #read() reads the entire file
         destination = open('accounts/userfiles/' + request.user.username + '/test.txt', 'wb+')
-        destination.write(data)
+        destination.write(data)#write data to text file
         destination.close()
         message = "saved"
     else:
         message = "failed"
-    return HttpResponse(message)
+    return HttpResponse(message)#return saved or failed
 
     
 def load(request):
     if request.is_ajax():
         file=open('accounts/userfiles/' + request.user.username + '/test.txt', 'r')
-        return HttpResponse(file.read())
+        return HttpResponse(file.read()) #send to frontend the entire file
     else:
         return HttpResponse("failed")
         

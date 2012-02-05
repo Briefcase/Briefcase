@@ -80,15 +80,18 @@ def save(request):
         destination = open('accounts/userfiles/' + request.user.username + '/test.txt', 'wb+')
         destination.write(data)
         destination.close()
-        return HttpResponse("saved")
-    else return HttpResponse("failed")
+        message = "saved"
+    else:
+        message = "failed"
+    return HttpResponse(message)
+
     
 def load(request):
     if request.is_ajax():
-        file=open('accounts/userfiles/' + request.user.username + '/test.txt')
+        file=open('accounts/userfiles/' + request.user.username + '/test.txt', 'r')
         return HttpResponse(file.read())
-    else return HttpResponse("failed")
-        
+    else:
+        return HttpResponse("failed")
         
 def save_file(request):
     if request.method =='POST':

@@ -69,7 +69,7 @@ function save() {
 |
 \******************************************************************************/
 function load() {
-  var serverURL = "/spreadsheet/save";
+  var serverURL = "/spreadsheet/load";
   $.ajax({
     type: "POST",
     url: serverURL,

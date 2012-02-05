@@ -69,16 +69,27 @@ function save() {
 |
 \******************************************************************************/
 function load() {
-  var test = JSON.parse(savedFile);
-  delete data;
-  
-  for (i in data) {
-    delete data[i];
-  }
-  
-  for (i in test) {
-    //alert(i+"("+test[i]+")");
-    data[i] = test[i];
-  }
-  redrawFrame();
+  var serverURL = "/spreadsheet/save";
+  $.ajax({
+    type: "POST",
+    url: serverURL,
+		data: output,
+		dataType: "html",
+		success: function(data){
+		  savedFile = data;
+      var test = JSON.parse(savedFile);
+      delete data;
+      
+      for (i in data) {
+        delete data[i];
+      }
+      
+      for (i in test) {
+        //alert(i+"("+test[i]+")");
+        data[i] = test[i];
+      }
+      redrawFrame();
+		},
+		error: function(html){alert("error: "+html)}
+  });
 }

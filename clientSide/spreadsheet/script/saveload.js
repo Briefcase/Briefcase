@@ -77,6 +77,7 @@ function load() {
 		dataType: "html",
 		success: function(data){
 		  savedFile = data;
+		  alert(savedFile);
       var test = JSON.parse(savedFile);
       delete data;
       

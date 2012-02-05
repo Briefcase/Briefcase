@@ -1,14 +1,5 @@
 var savedFile;
-/************************************ SAVE ************************************\
-|
-\******************************************************************************/
-function save() {
-  var output = "{";
-  for (var i in data) {
-    output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
-  }
-  output = output.slice(0, -1)+ "}";
-  
+
 
   // DJANGO CSRF (cross site request forgery)
   $(document).ajaxSend(function(event, xhr, settings) {
@@ -47,7 +38,16 @@ function save() {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
   });
-  
+
+/************************************ SAVE ************************************\
+|
+\******************************************************************************/
+function save() {
+  var output = "{";
+  for (var i in data) {
+    output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
+  }
+  output = output.slice(0, -1)+ "}";  
   
   var serverURL = "/spreadsheet/save";
   $.ajax({
@@ -75,7 +75,7 @@ function load() {
     url: serverURL,
 		data: "gIVE THE FIEL OR LII KLIL YUO",
 		dataType: "html",
-		success: function(data){
+		success: function(data) {
 		  savedFile = data;
 		  alert(savedFile);
       var test = JSON.parse(savedFile);

@@ -63,26 +63,12 @@ function save() {
   
   
   // save to a local variable, probably not needed in the end
-  // savedFile = output;
+  savedFile = output;
 }
 /************************************ LOAD ************************************\
 |
 \******************************************************************************/
 function load() {
-
-  
-  
-  var serverURL = "/spreadsheet/load";
-  $.ajax({
-    type: "POST",
-    url: serverURL,
-		data: "Give me the file or Ill shoot you",
-		dataType: "html",
-		success: function(data){
-        alert("FOUND: "+data);  
-		},
-		error: function(html){alert("error load: "+html)}
-  });
   var test = JSON.parse(savedFile);
   delete data;
   

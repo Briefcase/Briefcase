@@ -73,7 +73,7 @@ function load() {
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: output,
+		data: "gIVE THE FIEL OR LII KLIL YUO",
 		dataType: "html",
 		success: function(data){
 		  savedFile = data;

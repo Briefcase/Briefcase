@@ -75,8 +75,8 @@ function load() {
     url: serverURL,
 		data: "gIVE THE FIEL OR LII KLIL YUO",
 		dataType: "html",
-		success: function(data) {
-		  savedFile = data;
+		success: function(savedData) {
+		  savedFile = savedData;
 		  alert(savedFile);
       var test = JSON.parse(savedFile);
       delete data;

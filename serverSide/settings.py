@@ -114,8 +114,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'briefcase.urls'
 
 TEMPLATE_DIRS = (
-    "/home/shared/briefcase/briefcase/templates",
-    "/home/shared/briefcase/briefcase/accounts/templates",
+    "/home/shared/briefcase/serverSide/templates",
+    "/home/shared/briefcase/serverSide/accounts/templates",
     "/home/shared/briefcase/clientSide"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.

@@ -8,14 +8,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
 
-from briefcase.accounts.forms import RegistrationForm, SaveFileForm
-from briefcase.accounts.models import UserProfile
+from serverSide.accounts.forms import RegistrationForm, SaveFileForm
+from serverSide.accounts.models import UserProfile
 
-import os,cStringIO
+import os
 
 
 def index(request):
-    return HttpResponse("Hi there. Would you like a cookie? - Account stuff here")
+    return render_to_response("user_profile.html", context_instance=RequestContext(request))
 
 def register(request):
     form = RegistrationForm()
@@ -72,7 +72,7 @@ def userlogin(request):
 
 def userlogout(request):
     logout(request)
-    return HttpResponseRedirect('login.html')
+    return HttpResponseRedirect('../')
     
 def save(request):
     if request.is_ajax():

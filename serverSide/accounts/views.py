@@ -8,14 +8,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
 
-from briefcase.accounts.forms import RegistrationForm, SaveFileForm
-from briefcase.accounts.models import UserProfile
+from serverSide.accounts.forms import RegistrationForm, SaveFileForm
+from serverSide.accounts.models import UserProfile
 
-import os,cStringIO
+import os
 
 
 def index(request):
-    return HttpResponse("Hi there. Would you like a cookie? - Account stuff here")
+    return render_to_response("user_profile.html", context_instance=RequestContext(request))
 
 def register(request):
     form = RegistrationForm()
@@ -72,23 +72,26 @@ def userlogin(request):
 
 def userlogout(request):
     logout(request)
-    return HttpResponseRedirect('login.html')
+    return HttpResponseRedirect('../')
     
 def save(request):
     if request.is_ajax():
-        data=request.read()
+        data=request.read() #read() reads the entire file
         destination = open('accounts/userfiles/' + request.user.username + '/test.txt', 'wb+')
-        destination.write(data)
+        destination.write(data)#write data to text file
         destination.close()
-        return HttpResponse("saved")
-    else return HttpResponse("failed")
+        message = "saved"
+    else:
+        message = "failed"
+    return HttpResponse(message)#return saved or failed
+
     
 def load(request):
     if request.is_ajax():
-        file=open('accounts/userfiles/' + request.user.username + '/test.txt')
-        return HttpResponse(file.read())
-    else return HttpResponse("failed")
-        
+        file=open('accounts/userfiles/' + request.user.username + '/test.txt', 'r')
+        return HttpResponse(file.read()) #send to frontend the entire file
+    else:
+        return HttpResponse("failed")
         
 def save_file(request):
     if request.method =='POST':

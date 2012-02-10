@@ -1,3 +1,6 @@
+##frontend.views
+########
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.mail import send_mail
@@ -8,8 +11,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
 
-from briefcase.accounts.forms import RegistrationForm, SaveFileForm
-from briefcase.accounts.models import UserProfile
+from serverSide.accounts.forms import RegistrationForm, SaveFileForm
+from serverSide.accounts.models import UserProfile
 
 import os
 
@@ -35,7 +38,7 @@ import os
         
 def index(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/spreadsheet')
+        return HttpResponseRedirect('/accounts')
     
     form=AuthenticationForm()
     if request.method=='POST':
@@ -46,7 +49,8 @@ def index(request):
         if user is not None:
             if user.is_active:
                 login(request,user)
-                return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))
+                #return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))
+                return HttpResponseRedirect('/accounts')
             else:
                 logout(request)
                 return render_to_response('welcome.html', {'form':form}, context_instance=RequestContext(request))
@@ -58,7 +62,7 @@ def index(request):
     
 def spreadsheet(request):
     if not request.user.is_authenticated():
-        return HttpResponse("nop")
+        return render_to_response('login.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
     
     if request.method=='POST':
         if 'save' in request.POST:

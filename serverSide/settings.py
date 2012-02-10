@@ -72,7 +72,6 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    #"/home/shared/briefcase/briefcase/frontend/static",
     "/home/shared/briefcase/clientSide",
 )
 
@@ -111,11 +110,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'briefcase.urls'
+ROOT_URLCONF = 'serverSide.urls'
 
 TEMPLATE_DIRS = (
-    "/home/shared/briefcase/briefcase/templates",
-    "/home/shared/briefcase/briefcase/accounts/templates",
+    "/home/shared/briefcase/serverSide/templates",
+    "/home/shared/briefcase/serverSide/accounts/templates",
     "/home/shared/briefcase/clientSide"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
@@ -133,8 +132,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'briefcase.accounts',
-    'briefcase.frontend',
+    'serverSide.accounts',
+    'serverSide.frontend',
     
 )
 

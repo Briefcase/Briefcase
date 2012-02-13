@@ -56,7 +56,7 @@ function save() {
 		data: output,
 		dataType: "html",
 		success: function(data){
-        alert (data);
+        //alert (data);
 		},
 		error: function(html){alert("error: "+html)}
   });
@@ -77,7 +77,7 @@ function load() {
 		dataType: "html",
 		success: function(savedData) {
 		  savedFile = savedData;
-		  alert(savedFile);
+		  //alert(savedFile);
       var test = JSON.parse(savedFile);
       delete data;
       

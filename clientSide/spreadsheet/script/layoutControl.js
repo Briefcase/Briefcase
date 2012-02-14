@@ -266,6 +266,8 @@ function blockordrag() {
 }
 /******************************** FINSIH INPUT ********************************\
 | detects changes and act accordingly: more documentation required             |
+
+| This function is run when input to the program has finished
 \******************************************************************************/
 function finishInput() {
   var equation = document.getElementById("inputbox").value;
@@ -297,12 +299,20 @@ function appScroll() {
   moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
   document.getElementById("application").style.left = document.getElementById("framecontain").scrollLeft + 'px';
 }
+/*********************************** RESIZE ***********************************\
+| The resize function handles everything that needs to be done when the window |
+| is resized
+\******************************************************************************/
+function resize() {
+  redrawFrame();
+}
 /********************************* ONLOAD SET *********************************\
 |
 \******************************************************************************/
 window.onload = function () {    
-  redrawFrame(); // draw the frame
-  window.onresize = redrawFrame; // redraw the frame on resize
+  redrawFrame(); // draw the frame to begin with
+  
+  window.onresize = resize; // redraw the frame on resize
   document.onmousedown = blockordrag; // be able to handle click and drag
   document.onmouseup = clickHandler; // detect if it is a click or a drag
   document.onmousemove = mouseDetect; // easy way to maintain mouse position

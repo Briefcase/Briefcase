@@ -73,9 +73,8 @@ function getDOMMenu(menuObject,remainingTree) {
     
     var link = document.createElement('div');
     link.setAttribute('class','menuButton');
-    link.setAttribute('href','#');
     link.setAttribute('onlcick', 'alert("button")');
-    link.innerHTML = "HOLA!";
+    link.innerHTML = remainingTree[i][0];
     link.draggable = false;
     menuObject.appendChild(link);
   }

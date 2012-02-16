@@ -45,6 +45,10 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 
+
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// INITILIZATION ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 // the data contained within the cell
 var data = new Array();
 // predefined sizes for cells (soon to be arrays or something similar)
@@ -73,15 +77,26 @@ function functionOnBlur() { functionfocus = false; }
 function textboxOnFocus() { textfocus = true; }
 function textboxOnBlur() { textfoucs = false; }
 
-
-/******************************** MOVE TEXT BOX *******************************\
-| This function will take in a cell number in the x position and a cell number |
-| in the y postion and will move and resise the text box accordingly           |
+/********************************* ONLOAD SET *********************************\
+| This function is run once the page is loaded it contatins all of the         |
+| functions that need to be set to interrupts and
 \******************************************************************************/
-function moveTextBox (xpos, ypos) {
-  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop - document.getElementById("framecontain").scrollTop + 'px';
-  document.getElementById("datain").style.left = (xpos - 2.5) - document.getElementById("framecontain").scrollLeft + 'px';
+window.onload = function () {    
+  resize(); // call the resize function to draw the initial frame
+  
+  window.onresize = resize; // redraw the frame on resize
+  document.onmousedown = blockordrag; // be able to handle click and drag
+  document.onmouseup = clickHandler; // detect if it is a click or a drag
+  document.onmousemove = mouseDetect; // easy way to maintain mouse position
+  document.onkeypress = keypress; // keyboard shortcuts
+  document.getElementById("framecontain").onscroll = appScroll;
+  moveTextBox(-100,-100);
 }
+
+
+  //////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////// USER INPUT /////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////  
 /********************************* ON KEYPRESS ********************************\
 | This function is the keypress handler, it handles every keypress made, then  |
 | splits them up and reacts differently depending on which key was pressed     |
@@ -128,6 +143,60 @@ function keypress(e) {
   setTimeout("delaySync()",0);
   
 }
+/******************************** CLICK HANDLER *******************************\
+| The click handler function is run whenever the mouse is clicked (onclick)    |
+| It handles moving the text box and writing the value of the previoss cell to |
+| the hash table and to the canvas element                                     |
+\******************************************************************************/
+function clickHandler(e) {
+  // if a person is dragging their mouse over multiple frames dont select the
+  // last one thir mouse is over
+  if (currentx != downx || currenty != downy) {
+    return;
+  } 
+  // if a mouse is above or to the left of the spreadsheet, dont create a box
+  if (currentx < 0 || currenty < 0) {
+    return;
+  } 
+  // Dont redo this function if clicking on the same square
+  if (currentx == lastx && currenty == lasty) {
+    return;
+  }
+  //
+  if (data[lastx+','+lasty] != undefined || document.getElementById("inputbox").value != "") {
+    data[lastx+','+lasty] = document.getElementById("inputbox").value;
+  }  
+  
+  finishInput();
+  
+  //Move Input Box
+  moveTextBox((currentx*cellWidth),(currenty*cellHeight)-2.5);
+  if (data[currentx+','+currenty] == undefined) {
+    document.getElementById("inputbox").value = "";
+  }
+  else {
+    document.getElementById("inputbox").value = data[currentx+','+currenty];
+  }
+  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
+  document.getElementById("inputbox").focus();
+  lastx=currentx;
+  lasty=currenty;
+  rowBegin = currentx;
+}
+  //////////////////////////////////////////////////////////////////////////////
+ ////////////////// HELPER FUNCTIONS (make this title better) /////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+
+/******************************** MOVE TEXT BOX *******************************\
+| This function will take in a cell number in the x position and a cell number |
+| in the y postion and will move and resise the text box accordingly           |
+\******************************************************************************/
+function moveTextBox (xpos, ypos) {
+  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop - document.getElementById("framecontain").scrollTop + 'px';
+  document.getElementById("datain").style.left = (xpos - 2.5) - document.getElementById("framecontain").scrollLeft + 'px';
+}
+
 /********************************* DELAY SYNC *********************************\
 | This funtion syncs the text box and the function box so that they display    |
 | the same thing, it is called after every keypress using setTimeout() with a  |
@@ -183,49 +252,13 @@ function mouseDetect(e) {
   currentx = x;
   currenty = y;
 } 
-/******************************** CLICK HANDLER *******************************\
-| The click handler function is run whenever the mouse is clicked (onclick)    |
-| It handles moving the text box and writing the value of the previoss cell to |
-| the hash table and to the canvas element                                     |
-\******************************************************************************/
-function clickHandler(e) {
-  // if a person is dragging their mouse over multiple frames dont select the
-  // last one thir mouse is over
-  if (currentx != downx || currenty != downy) {
-    return;
-  } 
-  // if a mouse is above or to the left of the spreadsheet, dont create a box
-  if (currentx < 0 || currenty < 0) {
-    return;
-  } 
-  // Dont redo this function if clicking on the same square
-  if (currentx == lastx && currenty == lasty) {
-    return;
-  }
-  //
-  if (data[lastx+','+lasty] != undefined || document.getElementById("inputbox").value != "") {
-    data[lastx+','+lasty] = document.getElementById("inputbox").value;
-  }  
-  
-  finishInput();
-  
-  //Move Input Box
-  moveTextBox((currentx*cellWidth),(currenty*cellHeight)-2.5);
-  if (data[currentx+','+currenty] == undefined) {
-    document.getElementById("inputbox").value = "";
-  }
-  else {
-    document.getElementById("inputbox").value = data[currentx+','+currenty];
-  }
-  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
-  document.getElementById("inputbox").focus();
-  lastx=currentx;
-  lasty=currenty;
-  rowBegin = currentx;
-}
+
 
 /******************************** BLOCK OR DRAG *******************************\
-|
+| Detect if the mouse is beign clicked or dragged. (currently this function    |
+| just prevents dragging and will need to be changed                           |
+|                                                                              |
+| TODO this function will need to be changed                                   |
 \******************************************************************************/
 function blockordrag() {
   downx = currentx;
@@ -287,18 +320,4 @@ function resizeFunctionBar() {
   //set size
   var functionBarNewWidth = windowWidth - functionBarLeftOffset;
   functionBar.style.width = functionBarNewWidth+"px";
-}
-/********************************* ONLOAD SET *********************************\
-|
-\******************************************************************************/
-window.onload = function () {    
-  resize(); // call the resize function to draw the initial frame
-  
-  window.onresize = resize; // redraw the frame on resize
-  document.onmousedown = blockordrag; // be able to handle click and drag
-  document.onmouseup = clickHandler; // detect if it is a click or a drag
-  document.onmousemove = mouseDetect; // easy way to maintain mouse position
-  document.onkeypress = keypress; // keyboard shortcuts
-  document.getElementById("framecontain").onscroll = appScroll;
-  moveTextBox(-100,-100);
 }

@@ -296,7 +296,7 @@ function finishInput() {
 |
 \******************************************************************************/  
 function appScroll() {
-  moveTextBox((lastx*cellWidth)be,(lasty*cellHeight)-2.5);
+  moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
   document.getElementById("application").style.left = document.getElementById("framecontain").scrollLeft + 'px';
 }
 /*********************************** RESIZE ***********************************\

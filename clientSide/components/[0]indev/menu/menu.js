@@ -68,17 +68,18 @@ window.onload = function () {
 
 function getDOMMenu(menuObject,remainingTree) {
 
-
-
-  var link = document.createElement('div');
-  link.setAttribute('class','menuButton');
-  
-  link.setAttribute('href','#');
-  link.setAttribute('onlcick', 'alert("button")');
-  link.innerHTML = "HOLA!";
-  link.draggable = false;
-  menuObject.appendChild(link);
-  
+  // find all the menu components at that level
+  for (var i = 0; i < remainingTree.length; i++) {
+    
+    var link = document.createElement('div');
+    link.setAttribute('class','menuButton');
+    link.setAttribute('href','#');
+    link.setAttribute('onlcick', 'alert("button")');
+    link.innerHTML = "HOLA!";
+    link.draggable = false;
+    menuObject.appendChild(link);
+  }
+    
   return link;
 }
 

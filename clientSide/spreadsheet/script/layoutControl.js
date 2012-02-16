@@ -273,12 +273,26 @@ function appScroll() {
 \******************************************************************************/
 function resize() {
   redrawFrame();
+  resizeFunctionBar();
+}
+
+
+function resizeFunctionBar() {
+  // get the initial variables for the calculation
+  var functionBar = document.getElementById('functionbox');
+  var functionBarLeftOffset = 130;
+  var windowWidth = window.innerWidth;
+  
+  
+  //set size
+  var functionBarNewWidth = windowWidth - functionBarLeftOffset;
+  functionBar.style.width = functionBarNewWidth+"px";
 }
 /********************************* ONLOAD SET *********************************\
 |
 \******************************************************************************/
 window.onload = function () {    
-  redrawFrame(); // draw the frame to begin with
+  resize(); // call the resize function to draw the initial frame
   
   window.onresize = resize; // redraw the frame on resize
   document.onmousedown = blockordrag; // be able to handle click and drag

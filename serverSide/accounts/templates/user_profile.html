@@ -1,5 +1,18 @@
-Hi {{user.username}}</br >
-
-<input type=button onClick="location.href='/spreadsheet'" value="Spreadsheet"></br >
-
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: #DDD;
+      }
+      div.title {
+        font-family:arial;
+      }
+    </style>
+  </head>
+<div class = "title">
+<h1>Hi {{user.username}}</h1></br >
+</div>
+<input type=button onClick="location.href='/spreadsheet'" value="Spreadsheet"></br ></br>
 <input type=button onClick="location.href='/accounts/logout'" value="Logout">
+
+</html>

@@ -19,7 +19,36 @@
 |                     `"bmmmdPY .JMML..JMML.YMbmd'.JMML. YA.                   |
 |                                                                              |
 \******************************************************************************/
+/******************************************************************************\
+| Copyright (c) 2012, Asher Glick                                              |
+| All rights reserved.                                                         |
+|                                                                              |
+| Redistribution and use in source and binary forms, with or without           |
+| modification, are permitted provided that the following conditions are met:  |
+|                                                                              |
+| * Redistributions of source code must retain the above copyright notice,     |
+|   this list of conditions and the following disclaimer.                      |
+| * Redistributions in binary form must reproduce the above copyright notice,  |
+|   this list of conditions and the following disclaimer in the documentation  |
+|   and/or other materials provided with the distribution.                     |
+|                                                                              |
+| THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  |
+| AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    |
+| IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   |
+| ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE    |
+| LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR          |
+| CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         |
+| SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS     |
+| INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      |
+| CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)      |
+| ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   |
+| POSSIBILITY OF SUCH DAMAGE.                                                  |
+\******************************************************************************/
 
+
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// INITILIZATION ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 // the data contained within the cell
 var data = new Array();
 // predefined sizes for cells (soon to be arrays or something similar)
@@ -48,15 +77,26 @@ function functionOnBlur() { functionfocus = false; }
 function textboxOnFocus() { textfocus = true; }
 function textboxOnBlur() { textfoucs = false; }
 
-
-/******************************** MOVE TEXT BOX *******************************\
-| This function will take in a cell number in the x position and a cell number |
-| in the y postion and will move and resise the text box accordingly           |
+/********************************* ONLOAD SET *********************************\
+| This function is run once the page is loaded it contatins all of the         |
+| functions that need to be set to interrupts and
 \******************************************************************************/
-function moveTextBox (xpos, ypos) {
-  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop - document.getElementById("framecontain").scrollTop + 'px';
-  document.getElementById("datain").style.left = (xpos - 2.5) - document.getElementById("framecontain").scrollLeft + 'px';
+window.onload = function () {    
+  resize(); // call the resize function to draw the initial frame
+  
+  window.onresize = resize; // redraw the frame on resize
+  document.onmousedown = blockordrag; // be able to handle click and drag
+  document.onmouseup = clickHandler; // detect if it is a click or a drag
+  document.onmousemove = mouseDetect; // easy way to maintain mouse position
+  document.onkeypress = keypress; // keyboard shortcuts
+  document.getElementById("framecontain").onscroll = appScroll;
+  moveTextBox(-100,-100);
 }
+
+
+  //////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////// USER INPUT /////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////  
 /********************************* ON KEYPRESS ********************************\
 | This function is the keypress handler, it handles every keypress made, then  |
 | splits them up and reacts differently depending on which key was pressed     |
@@ -103,7 +143,60 @@ function keypress(e) {
   setTimeout("delaySync()",0);
   
 }
-// Gaa, this feels so hackish makeing it delay for 0 before syncing, but it works
+/******************************** CLICK HANDLER *******************************\
+| The click handler function is run whenever the mouse is clicked (onclick)    |
+| It handles moving the text box and writing the value of the previoss cell to |
+| the hash table and to the canvas element                                     |
+\******************************************************************************/
+function clickHandler(e) {
+  // if a person is dragging their mouse over multiple frames dont select the
+  // last one thir mouse is over
+  if (currentx != downx || currenty != downy) {
+    return;
+  } 
+  // if a mouse is above or to the left of the spreadsheet, dont create a box
+  if (currentx < 0 || currenty < 0) {
+    return;
+  } 
+  // Dont redo this function if clicking on the same square
+  if (currentx == lastx && currenty == lasty) {
+    return;
+  }
+  //
+  if (data[lastx+','+lasty] != undefined || document.getElementById("inputbox").value != "") {
+    data[lastx+','+lasty] = document.getElementById("inputbox").value;
+  }  
+  
+  finishInput();
+  
+  //Move Input Box
+  moveTextBox((currentx*cellWidth),(currenty*cellHeight)-2.5);
+  if (data[currentx+','+currenty] == undefined) {
+    document.getElementById("inputbox").value = "";
+  }
+  else {
+    document.getElementById("inputbox").value = data[currentx+','+currenty];
+  }
+  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
+  document.getElementById("inputbox").focus();
+  lastx=currentx;
+  lasty=currenty;
+  rowBegin = currentx;
+}
+  //////////////////////////////////////////////////////////////////////////////
+ ////////////////// HELPER FUNCTIONS (make this title better) /////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+
+/******************************** MOVE TEXT BOX *******************************\
+| This function will take in a cell number in the x position and a cell number |
+| in the y postion and will move and resise the text box accordingly           |
+\******************************************************************************/
+function moveTextBox (xpos, ypos) {
+  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop - document.getElementById("framecontain").scrollTop + 'px';
+  document.getElementById("datain").style.left = (xpos - 2.5) - document.getElementById("framecontain").scrollLeft + 'px';
+}
+
 /********************************* DELAY SYNC *********************************\
 | This funtion syncs the text box and the function box so that they display    |
 | the same thing, it is called after every keypress using setTimeout() with a  |
@@ -159,105 +252,13 @@ function mouseDetect(e) {
   currentx = x;
   currenty = y;
 } 
-/******************************** CLICK HANDLER *******************************\
-| The click handler function is run whenever the mouse is clicked (onclick)    |
-| It handles moving the text box and writing the value of the previoss cell to |
-| the hash table and to the canvas element                                     |
-\******************************************************************************/
-function clickHandler(e) {
-  // if a person is dragging their mouse over multiple frames dont select the
-  // last one thir mouse is over
-  if (currentx != downx || currenty != downy) {
-    return;
-  } 
-  // if a mouse is above or to the left of the spreadsheet, dont create a box
-  if (currentx < 0 || currenty < 0) {
-    return;
-  } 
-  // Dont redo this function if clicking on the same square
-  if (currentx == lastx && currenty == lasty) {
-    return;
-  }
-  //
-  if (data[lastx+','+lasty] != undefined || document.getElementById("inputbox").value != "") {
-    data[lastx+','+lasty] = document.getElementById("inputbox").value;
-  }  
-  
-  finishInput();
-  
-  //Move Input Box
-  moveTextBox((currentx*cellWidth),(currenty*cellHeight)-2.5);
-  if (data[currentx+','+currenty] == undefined) {
-    document.getElementById("inputbox").value = "";
-  }
-  else {
-    document.getElementById("inputbox").value = data[currentx+','+currenty];
-  }
-  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
-  document.getElementById("inputbox").focus();
-  lastx=currentx;
-  lasty=currenty;
-  rowBegin = currentx;
-}
-/******************************** REDRAW FRAME ********************************\
-| This function redraws the entire frame, it is a very usefull function and    |
-| will soon be the only function that does any drawing at all, this way we     |
-| we wont get any errors with visualizations                                   |
-\******************************************************************************/
-function redrawFrame() {
-  var c_canvas = document.getElementById("application");
-
-  document.getElementById("framecontain").style.height = window.innerHeight - 30 + "px";
-  document.getElementById("framecontain").style.width = window.innerWidth + "px";
-  
-  c_canvas.height = window.innerHeight;
-  c_canvas.width = window.innerWidth;
 
 
-  var context = c_canvas.getContext("2d");
-
-
-  // draw the grid lines
-  for (var x = 0.5; x < c_canvas.width; x += cellWidth) {
-    context.moveTo(x,0);
-    context.lineTo(x,c_canvas.height);
-  }
-  for (var y = 0.5; y < c_canvas.height; y += cellHeight) {
-    context.moveTo(0,y);
-    context.lineTo(c_canvas.width,y);
-  }
-
-  // Write the changes to the screen
-  context.strokeStyle = "#ddd";
-  context.stroke();
-  
-  // draw all the text
-  for (var i in data) {
-	  coordPair = i.split(',');
-	  x_pos=parseInt(coordPair[0]);
-	  y_pos=parseInt(coordPair[1]);
-	  
-	  context.font = "12px sans-serif";
-	  
-	  if (data[i][0]=='=') {
-      context.fillText(eparse(data[i].substring(1,data[i].length)),(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
-    }
-    else {
-      context.fillText(data[i],(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
-    }
-  }
-  
-  // draw the row lables
-  for (var i = 1; i < c_canvas.height/cellHeight; i++) {
-    context.fillText(i, 3, (i*cellHeight+14));
-  }
-  // draw the column lables
-  for (var i = 1; i < c_canvas.width/cellWidth; i++) {
-    context.fillText(i,(i*cellWidth+3),14);
-  }
-}
 /******************************** BLOCK OR DRAG *******************************\
-|
+| Detect if the mouse is beign clicked or dragged. (currently this function    |
+| just prevents dragging and will need to be changed                           |
+|                                                                              |
+| TODO this function will need to be changed                                   |
 \******************************************************************************/
 function blockordrag() {
   downx = currentx;
@@ -266,6 +267,8 @@ function blockordrag() {
 }
 /******************************** FINSIH INPUT ********************************\
 | detects changes and act accordingly: more documentation required             |
+
+| This function is run when input to the program has finished
 \******************************************************************************/
 function finishInput() {
   var equation = document.getElementById("inputbox").value;
@@ -297,16 +300,24 @@ function appScroll() {
   moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
   document.getElementById("application").style.left = document.getElementById("framecontain").scrollLeft + 'px';
 }
-/********************************* ONLOAD SET *********************************\
-|
+/*********************************** RESIZE ***********************************\
+| The resize function handles everything that needs to be done when the window |
+| is resized
 \******************************************************************************/
-window.onload = function () {    
-  redrawFrame(); // draw the frame
-  window.onresize = redrawFrame; // redraw the frame on resize
-  document.onmousedown = blockordrag; // be able to handle click and drag
-  document.onmouseup = clickHandler; // detect if it is a click or a drag
-  document.onmousemove = mouseDetect; // easy way to maintain mouse position
-  document.onkeypress = keypress; // keyboard shortcuts
-  document.getElementById("framecontain").onscroll = appScroll;
-  moveTextBox(-100,-100);
+function resize() {
+  redrawFrame();
+  resizeFunctionBar();
+}
+
+
+function resizeFunctionBar() {
+  // get the initial variables for the calculation
+  var functionBar = document.getElementById('functionbox');
+  var functionBarLeftOffset = 130;
+  var windowWidth = window.innerWidth;
+  
+  
+  //set size
+  var functionBarNewWidth = windowWidth - functionBarLeftOffset;
+  functionBar.style.width = functionBarNewWidth+"px";
 }

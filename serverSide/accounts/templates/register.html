@@ -1,3 +1,18 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: #DDD;
+      }
+      div.title {
+        padding: 30px;
+        text-align: center;
+        font-family:arial;
+      }
+    </style>
+  </head>
+  
+<div class="title">
 <form action = "" method="post">{% csrf_token %}
 {{form.as_p}}
 <input type = "submit" value = "Submit" />
@@ -6,3 +21,5 @@
 <p>Already have an account?</p>
 
 <input type=button onClick="location.href='../'" value="Log In">
+</div>
+</html>

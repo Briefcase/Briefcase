@@ -1,3 +1,7 @@
+##
+#accounts.views
+##
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.mail import send_mail
@@ -9,7 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
 
 from serverSide.accounts.forms import RegistrationForm, SaveFileForm
-from serverSide.accounts.models import UserProfile
+from serverSide.accounts.models import UserProfile, Spreadsheet
 
 import os
 
@@ -34,16 +38,10 @@ def register(request):
             profile = UserProfile(name = username,user =user, randomfield='hi')
             profile.save()
             
-            #create file storage folder
-            filename = 'accounts/userfiles/' + username + '/imaginaryfile.txt'
-            dir = os.path.dirname(filename)
-            if not os.path.exists(dir):
-                os.makedirs(dir)
             
             #send email - need to set up the email stuff still
             # send_mail('Registration Successful', 'You\'re registration with briefcasedocs.com was successful.', 'from@example.com',[email],fail_silently=False)
             
-            #form = RegistrationForm()
             return HttpResponse("Registration successful")
                 
         else:
@@ -76,10 +74,19 @@ def userlogout(request):
     
 def save(request):
     if request.is_ajax():
-        data=request.read() #read() reads the entire file
-        destination = open('accounts/userfiles/' + request.user.username + '/test.txt', 'wb+')
-        destination.write(data)#write data to text file
-        destination.close()
+        input=request.read() #read() reads the entire text into input
+        profile = request.user.get_profile() # gets the UserProfile related to request.user
+        fname="test"
+        #check to see if spreadsheet exists already for given fname and profile
+        try:
+            Spreadsheet.objects.get(owner=profile, file_name=fname)
+        except Spreadsheet.DoesNotExist:
+            #create new spreadsheet
+            s = Spreadsheet(owner=profile, file_name=fname, data=input, allowed_users=profile)
+            s.save()
+        sp=Spreadsheet.objects.get(owner=profile, file_name=fname)
+        sp.data = input
+        sp.save()
         message = "saved"
     else:
         message = "failed"
@@ -88,8 +95,9 @@ def save(request):
     
 def load(request):
     if request.is_ajax():
-        file=open('accounts/userfiles/' + request.user.username + '/test.txt', 'r')
-        return HttpResponse(file.read()) #send to frontend the entire file
+        profile=UserProfile.objects.get(user=request.user)
+        s=Spreadsheet.objects.get(owner=profile, file_name="hi_test")
+        return HttpResponse(s.data) #send to frontend the entire file
     else:
         return HttpResponse("failed")
         

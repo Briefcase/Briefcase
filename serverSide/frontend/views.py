@@ -39,6 +39,8 @@ import os
 def index(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/accounts')
+    else:
+        logout(request)
     
     form=AuthenticationForm()
     if request.method=='POST':

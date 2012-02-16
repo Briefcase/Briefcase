@@ -199,63 +199,7 @@ function clickHandler(e) {
   lasty=currenty;
   rowBegin = currentx;
 }
-/******************************** REDRAW FRAME ********************************\
-| This function redraws the entire frame, it is a very usefull function and    |
-| will soon be the only function that does any drawing at all, this way we     |
-| we wont get any errors with visualizations                                   |
-\******************************************************************************/
-function redrawFrame() {
-  var c_canvas = document.getElementById("application");
 
-  document.getElementById("framecontain").style.height = window.innerHeight - 30 + "px";
-  document.getElementById("framecontain").style.width = window.innerWidth + "px";
-  
-  c_canvas.height = window.innerHeight;
-  c_canvas.width = window.innerWidth;
-
-
-  var context = c_canvas.getContext("2d");
-
-
-  // draw the grid lines
-  for (var x = 0.5; x < c_canvas.width; x += cellWidth) {
-    context.moveTo(x,0);
-    context.lineTo(x,c_canvas.height);
-  }
-  for (var y = 0.5; y < c_canvas.height; y += cellHeight) {
-    context.moveTo(0,y);
-    context.lineTo(c_canvas.width,y);
-  }
-
-  // Write the changes to the screen
-  context.strokeStyle = "#ddd";
-  context.stroke();
-  
-  // draw all the text
-  for (var i in data) {
-	  coordPair = i.split(',');
-	  x_pos=parseInt(coordPair[0]);
-	  y_pos=parseInt(coordPair[1]);
-	  
-	  context.font = "12px sans-serif";
-	  
-	  if (data[i][0]=='=') {
-      context.fillText(eparse(data[i].substring(1,data[i].length)),(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
-    }
-    else {
-      context.fillText(data[i],(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
-    }
-  }
-  
-  // draw the row lables
-  for (var i = 1; i < c_canvas.height/cellHeight; i++) {
-    context.fillText(i, 3, (i*cellHeight+14));
-  }
-  // draw the column lables
-  for (var i = 1; i < c_canvas.width/cellWidth; i++) {
-    context.fillText(i,(i*cellWidth+3),14);
-  }
-}
 /******************************** BLOCK OR DRAG *******************************\
 |
 \******************************************************************************/

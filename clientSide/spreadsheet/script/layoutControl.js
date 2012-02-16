@@ -128,7 +128,6 @@ function keypress(e) {
   setTimeout("delaySync()",0);
   
 }
-// Gaa, this feels so hackish makeing it delay for 0 before syncing, but it works
 /********************************* DELAY SYNC *********************************\
 | This funtion syncs the text box and the function box so that they display    |
 | the same thing, it is called after every keypress using setTimeout() with a  |

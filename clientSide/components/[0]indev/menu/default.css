@@ -1,7 +1,12 @@
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
 a.menuButton {
   padding: 5px;
   margin: 0px 0px;
-  border: 1px black solid;
+  /*border: 1px black solid;*/
   background: #FFF;
   float: left;
   cursor: default;
@@ -15,9 +20,9 @@ a.menuButton:hover {
 
 div.menuButton {
   padding: 5px;
-  margin: 0px 0px;
-  border: 1px black solid;
-  background: #FFF;
+  margin: 0px 10px;
+  /*border: 1px black solid;*/
+  background: #CCC;
   float: left;
   cursor: default;
   

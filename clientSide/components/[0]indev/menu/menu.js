@@ -50,7 +50,8 @@ var tree = [["hello world","functiona"],["somethingElse","functionb"],["a third 
 
 window.onload = function () {
   menu = document.getElementById('TitleMenu');
-  dropDown = document.getElementById('DropdownMenu');
+  menu.draggable = false;
+  //dropDown = document.getElementById('DropdownMenu');
   
   
   menu.style.width = "100%";
@@ -73,7 +74,7 @@ function getDOMMenu(menuObject,remainingTree) {
     
     var link = document.createElement('div');
     link.setAttribute('class','menuButton');
-    link.setAttribute('onlcick', 'alert("button")');
+    link.setAttribute('onclick', 'alert(\"button\");');
     link.innerHTML = remainingTree[i][0];
     link.draggable = false;
     menuObject.appendChild(link);

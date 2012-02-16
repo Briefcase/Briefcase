@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script>
+      var GlobalText;
+      function sync() {
+        setTimeout("copyText()",0);
+      }
+      function copyText() {
+        document.getElementById("showbox").innerHTML = document.getElementById("typebox").innerHTML;
+      }
+    </script>
+  </head>
+  <body style="">
+  <!--
+    <textarea id="showbox" style="float:left;position:absolute;width:100%;height:100%;resize:none">asd</textarea>
+    <textarea id="typebox" onchange="sync();" style="float:left;position:absolute;width:100%;height:100%;resize:none;opacity:.5">sdf</textarea>
+    -->
+    <!-- This sets the label's text to the textbox value on each keystroke. -->
+    <script language="javascript">
+      function setLabel(txtBox){
+      	document.getElementById('lbl').innerHTML = txtBox.value;
+      }
+    </script>
+    <pre id="lbl"></pre>
+    <textarea style="background:#FF0; width:100%; height:50%;" oninput	="setLabel(this);">
+there
+wait, what is going on?
+    </textarea>
+  </body>
+</html>

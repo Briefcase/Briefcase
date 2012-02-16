@@ -45,10 +45,10 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 /******************************************************************************\
-| This file (draw.js) contains all the functions for drawing to the canvas. it |
+| This file (draw.js) contains all the functions for drawing to the canvas. It |
 | is only in a seperate file for ease of use. It takes in some large objects   |
 | however because objects are passed by reference (while primatives are passed |
-| by value it is ok!                                                           |
+| by value it is ok! This file does not deal with any UI outside of the canvas |
 \******************************************************************************/
 
 

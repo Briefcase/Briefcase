@@ -57,10 +57,30 @@ window.onload = function () {
   menu.style.overflow = "hidden";
   menu.style.backgroundColor = "#F00";
   
-  menu.innerHTML = getNameDivs(tree);
-  alert(tree);	
-  alert(displayTree(tree,"-"));
+  menu.draggable = false;
+  
+  //menu.innerHTML = getNameDivs(tree);
+  menu.appendChild(getDOMMenu());
+  //alert(tree);	
+  //alert(displayTree(tree,"-"));
 }
+
+function getDOMMenu(menuObject,remainingTree) {
+
+
+
+  var link = document.createElement('div');
+  link.setAttribute('class','menuButton');
+  
+  link.setAttribute('href','#');
+  link.setAttribute('onlcick', 'alert("button")');
+  link.innerHTML = "HOLA!";
+  link.draggable = false;
+  menuObject.appendChild(link);
+  
+  return link;
+}
+
 
 function getNameDivs(root) {
   var output = "";
@@ -69,7 +89,7 @@ function getNameDivs(root) {
   }
   return output;
 }
-
+/*
 function displayTree(root,offset) {
   var output = "";
   for (var i = 0; i < root.length; i++) {
@@ -84,4 +104,5 @@ function displayTree(root,offset) {
   }
   return output;
 }
+*/
 

@@ -71,16 +71,26 @@ function getDOMMenu(menuObject,remainingTree) {
 
   // find all the menu components at that level
   for (var i = 0; i < remainingTree.length; i++) {
+    var element = createElement(remainingTree[i]);
+    menuObject.appendChild(link);
+  }
     
+  return link;
+}
+
+// returns an element
+function createElement (treeElement) {
+  if (test instanceof Array) {
+    // break element
+    // menu element
     var link = document.createElement('div');
     link.setAttribute('class','menuButton');
     link.setAttribute('onclick', 'alert(\"button\");');
     link.innerHTML = remainingTree[i][0];
     link.draggable = false;
-    menuObject.appendChild(link);
+    // button element
   }
-    
-  return link;
+  return null;
 }
 
 

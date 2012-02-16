@@ -50,17 +50,49 @@ var tree = [["hello world","functiona"],["somethingElse","functionb"],["a third 
 
 window.onload = function () {
   menu = document.getElementById('TitleMenu');
-  dropDown = document.getElementById('DropdownMenu');
+  menu.draggable = false;
+  //dropDown = document.getElementById('DropdownMenu');
   
   
   menu.style.width = "100%";
   menu.style.overflow = "hidden";
   menu.style.backgroundColor = "#F00";
   
-  menu.innerHTML = getNameDivs(tree);
-  alert(tree);	
-  alert(displayTree(tree,"-"));
+  
+  //menu.innerHTML = getNameDivs(tree);
+  //menu.appendChild();
+  
+  getDOMMenu(menu,tree);
+  //alert(tree);	
+  //alert(displayTree(tree,"-"));
 }
+
+function getDOMMenu(menuObject,remainingTree) {
+
+  // find all the menu components at that level
+  for (var i = 0; i < remainingTree.length; i++) {
+    var element = createElement(remainingTree[i]);
+    menuObject.appendChild(link);
+  }
+    
+  return link;
+}
+
+// returns an element
+function createElement (treeElement) {
+  if (test instanceof Array) {
+    // break element
+    // menu element
+    var link = document.createElement('div');
+    link.setAttribute('class','menuButton');
+    link.setAttribute('onclick', 'alert(\"button\");');
+    link.innerHTML = remainingTree[i][0];
+    link.draggable = false;
+    // button element
+  }
+  return null;
+}
+
 
 function getNameDivs(root) {
   var output = "";
@@ -69,7 +101,7 @@ function getNameDivs(root) {
   }
   return output;
 }
-
+/*
 function displayTree(root,offset) {
   var output = "";
   for (var i = 0; i < root.length; i++) {
@@ -84,4 +116,5 @@ function displayTree(root,offset) {
   }
   return output;
 }
+*/
 

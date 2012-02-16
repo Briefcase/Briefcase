@@ -57,10 +57,11 @@ window.onload = function () {
   menu.style.overflow = "hidden";
   menu.style.backgroundColor = "#F00";
   
-  menu.draggable = false;
   
   //menu.innerHTML = getNameDivs(tree);
-  menu.appendChild(getDOMMenu());
+  //menu.appendChild();
+  
+  getDOMMenu(menu,tree);
   //alert(tree);	
   //alert(displayTree(tree,"-"));
 }

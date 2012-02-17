@@ -88,17 +88,16 @@ function createElement (treeElement) {
     if (treeElement.length == 0) {
       alert("I am a break");
     }
-    else if (treeElement.length == 1) {
-      alert("I am an unimplemented title");
-    }
 
-    else if (treeElement.length >= 2) {
-    // menu element
-      if (treeElement.length == 2 && treeElement[1] instanceof Array) {
+    else if (treeElement.length == 3) {
+    // menu element (name,tree,icon,style)
+      if (treeElement.length == 3 && treeElement[1] instanceof Array) {
         var link = document.createElement('div');
+        link.setAttribute(
       }
       else {
         //assume anything else is a button
+        // buttons (name,function,icon,enabled,style,shortcutkey)
         var link = document.createElement('div');
         link.setAttribute('class','menuButton');
         link.setAttribute('onclick', 'alert(\"'+treeElement[1]+'\");');

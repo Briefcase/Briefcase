@@ -67,12 +67,15 @@ window.onload = function () {
   //alert(displayTree(tree,"-"));
 }
 
+
+// this function should be renamed
 function getDOMMenu(menuObject,remainingTree) {
 
   // find all the menu components at that level
   for (var i = 0; i < remainingTree.length; i++) {
+  
     var element = createElement(remainingTree[i]);
-    menuObject.appendChild(link);
+    menuObject.appendChild(element);
   }
     
   return link;
@@ -80,15 +83,30 @@ function getDOMMenu(menuObject,remainingTree) {
 
 // returns an element
 function createElement (treeElement) {
-  if (test instanceof Array) {
+  if (treeElement instanceof Array) {
     // break element
+    if (treeElement.length == 0) {
+      alert("I am a break");
+    }
+    else if (treeElement.length == 1) {
+      alert("I am an unimplemented title");
+    }
+
+    else if (treeElement.length >= 2) {
     // menu element
-    var link = document.createElement('div');
-    link.setAttribute('class','menuButton');
-    link.setAttribute('onclick', 'alert(\"button\");');
-    link.innerHTML = remainingTree[i][0];
-    link.draggable = false;
-    // button element
+      if (treeElement.length == 2 && treeElement[1] instanceof Array) {
+        var link = document.createElement('div');
+      }
+      else {
+        //assume anything else is a button
+        var link = document.createElement('div');
+        link.setAttribute('class','menuButton');
+        link.setAttribute('onclick', 'alert(\"'+treeElement[1]+'\");');
+        link.innerHTML = treeElement[0]; // set name
+        link.draggable = false;
+        return link;
+      }
+    }
   }
   return null;
 }

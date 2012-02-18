@@ -114,7 +114,7 @@ function save() {
 		data: output,
 		dataType: "html",
 		success: function(data){
-        //alert (data);
+        alert (data);
 		},
 		error: function(html){alert("error: "+html)}
   });
@@ -129,10 +129,16 @@ function save() {
 \******************************************************************************/
 function load() {
   var serverURL = "/spreadsheet/load";
+  
+  
+  var name = prompt("Filename:","");
+  if (name==null || name=="") {return;}
+  
+  
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: "gIVE THE FIEL OR LII KLIL YUO",
+		data: "filename="+name,
 		dataType: "html",
 		success: function(savedData) {
 		  savedFile = savedData;

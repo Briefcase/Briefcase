@@ -11,9 +11,10 @@ urlpatterns = patterns('',
     url(r'^accounts/logout','accounts.views.userlogout'),
     url(r'^accounts/uploadfile','accounts.views.save_file'),
     url(r'^$', 'frontend.views.index'),
-    url(r'^spreadsheet/$', 'frontend.views.spreadsheet'),
+    #url(r'^spreadsheet/$', 'frontend.views.spreadsheet'),
     url(r'^spreadsheet/save', 'accounts.views.save'),
     url(r'^spreadsheet/load', 'accounts.views.load'),
+    url(r'^spreadsheet/<?P<spreadsheet_id>\d+)/$', 'frontend.views.spreadsheet'),
    
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -22,6 +23,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )
+
 
 
 #serves static files - ONLY FOR USE IN DEVELOPMENT

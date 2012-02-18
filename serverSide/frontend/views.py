@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
 
 from serverSide.accounts.forms import RegistrationForm, SaveFileForm
-from serverSide.accounts.models import UserProfile
+from serverSide.accounts.models import UserProfile, Spreadsheet
 
 import os
 
@@ -62,16 +62,8 @@ def index(request):
     #return loginfunction(request,'welcome.html')
     return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
     
-def spreadsheet(request):
+def spreadsheet(request, spreadsheet_id):
     if not request.user.is_authenticated():
         return render_to_response('login.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
-    
-    if request.method=='POST':
-        if 'save' in request.POST:
-            #do save stuff
-            print("save")
-        elif 'load' in request.POST:
-            #do load stuff
-            print("load")
     return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))
     

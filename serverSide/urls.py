@@ -8,7 +8,6 @@ urlpatterns = patterns('',
     url(r'^$', 'accounts.views.index'),
     url(r'^accounts/$', 'accounts.views.userprofile'),
     url(r'^accounts/register', 'accounts.views.register'),
-    url(r'^accounts/uploadfile','accounts.views.save_file'),
     url(r'^accounts/logout','accounts.views.userlogout'),
     url(r'^spreadsheet/$', 'accounts.views.spreadsheet'),
     url(r'^spreadsheet/save', 'accounts.views.save'),
@@ -31,4 +30,4 @@ if settings.DEBUG:
         url(r'^spreadsheet/static/(?P<path>.*)$', 'serve'),
     )
     
-urlpatterns+=staticfiles_urlpatterns()
+urlpatterns+=staticfiles_urlpatterns()b

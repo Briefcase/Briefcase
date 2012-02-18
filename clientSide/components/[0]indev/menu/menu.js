@@ -78,7 +78,6 @@ function getDOMMenu(menuObject,remainingTree) {
     menuObject.appendChild(element);
   }
     
-  return link;
 }
 
 // returns an element
@@ -88,26 +87,59 @@ function createElement (treeElement) {
     if (treeElement.length == 0) {
       alert("I am a break");
     }
-
-    else if (treeElement.length == 3) {
-    // menu element (name,tree,icon,style)
+    else if (treeElement.length >= 3) {
+    
+      var menuItem = document.createElement('div');
+      
+      var name = document.createTextNode(treeElement[0])
+    
+      // menu element (name,iconurl,style,tree)
       if (treeElement.length == 3 && treeElement[1] instanceof Array) {
         var link = document.createElement('div');
-        link.setAttribute(
+        link.setAttribute('class','menuButton');
+        
+        
+        //create icon image
+        var iconWrapper = document.createElement('div');
+        iconWrapper.setAttribute('class','menuIcon');
+        
+        var icon = document.createElement('img');
+        icon.setAttribute('src',treeElement[2]);
+        icon.style.width="100%";
+        icon.style.height="100%";
+        
+        iconWrapper.appendChild(icon);
+        
+        // add text
+        
+        return link;
       }
       else {
         //assume anything else is a button
-        // buttons (name,function,icon,enabled,style,shortcutkey)
+        // buttons (name,iconurl,style,function,enabled,shortcutkey)
         var link = document.createElement('div');
         link.setAttribute('class','menuButton');
         link.setAttribute('onclick', 'alert(\"'+treeElement[1]+'\");');
-        link.innerHTML = treeElement[0]; // set name
+        
+        /*
+        var name = document.createTextNode(treeElement[0]);
+        
+        // icon wraooer is a div that contains a 100%ed image within it,
+        // it should have a static width and height
+        var iconWrapper = document.createElement('div');
+        iconWrapper.setAttribute('class','menuIcon');
+        var icon = document.createElement('src');
+        icon.style.widht = '100%';
+        icon.style.height = '100%';*/
+        
+        
+        
         link.draggable = false;
         return link;
       }
     }
   }
-  return null;
+  return document.createElement('div');
 }
 
 

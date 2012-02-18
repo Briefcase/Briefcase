@@ -1,6 +1,3 @@
-##
-#accounts.views
-##
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
@@ -15,10 +12,33 @@ from django.core.files import File
 from serverSide.accounts.forms import RegistrationForm, SaveFileForm
 from serverSide.accounts.models import UserProfile, Spreadsheet
 
-import os, hashlib
-
 
 def index(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/accounts')
+    else:
+        logout(request)
+    
+    form=AuthenticationForm()
+    if request.method=='POST':
+        form=AuthenticationForm(request.POST)
+        un=request.POST['username']
+        pw=request.POST['password']
+        user=authenticate(username=un, password=pw)
+        if user is not None:
+            if user.is_active:
+                login(request,user)
+                #return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))
+                return HttpResponseRedirect('/accounts')
+            else:
+                logout(request)
+                return render_to_response('welcome.html', {'form':form}, context_instance=RequestContext(request))
+        else:
+            logout(request)
+            return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
+    return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
+
+def userprofile(request):
     profile = request.user.get_profile()
     user_spreadsheet_list = Spreadsheet.objects.filter(owner=profile)
     t=loader.get_template('user_profile.html')
@@ -108,23 +128,10 @@ def load(request):
     else:
         return HttpResponse("failed")
         
-def save_file(request):
-    if request.method =='POST':
-        form = SaveFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            #handle the file
-            f=request.FILES['file']
-            destination = open('accounts/userfiles/' + request.user.username + '/test.txt','wb+')
-            for chunk in f.chunks():
-                destination.write(chunk)
-            destination.close()
-            return HttpResponse("success")
-    else:
-        form=SaveFileForm()
-    return render_to_response('uploadfile.html',{'form':form}, context_instance = RequestContext(request))
-    
-    
-#def load_file(request):
+def spreadsheet(request):
+    if not request.user.is_authenticated():
+        return render_to_response('welcome.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
+    return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))
     
     
         

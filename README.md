@@ -9,8 +9,6 @@ The backend is written in Django
 
 Briefcase uses the canvas element and requires the use of modern browsers
 
-Sanity Check #1, November 25
-
 
 Planned Applications
 ====================

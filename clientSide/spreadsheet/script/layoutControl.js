@@ -313,7 +313,7 @@ function resize() {
 function resizeFunctionBar() {
   // get the initial variables for the calculation
   var functionBar = document.getElementById('functionbox');
-  var functionBarLeftOffset = 130;
+  var functionBarLeftOffset = 150;
   var windowWidth = window.innerWidth;
   
   

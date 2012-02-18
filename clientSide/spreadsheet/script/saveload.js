@@ -102,6 +102,11 @@ function save() {
   }
   output = output.slice(0, -1)+ "}";  
   
+  var name = prompt("Filename:","");
+  if (name==null || name=="") {return;}
+  
+  output = "filename="+name+"&filedata="+output;
+  
   var serverURL = "/spreadsheet/save";
   $.ajax({
     type: "POST",

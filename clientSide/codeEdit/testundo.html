@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <script>
+      function insertText(textToInsert) {
+        var textarea = document.getElementById('mytextarea');
+        
+        // newcode
+        var eventObject = document.createEvent('TextEvent');
+        // moz documentation can be found at 
+        // https://developer.mozilla.org/en/DOM/event.initKeyEvent
+        eventObject.initKeyboardEvent('TextEvent',  // type
+                                  true,    // bubble thorugh event chain
+                                  true, // cancelable
+                                  null, 
+                                  false, 
+                                  false, 
+                                  false, 
+                                  false, 
+                                  32, 
+                                  32);
+
+        textarea.dispatchEvent(eventObject);
+      }
+      function inputHandler(e) {
+        if (e.keyCode == 9) {
+          // try to stop the function
+          if (e.preventDefault) {e.preventDefault();}
+          
+          /*var output = "";
+          output += "type:      "+e.type;
+          output += "bubbles:   "+e.bubbles
+          output += "cancelable:"+cancelable
+          viewArg, 
+                        ctrlKeyArg, altKeyArg, shiftKeyArg, metaKeyArg, 
+                        keyCodeArg, charCodeArg
+          */
+          insertText("aaaa");
+        }
+      }
+      
+      window.onload = function () {
+        document.onkeypress = inputHandler;
+        alert("hello!");
+      }
+      
+    </script>
+  </head>
+  <body>
+    <textarea id="mytextarea"></textarea>
+  </body>
+</html>

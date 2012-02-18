@@ -11,6 +11,7 @@ Briefcase uses the canvas element and requires the use of modern browsers
 
 testing auto pull
 testing auto pull two
+testing auto pull three
 
 Planned Applications
 ====================

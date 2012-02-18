@@ -76,25 +76,6 @@ def register(request):
     
     return render_to_response('register.html', {'form':form}, context_instance =  RequestContext(request))
     
-def userlogin(request):
-    form = AuthenticationForm()
-    if request.method == 'POST':
-        form = AuthenticationForm(request.POST)
-        un =request.POST['username']
-        pw = request.POST['password']
-        user = authenticate(username =un, password = pw)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('../')
-            else:
-                logout(request)
-                return HttpResponse("inactive - fail")
-        else:
-            logout(request)
-            return HttpResponse("fail")
-    return render_to_response('login.html', {'form':form}, context_instance = RequestContext(request))
-
 def userlogout(request):
     logout(request)
     return HttpResponseRedirect('../')

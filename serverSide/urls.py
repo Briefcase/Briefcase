@@ -5,10 +5,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', 'accounts.views.index'),
     url(r'^accounts/$', 'accounts.views.userprofile'),
     url(r'^accounts/register', 'accounts.views.register'),
     url(r'^accounts/uploadfile','accounts.views.save_file'),
-    url(r'^$', 'accounts.views.index'),
+    url(r'^accounts/logout','accounts.views.userlogout')
     url(r'^spreadsheet/$', 'accounts.views.spreadsheet'),
     url(r'^spreadsheet/save', 'accounts.views.save'),
     url(r'^spreadsheet/load', 'accounts.views.load'),

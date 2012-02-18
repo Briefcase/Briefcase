@@ -62,7 +62,7 @@ def register(request):
             user.is_active = False
             user.save()
             #put user in a UserProfile
-            profile = UserProfile(name = username,user =user)
+            profile = UserProfile(user =user)
             profile.save()
             
             

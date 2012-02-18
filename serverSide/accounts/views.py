@@ -20,7 +20,7 @@ import os, hashlib
 
 def index(request):
     profile = request.user.get_profile()
-    user_spreadsheet_list = Spreadsheet.objects.all().order_by('file_name')
+    user_spreadsheet_list = Spreadsheet.objects.filter(owner=profile)
     t=loader.get_template('user_profile.html')
     c = Context({
         'user_spreadsheet_list': user_spreadsheet_list,

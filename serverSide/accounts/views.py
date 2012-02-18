@@ -74,29 +74,28 @@ def userlogout(request):
     
 def save(request):
     if request.is_ajax():
-        input=request.read() #read() reads the entire text into input
+        fname=request.POST['filename'] #get the filename
+        input=request.POST['filedata'] #get the data
         profile = request.user.get_profile() # gets the UserProfile related to request.user
-        fname="test"
-        #check to see if spreadsheet exists already for given fname and profile
+        #check to see if it exists
         try:
-            Spreadsheet.objects.get(owner=profile, file_name=fname)
+            sp = Spreadsheet.objects.get(owner=profile, file_name=fname)
         except Spreadsheet.DoesNotExist:
             #create new spreadsheet
-            s = Spreadsheet(owner=profile, file_name=fname, data=input, allowed_users=profile)
+            s = Spreadsheet(owner=profile, file_name=fname, data=input)
             s.save()
+            return HttpResponse()
+       #file exists, overwrite the data
         sp=Spreadsheet.objects.get(owner=profile, file_name=fname)
         sp.data = input
         sp.save()
-        message = "saved"
-    else:
-        message = "failed"
-    return HttpResponse(message)#return saved or failed
+    return HttpResponse()
 
     
 def load(request):
     if request.is_ajax():
         profile=UserProfile.objects.get(user=request.user)
-        s=Spreadsheet.objects.get(owner=profile, file_name="hi_test")
+        s=Spreadsheet.objects.get(owner=profile, file_name="test")
         return HttpResponse(s.data) #send to frontend the entire file
     else:
         return HttpResponse("failed")

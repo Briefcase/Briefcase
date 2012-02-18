@@ -14,11 +14,7 @@ urlpatterns = patterns('',
     url(r'^spreadsheet/$', 'frontend.views.spreadsheet'),
     url(r'^spreadsheet/save', 'accounts.views.save'),
     url(r'^spreadsheet/load', 'accounts.views.load'),
-    
-    #url(r'^accounts/confirm', 'accounts.views.confirm'),
-    # Examples:
-    #url(r'^$', 'briefcase.views.home', name='home'),
-    # url(r'^briefcase/', include('briefcase.foo.urls')),
+   
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

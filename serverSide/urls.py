@@ -30,4 +30,4 @@ if settings.DEBUG:
         url(r'^spreadsheet/static/(?P<path>.*)$', 'serve'),
     )
     
-urlpatterns+=staticfiles_urlpatterns()b
+urlpatterns+=staticfiles_urlpatterns()

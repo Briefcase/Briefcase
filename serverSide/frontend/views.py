@@ -62,7 +62,7 @@ def index(request):
     #return loginfunction(request,'welcome.html')
     return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
     
-def spreadsheet(request, spreadsheet_id):
+def spreadsheet(request):
     if not request.user.is_authenticated():
         return render_to_response('login.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
     return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))

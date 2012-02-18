@@ -46,7 +46,7 @@ def userprofile(request):
         'user_spreadsheet_list': user_spreadsheet_list,
         'current_user': request.user,
     })
-    return render_to_response('user_profile.html', context_instance = RequestContext(request)
+    return HttpResponse(t.render(c))
 
 def register(request):
     form = RegistrationForm()

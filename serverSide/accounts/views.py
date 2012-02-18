@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response, redirect
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-from django.template import RequestContext
+from django.template import RequestContext, Context, loader
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.files import File
@@ -15,11 +15,18 @@ from django.core.files import File
 from serverSide.accounts.forms import RegistrationForm, SaveFileForm
 from serverSide.accounts.models import UserProfile, Spreadsheet
 
-import os
+import os, hashlib
 
 
 def index(request):
-    return render_to_response("user_profile.html", context_instance=RequestContext(request))
+    profile = request.user.get_profile()
+    user_spreadsheet_list = Spreadsheet.objects.all().order_by('file_name')
+    t=loader.get_template('user_profile.html')
+    c = Context({
+        'user_spreadsheet_list': user_spreadsheet_list,
+        'current_user': request.user,
+    })
+    return HttpResponse(t.render(c))
 
 def register(request):
     form = RegistrationForm()
@@ -94,8 +101,9 @@ def save(request):
     
 def load(request):
     if request.is_ajax():
+        fname=request.POST['filename'] #get the name of requested file
         profile=UserProfile.objects.get(user=request.user)
-        s=Spreadsheet.objects.get(owner=profile, file_name="test")
+        s=Spreadsheet.objects.get(owner=profile, file_name=fname)
         return HttpResponse(s.data) #send to frontend the entire file
     else:
         return HttpResponse("failed")

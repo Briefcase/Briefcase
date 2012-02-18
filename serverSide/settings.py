@@ -90,7 +90,7 @@ SECRET_KEY = '&+od(b@hzx5@9=oqjsz9na@aosu2n29$_!$8yt4pleemgz5d#n'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

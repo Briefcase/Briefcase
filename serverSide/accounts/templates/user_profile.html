@@ -10,8 +10,14 @@
     </style>
   </head>
 <div class = "title">
-<h1>Hi {{user.username}}</h1></br >
-</div>
+<h1> Hi {{current_user.username}} </h1>
+{% if user_spreadsheet_list %}
+    <ul>
+    {% for s in user_spreadsheet_list %}
+        <li>{{s.file_name}}</li>
+    {% endfor %}
+{% endif %}
+
 <input type=button onClick="location.href='/spreadsheet'" value="Spreadsheet"></br ></br>
 <input type=button onClick="location.href='/accounts/logout'" value="Logout">
 

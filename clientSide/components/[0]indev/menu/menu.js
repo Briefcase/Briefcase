@@ -72,54 +72,48 @@ window.onload = function () {
   var pxml = $.parseXML(xmlText);
   var tree = $(pxml);
 
-  $(pxml).children().each(function () {
-    alert($(this).attr("name"));
-    $(this).children().each(function () {
-      alert("->"+$(this).attr("name")+":"+this.nodeName);
-    });
-  });
+  $(pxml).children().each(function() {attachDOMElements(menu,this);});
   
-  attachDOMElements(menu,tree);
+
 }
 
 
-// this function should be renamed
-function attachDOMElements(menuObject,remainingTree) {
-  // find all the menu components at that level
-  remainingTree.each(function() {
-    var element = createElement(this);
-    //menuObject.appendChild(element);
-  });
-  alert("DONE");
+function attachDOMElements(menuObject,XMLTree) {
+  var element;
+  alert($(XMLTree).attr("name"));
+  if (XMLTree.nodeName == "menu") {
+    alert("menu");
+  }
+  else if (XMLTree.nodeName == "button") {
+    alert("button");
+  }
+  else if (XMLTree.nodeName == "break") {
+    element = createBreak();
+    alert("break!");
+  }
+  else {
+    return;
+  }
+  menuObject.appendChild(element);
+  
+  /*
+  $(this).children().each(function () {
+    alert("->"+$(this).attr("name")+":"+this.nodeName);
+  });*/
 }
 
 // returns an element
-function createElement (treeElement) {
-  alert($(treeElement).attr( "name" ));  
+function createButton (name, callbackFunction, icon, shortcutKey, version) {
+  //alert($(treeElement).attr( "name" ));  
 }
 
 
-function getNameDivs(root) {
-  var output = "";
-  for (var i = 0; i < root.length; i++) {
-    output += "<a class=\"menuButton\" href onclick=\"alert("+root[i][1]+")\">"+ root[i][0] + "</a>";
-  }
-  return output;
+function createMenu (name, XMLChildren, icon, version) {
+  createButton(name,[generatedfunction],icon,'▸',version);
 }
-/*
-function displayTree(root,offset) {
-  var output = "";
-  for (var i = 0; i < root.length; i++) {
-    var funct
-    if (root[i][1] instanceof Array) {
-      funct = displayTree(root[i][1],offset+" - -");
-    }
-    else {
-      funct = root[i][1];
-    }
-    output += "\n" + offset + root[i][0] + " --> " + funct;
-  }
-  return output;
-}
-*/
 
+function createBreak () {
+  var element = document.createElement('div');
+  element.setAttribute('class','break');
+  return element;
+}

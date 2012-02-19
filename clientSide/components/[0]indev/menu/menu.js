@@ -46,100 +46,56 @@
 \******************************************************************************/
 var menu;
 var dropDown;
-var tree = [["hello world","functiona"],["somethingElse","functionb"],["a third thing",[["or something else","functionc"],["one last thing","functiond"]]],["just for good measure","finalfunction"]];
+var xmlText = "";
+xmlText += '<menu name="File" iconsrc="" version="normal">';
+xmlText += '  <button name="save" function="save()" enabled="true" iconsrc="save.png" shortcutKey="Ctrl+S" version="normal"> </button>';
+xmlText += '  <button name="load" function="load()" enabled="true" iconsrc="load.png" shortcutKey="Ctrl+L" version="normal"> </button>';
+xmlText += '  <break></break>';
+xmlText += '  <menu name="Feature Select" iconsrc="gear.png" version="normal">';
+xmlText += '    <button name="Feature One"   function="feature(\'one\')"   iconsrc="levelone.png" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
+xmlText += '    <button name="Feature Two"   function="feature(\'two\')"   iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+2" version="normal"> </button>';
+xmlText += '    <button name="Feature Three" function="feature(\'three\')" iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+3" version="normal"> </button>';
+xmlText += '    <button name="Feature Four"  function="feature(\'four\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+4" version="normal"> </button>';
+xmlText += '    <button name="Feature Five"  function="feature(\'five\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+5" version="normal"> </button>';
+xmlText += '  </menu>';
+xmlText += '</menu>';
 
 window.onload = function () {
+
   menu = document.getElementById('TitleMenu');
   menu.draggable = false;
-  //dropDown = document.getElementById('DropdownMenu');
-  
-  
   menu.style.width = "100%";
   menu.style.overflow = "hidden";
   menu.style.backgroundColor = "#F00";
   
   
-  //menu.innerHTML = getNameDivs(tree);
-  //menu.appendChild();
+  var pxml = $.parseXML(xmlText);
+  var tree = $(pxml);
+
+  $(pxml).children().each(function () {
+    alert($(this).attr("name"));
+    $(this).children().each(function () {
+      alert("->"+$(this).attr("name")+":"+this.nodeName);
+    });
+  });
   
-  getDOMMenu(menu,tree);
-  //alert(tree);	
-  //alert(displayTree(tree,"-"));
+  attachDOMElements(menu,tree);
 }
 
 
 // this function should be renamed
-function getDOMMenu(menuObject,remainingTree) {
-
+function attachDOMElements(menuObject,remainingTree) {
   // find all the menu components at that level
-  for (var i = 0; i < remainingTree.length; i++) {
-  
-    var element = createElement(remainingTree[i]);
-    menuObject.appendChild(element);
-  }
-    
+  remainingTree.each(function() {
+    var element = createElement(this);
+    //menuObject.appendChild(element);
+  });
+  alert("DONE");
 }
 
 // returns an element
 function createElement (treeElement) {
-  if (treeElement instanceof Array) {
-    // break element
-    if (treeElement.length == 0) {
-      alert("I am a break");
-    }
-    else if (treeElement.length >= 3) {
-    
-      var menuItem = document.createElement('div');
-      
-      var name = document.createTextNode(treeElement[0])
-    
-      // menu element (name,iconurl,style,tree)
-      if (treeElement.length == 3 && treeElement[1] instanceof Array) {
-        var link = document.createElement('div');
-        link.setAttribute('class','menuButton');
-        
-        
-        //create icon image
-        var iconWrapper = document.createElement('div');
-        iconWrapper.setAttribute('class','menuIcon');
-        
-        var icon = document.createElement('img');
-        icon.setAttribute('src',treeElement[2]);
-        icon.style.width="100%";
-        icon.style.height="100%";
-        
-        iconWrapper.appendChild(icon);
-        
-        // add text
-        
-        return link;
-      }
-      else {
-        //assume anything else is a button
-        // buttons (name,iconurl,style,function,enabled,shortcutkey)
-        var link = document.createElement('div');
-        link.setAttribute('class','menuButton');
-        link.setAttribute('onclick', 'alert(\"'+treeElement[1]+'\");');
-        
-        /*
-        var name = document.createTextNode(treeElement[0]);
-        
-        // icon wraooer is a div that contains a 100%ed image within it,
-        // it should have a static width and height
-        var iconWrapper = document.createElement('div');
-        iconWrapper.setAttribute('class','menuIcon');
-        var icon = document.createElement('src');
-        icon.style.widht = '100%';
-        icon.style.height = '100%';*/
-        
-        
-        
-        link.draggable = false;
-        return link;
-      }
-    }
-  }
-  return document.createElement('div');
+  alert($(treeElement).attr( "name" ));  
 }
 
 

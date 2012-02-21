@@ -3,18 +3,6 @@ body {
   margin: 0px;
 }
 
-a.menuButton {
-  padding: 5px;
-  margin: 0px 0px;
-  /*border: 1px black solid;*/
-  background: #FFF;
-  float: left;
-  cursor: default;
-}
-a.menuButton:hover {
-  background: #0FF;
-}
-
 
 
 

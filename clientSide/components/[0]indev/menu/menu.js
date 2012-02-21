@@ -61,7 +61,6 @@ xmlText += '  </menu>';
 xmlText += '</menu>';
 
 window.onload = function () {
-  alert("hello world");
   menu = document.getElementById('TitleMenu');
   menu.draggable = false;
   menu.style.width = "100%";
@@ -86,7 +85,6 @@ function attachDOMElements(XMLTree) {
     var version = "normal";
     
     element = createMenu (name, XMLChildren, icon,version);
-    alert("menu");
   }
   else if (XMLTree.nodeName == "button") {
     var callbackFunction = "";
@@ -126,7 +124,7 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
   // shortcut
   var shortcutKeyDiv = document.createElement('div');
   shortcutKeyDiv.innerHTML = shortcutKey;
-  alert(shortcutKey);
+  shortcutKeyDiv.setAttribute('class','shortcutKey');
   // icon
   var imageWrapper = document.createElement('div');
   if (icon != "") {
@@ -139,7 +137,6 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
   element.appendChild(nameDiv);
   element.appendChild(shortcutKeyDiv);
   
-  alert("button created"+element.innerHTML);
   return element;
 }
 

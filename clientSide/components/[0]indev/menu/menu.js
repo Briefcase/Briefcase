@@ -79,9 +79,8 @@ window.onload = function () {
 
 function attachDOMElements(XMLTree) {
   var element = document.createElement("div");
-  alert($(XMLTree).attr("name"));
+  var name = $(XMLTree).attr("name");
   if (XMLTree.nodeName == "menu") {
-    var name = "[MENU]";
     var XMLChildren = $(XMLTree).children();
     var icon = "";
     var version = "normal";
@@ -90,7 +89,6 @@ function attachDOMElements(XMLTree) {
     alert("menu");
   }
   else if (XMLTree.nodeName == "button") {
-    var name = "[DEFAULT BUTTON]";
     var callbackFunction = "";
     var icon = "";
     var shortcutkey = "";

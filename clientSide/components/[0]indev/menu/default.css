@@ -27,3 +27,26 @@ div.menuButton {
 div.menuButton:hover {
   background: #0FF;
 }
+
+/* General Menu Button stuff */
+.menuButton {}
+.menuButton .name {
+  float:left;
+}
+.menuButton .image {
+  float:left;
+}
+.menuButton .shortcutKey {
+  float:left;
+  color:#AAA;
+}
+/* main menu attributes */
+.mainMenu {}
+.mainMenu .menuButton .name {}
+.mainMenu .menuButton .image {}
+.mainMenu .menuButton .shortcutKey {}
+/* sub menu attributes */
+.subMenu {}
+.subMenu .menuButton .name {}
+.subMenu .menuButton .image {}
+.subMenu .menuButton .shortcutKey{}

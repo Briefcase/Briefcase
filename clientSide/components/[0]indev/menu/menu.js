@@ -104,7 +104,15 @@ function attachDOMElements(menuObject,XMLTree) {
 
 // returns an element
 function createButton (name, callbackFunction, icon, shortcutKey, version) {
-  //alert($(treeElement).attr( "name" ));  
+  var element = document.createElement('div');
+  
+  var name = document.createElement('div');
+  name.value=
+  var shortcutKey = document.createElement('div');
+  // icon
+  var imageWrapper = document.createElement('div');
+  var image = document.createElement('img');
+  
 }
 
 

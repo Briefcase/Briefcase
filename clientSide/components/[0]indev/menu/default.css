@@ -4,9 +4,14 @@ body {
 }
 
 
+.menuBar {
+  width: 100%;
+  overflow: hidden;
+  background-color: #F00;
+}
 
 
-div.menuButton {
+.menuButton {
   padding: 5px;
   margin: 0px 10px;
   /*border: 1px black solid;*/
@@ -24,7 +29,7 @@ div.menuButton {
   user-select: none;
 
 }
-div.menuButton:hover {
+.menuButton:hover {
   background: #0FF;
 }
 

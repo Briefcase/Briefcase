@@ -62,10 +62,8 @@ xmlText += '</menu>';
 
 window.onload = function () {
   menu = document.getElementById('TitleMenu');
+  menu.setAttribute('class','menuBar');
   menu.draggable = false;
-  menu.style.width = "100%";
-  menu.style.overflow = "hidden";
-  menu.style.backgroundColor = "#F00";
   
   
   var pxml = $.parseXML(xmlText);

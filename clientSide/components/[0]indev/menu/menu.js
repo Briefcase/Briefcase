@@ -81,7 +81,7 @@ function attachDOMElements(XMLTree) {
   var element = document.createElement("div");
   alert($(XMLTree).attr("name"));
   if (XMLTree.nodeName == "menu") {
-    var name = "[DEFAULT MENU]";
+    var name = "[MENU]";
     var XMLChildren = $(XMLTree).children();
     var icon = "";
     var version = "normal";
@@ -122,22 +122,24 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
   var element = document.createElement('div');
   element.setAttribute('class','menuButton');
   //name
-  var name = document.createElement('div');
-  name.setAttribute('class','name');
-  name.innerHTML = name;
+  var nameDiv = document.createElement('div');
+  nameDiv.setAttribute('class','name');
+  nameDiv.innerHTML = name;
   // shortcut
-  var shortcutKey = document.createElement('div');
-  shortcutKey.innerHTML = shortcutKey;
+  var shortcutKeyDiv = document.createElement('div');
+  shortcutKeyDiv.innerHTML = shortcutKey;
   alert(shortcutKey);
   // icon
   var imageWrapper = document.createElement('div');
-  var image = document.createElement('img');
-  image.setAttribute('src',icon);
-  imageWrapper.appendChild(image);
+  if (icon != "") {
+    var image = document.createElement('img');
+    image.setAttribute('src',icon);
+    imageWrapper.appendChild(image);
+  }
   
   element.appendChild(imageWrapper);
-  element.appendChild(name);
-  element.appendChild(shortcutKey);
+  element.appendChild(nameDiv);
+  element.appendChild(shortcutKeyDiv);
   
   alert("button created"+element.innerHTML);
   return element;
@@ -146,7 +148,7 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
 
 function createMenu (name, XMLChildren, icon, version) {
   var callbackFunction = null;
-  return createButton(name,callbackFunction,icon,'▸',version);
+  return createButton(name,callbackFunction,icon,'&#9656',version);
   
 }
 

@@ -61,7 +61,7 @@ xmlText += '  </menu>';
 xmlText += '</menu>';
 
 window.onload = function () {
-
+  alert("hello world");
   menu = document.getElementById('TitleMenu');
   menu.draggable = false;
   menu.style.width = "100%";
@@ -71,30 +71,45 @@ window.onload = function () {
   
   var pxml = $.parseXML(xmlText);
   var tree = $(pxml);
-
-  $(pxml).children().each(function() {attachDOMElements(menu,this);});
+  $(pxml).children().each(function(menu) {attachDOMElements(this);});
   
 
 }
 
 
-function attachDOMElements(menuObject,XMLTree) {
-  var element;
+function attachDOMElements(XMLTree) {
+  var element = document.createElement("div");
   alert($(XMLTree).attr("name"));
   if (XMLTree.nodeName == "menu") {
+    var name = "[DEFAULT MENU]";
+    var XMLChildren = $(XMLTree).children();
+    var icon = "";
+    var version = "normal";
+    
+    element = createMenu (name, XMLChildren, icon,version);
     alert("menu");
   }
   else if (XMLTree.nodeName == "button") {
-    alert("button");
+    var name = "[DEFAULT BUTTON]";
+    var callbackFunction = "";
+    var icon = "";
+    var shortcutkey = "";
+    var version = "normal";
+    
+    
+    
+    
+    element = createButton (name,callbackFunction,icon,shortcutkey,version);
   }
   else if (XMLTree.nodeName == "break") {
     element = createBreak();
     alert("break!");
   }
   else {
+    alert('error');
     return;
   }
-  menuObject.appendChild(element);
+  menu.appendChild(element);
   
   /*
   $(this).children().each(function () {
@@ -105,19 +120,34 @@ function attachDOMElements(menuObject,XMLTree) {
 // returns an element
 function createButton (name, callbackFunction, icon, shortcutKey, version) {
   var element = document.createElement('div');
-  
+  element.setAttribute('class','menuButton');
+  //name
   var name = document.createElement('div');
-  name.value=
+  name.setAttribute('class','name');
+  name.innerHTML = name;
+  // shortcut
   var shortcutKey = document.createElement('div');
+  shortcutKey.innerHTML = shortcutKey;
+  alert(shortcutKey);
   // icon
   var imageWrapper = document.createElement('div');
   var image = document.createElement('img');
+  image.setAttribute('src',icon);
+  imageWrapper.appendChild(image);
   
+  element.appendChild(imageWrapper);
+  element.appendChild(name);
+  element.appendChild(shortcutKey);
+  
+  alert("button created"+element.innerHTML);
+  return element;
 }
 
 
 function createMenu (name, XMLChildren, icon, version) {
-  createButton(name,[generatedfunction],icon,'▸',version);
+  var callbackFunction = null;
+  return createButton(name,callbackFunction,icon,'▸',version);
+  
 }
 
 function createBreak () {

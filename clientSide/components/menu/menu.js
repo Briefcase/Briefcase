@@ -152,14 +152,24 @@ function createMenu (name, XMLChildren, icon, version) {
   var generatedMenu = document.createElement('div');
   generatedMenu.setAttribute('class','subMenu');
   
-  menu.offsetHeight
+  //var showmenu = function () {menu.offsetHeight}
+  generatedMenu.onmouseout = hideMenu(generatedMenu);
   
   //document.getElementById('body').appendChild(generatedMenu);
   menu.appendChild(generatedMenu);
   
-  return createButton(name,callbackFunction,icon,'&#9656',version);
+  return createButton(name,showMenu,icon,'&#9656',version);
   
 }
+
+
+function showMenu (menu) {
+  
+}
+function hideMenu (menu) {
+  
+}
+
 
 function createBreak () {
   var element = document.createElement('div');

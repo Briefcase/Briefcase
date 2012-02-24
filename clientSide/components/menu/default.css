@@ -4,12 +4,19 @@ body {
 }
 
 
-.menuBar {
+.mainMenu {
   width: 100%;
   overflow: hidden;
   background-color: #F00;
 }
 
+.subMenu {
+  width: 100px;
+  height: 100px;
+  background-color: #0F0;
+  float:left;
+  position:absolute;
+}
 
 .menuButton {
   padding: 5px;
@@ -40,18 +47,22 @@ body {
 }
 .menuButton .image {
   float:left;
+  width: 20px;
+  height: 20px;
 }
 .menuButton .shortcutKey {
   float:left;
   color:#AAA;
 }
 /* main menu attributes */
-.mainMenu {}
+.mainMenu .menuButton{}
+
 .mainMenu .menuButton .name {}
-.mainMenu .menuButton .image {}
-.mainMenu .menuButton .shortcutKey {}
+.mainMenu .menuButton .image {display:none}
+.mainMenu .menuButton .shortcutKey {display:none}
 /* sub menu attributes */
-.subMenu {}
+.subMenu .menuButton {
+}
 .subMenu .menuButton .name {}
 .subMenu .menuButton .image {}
 .subMenu .menuButton .shortcutKey{}

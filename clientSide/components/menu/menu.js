@@ -45,36 +45,43 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 var menu;
-var dropDown;
-var xmlText = "";
-xmlText += '<menu name="File" iconsrc="" version="normal">';
-xmlText += '  <button name="save" function="save()" enabled="true" iconsrc="save.png" shortcutKey="Ctrl+S" version="normal"> </button>';
-xmlText += '  <button name="load" function="load()" enabled="true" iconsrc="load.png" shortcutKey="Ctrl+L" version="normal"> </button>';
-xmlText += '  <break></break>';
-xmlText += '  <menu name="Feature Select" iconsrc="gear.png" version="normal">';
-xmlText += '    <button name="Feature One"   function="feature(\'one\')"   iconsrc="levelone.png" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
-xmlText += '    <button name="Feature Two"   function="feature(\'two\')"   iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+2" version="normal"> </button>';
-xmlText += '    <button name="Feature Three" function="feature(\'three\')" iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+3" version="normal"> </button>';
-xmlText += '    <button name="Feature Four"  function="feature(\'four\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+4" version="normal"> </button>';
-xmlText += '    <button name="Feature Five"  function="feature(\'five\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+5" version="normal"> </button>';
+var menuTree = null;
+var menuOpen = false;
+
+var xmlText = "<XMLMenu>";
+xmlText += '  <menu name="File" iconsrc="" version="normal">';
+xmlText += '    <button name="save" function="save()" enabled="true" iconsrc="save.png" shortcutKey="Ctrl+S" version="normal"> </button>';
+xmlText += '    <button name="load" function="load()" enabled="true" iconsrc="load.png" shortcutKey="Ctrl+L" version="normal"> </button>';
+xmlText += '    <break></break>';
+xmlText += '    <menu name="Feature Select" iconsrc="gear.png" version="normal">';
+xmlText += '      <button name="Feature One"   function="feature(\'one\')"   iconsrc="levelone.png" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
+xmlText += '      <button name="Feature Two"   function="feature(\'two\')"   iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+2" version="normal"> </button>';
+xmlText += '      <button name="Feature Three" function="feature(\'three\')" iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+3" version="normal"> </button>';
+xmlText += '      <button name="Feature Four"  function="feature(\'four\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+4" version="normal"> </button>';
+xmlText += '      <button name="Feature Five"  function="feature(\'five\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+5" version="normal"> </button>';
+xmlText += '   </menu>';
 xmlText += '  </menu>';
-xmlText += '</menu>';
+xmlText += '  <menu name="Edit" iconsrc="" version="normal">';
+xmlText += '    <button name="copy" function="copy()" iconsrc="copy.png" shortcutKey="Ctrl+S" version="normal"> </button>';
+xmlText += '  </menu>';
+xmlText += "</XMLMenu>";
 
 window.onload = function () {
   menu = document.getElementById('TitleMenu');
-  menu.setAttribute('class','menuBar');
+  menu.setAttribute('class','mainMenu');
   menu.draggable = false;
   
   
   var pxml = $.parseXML(xmlText);
+  var pxml = $(pxml).children();// break out of the global menu
   var tree = $(pxml);
-  $(pxml).children().each(function(menu) {attachDOMElements(this);});
+  $(pxml).children().each(function() {attachDOMElements(this,menu);});
   
 
 }
 
-
-function attachDOMElements(XMLTree) {
+// attach dom elements attaches the last layer of xml children to the specified DOM object menu
+function attachDOMElements(XMLTree,dommenu) {
   var element = document.createElement("div");
   var name = $(XMLTree).attr("name");
   if (XMLTree.nodeName == "menu") {
@@ -103,7 +110,7 @@ function attachDOMElements(XMLTree) {
     alert('error');
     return;
   }
-  menu.appendChild(element);
+  dommenu.appendChild(element);
   
   /*
   $(this).children().each(function () {
@@ -141,6 +148,15 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
 
 function createMenu (name, XMLChildren, icon, version) {
   var callbackFunction = null;
+  
+  var generatedMenu = document.createElement('div');
+  generatedMenu.setAttribute('class','subMenu');
+  
+  menu.offsetHeight
+  
+  //document.getElementById('body').appendChild(generatedMenu);
+  menu.appendChild(generatedMenu);
+  
   return createButton(name,callbackFunction,icon,'&#9656',version);
   
 }

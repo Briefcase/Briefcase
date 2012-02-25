@@ -168,7 +168,7 @@ function createMenu (name, XMLChildren, icon, version) {
   generatedMenu.style.display = 'none';
   var showMenu = function() {
     generatedMenu.style.top = this.offsetTop;//+this.offsetHeight
-    generatedMenu.style.left = this.offsetWidth+this.offsetLeft;
+    generatedMenu.style.left = this.offsetWidth+this.offsetLeft+this.parentNode.offsetLeft;
     generatedMenu.style.display = 'inherit'
   }
   

@@ -91,7 +91,7 @@ def save(request):
         except Spreadsheet.DoesNotExist:
             #create new spreadsheet
             s = Spreadsheet(owner=profile, file_name=fname, data=input)
-            s.allowed_users.append(profile)
+            #s.allowed_users.append(profile)
             s.save()
             return HttpResponse()
        #file exists, overwrite the data

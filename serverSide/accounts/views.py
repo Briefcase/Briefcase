@@ -113,7 +113,7 @@ def load(request):
             # return HttpResponse(s.data) #send to frontend the entire file
         # else:
             # return HttpResponseForbidden()
-        return HttpResponse(fname)
+        return HttpResponse(s.data)
     else:
         return HttpResponseBadRequest()
         

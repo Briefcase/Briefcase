@@ -21,7 +21,7 @@ class UserProfile(models.Model):
         
 class Spreadsheet(models.Model):
     owner = models.ForeignKey(UserProfile, related_name = "owner")
-    file_name = models.CharField(max_length = 20, primary_key=True)
+    file_name = models.CharField(max_length = 20)
     data = models.TextField()
     allowed_users = models.ManyToManyField(UserProfile, related_name="allowed_users", null=True, blank=True)
     def __unicode__(self):

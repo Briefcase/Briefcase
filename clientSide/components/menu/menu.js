@@ -45,7 +45,7 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 var menu;
-var menuTree = null;
+var menuStack = new Array();
 var menuOpen = false;
 
 var xmlText = "<XMLMenu>";
@@ -181,9 +181,23 @@ function createMenu (name, XMLChildren, icon, version) {
 
 
 
-function hideMenu () {
+function hideMenus () {
+
   this.style.display = 'none';
 }
+
+function addMenuTostack(menu) {
+  while (stack.length > 0) {
+    var entry = stack.pop(); 
+    
+    if (false) {
+      stack.push(entry);
+      break;
+    }
+  }
+}
+
+
 
 
 function createBreak () {

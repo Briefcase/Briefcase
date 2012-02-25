@@ -66,4 +66,5 @@ body {
 }
 .subMenu .menuButton .name {}
 .subMenu .menuButton .image {width: 20px; height: 20px}
+.subMenu .menuButton .image .img {width:100%; height: 100%;}
 .subMenu .menuButton .shortcutKey{float:right}

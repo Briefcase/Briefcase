@@ -91,6 +91,8 @@ window.onload = function () {
   document.onkeypress = keypress; // keyboard shortcuts
   document.getElementById("framecontain").onscroll = appScroll;
   moveTextBox(-100,-100);
+  
+  load2();
 }
 
 

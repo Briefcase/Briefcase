@@ -49,7 +49,7 @@ var menuTree = null;
 var menuOpen = false;
 
 var xmlText = "<XMLMenu>";
-xmlText += '  <menu name="File" iconsrc="" version="normal">';
+xmlText += '  <menu name="File" iconsrc="icons/action_back.gif" version="normal">';
 xmlText += '    <button name="save" function="save()" enabled="true" iconsrc="save.png" shortcutKey="Ctrl+S" version="normal"> </button>';
 xmlText += '    <button name="load" function="load()" enabled="true" iconsrc="load.png" shortcutKey="Ctrl+L" version="normal"> </button>';
 xmlText += '    <break></break>';
@@ -84,10 +84,16 @@ window.onload = function () {
 function attachDOMElements(XMLTree,dommenu) {
   var element = document.createElement("div");
   var name = $(XMLTree).attr("name");
+  
+  
+  
+  
   if (XMLTree.nodeName == "menu") {
     var XMLChildren = $(XMLTree).children();
     var icon = "";
     var version = "normal";
+    
+    icon = $(XMLTree).attr("iconsrc");
     
     element = createMenu (name, XMLChildren, icon,version);
   }
@@ -131,11 +137,13 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
   shortcutKeyDiv.innerHTML = shortcutKey;
   shortcutKeyDiv.setAttribute('class','shortcutKey');
   // icon
-  var imageWrapper = document.createElement('div');
+  var imageWrapper = document.createElement('div');  
+  imageWrapper.setAttribute('class','image');
   if (icon != "") {
     var image = document.createElement('img');
     image.setAttribute('src',icon);
     imageWrapper.appendChild(image);
+    alert("found image");
   }
   
   element.appendChild(imageWrapper);
@@ -166,7 +174,7 @@ function createMenu (name, XMLChildren, icon, version) {
   }
   
   //document.getElementById('body').appendChild(generatedMenu);
-  menu.appendChild(generatedMenu);
+  document.body.appendChild(generatedMenu);
   
   return createButton(name,showMenu,icon,'&#9656',version);
   

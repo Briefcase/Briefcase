@@ -105,9 +105,9 @@ def save(request):
 def load(request):
     if request.is_ajax():
         fname=request.POST['filename']#get the name of requested file
-        uname=request.POST['username'] #get the user that owns the file
+        #uname=request.POST['username'] #get the user that owns the file
         cur_profile=UserProfile.objects.get(user=request.user)
-        own_profile=UserProfile.objects.get(user=uname)
+        #own_profile=UserProfile.objects.get(user=uname)
         s=Spreadsheet.objects.get(pk=fname)
         # if s.public==True or cur_profile in s.allowed_users.all():
             # return HttpResponse(s.data) #send to frontend the entire file

@@ -1,0 +1,70 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+}
+
+
+.mainMenu {
+  width: 100%;
+  overflow: hidden;
+  background-color: #F00;
+}
+
+.subMenu {
+  background-color: #0F0;
+  float:left;
+  position:absolute;
+}
+
+.menuButton {
+  background: #CCC;
+  cursor: default;
+  
+  /* prevent users from selecting the text in the meny */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+
+}
+.menuButton:hover {
+  background: #0FF;
+}
+
+/* General Menu Button stuff */
+.menuButton {}
+.menuButton .name {
+  float:left;
+}
+.menuButton .image {
+  float:left;
+  width: 20px;
+  height: 20px;
+}
+.menuButton .shortcutKey {
+  float:left;
+  color:#AAA;
+}
+/* main menu attributes */
+.mainMenu .menuButton{
+  padding: 5px;
+  margin: 0px 10px;
+  float: left;
+}
+
+.mainMenu .menuButton .name {}
+.mainMenu .menuButton .image {display:none}
+.mainMenu .menuButton .shortcutKey {display:none}
+/* sub menu attributes */
+.subMenu .menuButton {
+  width: 300px;
+  height: 20px;
+}
+.subMenu .menuButton .name {}
+.subMenu .menuButton .image {width: 20px; height: 20px}
+.subMenu .menuButton .image .img {width:100%; height: 100%;}
+.subMenu .menuButton .shortcutKey{float:right}

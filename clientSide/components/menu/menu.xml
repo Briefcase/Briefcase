@@ -1,0 +1,17 @@
+<menu name="File" iconsrc="" style="normal">
+  <button name="save" function="save()" enabled="true" iconsrc="save.png" shortcutKey="Ctrl+S" style="normal"> </button>
+  <button name="load" function="load()" enabled="true" iconsrc="load.png" shortcutKey="Ctrl+L" style="normal"> </button>
+  <break></break>
+  <menu name="Feature Select" iconsrc="gear.png" style="normal">
+    <button name="Feature One"   function="feature('one')"   iconsrc="levelone.png" shortcutKey="Shft+Ctrl+1" style="normal"> </button>
+    <button name="Feature Two"   function="feature('two')"   iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+2" style="normal"> </button>
+    <button name="Feature Three" function="feature('three')" iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+3" style="normal"> </button>
+    <button name="Feature Four"  function="feature('four')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+4" style="normal"> </button>
+    <button name="Feature Five"  function="feature('five')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+5" style="normal"> </button>
+  </menu>
+</menu>
+<menu name="Edit" iconsrc="" style="normal">
+  <button name="copy" function="copy()" enabled="true" iconsrc="copy.png" shortcutKey="Ctrl+C" style="normal"> </button>
+  <button name="paste" function="paste()" enable="true" icondsrc="paste.png" shortcutKey="Ctrl+P" style="normal"> </button>
+</menu>
+

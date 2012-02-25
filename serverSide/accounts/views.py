@@ -90,7 +90,7 @@ def save(request):
             sp = Spreadsheet.objects.get(owner=profile, file_name=fname)
         except Spreadsheet.DoesNotExist:
             #create new spreadsheet
-            s = Spreadsheet(owner=profile, file_name=fname, data=input, allowed_users=[owner])
+            s = Spreadsheet(owner=profile, file_name=fname, data=input, allowed_users=[profile])
             s.save()
             return HttpResponse()
        #file exists, overwrite the data

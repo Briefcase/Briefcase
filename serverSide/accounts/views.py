@@ -109,10 +109,11 @@ def load(request):
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=uname)
         s=Spreadsheet.objects.get(pk=fname)
-        if s.public==True or cur_profile in s.allowed_users.all():
-            return HttpResponse(s.data) #send to frontend the entire file
-        else:
-            return HttpResponseForbidden()
+        # if s.public==True or cur_profile in s.allowed_users.all():
+            # return HttpResponse(s.data) #send to frontend the entire file
+        # else:
+            # return HttpResponseForbidden()
+        return HttpResponse(s.data)
     else:
         return HttpResponseBadRequest()
         

@@ -91,6 +91,7 @@ $(document).ajaxSend(function(event, xhr, settings) {
   }
 });
 
+
 /************************************ SAVE ************************************\
 | this function saves the document by parsing the hash table into a json file  |
 | then sending it over ajax to the server                                      |
@@ -123,6 +124,46 @@ function save() {
   // save to a local variable, probably not needed in the end
   savedFile = output;
 }
+
+function load2() {
+  var serverURL = "/spreadsheet/load";
+  
+    
+  var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
+  
+  username = splitPath[0];
+  filename = splitPath[1];
+  
+  if (username==null || username=="") {return;}
+  if (filename==null || filename=="") {return;}
+  
+  var output = "filename="+filename+"&username="+username;
+  
+  alert (output);
+  
+  $.ajax({
+    type: "POST",
+    url: serverURL,
+		data: output,
+		dataType: "html",
+		success: function(savedData) {
+		  savedFile = savedData;
+      var test = JSON.parse(savedFile);
+      delete data;
+      
+      for (i in data) {
+        delete data[i];
+      }
+      
+      for (i in test) {
+        data[i] = test[i];
+      }
+      redrawFrame();
+		},
+		error: function(html){alert("error: "+html)}
+  });
+}
+
 /************************************ LOAD ************************************\
 | This is the load function, it takes the file and loads it into memory. This  |
 | needs to be tested for memory leaks                                          |

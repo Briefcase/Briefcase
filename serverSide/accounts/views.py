@@ -92,6 +92,8 @@ def save(request):
             #create new spreadsheet
             s = Spreadsheet(owner=profile, file_name=fname, data=input)
             s.save()
+            s.allowed_users.add(profile)
+            s.save()
             return HttpResponse()
        #file exists, overwrite the data
         sp=Spreadsheet.objects.get(owner=profile, file_name=fname)
@@ -113,6 +115,7 @@ def spreadsheet(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
     return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))
+    
     
     
         

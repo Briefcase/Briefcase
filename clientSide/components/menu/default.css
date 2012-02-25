@@ -1,6 +1,7 @@
 body {
   padding: 0px;
   margin: 0px;
+  position: absolute;
 }
 
 
@@ -11,7 +12,6 @@ body {
 }
 
 .subMenu {
-  height: 100px;
   background-color: #0F0;
   float:left;
   position:absolute;
@@ -19,7 +19,6 @@ body {
 
 .menuButton {
   background: #CCC;
-  float: left;
   cursor: default;
   
   /* prevent users from selecting the text in the meny */
@@ -54,6 +53,7 @@ body {
 .mainMenu .menuButton{
   padding: 5px;
   margin: 0px 10px;
+  float: left;
 }
 
 .mainMenu .menuButton .name {}
@@ -62,6 +62,7 @@ body {
 /* sub menu attributes */
 .subMenu .menuButton {
   width: 300px;
+  height: 20px;
 }
 .subMenu .menuButton .name {}
 .subMenu .menuButton .image {width: 20px; height: 20px}

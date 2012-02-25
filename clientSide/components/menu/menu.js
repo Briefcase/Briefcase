@@ -151,9 +151,12 @@ function createMenu (name, XMLChildren, icon, version) {
   
   var generatedMenu = document.createElement('div');
   generatedMenu.setAttribute('class','subMenu');
+  generatedMenu.parent = 'lol';
   
+  
+  var hi = "what";
   //var showmenu = function () {menu.offsetHeight}
-  generatedMenu.onmouseout = hideMenu(generatedMenu);
+  generatedMenu.onmouseout = function() {alert(hi)};
   
   //document.getElementById('body').appendChild(generatedMenu);
   menu.appendChild(generatedMenu);
@@ -164,10 +167,11 @@ function createMenu (name, XMLChildren, icon, version) {
 
 
 function showMenu (menu) {
-  
 }
-function hideMenu (menu) {
-  
+
+function hideMenu () {
+  alert(this.parent);
+  this.style.visibility = 'hidden';
 }
 
 

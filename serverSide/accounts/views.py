@@ -90,7 +90,7 @@ def save(request):
             sp = Spreadsheet.objects.get(owner=profile, file_name=fname)
         except Spreadsheet.DoesNotExist:
             #create new spreadsheet
-            s = Spreadsheet(owner=profile, file_name=fname, data=input)
+            s = Spreadsheet(owner=profile, file_name=fname, data=input, public=False)
             s.save()
             s.allowed_users.add(profile)
             s.save()
@@ -104,12 +104,17 @@ def save(request):
     
 def load(request):
     if request.is_ajax():
-        fname=request.POST['filename'] #get the name of requested file
-        profile=UserProfile.objects.get(user=request.user)
-        s=Spreadsheet.objects.get(owner=profile, file_name=fname)
-        return HttpResponse(s.data) #send to frontend the entire file
+        fname=request.POST['filename']#get the name of requested file
+        uname=request.POST['username'] #get the user that owns the file
+        cur_profile=UserProfile.objects.get(user=request.user)
+        own_profile=UserProfile.objects.get(user=uname)
+        s=Spreadsheet.objects.get(owner=own_profile, file_name=fname)
+        if s.public==True or cur_profile==own_profile:
+            return HttpResponse(s.data) #send to frontend the entire file
+        else:
+            return HttpResponseForbidden()
     else:
-        return HttpResponse("failed")
+        return HttpResponseBadRequest()
         
 def spreadsheet(request):
     if not request.user.is_authenticated():

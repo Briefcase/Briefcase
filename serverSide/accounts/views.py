@@ -90,7 +90,7 @@ def save(request):
             sp = Spreadsheet.objects.get(owner=profile, file_name=fname)
         except Spreadsheet.DoesNotExist:
             #create new spreadsheet
-            s = Spreadsheet(owner=profile, file_name=fname, data=input)
+            s = Spreadsheet(owner=profile, file_name=fname, data=input, allowed_users=[owner])
             s.save()
             return HttpResponse()
        #file exists, overwrite the data
@@ -104,7 +104,7 @@ def load(request):
     if request.is_ajax():
         fname=request.POST['filename'] #get the name of requested file
         profile=UserProfile.objects.get(user=request.user)
-        s=Spreadsheet.objects.get(owner=profile, file_name=fname, allowed_users = [profile])
+        s=Spreadsheet.objects.get(owner=profile, file_name=fname)
         return HttpResponse(s.data) #send to frontend the entire file
     else:
         return HttpResponse("failed")

@@ -160,7 +160,7 @@ function load2() {
       }
       redrawFrame();
 		},
-		error: function(html){alert("error: "+html)}
+		error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errotThrown)}
   });
 }
 

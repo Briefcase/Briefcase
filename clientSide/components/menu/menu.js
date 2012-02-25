@@ -104,10 +104,10 @@ function attachDOMElements(XMLTree,dommenu) {
   }
   else if (XMLTree.nodeName == "break") {
     element = createBreak();
-    alert("break!");
+    //alert("break!");
   }
   else {
-    alert('error');
+    alert('error found a ' + XMLTree.nodeName);
     return;
   }
   dommenu.appendChild(element);
@@ -142,21 +142,28 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
   element.appendChild(nameDiv);
   element.appendChild(shortcutKeyDiv);
   
+  element.onclick = callbackFunction;
+  
   return element;
 }
 
 
 function createMenu (name, XMLChildren, icon, version) {
-  var callbackFunction = null;
   
   var generatedMenu = document.createElement('div');
   generatedMenu.setAttribute('class','subMenu');
-  generatedMenu.parent = 'lol';
   
   
-  var hi = "what";
-  //var showmenu = function () {menu.offsetHeight}
-  generatedMenu.onmouseout = function() {alert(hi)};
+  $(XMLChildren).each(function() {attachDOMElements(this,generatedMenu)});  
+  
+
+  //generatedMenu.onmouseout = hideMenu;
+  generatedMenu.style.display = 'none';
+  var showMenu = function() {
+    generatedMenu.style.top = this.offsetTop;//+this.offsetHeight
+    generatedMenu.style.left = this.offsetWidth+this.offsetLeft;
+    generatedMenu.style.display = 'inherit'
+  }
   
   //document.getElementById('body').appendChild(generatedMenu);
   menu.appendChild(generatedMenu);
@@ -166,12 +173,9 @@ function createMenu (name, XMLChildren, icon, version) {
 }
 
 
-function showMenu (menu) {
-}
 
 function hideMenu () {
-  alert(this.parent);
-  this.style.visibility = 'hidden';
+  this.style.display = 'none';
 }
 
 

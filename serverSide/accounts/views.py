@@ -104,7 +104,7 @@ def load(request):
     if request.is_ajax():
         fname=request.POST['filename'] #get the name of requested file
         profile=UserProfile.objects.get(user=request.user)
-        s=Spreadsheet.objects.get(owner=profile, file_name=fname)
+        s=Spreadsheet.objects.get(owner=profile, file_name=fname, allowed_users = [profile])
         return HttpResponse(s.data) #send to frontend the entire file
     else:
         return HttpResponse("failed")

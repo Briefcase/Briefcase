@@ -100,17 +100,17 @@ function attachDOMElements(XMLTree,dommenu) {
   else if (XMLTree.nodeName == "button") {
     var callbackFunction = "";
     var icon = "";
-    var shortcutkey = "";
+    var shortcutkey = "FUCK";
     var version = "normal";
     
-    
+    icon = $(XMLTree).attr("iconsrc");
+    shortcutkey = $(XMLTree).attr("shortcutKey");
     
     
     element = createButton (name,callbackFunction,icon,shortcutkey,version);
   }
   else if (XMLTree.nodeName == "break") {
     element = createBreak();
-    //alert("break!");
   }
   else {
     alert('error found a ' + XMLTree.nodeName);
@@ -143,7 +143,6 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
     var image = document.createElement('img');
     image.setAttribute('src',icon);
     imageWrapper.appendChild(image);
-    alert("found image:" + icon);
   }
   
   element.appendChild(imageWrapper);

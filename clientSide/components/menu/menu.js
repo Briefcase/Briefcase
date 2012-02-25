@@ -54,11 +54,11 @@ xmlText += '    <button name="save" function="save()" enabled="true" iconsrc="ic
 xmlText += '    <button name="load" function="load()" enabled="true" iconsrc="icons/action_back.gif" shortcutKey="Ctrl+L" version="normal"> </button>';
 xmlText += '    <break></break>';
 xmlText += '    <menu name="Feature Select" iconsrc="icons/action_go.gif" version="normal">';
-xmlText += '      <button name="Feature One"   function="feature(\'one\')"   iconsrc="levelone.png" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
-xmlText += '      <button name="Feature Two"   function="feature(\'two\')"   iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+2" version="normal"> </button>';
-xmlText += '      <button name="Feature Three" function="feature(\'three\')" iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+3" version="normal"> </button>';
-xmlText += '      <button name="Feature Four"  function="feature(\'four\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+4" version="normal"> </button>';
-xmlText += '      <button name="Feature Five"  function="feature(\'five\')"  iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+5" version="normal"> </button>';
+xmlText += '      <button name="Feature One"   function="feature(\'one\')"   iconsrc="icons/flag_blue.gif" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
+xmlText += '      <button name="Feature Two"   function="feature(\'two\')"   iconsrc="icons/flag_green.gif" shortcutKey="Shft+Ctrl+2" version="normal"> </button>';
+xmlText += '      <button name="Feature Three" function="feature(\'three\')" iconsrc="icons/flag_orange.gif" shortcutKey="Shft+Ctrl+3" version="normal"> </button>';
+xmlText += '      <button name="Feature Four"  function="feature(\'four\')"  iconsrc="icons/flag_red.gif" shortcutKey="Shft+Ctrl+4" version="normal"> </button>';
+xmlText += '      <button name="Feature Five"  function="feature(\'five\')"  iconsrc="icons/flag_white.gif" shortcutKey="Shft+Ctrl+5" version="normal"> </button>';
 xmlText += '   </menu>';
 xmlText += '  </menu>';
 xmlText += '  <menu name="Edit" iconsrc="" version="normal">';

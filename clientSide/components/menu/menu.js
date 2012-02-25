@@ -53,7 +53,7 @@ xmlText += '  <menu name="File" iconsrc="icons/action_back.gif" version="normal"
 xmlText += '    <button name="save" function="save()" enabled="true" iconsrc="save.png" shortcutKey="Ctrl+S" version="normal"> </button>';
 xmlText += '    <button name="load" function="load()" enabled="true" iconsrc="load.png" shortcutKey="Ctrl+L" version="normal"> </button>';
 xmlText += '    <break></break>';
-xmlText += '    <menu name="Feature Select" iconsrc="gear.png" version="normal">';
+xmlText += '    <menu name="Feature Select" iconsrc="icons/action_back.gif" version="normal">';
 xmlText += '      <button name="Feature One"   function="feature(\'one\')"   iconsrc="levelone.png" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
 xmlText += '      <button name="Feature Two"   function="feature(\'two\')"   iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+2" version="normal"> </button>';
 xmlText += '      <button name="Feature Three" function="feature(\'three\')" iconsrc="leveltwo.png" shortcutKey="Shft+Ctrl+3" version="normal"> </button>';
@@ -143,7 +143,7 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
     var image = document.createElement('img');
     image.setAttribute('src',icon);
     imageWrapper.appendChild(image);
-    alert("found image");
+    alert("found image:" + icon);
   }
   
   element.appendChild(imageWrapper);

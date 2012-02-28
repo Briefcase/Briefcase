@@ -182,19 +182,30 @@ function createMenu (name, XMLChildren, icon, version) {
 
 
 function hideMenus () {
-
+  while (stack.length > 0) {
+    var entry = stack.pop(); 
+    
+    
+    if (isMouseOver(entry)) {
+      menuStack.push(entry);
+      break;
+    }
+  }
+  
   this.style.display = 'none';
 }
 
 function addMenuTostack(menu) {
-  while (stack.length > 0) {
-    var entry = stack.pop(); 
-    
-    if (false) {
-      stack.push(entry);
-      break;
-    }
-  }
+  menuStack.push(menu);
+}
+
+
+function isMouseOver(divTag) {
+  var minx
+  var maxx
+  var miny
+  var maxy
+  var 
 }
 
 

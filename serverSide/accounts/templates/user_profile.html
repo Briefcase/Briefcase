@@ -14,7 +14,7 @@
 {% if user_spreadsheet_list %}
     <ul>
     {% for s in user_spreadsheet_list %}
-        <li><a href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}}</a></li>
+        <li><a href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}}</a> owner = {{s.owner}}</li>
     {% endfor %}
 {% endif %}
 

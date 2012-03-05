@@ -20,10 +20,10 @@ class UserProfile(models.Model):
         return self.user.username
         
 class Spreadsheet(models.Model):
-    owner = models.ForeignKey(UserProfile, related_name = "owner")
+    owner = models.ForeignKey(UserProfile, related_name = "my_spreadsheets")
     file_name = models.CharField(max_length = 20)
     data = models.TextField()
-    allowed_users = models.ManyToManyField(UserProfile, related_name="allowed_users", null=True, blank=True)
+    allowed_users = models.ManyToManyField(UserProfile, related_name="allowed_spreadsheets", null=True, blank=True)
     public = models.BooleanField()
     def __unicode__(self):
         return self.file_name

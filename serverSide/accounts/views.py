@@ -41,7 +41,7 @@ def index(request):
 def userprofile(request):
     profile = request.user.get_profile()
     #user_spreadsheet_list = Spreadsheet.objects.filter(owner=profile)
-    user_spreadsheet_list = UserProfile.objects.get(user=request.user).spreadsheet_set.all()
+    user_spreadsheet_list = UserProfile.objects.get(user=request.user).allowed_spreadsheets.all()
     t=loader.get_template('user_profile.html')
     c = Context({
         'user_spreadsheet_list': user_spreadsheet_list,

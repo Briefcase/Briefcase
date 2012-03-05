@@ -55,7 +55,7 @@ xmlText += '    <button name="save" function="save()" enabled="true" iconsrc="ic
 xmlText += '    <button name="load" function="load()" enabled="true" iconsrc="icons/action_back.gif" shortcutKey="Ctrl+L" version="normal"> </button>';
 xmlText += '    <break></break>';
 xmlText += '    <menu name="Feature Select" iconsrc="icons/action_go.gif" version="normal">';
-xmlText += '      <button name="Feature One"   function="feature(\'one\')"   iconsrc="icons/flag_blue.gif" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
+xmlText += '      <button name="Feature One"   function="alert(\'one\')"   iconsrc="icons/flag_blue.gif" shortcutKey="Shft+Ctrl+1" version="normal"> </button>';
 xmlText += '      <button name="Feature Two"   function="feature(\'two\')"   iconsrc="icons/flag_green.gif" shortcutKey="Shft+Ctrl+2" version="normal"> </button>';
 xmlText += '      <button name="Feature Three" function="feature(\'three\')" iconsrc="icons/flag_orange.gif" shortcutKey="Shft+Ctrl+3" version="normal"> </button>';
 xmlText += '      <button name="Feature Four"  function="feature(\'four\')"  iconsrc="icons/flag_red.gif" shortcutKey="Shft+Ctrl+4" version="normal"> </button>';
@@ -86,9 +86,6 @@ function attachDOMElements(XMLTree,dommenu) {
   var element = document.createElement("div");
   var name = $(XMLTree).attr("name");
   
-  
-  
-  
   if (XMLTree.nodeName == "menu") {
     var XMLChildren = $(XMLTree).children();
     var icon = "";
@@ -106,6 +103,8 @@ function attachDOMElements(XMLTree,dommenu) {
     
     icon = $(XMLTree).attr("iconsrc");
     shortcutkey = $(XMLTree).attr("shortcutKey");
+    // set the callback function to a parsed version of the xml's text
+    callbackFunction = function() {eval($(XMLTree).attr("function"));};
     
     
     element = createButton (name,callbackFunction,icon,shortcutkey,version);
@@ -119,14 +118,16 @@ function attachDOMElements(XMLTree,dommenu) {
   }
   dommenu.appendChild(element);
   
-  /*
-  $(this).children().each(function () {
-    alert("->"+$(this).attr("name")+":"+this.nodeName);
-  });*/
+}
+
+function createButton (name, callbackFunction, icon, shortcutKey, version) {
+  var item = createItem(name,callbackFunction,icon,shortcutKey, version);
+  
+  return item;
 }
 
 // returns an element
-function createButton (name, callbackFunction, icon, shortcutKey, version) {
+function createItem (name, callbackFunction, icon, shortcutKey, version) {
   var element = document.createElement('div');
   element.setAttribute('class','menuButton');
   //name
@@ -182,14 +183,17 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
   
   document.body.appendChild(generatedMenu);
   
-  return createButton(name,showMenu,icon,'&#9656',version);
+  return createItem(name,showMenu,icon,'&#9656',version);
   
 }
 
-document.onclick = hideMenus;
+function addMenuToStack(menu) {
+  menuStack.push(menu);
+  alert("added to stack. length:"+menuStack.length);
+}
 
+//document.onclick = hideMenus;
 function hideMenus (event) {
-  //alert("click " +event.pageX +":"+ event.pageY);
   while (menuStack.length > 0) {
     var entry = menuStack.pop(); 
     
@@ -205,11 +209,16 @@ function hideMenus (event) {
   }
 }
 
-function addMenuToStack(menu) {
-  menuStack.push(menu);
-  alert("added to stack. length:"+menuStack.length);
+function closeMenusDownTo (menuItem) {
+  while (menuStack.length > 0) {
+    var entry = menuStack.pop();
+    
+    if (entry == menuItem) {
+      menuStack.push(entry);
+      break;
+    }
+  }
 }
-
 
 function isMouseOver(divTag,x,y) {
   var maxX = divTag.offsetLeft + divTag.offsetWidth;
@@ -223,8 +232,6 @@ function isMouseOver(divTag,x,y) {
   
   return false;
 }
-
-
 
 
 function createBreak () {

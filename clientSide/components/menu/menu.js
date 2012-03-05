@@ -46,7 +46,8 @@
 \******************************************************************************/
 var menu;
 var menuStack = new Array();
-var menuOpen = false;
+var menuLastIn;
+var menuLastOut;
 
 var xmlText = "<XMLMenu>";
 xmlText += '  <menu name="File" iconsrc="icons/action_forward.gif" version="normal">';
@@ -95,7 +96,7 @@ function attachDOMElements(XMLTree,dommenu) {
     
     icon = $(XMLTree).attr("iconsrc");
     
-    element = createMenu (name, XMLChildren, icon,version);
+    element = createMenu (name, XMLChildren, icon,version,dommenu);
   }
   else if (XMLTree.nodeName == "button") {
     var callbackFunction = "";
@@ -155,7 +156,7 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
 }
 
 
-function createMenu (name, XMLChildren, icon, version) {
+function createMenu (name, XMLChildren, icon, version, topLevel) {
   
   var generatedMenu = document.createElement('div');
   generatedMenu.setAttribute('class','subMenu');
@@ -163,49 +164,64 @@ function createMenu (name, XMLChildren, icon, version) {
   
   $(XMLChildren).each(function() {attachDOMElements(this,generatedMenu)});  
   
-
-  //generatedMenu.onmouseout = hideMenu;
   generatedMenu.style.display = 'none';
   var showMenu = function() {
-    generatedMenu.style.top = this.offsetTop;//+this.offsetHeight
-    generatedMenu.style.left = this.offsetWidth+this.offsetLeft+this.parentNode.offsetLeft;
-    generatedMenu.style.display = 'inherit'
+    // Add the menu to the stack of open menus
+    addMenuToStack(generatedMenu);
+    //determine offset of top left corner of the menu
+    if (topLevel!=menu) {
+      generatedMenu.style.top = this.offsetTop+this.parentNode.offsetTop;
+      generatedMenu.style.left = this.offsetWidth+this.offsetLeft+this.parentNode.offsetLeft;
+    }
+    else if (topLevel==menu) {
+      generatedMenu.style.top = this.offsetTop+this.offsetHeight+this.parentNode.offsetTop;
+      generatedMenu.style.left = this.offsetLeft+this.parentNode.offsetLeft;
+    }
+      generatedMenu.style.display = 'inherit';
   }
   
-  //document.getElementById('body').appendChild(generatedMenu);
   document.body.appendChild(generatedMenu);
   
   return createButton(name,showMenu,icon,'&#9656',version);
   
 }
 
+document.onclick = hideMenus;
 
-
-function hideMenus () {
-  while (stack.length > 0) {
-    var entry = stack.pop(); 
+function hideMenus (event) {
+  //alert("click " +event.pageX +":"+ event.pageY);
+  while (menuStack.length > 0) {
+    var entry = menuStack.pop(); 
     
-    
-    if (isMouseOver(entry)) {
+    if (isMouseOver(entry,event.pageX,event.pageY)) {
       menuStack.push(entry);
+      alert("matched");
       break;
     }
+    else {
+      alert("hide");
+      entry.style.display = 'none';
+    }
+  }
+}
+
+function addMenuToStack(menu) {
+  menuStack.push(menu);
+  alert("added to stack. length:"+menuStack.length);
+}
+
+
+function isMouseOver(divTag,x,y) {
+  var maxX = divTag.offsetLeft + divTag.offsetWidth;
+  var minX = divTag.offsetLeft;
+  var maxY = divTag.offsetTop + divTag.offsetTop;
+  var minY = divTag.offsetTop;
+  
+  if (x < maxX && x > minX && y < maxY && y > minY) {
+    return true;
   }
   
-  this.style.display = 'none';
-}
-
-function addMenuTostack(menu) {
-  menuStack.push(menu);
-}
-
-
-function isMouseOver(divTag) {
-  var minx
-  var maxx
-  var miny
-  var maxy
-  var 
+  return false;
 }
 
 

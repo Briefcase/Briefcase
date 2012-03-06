@@ -46,8 +46,7 @@
 \******************************************************************************/
 var menu;
 var menuStack = new Array();
-var menuLastIn;
-var menuLastOut;
+var menuOpen = false;
 
 var xmlText = "<XMLMenu>";
 xmlText += '  <menu name="File" iconsrc="icons/action_forward.gif" version="normal">';
@@ -122,7 +121,7 @@ function attachDOMElements(XMLTree,dommenu) {
 
 function createButton (name, callbackFunction, icon, shortcutKey, version) {
   var item = createItem(name,callbackFunction,icon,shortcutKey, version);
-  
+  item.onmouseover = function() {closeMenusDownTo(item.parentNode)};
   return item;
 }
 
@@ -183,28 +182,45 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
   
   document.body.appendChild(generatedMenu);
   
-  return createItem(name,showMenu,icon,'&#9656',version);
+  
+ 
+  
+  var item = createItem(name,showMenu,icon,'&#9656',version);
+  
+  item.onmouseover = function() {
+    if (generatedMenu.style.display == 'none') {
+      closeMenusDownTo(this.parentNode);
+      //if (menuOpen) {
+        showMenu.call(this);
+      //}
+    }
+    else {
+      closeMenusDownTo(generatedMenu);
+    }
+  };
+  
+  return item;
   
 }
 
 function addMenuToStack(menu) {
   menuStack.push(menu);
-  alert("added to stack. length:"+menuStack.length);
 }
 
-//document.onclick = hideMenus;
+document.onclick = hideMenus;
+// hide all the menus when clicking outside
 function hideMenus (event) {
-  while (menuStack.length > 0) {
-    var entry = menuStack.pop(); 
-    
-    if (isMouseOver(entry,event.pageX,event.pageY)) {
-      menuStack.push(entry);
-      alert("matched");
+  var overADiv = false;
+  for (menuItem in menuStack) {
+    if (isMouseOver(menuItem,event.pageX,event.pageY)) {
+      overADiv = true;
       break;
     }
-    else {
-      alert("hide");
-      entry.style.display = 'none';
+  }
+  if (!overADiv) {
+    while(menuStack.length > 0) {
+      var menuItem = menuStack.pop();
+      menuItem.style.display = 'none';
     }
   }
 }
@@ -212,10 +228,12 @@ function hideMenus (event) {
 function closeMenusDownTo (menuItem) {
   while (menuStack.length > 0) {
     var entry = menuStack.pop();
-    
     if (entry == menuItem) {
       menuStack.push(entry);
       break;
+    }
+    else {
+      entry.style.display = 'none';
     }
   }
 }

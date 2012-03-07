@@ -124,102 +124,12 @@ function attachDOMElements(XMLTree,dommenu) {
   
 }
 
-function createButton (name, callbackFunction, icon, shortcutKey, version) {
-  var item = createItem(name,callbackFunction,icon,shortcutKey, version);
-  item.onmouseover = function() {closeMenusDownTo(item.parentNode)};
-  return item;
-}
-
-// returns an element
-function createItem (name, callbackFunction, icon, shortcutKey, version) {
-  var element = document.createElement('div');
-  element.setAttribute('class','menuButton');
-  //name
-  var nameDiv = document.createElement('div');
-  nameDiv.setAttribute('class','name');
-  nameDiv.innerHTML = name;
-  // shortcut
-  var shortcutKeyDiv = document.createElement('div');
-  shortcutKeyDiv.innerHTML = shortcutKey;
-  shortcutKeyDiv.setAttribute('class','shortcutKey');
-  // icon
-  var imageWrapper = document.createElement('div');  
-  imageWrapper.setAttribute('class','image');
-  if (icon != "") {
-    var image = document.createElement('img');
-    image.setAttribute('src',icon);
-    imageWrapper.appendChild(image);
-  }
-  
-  element.appendChild(imageWrapper);
-  element.appendChild(nameDiv);
-  element.appendChild(shortcutKeyDiv);
-  
-  element.onclick = callbackFunction;
-  
-  return element;
-}
 
 
-function createMenu (name, XMLChildren, icon, version, topLevel) {
-  
-  var generatedMenu = document.createElement('div');
-  generatedMenu.setAttribute('class','subMenu');
-  
-  
-  $(XMLChildren).each(function() {attachDOMElements(this,generatedMenu)});  
-  
-  generatedMenu.style.display = 'none';
-  var showMenu = function() {
-    // Add the menu to the stack of open menus
-    addMenuToStack(generatedMenu);
-    //determine offset of top left corner of the menu
-    if (topLevel!=menu) {
-      generatedMenu.style.top = this.offsetTop+this.parentNode.offsetTop;
-      generatedMenu.style.left = this.offsetWidth+this.offsetLeft+this.parentNode.offsetLeft;
-    }
-    else if (topLevel==menu) {
-      generatedMenu.style.top = this.offsetTop+this.offsetHeight+this.parentNode.offsetTop;
-      generatedMenu.style.left = this.offsetLeft+this.parentNode.offsetLeft;
-    }
-      generatedMenu.style.display = 'inherit';
-  }
-  var hideMenu = function() {
-    closeMenusDownTo(this.parentNode);
-  }
-  
-  document.body.appendChild(generatedMenu);
-  
-  var toggleMenu = function() {
-    //alert("toggle");
-    if (generatedMenu.style.display == 'none') {
-      //alert("show");
-      showMenu.call(this);
-    }
-    else {
-      //alert("hide");
-      hideMenu.call(this);
-    }
-  }
- 
-  
-  var item = createItem(name,toggleMenu,icon,'&#9656',version);
-  
-  item.onmouseover = function() {
-    if (generatedMenu.style.display == 'none') {
-      closeMenusDownTo(this.parentNode);
-      //if (menuOpen) {
-        showMenu.call(this);
-      //}
-    }
-    else {
-      closeMenusDownTo(generatedMenu);
-    }
-  };
-  
-  return item;
-  
-}
+
+
+
+
 
 function addMenuToStack(menu) {
   menuStack.push(menu);
@@ -267,8 +177,113 @@ function isMouseOver(divTag,x,y) {
   
   return false;
 }
+  //////////////////////////////////////////////////////////////////////////////
+ /////////////////////////// MENU ELEMENT GENERATION //////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/********************************* CREATE ITEM ********************************\
+/*************************** CORE ELEMENT GENERATION **************************\
+|
+\******************************************************************************/
+function createItem (name, callbackFunction, icon, shortcutKey, version) {
+  var element = document.createElement('div');
+  element.setAttribute('class','menuButton');
+  //name
+  var nameDiv = document.createElement('div');
+  nameDiv.setAttribute('class','name');
+  nameDiv.innerHTML = name;
+  // shortcut
+  var shortcutKeyDiv = document.createElement('div');
+  shortcutKeyDiv.innerHTML = shortcutKey;
+  shortcutKeyDiv.setAttribute('class','shortcutKey');
+  // icon
+  var imageWrapper = document.createElement('div');  
+  imageWrapper.setAttribute('class','image');
+  if (icon != "") {
+    var image = document.createElement('img');
+    image.setAttribute('src',icon);
+    imageWrapper.appendChild(image);
+  }
+  
+  element.appendChild(imageWrapper);
+  element.appendChild(nameDiv);
+  element.appendChild(shortcutKeyDiv);
+  
+  element.onclick = callbackFunction;
+  
+  return element;
+}
 
-
+/******************************* MENU GENERATION ******************************\
+| This function generates a sub menu item.                                     |
+| - Name: A string containing the title of the button                          |
+| - XMLChildren: An XML segment containing of the the menu's children nodes    |
+| - icon: A src path to the image to be used as the menu button's icon         |
+| - version: A 'TBD' variable just incase of new features                      |
+| - topLevel: a boolean value of wether this is a top-level button or a sub-   |
+|             menu button. It changes things like position of the generated    |
+|             submenu and wether to toggle the 'menu open' flag                | 
+|                                                                              |
+| The function first creates a new 'sub menu' div and fills it with its        |
+| child buttons recursively.                                                   |
+\******************************************************************************/
+function createMenu (name, XMLChildren, icon, version, topLevel) {
+  
+  var generatedMenu = document.createElement('div');
+  generatedMenu.setAttribute('class','subMenu');
+  
+  $(XMLChildren).each(function() {attachDOMElements(this,generatedMenu)});  
+  
+  generatedMenu.style.display = 'none';
+  var showMenu = function() {
+    // Add the menu to the stack of open menus
+    addMenuToStack(generatedMenu);
+    //determine offset of top left corner of the menu
+    if (topLevel!=menu) {
+      generatedMenu.style.top = this.offsetTop+this.parentNode.offsetTop;
+      generatedMenu.style.left = this.offsetWidth+this.offsetLeft+this.parentNode.offsetLeft;
+    }
+    else if (topLevel==menu) {
+      generatedMenu.style.top = this.offsetTop+this.offsetHeight+this.parentNode.offsetTop;
+      generatedMenu.style.left = this.offsetLeft+this.parentNode.offsetLeft;
+    }
+    // make it visable
+    generatedMenu.style.display = 'inherit';
+  }
+  
+  document.body.appendChild(generatedMenu);
+  
+  var toggleMenu = function() {
+    if (generatedMenu.style.display == 'none') {showMenu.call(this);}
+    else {closeMenusDownTo(this.parentNode);}
+  }
+  
+  var item = createItem(name,toggleMenu,icon,'&#9656',version);
+  
+  item.onmouseover = function() {
+    if (generatedMenu.style.display == 'none') {
+      closeMenusDownTo(this.parentNode);
+      //if (menuOpen) {
+        showMenu.call(this);
+      //}
+    }
+    else {
+      closeMenusDownTo(generatedMenu);
+    }
+  };
+  
+  return item;
+}
+/****************************** BUTTON GENERATION *****************************\
+|
+\******************************************************************************/
+function createButton (name, callbackFunction, icon, shortcutKey, version) {
+  var item = createItem(name,callbackFunction,icon,shortcutKey, version);
+  item.onmouseover = function() {closeMenusDownTo(item.parentNode)};
+  return item;
+}
+/****************************** BREAK GENERATION ******************************\
+|
+\******************************************************************************/
 function createBreak () {
   var element = document.createElement('div');
   element.setAttribute('class','break');

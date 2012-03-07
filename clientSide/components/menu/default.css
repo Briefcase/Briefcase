@@ -17,7 +17,7 @@ body {
 .mainMenu {
   width: 100%;
   overflow: hidden;
-  background-color: #F00;
+  background-color: #CCC;
 }
 
 .subMenu {
@@ -44,7 +44,7 @@ body {
 
 }
 .menuButton:hover {
-  background: #0FF;
+  background: #DDD;
 }
 
 

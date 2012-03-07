@@ -185,7 +185,7 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
   
  
   
-  var item = createItem(name,showMenu,icon,'&#9656',version);
+  var item = createItem(name,null,icon,'&#9656',version);
   
   item.onmouseover = function() {
     if (generatedMenu.style.display == 'none') {
@@ -211,17 +211,22 @@ document.onclick = hideMenus;
 // hide all the menus when clicking outside
 function hideMenus (event) {
   var overADiv = false;
+  var output = "";
   for (menuItem in menuStack) {
-    if (isMouseOver(menuItem,event.pageX,event.pageY)) {
+    output += menuStack[menuItem]+":"+event.pageX+":"+event.pageY + "\n";
+    if (isMouseOver(menuStack[menuItem],event.pageX,event.pageY)) {
       overADiv = true;
       break;
     }
   }
+  alert(output);
   if (!overADiv) {
-    while(menuStack.length > 0) {
+    alert("closeing: "+menuStack.length);
+    //closeMenusDownTo(menu);
+    /*while(menuStack.length > 0) {
       var menuItem = menuStack.pop();
       menuItem.style.display = 'none';
-    }
+    }*/
   }
 }
 
@@ -243,6 +248,7 @@ function isMouseOver(divTag,x,y) {
   var minX = divTag.offsetLeft;
   var maxY = divTag.offsetTop + divTag.offsetTop;
   var minY = divTag.offsetTop;
+  
   
   if (x < maxX && x > minX && y < maxY && y > minY) {
     return true;

@@ -103,7 +103,12 @@ function attachDOMElements(XMLTree,dommenu) {
     icon = $(XMLTree).attr("iconsrc");
     shortcutkey = $(XMLTree).attr("shortcutKey");
     // set the callback function to a parsed version of the xml's text
-    callbackFunction = function() {eval($(XMLTree).attr("function"));};
+    callbackFunction = function() {
+      eval($(XMLTree).attr("function"));
+      // also close the menu
+      closeMenusDownTo(menu);
+      menuOpen = false;
+    };
     
     
     element = createButton (name,callbackFunction,icon,shortcutkey,version);
@@ -179,13 +184,26 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
     }
       generatedMenu.style.display = 'inherit';
   }
+  var hideMenu = function() {
+    closeMenusDownTo(this.parentNode);
+  }
   
   document.body.appendChild(generatedMenu);
   
-  
+  var toggleMenu = function() {
+    //alert("toggle");
+    if (generatedMenu.style.display == 'none') {
+      //alert("show");
+      showMenu.call(this);
+    }
+    else {
+      //alert("hide");
+      hideMenu.call(this);
+    }
+  }
  
   
-  var item = createItem(name,null,icon,'&#9656',version);
+  var item = createItem(name,toggleMenu,icon,'&#9656',version);
   
   item.onmouseover = function() {
     if (generatedMenu.style.display == 'none') {
@@ -218,12 +236,8 @@ function hideMenus (event) {
     }
   }
   if (!overADiv) {
-    //alert("closeing: "+menuStack.length);
     closeMenusDownTo(menu);
-    /*while(menuStack.length > 0) {
-      var menuItem = menuStack.pop();
-      menuItem.style.display = 'none';
-    }*/
+    menuOpen = false;
   }
 }
 

@@ -261,9 +261,9 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
     //if (menuOpen) {
       if (generatedMenu.style.display == 'none') {
         closeMenusDownTo(this.parentNode);
-        //if (menuOpen) {
+        if (menuOpen) {
           showMenu.call(this);
-        //}
+        }
       }
       else {
         closeMenusDownTo(generatedMenu);

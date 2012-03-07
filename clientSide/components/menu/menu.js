@@ -82,14 +82,14 @@ function attachDOMElements(XMLTree,dommenu) {
     
     element = createMenu (name, XMLChildren, icon,version,dommenu);
   }
-  else if (XMLTree.nodeName == "button") {
+  else if (XMLTree.nodeName == "menuItem") {
     var callbackFunction = "";
     var icon = "";
     var shortcutkey = "";
     var version = "normal";
     
     icon = $(XMLTree).attr("iconsrc");
-    shortcutkey = $(XMLTree).attr("shortcutKey");
+    shortcutkey = $(XMLTree).attr("shortcut");
     // set the callback function to a parsed version of the xml's text
     callbackFunction = function() {
       try {

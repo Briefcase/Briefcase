@@ -82,7 +82,7 @@ function attachDOMElements(XMLTree,dommenu) {
     
     element = createMenu (name, XMLChildren, icon,version,dommenu);
   }
-  else if (XMLTree.nodeName == "menuItem") {
+  else if (XMLTree.nodeName == "menuitem") {
     var callbackFunction = "";
     var icon = "";
     var shortcutkey = "";

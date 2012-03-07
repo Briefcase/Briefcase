@@ -211,18 +211,15 @@ document.onclick = hideMenus;
 // hide all the menus when clicking outside
 function hideMenus (event) {
   var overADiv = false;
-  var output = "";
   for (menuItem in menuStack) {
-    output += menuStack[menuItem]+":"+event.pageX+":"+event.pageY + "\n";
     if (isMouseOver(menuStack[menuItem],event.pageX,event.pageY)) {
       overADiv = true;
       break;
     }
   }
-  alert(output);
   if (!overADiv) {
-    alert("closeing: "+menuStack.length);
-    //closeMenusDownTo(menu);
+    //alert("closeing: "+menuStack.length);
+    closeMenusDownTo(menu);
     /*while(menuStack.length > 0) {
       var menuItem = menuStack.pop();
       menuItem.style.display = 'none';

@@ -4,6 +4,15 @@ body {
   position: absolute;
 }
 
+.break {
+  width: 200px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  height: 1px;
+  background-color: #AAA;
+}
 
 .mainMenu {
   width: 100%;
@@ -12,7 +21,7 @@ body {
 }
 
 .subMenu {
-  background-color: #0F0;
+  background-color: #CCC;
   float:left;
   position:absolute;
 }

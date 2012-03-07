@@ -104,7 +104,10 @@ function attachDOMElements(XMLTree,dommenu) {
     shortcutkey = $(XMLTree).attr("shortcutKey");
     // set the callback function to a parsed version of the xml's text
     callbackFunction = function() {
-      eval($(XMLTree).attr("function"));
+      try {
+        eval($(XMLTree).attr("function"));
+      }
+      catch (err) {console.log(err)}
       // also close the menu
       closeMenusDownTo(menu);
       menuOpen = false;
@@ -139,6 +142,9 @@ document.onclick = hideMenus;
 // hide all the menus when clicking outside
 function hideMenus (event) {
   var overADiv = false;
+  // check parent main menu
+  if (isMouseOver(menu,event.pageX,event.pageY)) {overADiv = true;}
+  // check all open sub menus
   for (menuItem in menuStack) {
     if (isMouseOver(menuStack[menuItem],event.pageX,event.pageY)) {
       overADiv = true;
@@ -219,9 +225,9 @@ function createItem (name, callbackFunction, icon, shortcutKey, version) {
 | - XMLChildren: An XML segment containing of the the menu's children nodes    |
 | - icon: A src path to the image to be used as the menu button's icon         |
 | - version: A 'TBD' variable just incase of new features                      |
-| - topLevel: a boolean value of wether this is a top-level button or a sub-   |
-|             menu button. It changes things like position of the generated    |
-|             submenu and wether to toggle the 'menu open' flag                | 
+| - topLevel: a div object that represents the parent, it is used to check to  |
+|             see if the button is a main menu or a sub menu by checking its   |
+|             value against 'menu'                                             | 
 |                                                                              |
 | The function first creates a new 'sub menu' div and fills it with its        |
 | child buttons recursively.                                                   |
@@ -235,6 +241,7 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
   
   generatedMenu.style.display = 'none';
   var showMenu = function() {
+
     // Add the menu to the stack of open menus
     addMenuToStack(generatedMenu);
     //determine offset of top left corner of the menu
@@ -248,27 +255,32 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
     }
     // make it visable
     generatedMenu.style.display = 'inherit';
-  }
+  };
   
   document.body.appendChild(generatedMenu);
   
   var toggleMenu = function() {
-    if (generatedMenu.style.display == 'none') {showMenu.call(this);}
+    if (topLevel == menu) {
+      menuOpen = !menuOpen;
+    }
+    if (generatedMenu.style.display == 'none') {alert('delay');showMenu.call(this);}
     else {closeMenusDownTo(this.parentNode);}
   }
   
   var item = createItem(name,toggleMenu,icon,'&#9656',version);
   
   item.onmouseover = function() {
-    if (generatedMenu.style.display == 'none') {
-      closeMenusDownTo(this.parentNode);
-      //if (menuOpen) {
-        showMenu.call(this);
-      //}
-    }
-    else {
-      closeMenusDownTo(generatedMenu);
-    }
+    //if (menuOpen) {
+      if (generatedMenu.style.display == 'none') {
+        closeMenusDownTo(this.parentNode);
+        //if (menuOpen) {
+          showMenu.call(this);
+        //}
+      }
+      else {
+        closeMenusDownTo(generatedMenu);
+      }
+    //}
   };
   
   return item;

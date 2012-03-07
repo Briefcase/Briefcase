@@ -246,7 +246,7 @@ function closeMenusDownTo (menuItem) {
 function isMouseOver(divTag,x,y) {
   var maxX = divTag.offsetLeft + divTag.offsetWidth;
   var minX = divTag.offsetLeft;
-  var maxY = divTag.offsetTop + divTag.offsetTop;
+  var maxY = divTag.offsetTop + divTag.offsetHeight;
   var minY = divTag.offsetTop;
   
   

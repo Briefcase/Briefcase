@@ -142,7 +142,7 @@ document.onclick = hideMenus;
 // hide all the menus when clicking outside
 function hideMenus (event) {
   var overADiv = false;
-  // check parent main menu
+  // check parent main menu 
   if (isMouseOver(menu,event.pageX,event.pageY)) {overADiv = true;}
   // check all open sub menus
   for (menuItem in menuStack) {
@@ -263,7 +263,7 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
     if (topLevel == menu) {
       menuOpen = !menuOpen;
     }
-    if (generatedMenu.style.display == 'none') {alert('delay');showMenu.call(this);}
+    if (generatedMenu.style.display == 'none') {showMenu.call(this);}
     else {closeMenusDownTo(this.parentNode);}
   }
   

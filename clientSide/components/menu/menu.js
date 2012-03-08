@@ -118,7 +118,8 @@ function attachDOMElements(XMLTree,dommenu) {
 
 
 
-
+function hideDiv(divItem){
+}
 
 
 

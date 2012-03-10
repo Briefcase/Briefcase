@@ -2,7 +2,8 @@ body {
   padding: 0px;
   margin: 0px;
   position: absolute;
-  font-family: Arial;
+  font-family: Verdana;
+  font-size: 15px;
 }
 
 .break {
@@ -45,7 +46,7 @@ body {
 
 }
 .menuButton:hover {
-  background: #DDD;
+  background: #DDD
 }
 
 

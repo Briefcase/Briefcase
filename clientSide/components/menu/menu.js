@@ -235,12 +235,12 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
     addMenuToStack(generatedMenu);
     //determine offset of top left corner of the menu
     if (topLevel!=menu) {
-      generatedMenu.style.top = this.offsetTop+this.parentNode.offsetTop;
-      generatedMenu.style.left = this.offsetWidth+this.offsetLeft+this.parentNode.offsetLeft;
+      generatedMenu.style.top = this.offsetTop+this.parentNode.offsetTop+"px";
+      generatedMenu.style.left = this.offsetWidth+this.offsetLeft+this.parentNode.offsetLeft+"px";
     }
     else if (topLevel==menu) {
-      generatedMenu.style.top = this.offsetTop+this.offsetHeight+this.parentNode.offsetTop;
-      generatedMenu.style.left = this.offsetLeft+this.parentNode.offsetLeft;
+      generatedMenu.style.top = this.offsetTop+this.offsetHeight+this.parentNode.offsetTop+"px";
+      generatedMenu.style.left = this.offsetLeft+this.parentNode.offsetLeft+"px";
     }
     // make it visable
     generatedMenu.style.display = 'inherit';

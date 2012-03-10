@@ -50,8 +50,7 @@ var menuStack = new Array();
 var menuOpen = false;
 
   
-
-window.onload = function () {
+$(document).ready(function () {
   alert('menu loading');
   var xmlText = document.getElementById('xmlMenu').innerHTML;
   
@@ -66,7 +65,7 @@ window.onload = function () {
   $(pxml).children().each(function() {attachDOMElements(this,menu);});
   
   alert('menu loaded');
-}
+});
 
 // attach dom elements attaches the last layer of xml children to the specified DOM object menu
 function attachDOMElements(XMLTree,dommenu) {

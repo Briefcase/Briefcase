@@ -1,0 +1,94 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  font-family: Verdana;
+  font-size: 15px;
+}
+
+.break {
+  width: 200px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  height: 1px;
+  background-color: #AAA;
+}
+
+.mainMenu {
+  width: 100%;
+  overflow: hidden;
+  background-color: #CCC;
+}
+
+.subMenu {
+  background-color: #CCC;
+  float:left;
+  position:absolute;
+}
+
+
+
+/* General Menu Button stuff */
+.menuButton {
+  background: #CCC;
+  cursor: default;
+  
+  /* prevent users from selecting the text in the menu */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+
+}
+.menuButton:hover {
+  background: #DDD
+}
+
+
+.menuButton .name {
+  float:left;
+}
+.menuButton .image {
+  float:left;
+  width: 20px;
+  height: 20px;
+}
+.menuButton .shortcutKey {
+  float:left;
+  color:#AAA;
+}
+/************************* MAIN MENU BUTTON ATTRIBUTES ************************\
+| These CSS elements modify the attributes of the menu buttons in the main     |
+| menu and not the sub menus                                                   |
+\******************************************************************************/
+.mainMenu .menuButton{
+  padding: 5px;
+  margin: 0px 10px;
+  float: left;
+}
+.mainMenu .menuButton .name {
+}
+.mainMenu .menuButton .image {
+  display:none;
+}
+.mainMenu .menuButton .shortcutKey {
+  display:none;
+}
+/************************* SUB MENU BUTTON ATTRIBUTES *************************\
+| These CSS elements modify the attributes of the menu buttons in the sub menu |
+| and not the main menu                                                        |
+\******************************************************************************/
+.subMenu .menuButton {
+  width: 300px;
+  height: 20px;
+}
+.subMenu .menuButton .name {
+}
+.subMenu .menuButton .image {width: 16px; height: 16px; margin: 2px;}
+.subMenu .menuButton .image img {width:100%; height: 100%;}
+.subMenu .menuButton .shortcutKey{float:right}

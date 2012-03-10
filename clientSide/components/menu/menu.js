@@ -52,7 +52,7 @@ var menuOpen = false;
   
 
 window.onload = function () {
-  
+  alert('menu loading');
   var xmlText = document.getElementById('xmlMenu').innerHTML;
   
   menu = document.getElementById('TitleMenu');
@@ -65,7 +65,7 @@ window.onload = function () {
   var tree = $(pxml);
   $(pxml).children().each(function() {attachDOMElements(this,menu);});
   
-
+  alert('menu loaded');
 }
 
 // attach dom elements attaches the last layer of xml children to the specified DOM object menu

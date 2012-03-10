@@ -81,7 +81,7 @@ function textboxOnBlur() { textfoucs = false; }
 | This function is run once the page is loaded it contatins all of the         |
 | functions that need to be set to interrupts and
 \******************************************************************************/
-window.onload = function () {    
+$(document).ready( function () {    
   resize(); // call the resize function to draw the initial frame
   
   window.onresize = resize; // redraw the frame on resize
@@ -93,9 +93,7 @@ window.onload = function () {
   moveTextBox(-100,-100);
   
   load2();
-}
-
-
+});
   //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////////// USER INPUT /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////  

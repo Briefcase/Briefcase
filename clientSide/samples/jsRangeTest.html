@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script>
+      function appendBegining() {
+        var textbox = document.getElementById("sample");
+        var range = document.createRange();
+        range.setStart(textbox,0);
+        range.setEnd(textbox,0);
+        var newText = document.createTextNode("Hello world");
+        range.insertNode(newText);
+      }
+      document.onmousemove = function () {
+        var parent = document.getElementById("sample").parentNode;
+        document.getElementById("tree").innerHTML = showchildren(parent,0);
+      }
+      function showchildren (parent, indent) {
+        var list = parent.childNodes;
+        var output = "";
+        for (var i = 0; i < list.length; i++) {
+          for (var j = 0; j < indent; j++) {
+            output += "&nbsp;";
+          }
+          output+=list[i].toString();
+          //if (list[i].toString() == "[object Text]" || ) {
+            output+= " \"" + list[i].value + "\"";
+          //}
+          output+="<br / >";
+          output+= showchildren(list[i],indent+2);
+        }
+        return output;
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+    <button onclick="appendBegining()">Press to prepend</button> <br />
+    <textarea id="sample"></textarea>
+    </div>
+    <div id="tree">
+    </div>
+  </body>
+</html>

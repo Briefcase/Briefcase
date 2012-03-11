@@ -45,26 +45,24 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 
-var menu;
-var menuStack = new Array();
-var menuOpen = false;
+var menu; // the object that is the original menu bar
+var menuStack = new Array(); // stores the stack of open menus
+var menuOpen = false; // stores weather the menu is open or not 
 
-  
+/*********************************** ON LOAD **********************************\
+| This function loads the XML from the web page 
+\******************************************************************************/
 $(document).ready(function () {
-  alert('menu loading');
-  var xmlText = document.getElementById('xmlMenu').innerHTML;
+  var xmlText = document.getElementById('xmlMenu').innerHTML; // read the XML  [[[TO BE CONVERTED IN TO JSON IN V2]]]
   
-  menu = document.getElementById('TitleMenu');
-  menu.setAttribute('class','mainMenu');
-  menu.draggable = false;
-  
+  menu = document.getElementById('TitleMenu'); // load the menu placeholder from the document
+  menu.setAttribute('class','mainMenu'); // apply css elements
+  menu.draggable = false; // prittify the menu when users mis-click
   
   var pxml = $.parseXML(xmlText);
   var pxml = $(pxml).children();// break out of the global menu
-  var tree = $(pxml);
   $(pxml).children().each(function() {attachDOMElements(this,menu);});
   
-  alert('menu loaded');
 });
 
 // attach dom elements attaches the last layer of xml children to the specified DOM object menu

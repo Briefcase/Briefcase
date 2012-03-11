@@ -317,7 +317,6 @@ function resizeFunctionBar() {
   var functionBarLeftOffset = functionBar.offsetLeft;
   
   var windowWidth = window.innerWidth;
-  alert(functionBarLeftOffset+":"+windowWidth);
   
   //set size
   var functionBarNewWidth = windowWidth - functionBarLeftOffset;

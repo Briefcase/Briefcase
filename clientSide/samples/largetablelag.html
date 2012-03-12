@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script>
+      window.onload = function() {
+        var table = document.getElementById("mainTable");
+        var width = 1000;
+        var height = 1000;
+        
+        var output = "";
+        for (var i = 0; i < height; i++) {
+          output += "<tr>"
+          for (var j = 0; j < width; j++) {
+            output += "<td>"+ Math.random() + "</td>";
+          }
+          output += "</tr>"
+        }
+        table.innerHTML = output; 
+        
+      }
+    </script>
+  </head>
+  <body>
+    <table id="mainTable" border=1 style="border-collapse: collapse">
+    </table>
+  </body>
+</html>

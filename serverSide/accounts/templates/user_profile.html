@@ -25,9 +25,9 @@
 <div class = "title">
 <h1> Hi {{current_user.username}} </h1>
 {% if user_spreadsheet_list %}
-    <ul>
+  <br />
     {% for s in user_spreadsheet_list %}
-        <li ><a class="item" href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}}owner = {{s.owner}} </a> </li>
+        <a class="item" href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}}owner = {{s.owner}} </a> <br/>
     {% endfor %}
 {% endif %}
 

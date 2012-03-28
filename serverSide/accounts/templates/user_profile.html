@@ -7,6 +7,15 @@
       div.title {
         font-family:arial;
       }
+      li.item {
+        width: 100%;
+        background: #F60;
+        padding: 2px;
+        border: 1px solid black;
+      }
+      li.item:hover {
+        background: #CCC;
+      }
     </style>
   </head>
 <div class = "title">
@@ -14,7 +23,7 @@
 {% if user_spreadsheet_list %}
     <ul>
     {% for s in user_spreadsheet_list %}
-        <li><a href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}}</a> owner = {{s.owner}}</li>
+        <li class="item"><a href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}}</a> owner = {{s.owner}}</li>
     {% endfor %}
 {% endif %}
 

@@ -139,7 +139,7 @@ function load2() {
   
   var output = "filename="+filename+"&username="+username;
   
-  alert (output);
+  //alert (output);
   
   $.ajax({
     type: "POST",

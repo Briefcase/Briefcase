@@ -66,14 +66,16 @@ var lasty = -1;
 var currentx = -1;
 var currenty = -1;
 
+// this variable saves which 
 var rowBegin = -1; // used in conjunction with tabbing and enter hotkeys
 
 // maintain which textbox has focus
 var functionfocus = false;
 var textfocus = false;
-
+// function  bar focus / blur
 function functionOnFocus() { functionfocus = true; }
 function functionOnBlur() { functionfocus = false; }
+// text box focus / blur
 function textboxOnFocus() { textfocus = true; }
 function textboxOnBlur() { textfoucs = false; }
 
@@ -84,13 +86,13 @@ function textboxOnBlur() { textfoucs = false; }
 $(document).ready( function () {    
   resize(); // call the resize function to draw the initial frame
   
-  window.onresize = resize; // redraw the frame on resize
+  window.onresize = resize;           // redraw the frame on resize
   document.onmousedown = blockordrag; // be able to handle click and drag
-  document.onmouseup = clickHandler; // detect if it is a click or a drag
+  document.onmouseup = clickHandler;  // detect if it is a click or a drag
   document.onmousemove = mouseDetect; // easy way to maintain mouse position
-  document.onkeypress = keypress; // keyboard shortcuts
+  document.onkeypress = keypress;     // keyboard shortcuts
   document.getElementById("framecontain").onscroll = appScroll;
-  moveTextBox(-100,-100);
+  moveTextBox(-1000,-1000); // move the text box out of the way
   
   load2();
 });
@@ -267,8 +269,7 @@ function blockordrag() {
 }
 /******************************** FINSIH INPUT ********************************\
 | detects changes and act accordingly: more documentation required             |
-
-| This function is run when input to the program has finished
+| This function is run when input to the program has finished                  |
 \******************************************************************************/
 function finishInput() {
   var equation = document.getElementById("inputbox").value;
@@ -301,8 +302,8 @@ function appScroll() {
   document.getElementById("application").style.left = document.getElementById("framecontain").scrollLeft + 'px';
 }
 /*********************************** RESIZE ***********************************\
-| The resize function handles everything that needs to be done when the window |
-| is resized
+| This function is called whenever the window is resized, it runs all of the   |
+| functions that need to run in order to redraw the page correctly             |
 \******************************************************************************/
 function resize() {
   redrawFrame();

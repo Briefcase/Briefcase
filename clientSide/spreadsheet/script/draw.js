@@ -51,8 +51,6 @@
 | by value it is ok! This file does not deal with any UI outside of the canvas |
 \******************************************************************************/
 
-
-
 /******************************** REDRAW FRAME ********************************\
 | This function redraws the entire frame, it is a very usefull function and    |
 | will soon be the only function that does any drawing at all, this way we     |

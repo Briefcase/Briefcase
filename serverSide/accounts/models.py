@@ -24,6 +24,7 @@ class Spreadsheet(models.Model):
     file_name = models.CharField(max_length = 20)
     data = models.TextField()
     allowed_users = models.ManyToManyField(UserProfile, related_name="allowed_spreadsheets", null=True, blank=True)
+    view_only_allowed_users = models.ManyToManyField(UserProfile, related_name="view_only_spreadsheets", null=True, blank=True)
     public = models.BooleanField()
     def __unicode__(self):
         return self.file_name

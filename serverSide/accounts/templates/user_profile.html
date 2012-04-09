@@ -28,9 +28,18 @@
   </head>
 <div class = "title">
 <h1> Hi {{current_user.username}} </h1>
+
 {% if user_spreadsheet_list %}
   <br />
     {% for s in user_spreadsheet_list %}
+        <a class="item" href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
+    {% endfor %}
+{% endif %}
+
+View Only:<br/ >
+{% if user_view_list %}
+  <br />
+    {% for s in user_view_list %}
         <a class="item" href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
     {% endfor %}
 {% endif %}

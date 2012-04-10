@@ -25,3 +25,26 @@ var tabReturnColumn = -1;
 /************************** INITILIZE EVENT FUNCTIONS *************************\
 |
 \******************************************************************************/
+
+$(document).ready( function () {
+  // size the window correctly
+  resizeWindow();
+  window.onresize = resizeWindow();
+  
+  // mouse events
+  document.onmousedown = mousePress;
+  document.onmouseup = mouseRelease;
+  
+  // general keyboard events (shortcut keys, etc.)
+  document.onkeypress = keypress;
+}
+
+  //////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////// INTERFACE RESIZING /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/******************************** RESIZE WINDOW *******************************\
+|
+\******************************************************************************/
+function resizeWindow () {
+  // do all of the resizeing functions here
+}

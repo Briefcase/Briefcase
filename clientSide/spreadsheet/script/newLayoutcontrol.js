@@ -59,7 +59,8 @@ function getCellWidth(xCoord) {
   //return defaultCellWidth;
 }
 function getCellHeight(yCoord) {
-  return defaultCellHeight;
+  return yCoord;
+  //return defaultCellHeight;
 }
 
   //////////////////////////////////////////////////////////////////////////////

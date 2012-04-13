@@ -51,6 +51,16 @@ function resizeWindow () {
   // do all of the resizeing functions here
   redrawFrame();
 }
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// CELL SIZE API ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+function getCellWidth(xCoord) {
+  return xCoord;
+  //return defaultCellWidth;
+}
+function getCellHeight(yCoord) {
+  return defaultCellHeight;
+}
 
   //////////////////////////////////////////////////////////////////////////////
  /////////////////////////////// SCROLL BAR API ///////////////////////////////
@@ -98,7 +108,19 @@ function redrawFrame() {
   
   
   //Draw the other Grid lines
-  var startx = ~~(getScrollX() / defaultCellWidht);
+  // vertical lines
+  var integerx = ~~(getScrollX() / defaultCellWidth);
+  var currentWidth = labelCellWidth+0.5;
+  while (currentWidth < c_canvas.width) {
+    currentWidth += getCellWidth(integerx);
+    context.moveTo(currentWidth,0);
+    context.lineTo(currentWidth,c_canvas.height);
+    integerx+=1;
+  }
+  
+  // Horizontal Lines
+  var integery = ~~(getScrollY() / defaultCellHeight);
+  var currentHeight = labelCellHeight+0.5;
   
   /*
   for (var x = 0.5; x < c_canvas.width; x += cellWidth) {

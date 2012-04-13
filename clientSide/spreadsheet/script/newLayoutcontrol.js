@@ -108,7 +108,7 @@ function redrawFrame() {
   
   
   //Draw the other Grid lines
-  // vertical lines
+  //Vvertical lines
   var integerx = ~~(getScrollX() / defaultCellWidth);
   var currentWidth = labelCellWidth+0.5;
   while (currentWidth < c_canvas.width) {
@@ -121,6 +121,12 @@ function redrawFrame() {
   // Horizontal Lines
   var integery = ~~(getScrollY() / defaultCellHeight);
   var currentHeight = labelCellHeight+0.5;
+  while (currentHeight < c_canvas.height) {
+    currentHeight += getCellHeight(integery);
+    context.moveTo(0,currentHeight);
+    context.lineTo(c_canvas.width,currentHeight);
+    integery += 1;
+  }
   
   /*
   for (var x = 0.5; x < c_canvas.width; x += cellWidth) {

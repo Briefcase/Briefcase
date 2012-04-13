@@ -63,6 +63,12 @@ function getCellHeight(yCoord) {
   //return defaultCellHeight;
 }
 
+function getCellOffsetLeft (xCoord, leftScreenOffset) {
+  
+}
+function getCellOffsetTop ( yCoord, topScreenOffset) {
+  
+}
   //////////////////////////////////////////////////////////////////////////////
  /////////////////////////////// SCROLL BAR API ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -101,6 +107,12 @@ function redrawFrame() {
   // get the context of the canvas so we can draw on it
   var context = c_canvas.getContext("2d");
 
+  // Draw the border Lines
+  context.moveTo(0.5,0);
+  context.lineTo(0.5,c_canvas.height);
+  context.moveTo(0, 0.5);
+  context.lineTo(c_canvas.width,0.5);
+  
   // Draw the first two grid lines for the cell labels
   context.moveTo(labelCellWidth+0.5,0);
   context.lineTo(labelCellWidth+0.5,c_canvas.height);
@@ -128,17 +140,6 @@ function redrawFrame() {
     context.lineTo(c_canvas.width,currentHeight);
     integery += 1;
   }
-  
-  /*
-  for (var x = 0.5; x < c_canvas.width; x += cellWidth) {
-    context.moveTo(x,0);
-    context.lineTo(x,c_canvas.height);
-  }
-  for (var y = 0.5; y < c_canvas.height; y += cellHeight) {
-    context.moveTo(0,y);
-    context.lineTo(c_canvas.width,y);
-  }
-  */
 
   // Write the changes to the screen
   context.strokeStyle = "#ddd";
@@ -152,11 +153,16 @@ function redrawFrame() {
 	  
 	  context.font = "12px sans-serif";
 	  
+	  
+	  var leftTextOffset = getCellOffsetLeft(x_pos,~~(getScrollX() / defaultCellWidth)) + 3;
+	  var topTextOffset  = getcellOffsetTop (y_pos,~~(getScrollY() / defaultCellHeight) + 14;
 	  if (data[i][0]=='=') {
-      context.fillText(eparse(data[i].substring(1,data[i].length)),(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
+	    // if the cell needs to be evaluated
+      context.fillText(eparse(data[i].substring(1,data[i].length)), leftTextOffset ,topTextOffset);
     }
     else {
-      context.fillText(data[i],(x_pos*cellWidth) +3 ,(y_pos*cellHeight)+14);
+      // if the cell does not need to be evaluated
+      context.fillText(data[i],leftTextOffset ,topTextOffset);
     }
   }
   

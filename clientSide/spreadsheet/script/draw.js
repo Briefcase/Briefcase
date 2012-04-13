@@ -59,7 +59,7 @@
 function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
-  document.getElementById("framecontain").style.height = window.innerHeight - 30 + "px";
+  document.getElementById("framecontain").style.height = window.innerHeight - 60 + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
   c_canvas.height = window.innerHeight;

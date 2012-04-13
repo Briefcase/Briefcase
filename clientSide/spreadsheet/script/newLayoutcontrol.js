@@ -8,6 +8,9 @@
 
 var data = new Array(); // the array that will store the values for the spreadsheet
 
+// Width and height for the labled cells
+var labelCellHeight = 18;
+var labelCellWidth = 40;
 // Cell width and height
 var defaultCellHeight = 18;
 var dynamicCellHeight = new Array();
@@ -25,7 +28,6 @@ var tabReturnColumn = -1;
 /************************** INITILIZE EVENT FUNCTIONS *************************\
 |
 \******************************************************************************/
-
 $(document).ready( function () {
   // size the window correctly
   resizeWindow();
@@ -37,7 +39,7 @@ $(document).ready( function () {
   
   // general keyboard events (shortcut keys, etc.)
   document.onkeypress = keypress;
-}
+});
 
   //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////// INTERFACE RESIZING /////////////////////////////
@@ -47,9 +49,24 @@ $(document).ready( function () {
 \******************************************************************************/
 function resizeWindow () {
   // do all of the resizeing functions here
+  redrawFrame();
 }
 
-
+  //////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////// SCROLL BAR API ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/**************************** GET SCROLL X POSITION ***************************\
+|
+\******************************************************************************/
+function getScrollX () {  
+  return 0;
+}
+/**************************** GET SCROLL Y POSITION ***************************\
+|
+\******************************************************************************/
+function getScrollY () {
+  return 0;
+}
 
 
 /******************************** REDRAW FRAME ********************************\
@@ -58,25 +75,32 @@ function resizeWindow () {
 | we wont get any errors with visualizations                                   |
 \******************************************************************************/
 function redrawFrame() {
-
-  
-
-
+  alert("redrawing");
+  // get the application
   var c_canvas = document.getElementById("application");
 
+  // 
   document.getElementById("framecontain").style.height = window.innerHeight - 30 + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
   c_canvas.height = window.innerHeight;
   c_canvas.width = window.innerWidth;
 
-
+  
+  // get the context of the canvas so we can draw on it
   var context = c_canvas.getContext("2d");
 
-
-  // draw the grid lines
+  // Draw the first two grid lines for the cell labels
+  context.moveTo(labelCellWidth+0.5,0);
+  context.lineTo(labelCellWidth+0.5,c_canvas.height);
+  context.moveTo(0, labelCellHeight+0.5);
+  context.lineTo(c_canvas.width,labelCellHeight+0.5);
   
-  for (var i = 
+  
+  //Draw the other Grid lines
+  var startx = ~~(getScrollX() / defaultCellWidht);
+  
+  /*
   for (var x = 0.5; x < c_canvas.width; x += cellWidth) {
     context.moveTo(x,0);
     context.lineTo(x,c_canvas.height);
@@ -85,6 +109,7 @@ function redrawFrame() {
     context.moveTo(0,y);
     context.lineTo(c_canvas.width,y);
   }
+  */
 
   // Write the changes to the screen
   context.strokeStyle = "#ddd";

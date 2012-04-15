@@ -42,6 +42,20 @@ $(document).ready( function () {
 });
 
   //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// MOUSE EVENTS ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/********************************* MOUSE DOWN *********************************\
+| 
+\******************************************************************************/
+/********************************** MOUSE UP **********************************\
+|
+\******************************************************************************/
+/********************************* MOUSE MOVE *********************************\
+| The mouse move function is only used for drawing 
+\******************************************************************************/
+
+
+  //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////// INTERFACE RESIZING /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 /******************************** RESIZE WINDOW *******************************\
@@ -75,8 +89,9 @@ function getCellOffsetTop ( yCoord, topScreenOffset) {
 /**************************** GET SCROLL X POSITION ***************************\
 |
 \******************************************************************************/
-function getScrollX () {  
-  return 0;
+function getScrollXCell () {  
+  var scollX = 0;
+  return ~~(scrollX / defaultCellWidth);
 }
 /**************************** GET SCROLL Y POSITION ***************************\
 |
@@ -122,7 +137,7 @@ function redrawFrame() {
   
   //Draw the other Grid lines
   //Vvertical lines
-  var integerx = ~~(getScrollX() / defaultCellWidth);
+  var integerx = getScrollXCell();
   var currentWidth = labelCellWidth+0.5;
   while (currentWidth < c_canvas.width) {
     currentWidth += getCellWidth(integerx);
@@ -155,7 +170,11 @@ function redrawFrame() {
 	  
 	  
 	  var leftTextOffset = getCellOffsetLeft(x_pos,~~(getScrollX() / defaultCellWidth)) + 3;
-	  var topTextOffset  = getcellOffsetTop (y_pos,~~(getScrollY() / defaultCellHeight) + 14;
+	  var topTextOffset  = getcellOffsetTop (y_pos,~~(getScrollY() / defaultCellHeight)) + 14;
+	  
+	  // if the text is not on the screen, skip it
+	  if (leftTextOffset < 0 || leftTextOffset > c_canvas.width || topTextOffset < 0 || topTextOffset > c_canvas.height) continue;
+	  
 	  if (data[i][0]=='=') {
 	    // if the cell needs to be evaluated
       context.fillText(eparse(data[i].substring(1,data[i].length)), leftTextOffset ,topTextOffset);
@@ -167,7 +186,7 @@ function redrawFrame() {
   }
   
   // draw the row lables
-  for (var i = 1; i < c_canvas.height/cellHeight; i++) {
+  for (var i = ; i < c_canvas.height/cellHeight; i++) {
     context.fillText(i, 3, (i*cellHeight+14));
   }
   // draw the column lables

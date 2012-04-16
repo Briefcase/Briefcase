@@ -154,7 +154,9 @@ function redrawFrame() {
     context.moveTo(currentWidth,0);
     context.lineTo(currentWidth,c_canvas.height);   
     //draw column label
-    context.fillText(toLetterLabel(integerx),currentWidth-getCellWidth(integerx),14);
+    var columnLabel = toLetterLabel(integerx);
+    var labelWidth = context.measureText(columnLabel).width;
+    context.fillText(columnLabel,currentWidth-(getCellWidth(integerx)/2)-(labelWidth/2),14);
     integerx+=1;
   }
   

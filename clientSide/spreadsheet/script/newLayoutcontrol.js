@@ -96,8 +96,9 @@ function getScrollXCell () {
 /**************************** GET SCROLL Y POSITION ***************************\
 |
 \******************************************************************************/
-function getScrollY () {
-  return 0;
+function getScrollYCell () {
+  var scrollY = 0;
+  return ~~(scrollY / defaultCellHeight);
 }
 
 
@@ -147,7 +148,7 @@ function redrawFrame() {
   }
   
   // Horizontal Lines
-  var integery = ~~(getScrollY() / defaultCellHeight);
+  var integery = getScrollYCell();
   var currentHeight = labelCellHeight+0.5;
   while (currentHeight < c_canvas.height) {
     currentHeight += getCellHeight(integery);
@@ -169,8 +170,8 @@ function redrawFrame() {
 	  context.font = "12px sans-serif";
 	  
 	  
-	  var leftTextOffset = getCellOffsetLeft(x_pos,~~(getScrollX() / defaultCellWidth)) + 3;
-	  var topTextOffset  = getcellOffsetTop (y_pos,~~(getScrollY() / defaultCellHeight)) + 14;
+	  var leftTextOffset = getCellOffsetLeft(x_pos,getScrollXCell()) + 3;
+	  var topTextOffset  = getcellOffsetTop (y_pos,getScrollYCell()) + 14;
 	  
 	  // if the text is not on the screen, skip it
 	  if (leftTextOffset < 0 || leftTextOffset > c_canvas.width || topTextOffset < 0 || topTextOffset > c_canvas.height) continue;
@@ -186,7 +187,19 @@ function redrawFrame() {
   }
   
   // draw the row lables
-  for (var i = ; i < c_canvas.height/cellHeight; i++) {
+  var integery = getScrollYCell();
+  var currentHeight = labelCellHeight+0.5;
+  while (currentHeight < c_canvas.height) {
+    currentHeight += getCellHeight(integery);
+    context.moveTo(0,currentHeight);
+    context.lineTo(c_canvas.width,currentHeight);
+    
+    
+    integery += 1;
+  }
+  
+  
+  for (var i = getScrollYCell; i < c_canvas.height/cellHeight; i++) {
     context.fillText(i, 3, (i*cellHeight+14));
   }
   // draw the column lables

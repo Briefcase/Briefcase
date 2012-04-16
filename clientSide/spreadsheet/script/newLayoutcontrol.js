@@ -30,7 +30,7 @@ var tabReturnColumn = -1;
 \******************************************************************************/
 $(document).ready( function () {
   // size the window correctly
-  resizeWindow();
+  //resizeWindow();
   window.onresize = resizeWindow();
   
   // mouse events
@@ -87,20 +87,28 @@ function getCellOffsetTop ( yCoord, topScreenOffset) {
  /////////////////////////////// SCROLL BAR API ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 /**************************** GET SCROLL X POSITION ***************************\
-|
+| reading the scroll bar this returns the leftmost cell position
 \******************************************************************************/
 function getScrollXCell () {  
   var scollX = 0;
-  return ~~(scrollX / defaultCellWidth);
+  return ~~(scrollX / defaultCellWidth)+1;
 }
+
 /**************************** GET SCROLL Y POSITION ***************************\
-|
+| reading the scroll bar this returns the topmost cell position
 \******************************************************************************/
 function getScrollYCell () {
   var scrollY = 0;
-  return ~~(scrollY / defaultCellHeight);
+  return ~~(scrollY / defaultCellHeight)+1;
 }
 
+/******************************* TO LETTER LABEL ******************************\
+| This converts a number (starting at 1) to a letter or multi letter           |
+| representation that can be used as an ID                                     |
+\******************************************************************************/
+function toLetterLabel(number) {
+  return String.fromCharCode(64+number);
+}
 
 /******************************** REDRAW FRAME ********************************\
 | This function redraws the entire frame, it is a very usefull function and    |
@@ -142,9 +150,11 @@ function redrawFrame() {
   var currentWidth = labelCellWidth+0.5;
   while (currentWidth < c_canvas.width) {
     currentWidth += getCellWidth(integerx);
+    // draw vertical line
     context.moveTo(currentWidth,0);
-    context.lineTo(currentWidth,c_canvas.height);
-    context.fillText(integerx,currentWidth,14);
+    context.lineTo(currentWidth,c_canvas.height);   
+    //draw column label
+    context.fillText(toLetterLabel(integerx),currentWidth-getCellWidth(integerx),14);
     integerx+=1;
   }
   

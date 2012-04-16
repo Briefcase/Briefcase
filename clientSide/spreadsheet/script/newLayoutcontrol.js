@@ -69,11 +69,11 @@ function resizeWindow () {
  //////////////////////////////// CELL SIZE API ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 function getCellWidth(xCoord) {
-  return xCoord;
+  return (xCoord%50)+50;
   //return defaultCellWidth;
 }
 function getCellHeight(yCoord) {
-  return yCoord;
+  return (yCoord%15)+10;
   //return defaultCellHeight;
 }
 
@@ -144,6 +144,7 @@ function redrawFrame() {
     currentWidth += getCellWidth(integerx);
     context.moveTo(currentWidth,0);
     context.lineTo(currentWidth,c_canvas.height);
+    context.fillText(integerx,currentWidth,14);
     integerx+=1;
   }
   
@@ -152,8 +153,14 @@ function redrawFrame() {
   var currentHeight = labelCellHeight+0.5;
   while (currentHeight < c_canvas.height) {
     currentHeight += getCellHeight(integery);
+    
+    //draw horizontal Line
     context.moveTo(0,currentHeight);
     context.lineTo(c_canvas.width,currentHeight);
+    
+    //draw Row Label
+    context.fillText(integery,3,currentHeight);
+    
     integery += 1;
   }
 
@@ -173,7 +180,7 @@ function redrawFrame() {
 	  var leftTextOffset = getCellOffsetLeft(x_pos,getScrollXCell()) + 3;
 	  var topTextOffset  = getcellOffsetTop (y_pos,getScrollYCell()) + 14;
 	  
-	  // if the text is not on the screen, skip it
+	  // if the text box is not on the screen, skip it
 	  if (leftTextOffset < 0 || leftTextOffset > c_canvas.width || topTextOffset < 0 || topTextOffset > c_canvas.height) continue;
 	  
 	  if (data[i][0]=='=') {
@@ -184,26 +191,5 @@ function redrawFrame() {
       // if the cell does not need to be evaluated
       context.fillText(data[i],leftTextOffset ,topTextOffset);
     }
-  }
-  
-  // draw the row lables
-  var integery = getScrollYCell();
-  var currentHeight = labelCellHeight+0.5;
-  while (currentHeight < c_canvas.height) {
-    currentHeight += getCellHeight(integery);
-    context.moveTo(0,currentHeight);
-    context.lineTo(c_canvas.width,currentHeight);
-    
-    
-    integery += 1;
-  }
-  
-  
-  for (var i = getScrollYCell; i < c_canvas.height/cellHeight; i++) {
-    context.fillText(i, 3, (i*cellHeight+14));
-  }
-  // draw the column lables
-  for (var i = 1; i < c_canvas.width/cellWidth; i++) {
-    context.fillText(i,(i*cellWidth+3),14);
   }
 }

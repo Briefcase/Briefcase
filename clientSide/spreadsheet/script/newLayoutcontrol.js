@@ -73,7 +73,7 @@ function getCellWidth(xCoord) {
   //return defaultCellWidth;
 }
 function getCellHeight(yCoord) {
-  return (yCoord%15)+10;
+  return (yCoord%10)+15;
   //return defaultCellHeight;
 }
 
@@ -143,6 +143,7 @@ function redrawFrame() {
   context.moveTo(0, labelCellHeight+0.5);
   context.lineTo(c_canvas.width,labelCellHeight+0.5);
   
+  context.font = "12px sans-serif";
   
   //Draw the other Grid lines
   //Vvertical lines
@@ -156,7 +157,9 @@ function redrawFrame() {
     //draw column label
     var columnLabel = toLetterLabel(integerx);
     var labelWidth = context.measureText(columnLabel).width;
-    context.fillText(columnLabel,currentWidth-(getCellWidth(integerx)/2)-(labelWidth/2),14);
+    var xPosition = currentWidth-((getCellWidth(integerx)+labelWidth)/2)
+    var yPosition = 14;
+    context.fillText(columnLabel,xPosition,yPosition);
     integerx+=1;
   }
   
@@ -171,7 +174,12 @@ function redrawFrame() {
     context.lineTo(c_canvas.width,currentHeight);
     
     //draw Row Label
-    context.fillText(integery,3,currentHeight);
+    var assumedTextHeight = 10;
+    var rowLabel = integery;
+    var labelWidth = context.measureText(rowLabel).width;
+    var xPosition = (labelCellWidth - labelWidth)/2;
+    var yPosition = currentHeight-(getCellHeight(integery)/2)+(assumedTextHeight/2);
+    context.fillText(rowLabel,xPosition,yPosition);
     
     integery += 1;
   }
@@ -185,8 +193,6 @@ function redrawFrame() {
 	  coordPair = i.split(',');
 	  x_pos=parseInt(coordPair[0]);
 	  y_pos=parseInt(coordPair[1]);
-	  
-	  context.font = "12px sans-serif";
 	  
 	  
 	  var leftTextOffset = getCellOffsetLeft(x_pos,getScrollXCell()) + 3;

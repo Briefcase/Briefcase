@@ -115,7 +115,7 @@ ROOT_URLCONF = 'serverSide.urls'
 TEMPLATE_DIRS = (
     "/home/shared/Briefcase/serverSide/templates",
     "/home/shared/Briefcase/serverSide/accounts/templates",
-    "/home/shared/Briefcase/clientSide"
+    "/home/shared/Briefcase/clientSide/spreadsheet",
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'serverSide.accounts',
+    'serverSide.spreadsheet'
     
 )
 

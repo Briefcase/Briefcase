@@ -1,4 +1,6 @@
-
+##
+#accounts.views
+###
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.mail import send_mail
@@ -29,8 +31,6 @@ def index(request):
         if user is not None:
             if user.is_active:
                 login(request,user)
-                #return render_to_response('spreadsheet/spreadsheet.html', context_instance=RequestContext(request))
-                return HttpResponseRedirect('/accounts')
             else:
                 logout(request)
                 return render_to_response('welcome.html', {'form':form}, context_instance=RequestContext(request))
@@ -49,6 +49,9 @@ def userprofile(request):
         'current_user': request.user,
     })
     return HttpResponse(t.render(c))
+    
+    
+
 
 def register(request):
     form = RegistrationForm()

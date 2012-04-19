@@ -3,6 +3,7 @@
 ##
 from django.db import models
 from django.contrib.auth.models import User
+#from serverSide.spreadsheet.models import Spreadsheet
 
 
 # UserProfile holds django's default user model.
@@ -18,12 +19,3 @@ class UserProfile(models.Model):
     #address
     def __unicode__(self):
         return self.user.username
-        
-class Spreadsheet(models.Model):
-    owner = models.ForeignKey(UserProfile, related_name = "my_spreadsheets")
-    file_name = models.CharField(max_length = 20)
-    data = models.TextField()
-    allowed_users = models.ManyToManyField(UserProfile, related_name="allowed_spreadsheets", null=True, blank=True)
-    public = models.BooleanField()
-    def __unicode__(self):
-        return self.file_name

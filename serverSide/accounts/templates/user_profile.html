@@ -36,13 +36,13 @@
     {% endfor %}
 {% endif %}
 <br /> <br/ > <br /> <!-- probably should do something other than this here to control spacing-->
-View Only:
+<!--View Only:
 {% if user_view_list %}
   <br />
     {% for s in user_view_list %}
         <a class="item" href="/spreadsheet?{{current_user.username}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
     {% endfor %}
-{% endif %}
+{% endif %}-->
 
 <div style="clear:both">
 <br />

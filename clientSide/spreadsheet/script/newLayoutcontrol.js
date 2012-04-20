@@ -30,15 +30,15 @@ var tabReturnColumn = -1;
 \******************************************************************************/
 $(document).ready( function () {
   // size the window correctly
-  //resizeWindow();
-  window.onresize = resizeWindow();
+  resizeWindow();
+  window.onresize = resizeWindow;
   
   // mouse events
   document.onmousedown = mousePress;
   document.onmouseup = mouseRelease;
   
   // general keyboard events (shortcut keys, etc.)
-  document.onkeypress = keypress;
+  //document.onkeypress = keypress;
 });
 
   //////////////////////////////////////////////////////////////////////////////
@@ -47,9 +47,15 @@ $(document).ready( function () {
 /********************************* MOUSE DOWN *********************************\
 | 
 \******************************************************************************/
+function mousePress () {
+  // nothing yet
+}
 /********************************** MOUSE UP **********************************\
 |
 \******************************************************************************/
+function mouseRelease () {
+  // nothing yet
+}
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for drawing 
 \******************************************************************************/
@@ -63,6 +69,7 @@ $(document).ready( function () {
 \******************************************************************************/
 function resizeWindow () {
   // do all of the resizeing functions here
+  alert("resize");
   redrawFrame();
 }
   //////////////////////////////////////////////////////////////////////////////
@@ -98,7 +105,8 @@ function getScrollXCell () {
 | reading the scroll bar this returns the topmost cell position
 \******************************************************************************/
 function getScrollYCell () {
-  var scrollY = 0;
+  var scrollY = document.getElementById("scrollbar").scrollTop;
+ 
   return ~~(scrollY / defaultCellHeight)+1; 
 }
 

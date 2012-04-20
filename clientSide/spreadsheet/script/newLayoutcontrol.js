@@ -121,8 +121,17 @@ function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
   // 
-  document.getElementById("framecontain").style.height = window.innerHeight - 50 + "px";
+  
+  alert( document.getElementById("framecontain").offsetTop);
+  document.getElementById("framecontain").style.height = window.innerHeight - 55 + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
+  
+  document.getElementById("scrollbar").style.height = window.innerHeight - 55 + "px";  
+  
+  alert(document.getElementById("scrollbar").offsetHeight);
+  
+  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2 + "px";
+  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";
   
   c_canvas.height = window.innerHeight;
   c_canvas.width = window.innerWidth;

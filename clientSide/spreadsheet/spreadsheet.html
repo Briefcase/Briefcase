@@ -41,10 +41,20 @@
         left:100px;
         top:100px;
       }
+      div.scrollbar
+      {
+        overflow:scroll;
+        width: 100%;
+        float: left;
+        position:absolute;
+      }
+      div.scrollsize
+      {
+      }
     </style>
     
   </head>
-  <body style="margin:0;padding:0;overflow:hidden">
+  <body style="margin:0;padding:0;">
     <!-- Input box -->
     <div class="datain" id="datain"><input type="text" onfocus="textboxOnFocus()" onblur="textboxOnBlur()" style="width:110px; border:1px solid black;" id="inputbox"/>
     </div>
@@ -56,18 +66,35 @@
       <input type="text" id="functionbox" onfocus="functionOnFocus()" onblur="functionOnBlur()"style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
     </div>
   
+  
+  
+      
+  
+  
     <!-- Actual canvas Div for the application -->
     <div style="width:100%;overflow:hidden" id="framecontain" class="framecontain">
+     <!-- Scrollbar div for movement -->
+      <div class="scrollbar" id="scrollbar">
+        <div class="scrollsize" id="scrollsize">
+        </div>
+      </div>
+      
       <canvas id="application" name="application" width="200" height="375">
         Im sorry your browser is too outdated to know what this canvas element is <br >
         you should update to the newest version so you can use this program (and keep your computer secure)
-      </canvas>
+      </canvas
     </div>
-    <!-- Scrollbar div for movement -->
-    <div class="scrollbars" id="scrollbars">
-      <div class="scrollsize" id="scrollsize">
-      </div>
-    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <xml id="xmlMenu" style="display: none">
       <XMLMenu>
         <menu name="File" iconsrc="icons/action_forward.gif" version="normal">

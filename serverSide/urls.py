@@ -5,14 +5,15 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    #account stuff
     url(r'^$', 'accounts.views.index'),
     url(r'^accounts/$', 'accounts.views.userprofile'),
     url(r'^accounts/register', 'accounts.views.register'),
     url(r'^accounts/logout','accounts.views.userlogout'),
-    url(r'^spreadsheet/$', 'accounts.views.spreadsheet'),
-    url(r'^spreadsheet/save', 'accounts.views.save'),
-    url(r'^spreadsheet/load', 'accounts.views.load'),
-    #url(r'^spreadsheet/<?P<spreadsheet_id>\d+)/$', 'accounts.views.spreadsheet'),
+    #spreadsheet stuff
+    url(r'^spreadsheet/$', 'spreadsheet.views.blank_spreadsheet'),
+    url(r'^spreadsheet/save', 'spreadsheet.views.save'),
+    url(r'^spreadsheet/load', 'spreadsheet.views.load'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

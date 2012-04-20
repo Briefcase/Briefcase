@@ -69,12 +69,12 @@ function resizeWindow () {
  //////////////////////////////// CELL SIZE API ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 function getCellWidth(xCoord) {
-  return (xCoord%50)+50;
-  //return defaultCellWidth;
+  //return (xCoord%50)+100;
+  return defaultCellWidth;
 }
 function getCellHeight(yCoord) {
-  return (yCoord%10)+15;
-  //return defaultCellHeight;
+  //return (yCoord%10)+15;
+  return defaultCellHeight;
 }
 
 function getCellOffsetLeft (xCoord, leftScreenOffset) {
@@ -121,7 +121,7 @@ function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
   // 
-  document.getElementById("framecontain").style.height = window.innerHeight - 30 + "px";
+  document.getElementById("framecontain").style.height = window.innerHeight - 50 + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
   c_canvas.height = window.innerHeight;

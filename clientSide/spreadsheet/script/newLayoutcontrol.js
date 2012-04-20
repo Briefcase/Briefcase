@@ -39,6 +39,10 @@ $(document).ready( function () {
   
   // general keyboard events (shortcut keys, etc.)
   //document.onkeypress = keypress;
+  
+  
+  // scrolling 
+  document.getElementById("scrollbar").onscroll = resizeWindow;
 });
 
   //////////////////////////////////////////////////////////////////////////////
@@ -69,7 +73,7 @@ function mouseRelease () {
 \******************************************************************************/
 function resizeWindow () {
   // do all of the resizeing functions here
-  alert("resize");
+  //alert("resize");
   redrawFrame();
 }
   //////////////////////////////////////////////////////////////////////////////
@@ -124,7 +128,7 @@ function toLetterLabel(number) {
 | we wont get any errors with visualizations                                   |
 \******************************************************************************/
 function redrawFrame() {
-  alert("redrawing");
+  //alert("redrawing");
   // get the application
   var c_canvas = document.getElementById("application");
 
@@ -136,7 +140,7 @@ function redrawFrame() {
   
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight + "px";  
   
-  alert(document.getElementById("scrollbar").offsetHeight);
+  //alert(document.getElementById("scrollbar").offsetHeight);
   
   document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2 + "px";
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";

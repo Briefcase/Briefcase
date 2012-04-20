@@ -29,6 +29,7 @@ var tabReturnColumn = -1;
 |
 \******************************************************************************/
 $(document).ready( function () {
+  data["2,2"] = "hello world";
   // size the window correctly
   resizeWindow();
   window.onresize = resizeWindow;
@@ -89,10 +90,10 @@ function getCellHeight(yCoord) {
 }
 
 function getCellOffsetLeft (xCoord, leftScreenOffset) {
-  
+  return 0;
 }
 function getCellOffsetTop ( yCoord, topScreenOffset) {
-  
+  return 0;
 }
   //////////////////////////////////////////////////////////////////////////////
  /////////////////////////////// SCROLL BAR API ///////////////////////////////
@@ -101,7 +102,8 @@ function getCellOffsetTop ( yCoord, topScreenOffset) {
 | reading the scroll bar this returns the leftmost cell position
 \******************************************************************************/
 function getScrollXCell () {  
-  var scollX = 0;
+  var scrollX = document.getElementById("scrollbar").scrollLeft;
+  alert(scrollX);
   return ~~(scrollX / defaultCellWidth)+1;
 }
 
@@ -110,7 +112,6 @@ function getScrollXCell () {
 \******************************************************************************/
 function getScrollYCell () {
   var scrollY = document.getElementById("scrollbar").scrollTop;
- 
   return ~~(scrollY / defaultCellHeight)+1; 
 }
 
@@ -167,7 +168,7 @@ function redrawFrame() {
   context.font = "12px sans-serif";
   
   //Draw the other Grid lines
-  //Vvertical lines
+  //Vertical lines
   var integerx = getScrollXCell();
   var currentWidth = labelCellWidth+0.5;
   while (currentWidth < c_canvas.width) {
@@ -176,7 +177,7 @@ function redrawFrame() {
     context.moveTo(currentWidth,0);
     context.lineTo(currentWidth,c_canvas.height);   
     //draw column label
-    var columnLabel = toLetterLabel(integerx);
+    var columnLabel =   (integerx);
     var labelWidth = context.measureText(columnLabel).width;
     var xPosition = currentWidth-((getCellWidth(integerx)+labelWidth)/2)
     var yPosition = 14;
@@ -209,7 +210,7 @@ function redrawFrame() {
   context.strokeStyle = "#ddd";
   context.stroke();
   
-  // draw all the text
+  // draw all the text, this may need to be redone as well, as a gird search instead of a hash search, to prevcent all data from being red
   for (var i in data) {
 	  coordPair = i.split(',');
 	  x_pos=parseInt(coordPair[0]);
@@ -217,7 +218,7 @@ function redrawFrame() {
 	  
 	  
 	  var leftTextOffset = getCellOffsetLeft(x_pos,getScrollXCell()) + 3;
-	  var topTextOffset  = getcellOffsetTop (y_pos,getScrollYCell()) + 14;
+	  var topTextOffset  = getCellOffsetTop (y_pos,getScrollYCell()) + 14;
 	  
 	  // if the text box is not on the screen, skip it
 	  if (leftTextOffset < 0 || leftTextOffset > c_canvas.width || topTextOffset < 0 || topTextOffset > c_canvas.height) continue;

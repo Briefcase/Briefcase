@@ -103,7 +103,6 @@ function getCellOffsetTop ( yCoord, topScreenOffset) {
 \******************************************************************************/
 function getScrollXCell () {  
   var scrollX = document.getElementById("scrollbar").scrollLeft;
-  alert(scrollX);
   return ~~(scrollX / defaultCellWidth)+1;
 }
 
@@ -177,7 +176,7 @@ function redrawFrame() {
     context.moveTo(currentWidth,0);
     context.lineTo(currentWidth,c_canvas.height);   
     //draw column label
-    var columnLabel =   (integerx);
+    var columnLabel =   toLetterLabel(integerx);
     var labelWidth = context.measureText(columnLabel).width;
     var xPosition = currentWidth-((getCellWidth(integerx)+labelWidth)/2)
     var yPosition = 14;

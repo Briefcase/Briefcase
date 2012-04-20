@@ -99,7 +99,7 @@ function getScrollXCell () {
 \******************************************************************************/
 function getScrollYCell () {
   var scrollY = 0;
-  return ~~(scrollY / defaultCellHeight)+1;
+  return ~~(scrollY / defaultCellHeight)+1; 
 }
 
 /******************************* TO LETTER LABEL ******************************\

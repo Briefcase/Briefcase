@@ -120,13 +120,11 @@ function redrawFrame() {
   // get the application
   var c_canvas = document.getElementById("application");
 
-  // 
-  
-  alert( document.getElementById("framecontain").offsetTop);
-  document.getElementById("framecontain").style.height = window.innerHeight - 55 + "px";
+
+  document.getElementById("framecontain").style.height = window.innerHeight - document.getElementById("framecontain").offsetTop + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
-  document.getElementById("scrollbar").style.height = window.innerHeight - 55 + "px";  
+  document.getElementById("scrollbar").style.height = window.innerHeight - document.getElementById("framecontain").offsetTop + "px";  
   
   alert(document.getElementById("scrollbar").offsetHeight);
   

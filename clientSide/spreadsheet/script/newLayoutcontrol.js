@@ -231,8 +231,31 @@ function redrawFrame() {
   context.strokeStyle = "#ddd";
   context.stroke();
   
+  
+  for (var x = getScrollXCell(); x < integerx; x++) {
+    for (var y = getScrollYCell(); y < integery; y++) {
+      
+      var leftTextOffset = getCellOffsetLeft(x,getScrollXCell()) + 3;
+	    var topTextOffset  = getCellOffsetTop (y,getScrollYCell()) + 14;
+      
+      var cellValue = data[x+','+y];
+      
+      if (cellValue == undefined) continue;
+      
+      if (cellValue[0]=='=') {
+	      // if the cell needs to be evaluated
+        context.fillText(eparse(cellValue.substring(1,cellValue.length)), leftTextOffset ,topTextOffset);
+      }
+      else {
+        // if the cell does not need to be evaluated
+        context.fillText(cellValue,leftTextOffset ,topTextOffset);
+      }
+    }
+  }
+  
+  // CRAP CODE
   // draw all the text, this may need to be redone as well, as a gird search instead of a hash search, to prevcent all data from being red
-  for (var i in data) {
+  /*for (var i in data) {
 	  coordPair = i.split(',');
 	  x_pos=parseInt(coordPair[0]);
 	  y_pos=parseInt(coordPair[1]);
@@ -256,5 +279,5 @@ function redrawFrame() {
       // if the cell does not need to be evaluated
       context.fillText(data[i],leftTextOffset ,topTextOffset);
     }
-  }
+  }*/
 }

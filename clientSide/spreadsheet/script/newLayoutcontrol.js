@@ -29,9 +29,9 @@ var tabReturnColumn = -1;
 |
 \******************************************************************************/
 $(document).ready( function () {
-  for (var i = 0; i < 1000; i ++) {
-    for (var j = 0; j < 1000; j++) {
-      data[i+","+j] = i+","+j;
+  for (var i = 0; i < 1000000; i ++) {
+    for (var j = 1; j < 5; j++) {
+      data[j+","+i] = j+","+i;
     }
   }
   // size the window correctly
@@ -164,7 +164,7 @@ function redrawFrame() {
   
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight + "px";  
   
-  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2 + "px";
+  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2000 + "px";
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";
   
   c_canvas.height = window.innerHeight;

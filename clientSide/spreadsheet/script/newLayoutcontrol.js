@@ -29,7 +29,11 @@ var tabReturnColumn = -1;
 |
 \******************************************************************************/
 $(document).ready( function () {
-  data["7,7"] = "hello world";
+  for (var i = 0; i < 1000; i ++) {
+    for (var j = 0; j < 1000; j++) {
+      data[i+","+j] = i+","+j;
+    }
+  }
   // size the window correctly
   resizeWindow();
   window.onresize = resizeWindow;
@@ -97,6 +101,9 @@ function getCellOffsetLeft (xCoord, leftScreenOffset) {
   }
   return offset;
 }
+/***************************** GET CELL OFFSET TOP ****************************\
+| Get the number of pixels from the top that the current cell is at            |
+\******************************************************************************/
 function getCellOffsetTop ( yCoord, topScreenOffset) {
   if (topScreenOffset > yCoord) return -100;
   var offset = labelCellHeight;
@@ -230,7 +237,11 @@ function redrawFrame() {
 	  x_pos=parseInt(coordPair[0]);
 	  y_pos=parseInt(coordPair[1]);
 	  
+	  //ignore things that are off the screen
+    if (x_pos > integerx) continue;
+    if (y_pos > integery) continue;	  
 	  
+	  // get the offset
 	  var leftTextOffset = getCellOffsetLeft(x_pos,getScrollXCell()) + 3;
 	  var topTextOffset  = getCellOffsetTop (y_pos,getScrollYCell()) + 14;
 	  

@@ -29,7 +29,7 @@ var tabReturnColumn = -1;
 |
 \******************************************************************************/
 $(document).ready( function () {
-  data["2,2"] = "hello world";
+  data["7,7"] = "hello world";
   // size the window correctly
   resizeWindow();
   window.onresize = resizeWindow;
@@ -90,10 +90,20 @@ function getCellHeight(yCoord) {
 }
 
 function getCellOffsetLeft (xCoord, leftScreenOffset) {
-  return 0;
+  if (leftScreenOffset > xCoord) return -100;
+  var offset = labelCellWidth;
+  for (var i = leftScreenOffset; i < xCoord; i++) {
+    offset += getCellWidth(i);
+  }
+  return offset;
 }
 function getCellOffsetTop ( yCoord, topScreenOffset) {
-  return 0;
+  if (topScreenOffset > yCoord) return -100;
+  var offset = labelCellHeight;
+  for (var i = topScreenOffset; i < yCoord; i++) {
+    offset += getCellHeight(i);
+  }
+  return offset;
 }
   //////////////////////////////////////////////////////////////////////////////
  /////////////////////////////// SCROLL BAR API ///////////////////////////////
@@ -116,10 +126,18 @@ function getScrollYCell () {
 
 /******************************* TO LETTER LABEL ******************************\
 | This converts a number (starting at 1) to a letter or multi letter           |
-| representation that can be used as an ID                                     |
+| representation that can be used as an ID, if the number is greater then 26   |
+| (Z) then multiple letters are use (AA, AB, AC, etc)                          |
 \******************************************************************************/
 function toLetterLabel(number) {
-  return String.fromCharCode(64+number);
+  number= number - 1;
+  var output = "";
+  while (number >= 26) {
+    output = String.fromCharCode(65+number%26) + output;
+    number = (number-+number%26) / 26 -1;
+  }
+  output = String.fromCharCode(65+number%26) + output;
+  return output;
 }
 
 /******************************** REDRAW FRAME ********************************\
@@ -128,7 +146,6 @@ function toLetterLabel(number) {
 | we wont get any errors with visualizations                                   |
 \******************************************************************************/
 function redrawFrame() {
-  //alert("redrawing");
   // get the application
   var c_canvas = document.getElementById("application");
 
@@ -139,8 +156,6 @@ function redrawFrame() {
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight + "px";  
-  
-  //alert(document.getElementById("scrollbar").offsetHeight);
   
   document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2 + "px";
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";

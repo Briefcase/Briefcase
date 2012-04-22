@@ -57,8 +57,12 @@ $(document).ready( function () {
 function moveInputBox (xcell,ycell) {
   var pixelx = getCellOffsetLeft(xcell,getScrollXCell());
   var pixely = getCellOffsetTop(ycell,getScrollYCell());
-  document.getElementById("datain").style.top  = pixely+"px";
+  var menuHeight = document.getElementById("framecontain").offsetTop;
+  document.getElementById("datain").style.top  = pixely+menuHeight+"px";
   document.getElementById("datain").style.left = pixelx+"px";
+}
+function setInputBoxValue(value) {
+  document.getElementById("inputbox").value = value;
 }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -77,10 +81,13 @@ function mousePress (event) {
 function mouseRelease (event) {
   // nothing yet
   // for now assume a non drag
-  var celly = findCellFromY(event.pageY);
-  var cellx = 1;
+  var menuHeight = document.getElementById("framecontain").offsetTop;
+  var celly = findCellFromY(event.pageY-menuHeight);
+  var cellx = findCellFromX(event.pageX);
+  if (celly < 1 || cellx < 1) return;
+  alert(cellx+','+celly);
+  
   moveInputBox(cellx,celly);  
-  alert("mouse release");
 }
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for dragging 
@@ -104,8 +111,14 @@ function findCellFromY (pixelY) {
 |
 \******************************************************************************/
 function findCellFromX (pixelX) {
-
-  return 0;
+  var offset = labelCellWidth;
+  var cellCount = getScrollXCell();
+  while (offset < pixelX) {
+    offset += getCellWidth(cellCount);
+    if (offset >= pixelX) break;
+    cellCount += 1;
+  }
+  return cellCount;
 }
 
   //////////////////////////////////////////////////////////////////////////////

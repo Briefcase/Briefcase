@@ -62,7 +62,11 @@ function moveInputBox (xcell,ycell) {
   document.getElementById("datain").style.left = pixelx+"px";
 }
 function setInputBoxValue(value) {
+  if (value == undefined) value = "";
   document.getElementById("inputbox").value = value;
+}
+function focusInputBox() {
+  document.getElementById("inputbox").focus();
 }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -85,9 +89,9 @@ function mouseRelease (event) {
   var celly = findCellFromY(event.pageY-menuHeight);
   var cellx = findCellFromX(event.pageX);
   if (celly < 1 || cellx < 1) return;
-  alert(cellx+','+celly);
-  
+  setInputBoxValue(data[cellx+','+celly]);
   moveInputBox(cellx,celly);  
+  focusInputBox();
 }
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for dragging 

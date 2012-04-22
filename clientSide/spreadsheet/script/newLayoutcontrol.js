@@ -29,11 +29,13 @@ var tabReturnColumn = -1;
 |
 \******************************************************************************/
 $(document).ready( function () {
-  for (var i = 0; i < 1000000; i ++) {
+  for (var i = 0; i < 100; i ++) {
     for (var j = 1; j < 5; j++) {
       data[j+","+i] = j+","+i;
     }
   }
+  
+  
   // size the window correctly
   resizeWindow();
   window.onresize = resizeWindow;
@@ -49,6 +51,15 @@ $(document).ready( function () {
   // scrolling 
   document.getElementById("scrollbar").onscroll = resizeWindow;
 });
+  
+
+
+function moveInputBox (xcell,ycell) {
+  var pixelx = getCellOffsetLeft(xcell,getScrollXCell());
+  var pixely = getCellOffsetTop(ycell,getScrollYCell());
+  document.getElementById("datain").style.top  = pixely+"px";
+  document.getElementById("datain").style.left = pixelx+"px";
+}
 
   //////////////////////////////////////////////////////////////////////////////
  //////////////////////////////// MOUSE EVENTS ////////////////////////////////
@@ -56,19 +67,46 @@ $(document).ready( function () {
 /********************************* MOUSE DOWN *********************************\
 | 
 \******************************************************************************/
-function mousePress () {
+function mousePress (event) {
   // nothing yet
+  
 }
 /********************************** MOUSE UP **********************************\
 |
 \******************************************************************************/
-function mouseRelease () {
+function mouseRelease (event) {
   // nothing yet
+  // for now assume a non drag
+  var celly = findCellFromY(event.pageY);
+  var cellx = 1;
+  moveInputBox(cellx,celly);  
+  alert("mouse release");
 }
 /********************************* MOUSE MOVE *********************************\
-| The mouse move function is only used for drawing 
+| The mouse move function is only used for dragging 
 \******************************************************************************/
 
+
+/****************************** FIND CELL FROM Y ******************************\
+| 
+\******************************************************************************/
+function findCellFromY (pixelY) {
+  var offset = labelCellHeight;
+  var cellCount = getScrollYCell();
+  while (offset < pixelY) {
+    offset+= getCellHeight(cellCount);
+    if (offset >= pixelY) break;
+    cellCount += 1;
+  }
+  return cellCount;
+}
+/****************************** FIND CELL FROM X ******************************\
+|
+\******************************************************************************/
+function findCellFromX (pixelX) {
+
+  return 0;
+}
 
   //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////// INTERFACE RESIZING /////////////////////////////
@@ -164,7 +202,7 @@ function redrawFrame() {
   
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight + "px";  
   
-  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2000 + "px";
+  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2+ "px";
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";
   
   c_canvas.height = window.innerHeight;

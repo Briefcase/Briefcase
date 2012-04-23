@@ -12,7 +12,7 @@ var data = new Array(); // the array that will store the values for the spreadsh
 var labelCellHeight = 18;
 var labelCellWidth = 40;
 // Cell width and height
-var defaultCellHeight = 18;
+var defaultCellHeight = 20;
 var dynamicCellHeight = new Array();
 var defaultCellWidth  = 110;
 var dynamicCellWidth  = new Array();

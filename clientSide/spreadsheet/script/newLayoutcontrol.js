@@ -58,8 +58,11 @@ function moveInputBox (xcell,ycell) {
   var pixelx = getCellOffsetLeft(xcell,getScrollXCell());
   var pixely = getCellOffsetTop(ycell,getScrollYCell());
   var menuHeight = document.getElementById("framecontain").offsetTop;
-  document.getElementById("datain").style.top  = pixely+menuHeight+"px";
-  document.getElementById("datain").style.left = pixelx+"px";
+  document.getElementById("datain").style.top  = pixely+menuHeight-0.5+"px";
+  document.getElementById("datain").style.left = pixelx - 0.5 +"px";
+  document.getElementById("datain").style.width = getCellWidth(xcell) - 3 + "px";
+  document.getElementById("datain").style.height = getCellHeight(ycell) - 3 + "px";
+  document.getElementById("datain").style.border = "2px solid green";
 }
 function setInputBoxValue(value) {
   if (value == undefined) value = "";
@@ -90,7 +93,7 @@ function mouseRelease (event) {
   var cellx = findCellFromX(event.pageX);
   if (celly < 1 || cellx < 1) return;
   setInputBoxValue(data[cellx+','+celly]);
-  moveInputBox(cellx,celly);  
+  moveInputBox(cellx,celly);
   focusInputBox();
 }
 /********************************* MOUSE MOVE *********************************\
@@ -140,12 +143,12 @@ function resizeWindow () {
  //////////////////////////////// CELL SIZE API ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 function getCellWidth(xCoord) {
-  //return (xCoord%50)+100;
-  return defaultCellWidth;
+  return (xCoord%50)+100;
+  //return defaultCellWidth;
 }
 function getCellHeight(yCoord) {
-  //return (yCoord%10)+15;
-  return defaultCellHeight;
+  return (yCoord%10)+15;
+  //return defaultCellHeight;
 }
 
 function getCellOffsetLeft (xCoord, leftScreenOffset) {

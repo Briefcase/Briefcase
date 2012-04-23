@@ -38,8 +38,12 @@
       {
         float:left;
         position:absolute;
+        width: 100px;
+        height: 30px;
         left:100px;
         top:100px;
+        border: 1px solid black;
+        overflow:hidden;
       }
       div.scrollbar
       {
@@ -56,7 +60,7 @@
   </head>
   <body style="margin:0;padding:0;">
     <!-- Input box -->
-    <div class="datain" id="datain"><input type="text" onfocus="textboxOnFocus()" onblur="textboxOnBlur()" style="width:110px; border:1px solid black;" id="inputbox"/>
+    <div class="datain" id="datain"><input type="text" onfocus="textboxOnFocus()" onblur="textboxOnBlur()" style="width:100%; height:100%; border:none;" id="inputbox"/>
     </div>
       <!-- Menu -->
       <!-- Menu Begin -->

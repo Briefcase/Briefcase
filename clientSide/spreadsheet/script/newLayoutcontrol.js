@@ -233,7 +233,13 @@ function redrawFrame() {
   // get the context of the canvas so we can draw on it
   var context = c_canvas.getContext("2d");
 
-  // Draw the border Lines
+  // draw the hilights color for the label cells
+  context.fillStyle = "rgb(240,240,240)";  
+  context.fillRect (0, 0, c_canvas.width,labelCellHeight);
+  context.fillRect (0, 0, labelCellWidth,c_canvas.height);
+
+
+  // Draw the border Lines  
   context.moveTo(0.5,0);
   context.lineTo(0.5,c_canvas.height);
   context.moveTo(0, 0.5);
@@ -246,7 +252,7 @@ function redrawFrame() {
   context.lineTo(c_canvas.width,labelCellHeight+0.5);
   
   context.font = "12px sans-serif";
-  
+  context.fillStyle = "rgb(0,0,0)";
   //Draw the other Grid lines
   //Vertical lines
   var integerx = getScrollXCell();

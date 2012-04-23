@@ -17,7 +17,6 @@ var dynamicCellHeight = new Array();
 var defaultCellWidth  = 110;
 var dynamicCellWidth  = new Array();
 
-// does there need to be a scrolling offset? or can it just be read from the scroll bars
 
 // When using tab remember which column you started at when you hit enter
 var tabReturnColumn = -1;
@@ -100,7 +99,69 @@ function mouseRelease (event) {
 | The mouse move function is only used for dragging 
 \******************************************************************************/
 
-
+  //////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////// INTERFACE RESIZING /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/******************************** RESIZE WINDOW *******************************\
+|
+\******************************************************************************/
+function resizeWindow () {
+  // do all of the resizeing functions here
+  //alert("resize");
+  redrawFrame();
+  resizeFunctionBar();
+}
+/***************************** RESIZE FUNCTION BAR ****************************\
+| This function resizes the function bar that is under the menu bar so that it |
+| occupies the full length of the screen while not passing the edge of the     |
+| screen to avoid scroll bars from being created                               |
+\******************************************************************************/
+function resizeFunctionBar() {
+  
+}
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// CELL SIZE API ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/******************************* GET CELL WIDTH *******************************\
+|
+\******************************************************************************/
+function getCellWidth(xCoord) {
+  //return (xCoord%50)+100;
+  return defaultCellWidth;
+}
+/******************************* GET CELL HEIGHT ******************************\
+|
+\******************************************************************************/
+function getCellHeight(yCoord) {
+  //return (yCoord%10)+15;
+  if (yCoord == 10) return 2*defaultCellHeight;
+  return defaultCellHeight;
+}
+  //////////////////////////////////////////////////////////////////////////////
+ ////////////////////////////// CELL POSITION API /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/**************************** GET CELL OFFSET LEFT ****************************\
+|
+\******************************************************************************/
+function getCellOffsetLeft (xCoord, leftScreenOffset) {
+  if (leftScreenOffset > xCoord) return -100;
+  var offset = labelCellWidth;
+  for (var i = leftScreenOffset; i < xCoord; i++) {
+    offset += getCellWidth(i);
+  }
+  return offset;
+}
+/***************************** GET CELL OFFSET TOP ****************************\
+| Get the number of pixels from the top that the current cell is at            |
+\******************************************************************************/
+function getCellOffsetTop ( yCoord, topScreenOffset) {
+  if (topScreenOffset > yCoord) return -100;
+  var offset = labelCellHeight;
+  for (var i = topScreenOffset; i < yCoord; i++) {
+    offset += getCellHeight(i);
+  }
+  return offset;
+}
 /****************************** FIND CELL FROM Y ******************************\
 | 
 \******************************************************************************/
@@ -126,50 +187,6 @@ function findCellFromX (pixelX) {
     cellCount += 1;
   }
   return cellCount;
-}
-
-  //////////////////////////////////////////////////////////////////////////////
- ///////////////////////////// INTERFACE RESIZING /////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-/******************************** RESIZE WINDOW *******************************\
-|
-\******************************************************************************/
-function resizeWindow () {
-  // do all of the resizeing functions here
-  //alert("resize");
-  redrawFrame();
-}
-  //////////////////////////////////////////////////////////////////////////////
- //////////////////////////////// CELL SIZE API ///////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-function getCellWidth(xCoord) {
-  //return (xCoord%50)+100;
-  return defaultCellWidth;
-}
-function getCellHeight(yCoord) {
-  //return (yCoord%10)+15;
-  if (yCoord == 10) return 2*defaultCellHeight;
-  return defaultCellHeight;
-}
-
-function getCellOffsetLeft (xCoord, leftScreenOffset) {
-  if (leftScreenOffset > xCoord) return -100;
-  var offset = labelCellWidth;
-  for (var i = leftScreenOffset; i < xCoord; i++) {
-    offset += getCellWidth(i);
-  }
-  return offset;
-}
-/***************************** GET CELL OFFSET TOP ****************************\
-| Get the number of pixels from the top that the current cell is at            |
-\******************************************************************************/
-function getCellOffsetTop ( yCoord, topScreenOffset) {
-  if (topScreenOffset > yCoord) return -100;
-  var offset = labelCellHeight;
-  for (var i = topScreenOffset; i < yCoord; i++) {
-    offset += getCellHeight(i);
-  }
-  return offset;
 }
   //////////////////////////////////////////////////////////////////////////////
  /////////////////////////////// SCROLL BAR API ///////////////////////////////

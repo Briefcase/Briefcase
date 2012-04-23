@@ -42,7 +42,7 @@ $(document).ready( function () {
   
   // mouse events
   document.onmousedown = mousePress;
-  document.onmouseup = mouseRelease;
+  document.getElementById('framecontain').onmouseup = mouseRelease;
   
   // general keyboard events (shortcut keys, etc.)
   //document.onkeypress = keypress;
@@ -212,7 +212,7 @@ function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
   // get the height offset of the application window / the height of the menu bar
-  var menuHeight = document.getElementById("framecontain").offsetTop;
+  var menuHeight = document.getElementById("applicationDiv").offsetTop;
 
   document.getElementById("framecontain").style.height = window.innerHeight - menuHeight + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";

@@ -238,7 +238,6 @@ function redrawFrame() {
   context.fillRect (0, 0, c_canvas.width,labelCellHeight);
   context.fillRect (0, 0, labelCellWidth,c_canvas.height);
 
-
   // Draw the border Lines  
   context.moveTo(0.5,0);
   context.lineTo(0.5,c_canvas.height);
@@ -317,32 +316,4 @@ function redrawFrame() {
       }
     }
   }
-  
-  // CRAP CODE
-  // draw all the text, this may need to be redone as well, as a gird search instead of a hash search, to prevcent all data from being red
-  /*for (var i in data) {
-	  coordPair = i.split(',');
-	  x_pos=parseInt(coordPair[0]);
-	  y_pos=parseInt(coordPair[1]);
-	  
-	  //ignore things that are off the screen
-    if (x_pos > integerx) continue;
-    if (y_pos > integery) continue;	  
-	  
-	  // get the offset
-	  var leftTextOffset = getCellOffsetLeft(x_pos,getScrollXCell()) + 3;
-	  var topTextOffset  = getCellOffsetTop (y_pos,getScrollYCell()) + 14;
-	  
-	  // if the text box is not on the screen, skip it
-	  if (leftTextOffset < 0 || leftTextOffset > c_canvas.width || topTextOffset < 0 || topTextOffset > c_canvas.height) continue;
-	  
-	  if (data[i][0]=='=') {
-	    // if the cell needs to be evaluated
-      context.fillText(eparse(data[i].substring(1,data[i].length)), leftTextOffset ,topTextOffset);
-    }
-    else {
-      // if the cell does not need to be evaluated
-      context.fillText(data[i],leftTextOffset ,topTextOffset);
-    }
-  }*/
 }

@@ -17,6 +17,9 @@ var dynamicCellHeight = new Array();
 var defaultCellWidth  = 110;
 var dynamicCellWidth  = new Array();
 
+//currently selected cells
+var startSelectionX = 1;
+var startSelectionY = 1;
 
 // When using tab remember which column you started at when you hit enter
 var tabReturnColumn = -1;
@@ -49,6 +52,10 @@ $(document).ready( function () {
   
   // scrolling 
   document.getElementById("scrollbar").onscroll = resizeWindow;
+  
+  //init input box
+  moveInputBox(1,1);
+  setInputBoxValue(data["1,1"]);
 });
   
 
@@ -104,6 +111,7 @@ function mouseRelease (event) {
   setInputBoxValue(data[cellx+','+celly]);
   moveInputBox(cellx,celly);
   focusInputBox();
+  alert("redone");
 }
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for dragging 

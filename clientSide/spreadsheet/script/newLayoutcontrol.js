@@ -44,7 +44,7 @@ $(document).ready( function () {
   
   // mouse events
   document.onmousedown = mousePress;
-  document.getElementById('framecontain').onmouseup = mouseRelease;
+  //document.getElementById('framecontain').onmouseup = mouseRelease;
   
   // general keyboard events (shortcut keys, etc.)
   //document.onkeypress = keypress;
@@ -54,8 +54,8 @@ $(document).ready( function () {
   document.getElementById("scrollbar").onscroll = resizeWindow;
   
   //init input box
-  moveInputBox(1,1);
-  setInputBoxValue(data["1,1"]);
+  //moveInputBox(1,1);
+  //setInputBoxValue(data["1,1"]);
 });
   
 
@@ -108,10 +108,14 @@ function mouseRelease (event) {
   var celly = findCellFromY(event.pageY-menuHeight);
   var cellx = findCellFromX(event.pageX);
   if (celly < 1 || cellx < 1) return;
+  if (celly == startSelectionY && cellx == startSelectionX) return;
   setInputBoxValue(data[cellx+','+celly]);
   moveInputBox(cellx,celly);
   focusInputBox();
-  alert("redone");
+  startSelectionX = cellx;
+  startSelectionY = celly;
+  redrawFrame();
+  alert("wa");
 }
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for dragging 

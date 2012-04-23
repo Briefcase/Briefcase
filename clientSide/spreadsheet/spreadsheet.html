@@ -43,7 +43,7 @@
         left:100px;
         top:100px;
         border: 1px solid black;
-        /*overflow:hidden;*/
+        overflow:hidden;
       }
       div.scrollbar
       {
@@ -71,15 +71,11 @@
   </head>
   <body style="margin:0;padding:0;">
     <!-- Input box -->
-    <div class="datain" id="datain">
-      <div class="cornerbox"> </div>
-      <div style="width: 100%; height: 100%; overflow: hidden; background-color: #000;">
-        <input type="text" oninput="syncFunctionBar()" style="width:100%; height:100%; border:none;" id="inputbox"/>
-      </div>
-    </div>
-      <!-- Menu -->
-      <!-- Menu Begin -->
-      <div class="TitleMenu" id="TitleMenu"></div>
+    
+    
+    <!-- Menu -->
+    <!-- Menu Begin -->
+    <div class="TitleMenu" id="TitleMenu"></div>
       <!-- Menu End -->
       <div class='functionIcon' style="float:left; margin-left:5px; padding-right: 5px; margin-right:5px; border-right:1px solid black; height: 25px">Fx</div>
       <input type="text" id="functionbox" oninput="syncInputBox()" style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
@@ -94,6 +90,7 @@
     <!-- Actual canvas Div for the application -->
     <div style="width:100%;overflow:hidden;" id="framecontain" class="framecontain">
      <!-- Scrollbar div for movement -->
+      
       <div class="scrollbar" id="scrollbar">
         <div class="scrollsize" id="scrollsize">
         </div>
@@ -107,6 +104,14 @@
       </div>
     </div>
     
+    
+    <div class="datain" id="datain">
+      <!--<div class="cornerbox"> </div>
+      <div style="width: 100%; height: 100%; overflow: hidden; background-color: #000;">-->
+        <input type="text" oninput="syncFunctionBar()" style="width:100%; height:100%; border:none;" id="inputbox"/>
+        <input type="text" />
+      <!--</div>-->
+    </div>
     
     
     

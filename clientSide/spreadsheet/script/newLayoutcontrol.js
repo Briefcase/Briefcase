@@ -117,7 +117,6 @@ function mouseRelease (event) {
 \******************************************************************************/
 function resizeWindow () {
   // do all of the resizeing functions here
-  //alert("resize");
   redrawFrame();
   resizeFunctionBar();
 }
@@ -250,7 +249,10 @@ function redrawFrame() {
   document.getElementById("framecontain").style.height = window.innerHeight - menuHeight + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
-  document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight + "px";  
+  document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight - labelCellHeight + "px";  
+  document.getElementById("scrollbar").style.width = window.innerWidth - labelCellWidth + "px";
+  document.getElementById("scrollbar").style.left = labelCellWidth + "px";
+  document.getElementById("scrollbar").style.top = labelCellHeight + menuHeight + "px";
   
   document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2+ "px";
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";

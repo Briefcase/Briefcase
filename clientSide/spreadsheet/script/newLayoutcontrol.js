@@ -71,6 +71,15 @@ function focusInputBox() {
   document.getElementById("inputbox").focus();
 }
 
+
+function syncFunctionBar() {
+  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
+}
+function syncInputBox() {
+  document.getElementById("inputbox").value = document.getElementById("functionbox").value;
+}
+
+
   //////////////////////////////////////////////////////////////////////////////
  //////////////////////////////// MOUSE EVENTS ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

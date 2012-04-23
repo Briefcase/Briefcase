@@ -60,14 +60,14 @@
   </head>
   <body style="margin:0;padding:0;">
     <!-- Input box -->
-    <div class="datain" id="datain"><input type="text" onfocus="textboxOnFocus()" onblur="textboxOnBlur()" style="width:100%; height:100%; border:none;" id="inputbox"/>
+    <div class="datain" id="datain"><input type="text" oninput="syncFunctionBar()" style="width:100%; height:100%; border:none;" id="inputbox"/>
     </div>
       <!-- Menu -->
       <!-- Menu Begin -->
       <div class="TitleMenu" id="TitleMenu"></div>
       <!-- Menu End -->
       <div class='functionIcon' style="float:left; margin-left:5px; padding-right: 5px; margin-right:5px; border-right:1px solid black; height: 25px">Fx</div>
-      <input type="text" id="functionbox" onfocus="functionOnFocus()" onblur="functionOnBlur()"style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
+      <input type="text" id="functionbox" oninput="syncInputBox()" style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
     </div>
   
   

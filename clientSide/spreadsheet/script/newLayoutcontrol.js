@@ -143,12 +143,13 @@ function resizeWindow () {
  //////////////////////////////// CELL SIZE API ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 function getCellWidth(xCoord) {
-  return (xCoord%50)+100;
-  //return defaultCellWidth;
+  //return (xCoord%50)+100;
+  return defaultCellWidth;
 }
 function getCellHeight(yCoord) {
-  return (yCoord%10)+15;
-  //return defaultCellHeight;
+  //return (yCoord%10)+15;
+  if (yCoord == 10) return 2*defaultCellHeight;
+  return defaultCellHeight;
 }
 
 function getCellOffsetLeft (xCoord, leftScreenOffset) {

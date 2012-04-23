@@ -67,6 +67,7 @@ function setInputBoxValue(value) {
   if (value == undefined) value = "";
   document.getElementById("inputbox").value = value;
 }
+
 function focusInputBox() {
   document.getElementById("inputbox").focus();
 }
@@ -126,7 +127,9 @@ function resizeWindow () {
 | screen to avoid scroll bars from being created                               |
 \******************************************************************************/
 function resizeFunctionBar() {
-  
+  var leftOffset = document.getElementById("functionbox").offsetLeft;
+  var pageWidth = window.innerWidth;
+  document.getElementById("functionbox").style.width = pageWidth - leftOffset + "px";
 }
   //////////////////////////////////////////////////////////////////////////////
  //////////////////////////////// CELL SIZE API ///////////////////////////////

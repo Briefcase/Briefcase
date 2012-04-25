@@ -1,4 +1,4 @@
-// code written by Asher Glick, dont fuck with it
+// code written by Asher Glick
 
 
 

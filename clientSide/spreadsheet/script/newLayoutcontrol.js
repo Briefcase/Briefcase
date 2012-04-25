@@ -31,11 +31,6 @@ var tabReturnColumn = -1;
 |
 \******************************************************************************/
 $(document).ready( function () {
-  for (var i = 0; i < 100; i ++) {
-    for (var j = 1; j < 5; j++) {
-      data[j+","+i] = j+","+i;
-    }
-  }
   
   
   // size the window correctly
@@ -389,7 +384,7 @@ function redrawFrame() {
   context.strokeStyle = "#ddd";
   context.stroke();
   
-  
+  // write in all of the datapoints
   for (var x = getScrollXCell(); x < integerx; x++) {
     for (var y = getScrollYCell(); y < integery; y++) {
       
@@ -400,13 +395,18 @@ function redrawFrame() {
       
       if (cellValue == undefined) continue;
       
+      //to remove overflow
+      var nextCell = data[x+1+','+y];
+      
       if (cellValue[0]=='=') {
 	      // if the cell needs to be evaluated
-        context.fillText(eparse(cellValue.substring(1,cellValue.length)), leftTextOffset ,topTextOffset);
+	      if (nextCell == undefined) context.fillText(eparse(cellValue.substring(1,cellValue.length)), leftTextOffset ,topTextOffset);
+        else context.fillText(eparse(cellValue.substring(1,cellValue.length)), leftTextOffset ,topTextOffset, getCellWidth(x));
       }
       else {
         // if the cell does not need to be evaluated
-        context.fillText(cellValue,leftTextOffset ,topTextOffset);
+        if (nextCell == undefined) context.fillText(cellValue,leftTextOffset ,topTextOffset);
+        else context.fillText(cellValue,leftTextOffset ,topTextOffset, getCellWidth(x));
       }
     }
   }

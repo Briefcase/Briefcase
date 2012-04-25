@@ -47,7 +47,7 @@ $(document).ready( function () {
   document.getElementById('framecontain').onmouseup = mouseRelease;
   
   // general keyboard events (shortcut keys, etc.)
-  //document.onkeypress = keypress;
+  document.onkeypress = keypress;
   
   
   // scrolling 
@@ -56,8 +56,34 @@ $(document).ready( function () {
   //init input box
   moveInputBox(1,1);
   setInputBoxValue(data["1,1"]);
+  
+  document.getElementById("inputbox").onfocus = function () {this.focused = true; inputBoxOnFocus;};
+  document.getElementById("inputbox").onblur = function () {this.focused = false;};
+  document.getElementById("inputbox").focused = false;
 });
   
+
+function keypress (event) {
+  if (document.getElementById("inputbox").focused == false) {
+    focusInputBox();
+    simulatekeypress(event.which);
+  }
+}
+function simulatekeypress(charCode) {
+  var evt = document.createEvent("KeyboardEvent");
+  evt.initKeyEvent ("keypress", true, true, window,
+                    0, 0, 0, 0,
+                    0, charCode) 
+  var canceled = document.getElementById("inputbox").dispatchEvent(evt);
+  /*
+  if(canceled) {
+    // A handler called preventDefault
+    //alert("canceled");
+  } else {
+    // None of the handlers called preventDefault
+    //alert("not canceled");
+  }*/
+}
 
 
 function moveInputBox (xcell,ycell) {
@@ -77,6 +103,12 @@ function setInputBoxValue(value) {
 
 function focusInputBox() {
   document.getElementById("inputbox").focus();
+}
+function inputBoxOnFocus() {
+  document.getElementById("inputCornerBox").style.display="none";
+}
+function blurInputBox() {
+  document.getElementById("inputCornerBox").style.display="inline";
 }
 
 
@@ -107,11 +139,11 @@ function mouseRelease (event) {
   var menuHeight = document.getElementById("framecontain").offsetTop;
   var celly = findCellFromY(event.pageY-menuHeight);
   var cellx = findCellFromX(event.pageX);
-  if (celly < 1 || cellx < 1) return;
+  if (celly < 1 || cellx < 1) {return;}
   if (celly == startSelectionY && cellx == startSelectionX) return;
   setInputBoxValue(data[cellx+','+celly]);
   moveInputBox(cellx,celly);
-  focusInputBox();
+  blurInputBox();
   startSelectionX = cellx;
   startSelectionY = celly;
   
@@ -250,6 +282,9 @@ function toLetterLabel(number) {
 | This function redraws the entire frame, it is a very usefull function and    |
 | will soon be the only function that does any drawing at all, this way we     |
 | we wont get any errors with visualizations                                   |
+|------------------------------------------------------------------------------|
+| This function may need to be re written (again) to provide a more coherient  |
+| function, it is a bit confusing right now in my oppinion                     |
 \******************************************************************************/
 function redrawFrame() {
   // get the application

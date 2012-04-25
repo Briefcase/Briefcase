@@ -57,7 +57,7 @@ $(document).ready( function () {
   moveInputBox(1,1);
   setInputBoxValue(data["1,1"]);
   
-  document.getElementById("inputbox").onfocus = function () {this.focused = true; inputBoxOnFocus;};
+  document.getElementById("inputbox").onfocus = function () {this.focused = true; inputBoxOnFocus();};
   document.getElementById("inputbox").onblur = function () {this.focused = false;};
   document.getElementById("inputbox").focused = false;
 });
@@ -65,6 +65,8 @@ $(document).ready( function () {
 
 function keypress (event) {
   if (document.getElementById("inputbox").focused == false) {
+    // TODO some more params to make sure ctrl and alt, etc are not pressed
+    // or that if they are the event is carried through 
     focusInputBox();
     simulatekeypress(event.which);
   }
@@ -114,9 +116,11 @@ function blurInputBox() {
 
 function syncFunctionBar() {
   document.getElementById("functionbox").value = document.getElementById("inputbox").value;
+  data[startSelectionX + "," +startSelectionY] = document.getElementById("inputbox").value;
 }
 function syncInputBox() {
   document.getElementById("inputbox").value = document.getElementById("functionbox").value;
+  data[startSelectionX+","+startSelectionY] = document.getElementById("functionbox").value;
 }
 
 

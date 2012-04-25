@@ -60,10 +60,16 @@ $(document).ready( function () {
 
 function keypress (event) {
   if (document.getElementById("inputbox").focused == false) {
-    // TODO some more params to make sure ctrl and alt, etc are not pressed
-    // or that if they are the event is carried through 
-    focusInputBox();
-    simulatekeypress(event.which);
+    if (event.which == 8) {
+      data[startSelectionX + ',' + startSelectionY] = "";
+      document.getElementById("inputbox").value = "";
+    }
+    else {
+      // TODO some more params to make sure ctrl and alt, etc are not pressed
+      // or that if they are the event is carried through 
+      focusInputBox();
+      simulatekeypress(event.which);
+    }
   }
 }
 function simulatekeypress(charCode) {

@@ -21,6 +21,9 @@ var dynamicCellWidth  = new Array();
 var startSelectionX = 1;
 var startSelectionY = 1;
 
+var endSelectionX = 0;
+var endSelectionY = 0;
+
 // When using tab remember which column you started at when you hit enter
 var tabReturnColumn = -1;
 
@@ -146,6 +149,7 @@ function mouseRelease (event) {
   var menuHeight = document.getElementById("framecontain").offsetTop;
   var celly = findCellFromY(event.pageY-menuHeight);
   var cellx = findCellFromX(event.pageX);
+  alert(cellx + ", " + celly);
   if (celly < 1 || cellx < 1) {return;}
   if (celly == startSelectionY && cellx == startSelectionX) return;
   setInputBoxValue(data[cellx+','+celly]);
@@ -205,7 +209,8 @@ function getCellHeight(yCoord) {
 /**************************** GET CELL OFFSET LEFT ****************************\
 |
 \******************************************************************************/
-function getCellOffsetLeft (xCoord, leftScreenOffset) {
+function getCellOffsetLeft (xCoord) {
+  var leftScreenOffset = getScrollXCell();
   if (leftScreenOffset > xCoord) return -100;
   var offset = labelCellWidth;
   for (var i = leftScreenOffset; i < xCoord; i++) {
@@ -216,7 +221,8 @@ function getCellOffsetLeft (xCoord, leftScreenOffset) {
 /***************************** GET CELL OFFSET TOP ****************************\
 | Get the number of pixels from the top that the current cell is at            |
 \******************************************************************************/
-function getCellOffsetTop ( yCoord, topScreenOffset) {
+function getCellOffsetTop (yCoord) {
+  var topScreenOffset = getScrollYCell();
   if (topScreenOffset > yCoord) return -100;
   var offset = labelCellHeight;
   for (var i = topScreenOffset; i < yCoord; i++) {
@@ -230,6 +236,7 @@ function getCellOffsetTop ( yCoord, topScreenOffset) {
 function findCellFromY (pixelY) {
   var offset = labelCellHeight;
   var cellCount = getScrollYCell();
+  if (offset > pixelY) return -1;
   while (offset < pixelY) {
     offset+= getCellHeight(cellCount);
     if (offset >= pixelY) break;
@@ -243,6 +250,7 @@ function findCellFromY (pixelY) {
 function findCellFromX (pixelX) {
   var offset = labelCellWidth;
   var cellCount = getScrollXCell();
+  if (offset > pixelX) return -1;
   while (offset < pixelX) {
     offset += getCellWidth(cellCount);
     if (offset >= pixelX) break;
@@ -322,7 +330,32 @@ function redrawFrame() {
   context.fillStyle = "rgb(240,240,240)";  
   context.fillRect (0, 0, c_canvas.width,labelCellHeight);
   context.fillRect (0, 0, labelCellWidth,c_canvas.height);
-
+ 
+  //draw the hilights for multiple selected cells
+  
+  context.fillStyle = "rgb(100,200,100)";
+  //if (endSelectionX == -1) endSelectionX = startSelectionX;
+  //if (endSelectionY == -1) endSelectionY = startSelectionY;
+  
+  
+  var minx = 50;
+  var maxx = 200;
+  var miny = 50;
+  var maxy = 200;
+  
+  
+  if (startSelectionX < 0) {
+    minx = labelCellWidth;
+    maxx = c_canvas.width;
+  }
+  else {
+    alert("normal");
+    minx = getCellOffsetLeft(startSelectionX);
+    maxx = minx + getCellWidth(startSelectionX);
+  }
+  
+  context.fillRect (minx,miny, maxx-minx, maxy-miny);
+  
   // Draw the border Lines  
   context.moveTo(0.5,0);
   context.lineTo(0.5,c_canvas.height);
@@ -396,8 +429,8 @@ function redrawFrame() {
   for (var x = getScrollXCell(); x < integerx; x++) {
     for (var y = getScrollYCell(); y < integery; y++) {
       
-      var leftTextOffset = getCellOffsetLeft(x,getScrollXCell()) + 3;
-	    var topTextOffset  = getCellOffsetTop (y,getScrollYCell()) + 14;
+      var leftTextOffset = getCellOffsetLeft(x) + 3;
+	    var topTextOffset  = getCellOffsetTop (y) + 14;
       
       var cellValue = data[x+','+y];
       

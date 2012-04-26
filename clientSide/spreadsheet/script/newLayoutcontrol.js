@@ -68,7 +68,8 @@ function keypress (event) {
       // TODO some more params to make sure ctrl and alt, etc are not pressed
       // or that if they are the event is carried through 
       focusInputBox();
-      simulatekeypress(event.which);
+      document.getElementById("inputbox").value = String.fromCharCode(event.charCode);
+      //simulatekeypress(event.which);
     }
   }
 }
@@ -77,15 +78,16 @@ function simulatekeypress(charCode) {
   evt.initKeyEvent ("keypress", true, true, window,
                     0, 0, 0, 0,
                     0, charCode) 
-  var canceled = document.getElementById("inputbox").dispatchEvent(evt);
-  /*
+  var canceled = !document.getElementById("inputbox").dispatchEvent(evt);
+  
   if(canceled) {
     // A handler called preventDefault
     //alert("canceled");
   } else {
     // None of the handlers called preventDefault
     //alert("not canceled");
-  }*/
+  }
+  //alert("simulated");
 }
 
 

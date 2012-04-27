@@ -62,13 +62,13 @@ function keypress (event) {
   if (document.getElementById("inputbox").focused == false) {
     if (event.which == 8) {
       data[startSelectionX + ',' + startSelectionY] = "";
-      document.getElementById("inputbox").value = "";
+      setInputBoxValue("");
     }
     else {
       // TODO some more params to make sure ctrl and alt, etc are not pressed
       // or that if they are the event is carried through 
       focusInputBox();
-      document.getElementById("inputbox").value = String.fromCharCode(event.charCode);
+      setInputBoxValue(String.fromCharCode(event.charCode));
       //simulatekeypress(event.which);
     }
   }

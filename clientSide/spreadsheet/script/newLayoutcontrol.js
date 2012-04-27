@@ -35,7 +35,6 @@ var tabReturnColumn = -1;
 \******************************************************************************/
 $(document).ready( function () {
   
-  
   // size the window correctly
   resizeWindow();
   window.onresize = resizeWindow;
@@ -100,8 +99,8 @@ function moveInputBox (xcell,ycell) {
   var menuHeight = document.getElementById("framecontain").offsetTop;
   document.getElementById("datain").style.top  = pixely+menuHeight-0.5+"px";
   document.getElementById("datain").style.left = pixelx - 0.5 +"px";
-  document.getElementById("datain").style.width = getCellWidth(xcell) - 3 + "px";
-  document.getElementById("datain").style.height = getCellHeight(ycell) - 3 + "px";
+  document.getElementById("datain").style.width = getCellWidth(xcell) - 2.5 + "px";
+  document.getElementById("datain").style.height = getCellHeight(ycell) - 2.5 + "px";
   document.getElementById("datain").style.border = "2px solid green";
 }
 function setInputBoxValue(value) {
@@ -149,14 +148,35 @@ function mouseRelease (event) {
   var menuHeight = document.getElementById("framecontain").offsetTop;
   var celly = findCellFromY(event.pageY-menuHeight);
   var cellx = findCellFromX(event.pageX);
-  alert(cellx + ", " + celly);
-  if (celly < 1 || cellx < 1) {return;}
-  if (celly == startSelectionY && cellx == startSelectionX) return;
+  
+  //TODO these need to be actual drag values, in comparison with the mousepress functions
+  var dragx = cellx;
+  var dragy = celly;
+  
+  
+  if (celly < 1 || cellx < 1) {
+    if (celly < 1) {
+      celly = getScrollYCell();
+      dragy = -1;
+    }
+    if (cellx < 1) {
+      cellx = getScrollXCell();
+      dragx = -1;
+    }
+  }
+  
+  // if the cell is allready selected
+  if (celly == startSelectionY && cellx == startSelectionX && dragx == endSelectionX && dragy == endSelectionY) return;
+  
+  
   setInputBoxValue(data[cellx+','+celly]);
   moveInputBox(cellx,celly);
   blurInputBox();
   startSelectionX = cellx;
   startSelectionY = celly;
+  
+  endSelectionX = dragx;
+  endSelectionY = dragy;
   
   redrawFrame();
 }
@@ -316,8 +336,8 @@ function redrawFrame() {
   document.getElementById("scrollbar").style.left = labelCellWidth + "px";
   document.getElementById("scrollbar").style.top = labelCellHeight + menuHeight + "px";
   
-  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2+ "px";
-  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";
+  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 200+ "px";
+  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";
   
   c_canvas.height = window.innerHeight;
   c_canvas.width = window.innerWidth;
@@ -333,7 +353,7 @@ function redrawFrame() {
  
   //draw the hilights for multiple selected cells
   
-  context.fillStyle = "rgb(100,200,100)";
+  context.fillStyle = "rgb(220,255,220)";
   //if (endSelectionX == -1) endSelectionX = startSelectionX;
   //if (endSelectionY == -1) endSelectionY = startSelectionY;
   
@@ -344,17 +364,27 @@ function redrawFrame() {
   var maxy = 200;
   
   
-  if (startSelectionX < 0) {
+  if (endSelectionX < 0) {
     minx = labelCellWidth;
     maxx = c_canvas.width;
   }
   else {
-    alert("normal");
     minx = getCellOffsetLeft(startSelectionX);
     maxx = minx + getCellWidth(startSelectionX);
   }
   
+  if (endSelectionY < 0) {
+    miny = labelCellHeight;
+    maxy = c_canvas.height;
+  }
+  else {
+    miny = getCellOffsetTop(startSelectionY);
+    maxy = miny + getCellHeight(startSelectionY);
+  }
+  
   context.fillRect (minx,miny, maxx-minx, maxy-miny);
+  
+  
   
   // Draw the border Lines  
   context.moveTo(0.5,0);
@@ -424,6 +454,9 @@ function redrawFrame() {
   // Write the changes to the screen
   context.strokeStyle = "#ddd";
   context.stroke();
+  
+  context.strokeStyle = "rgb(0,255,0)";
+  context.strokeRect(minx+0.5,miny+0.5,maxx-minx-0.5,maxy-miny-0.5); 
   
   // write in all of the datapoints
   for (var x = getScrollXCell(); x < integerx; x++) {

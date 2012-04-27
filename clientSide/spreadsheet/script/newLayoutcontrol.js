@@ -455,8 +455,8 @@ function redrawFrame() {
   context.strokeStyle = "#ddd";
   context.stroke();
   
-  context.strokeStyle = "rgb(0,255,0)";
-  context.strokeRect(minx+0.5,miny+0.5,maxx-minx-0.5,maxy-miny-0.5); 
+  context.strokeStyle = "rgb(0,200,0)";
+  context.strokeRect(minx+0.5,miny+0.5,maxx-minx,maxy-miny); 
   
   // write in all of the datapoints
   for (var x = getScrollXCell(); x < integerx; x++) {

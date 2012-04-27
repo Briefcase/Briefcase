@@ -104,6 +104,7 @@ function moveInputBox (xcell,ycell) {
 function setInputBoxValue(value) {
   if (value == undefined) value = "";
   document.getElementById("inputbox").value = value;
+  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
 }
 
 function focusInputBox() {

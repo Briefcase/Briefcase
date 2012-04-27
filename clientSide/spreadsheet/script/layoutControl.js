@@ -1,325 +1,312 @@
-/******************************************************************************\
-|                                     ,,                                       |
-|                    db             `7MM                                       |
-|                   ;MM:              MM                                       |
-|                  ,V^MM.    ,pP"Ybd  MMpMMMb.  .gP"Ya `7Mb,od8                |
-|                 ,M  `MM    8I   `"  MM    MM ,M'   Yb  MM' "'                |
-|                 AbmmmqMA   `YMMMa.  MM    MM 8M""""""  MM                    |
-|                A'     VML  L.   I8  MM    MM YM.    ,  MM                    |
-|              .AMA.   .AMMA.M9mmmP'.JMML  JMML.`Mbmmd'.JMML.                  |
-|                                                                              |
-|                                                                              |
-|                                ,,    ,,                                      |
-|                     .g8"""bgd `7MM    db        `7MM                         |
-|                   .dP'     `M   MM                MM                         |
-|                   dM'       `   MM  `7MM  ,p6"bo  MM  ,MP'                   |
-|                   MM            MM    MM 6M'  OO  MM ;Y                      |
-|                   MM.    `7MMF' MM    MM 8M       MM;Mm                      |
-|                   `Mb.     MM   MM    MM YM.    , MM `Mb.                    |
-|                     `"bmmmdPY .JMML..JMML.YMbmd'.JMML. YA.                   |
-|                                                                              |
-\******************************************************************************/
-/******************************************************************************\
-| Copyright (c) 2012, Asher Glick                                              |
-| All rights reserved.                                                         |
-|                                                                              |
-| Redistribution and use in source and binary forms, with or without           |
-| modification, are permitted provided that the following conditions are met:  |
-|                                                                              |
-| * Redistributions of source code must retain the above copyright notice,     |
-|   this list of conditions and the following disclaimer.                      |
-| * Redistributions in binary form must reproduce the above copyright notice,  |
-|   this list of conditions and the following disclaimer in the documentation  |
-|   and/or other materials provided with the distribution.                     |
-|                                                                              |
-| THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  |
-| AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    |
-| IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   |
-| ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE    |
-| LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR          |
-| CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         |
-| SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS     |
-| INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      |
-| CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)      |
-| ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   |
-| POSSIBILITY OF SUCH DAMAGE.                                                  |
-\******************************************************************************/
+// code written by Asher Glick
+
 
 
   //////////////////////////////////////////////////////////////////////////////
  //////////////////////////////// INITILIZATION ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-// the data contained within the cell
-var data = new Array();
-// predefined sizes for cells (soon to be arrays or something similar)
-var cellHeight = 18;
-var cellWidth = 110;
-// maintain cell offsets for scroling
-var offsetx = 1;
-var offsety = 1;
-// detecting if the mouse is clicking or dragging
-var xdownClick;
-var ydownClick;
-// maintaining the position of the mouse
-var lastx = -1;
-var lasty = -1;
-var currentx = -1;
-var currenty = -1;
 
-// this variable saves which 
-var rowBegin = -1; // used in conjunction with tabbing and enter hotkeys
+var data = new Array(); // the array that will store the values for the spreadsheet
 
-// maintain which textbox has focus
-var functionfocus = false;
-var textfocus = false;
-// function  bar focus / blur
-function functionOnFocus() { functionfocus = true; }
-function functionOnBlur() { functionfocus = false; }
-// text box focus / blur
-function textboxOnFocus() { textfocus = true; }
-function textboxOnBlur() { textfoucs = false; }
+// Width and height for the labled cells
+var labelCellHeight = 18;
+var labelCellWidth = 40;
+// Cell width and height
+var defaultCellHeight = 20;
+var dynamicCellHeight = new Array();
+var defaultCellWidth  = 110;
+var dynamicCellWidth  = new Array();
 
-/********************************* ONLOAD SET *********************************\
-| This function is run once the page is loaded it contatins all of the         |
-| functions that need to be set to interrupts and
-\******************************************************************************/
-$(document).ready( function () {    
-  resize(); // call the resize function to draw the initial frame
-  
-  window.onresize = resize;           // redraw the frame on resize
-  document.onmousedown = blockordrag; // be able to handle click and drag
-  document.onmouseup = clickHandler;  // detect if it is a click or a drag
-  document.onmousemove = mouseDetect; // easy way to maintain mouse position
-  document.onkeypress = keypress;     // keyboard shortcuts
-  document.getElementById("framecontain").onscroll = appScroll;
-  moveTextBox(-1000,-1000); // move the text box out of the way
-  
-  load2();
-});
-  //////////////////////////////////////////////////////////////////////////////
- ///////////////////////////////// USER INPUT /////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////  
-/********************************* ON KEYPRESS ********************************\
-| This function is the keypress handler, it handles every keypress made, then  |
-| splits them up and reacts differently depending on which key was pressed     |
-\******************************************************************************/
-function keypress(e) {
-  if (e.keyCode == 13) {
-    // Enter is pressed
-    data[lastx+','+lasty] = document.getElementById("inputbox").value;
-    finishInput(); // scans the input and displays a result
-    
-    //Move Input Box
-    lasty++;
-    lastx = rowBegin;
-    moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
-    if (data[lastx+','+lasty] == undefined) {
-      document.getElementById("inputbox").value = "";
-    }
-    else {
-      document.getElementById("inputbox").value = data[lastx+','+lasty];
-    }
-    document.getElementById("inputbox").focus();
-  }
-  if (e.keyCode == 9) {
-    //tab is pressed
-    data[lastx+','+lasty] = document.getElementById("inputbox").value;
-    finishInput(); // scans the input and displays a result
-    //Move Input Box
-    if (e.shiftKey) {
-      lastx--;
-    }
-    else {
-      lastx++;
-    }
-    moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
-    if (data[lastx+','+lasty] == undefined) {
-      document.getElementById("inputbox").value = "";
-    }
-    else {
-      document.getElementById("inputbox").value = data[lastx+','+lasty];
-    }
-    setTimeout("document.getElementById('inputbox').focus();",0);
-  }
-  // sync the input box and the function box on keypress
-  setTimeout("delaySync()",0);
-  
-}
-/******************************** CLICK HANDLER *******************************\
-| The click handler function is run whenever the mouse is clicked (onclick)    |
-| It handles moving the text box and writing the value of the previoss cell to |
-| the hash table and to the canvas element                                     |
-\******************************************************************************/
-function clickHandler(e) {
-  // if a person is dragging their mouse over multiple frames dont select the
-  // last one thir mouse is over
-  if (currentx != downx || currenty != downy) {
-    return;
-  } 
-  // if a mouse is above or to the left of the spreadsheet, dont create a box
-  if (currentx < 0 || currenty < 0) {
-    return;
-  } 
-  // Dont redo this function if clicking on the same square
-  if (currentx == lastx && currenty == lasty) {
-    return;
-  }
-  //
-  if (data[lastx+','+lasty] != undefined || document.getElementById("inputbox").value != "") {
-    data[lastx+','+lasty] = document.getElementById("inputbox").value;
-  }  
-  
-  finishInput();
-  
-  //Move Input Box
-  moveTextBox((currentx*cellWidth),(currenty*cellHeight)-2.5);
-  if (data[currentx+','+currenty] == undefined) {
-    document.getElementById("inputbox").value = "";
-  }
-  else {
-    document.getElementById("inputbox").value = data[currentx+','+currenty];
-  }
-  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
-  document.getElementById("inputbox").focus();
-  lastx=currentx;
-  lasty=currenty;
-  rowBegin = currentx;
-}
-  //////////////////////////////////////////////////////////////////////////////
- ////////////////// HELPER FUNCTIONS (make this title better) /////////////////
-//////////////////////////////////////////////////////////////////////////////
+//currently selected cells
+var startSelectionX = 1;
+var startSelectionY = 1;
 
+var endSelectionX = 0;
+var endSelectionY = 0;
 
-/******************************** MOVE TEXT BOX *******************************\
-| This function will take in a cell number in the x position and a cell number |
-| in the y postion and will move and resise the text box accordingly           |
-\******************************************************************************/
-function moveTextBox (xpos, ypos) {
-  document.getElementById("datain").style.top = ypos + document.getElementById("application").offsetTop - document.getElementById("framecontain").scrollTop + 'px';
-  document.getElementById("datain").style.left = (xpos - 2.5) - document.getElementById("framecontain").scrollLeft + 'px';
-}
+// When using tab remember which column you started at when you hit enter
+var tabReturnColumn = -1;
 
-/********************************* DELAY SYNC *********************************\
-| This funtion syncs the text box and the function box so that they display    |
-| the same thing, it is called after every keypress using setTimeout() with a  |
-| timeout of 0. This method feels very hackish but I have not found a better   |
-| way to sync the boxes the moment after the key is pressed instead of right   |
-| when the key is pressed                                                      |
-\******************************************************************************/
-function delaySync(){
-  // Sync Function box and text box
-  if (functionfocus) {
-    document.getElementById("inputbox").value = document.getElementById("functionbox").value;
-  }
-  else if (textfocus) {
-    document.getElementById("functionbox").value = document.getElementById("inputbox").value;
-  }
-}
-/******************************** MOUSE DETECT ********************************\
-|////////////////////////////// TO BE DEPRECATED //////////////////////////////|
-| The mouse detect function is used to detect which cell the mouse is          |
-| currently over. It is called whenever the mouse is moved. I know for sure    |
-| that this is not the best way to keep track of the mouse position however at |
-| this point when all the cells are the same size it is not too much of a cost |
-| to pay for simplicity                                                        |
-\******************************************************************************/
-function mouseDetect(e) {
-  var x;
-  var y;
-  if (e.pageX || e.pageY) { 
-    x = e.pageX + document.getElementById("framecontain").scrollLeft;
-    y = e.pageY + document.getElementById("framecontain").scrollTop;
-  }
-  else { 
-    x = e.clientX + document.getElementById("framecontain").scrollLeft + document.body.scrollLeft + document.documentElement.scrollLeft; 
-    y = e.clientY + document.getElementById("framecontain").scrollTop + document.body.scrollTop + document.documentElement.scrollTop; 
-  }
-  
-  x -= document.getElementById("application").offsetLeft;
-  y -= document.getElementById("application").offsetTop;
-  
-  if (x > 0) {
-    x = ~~(x / cellWidth); // truncate using ~~ (IDK WHAT IT DOES THOUGH)
-  }
-  else {
-    x = x = ~~(x / cellWidth)-1;
-  }
-  if (y > 0) {
-    y = ~~(y / cellHeight);
-  }
-  else{
-    y = ~~(y / cellHeight)-1;
-  }
-  
-  currentx = x;
-  currenty = y;
-} 
+// function focus or bar focus, can focus be determined from the object, or can we use oninput instead of a time delay to sync the two bars (i think oninput will work)
 
-
-/******************************** BLOCK OR DRAG *******************************\
-| Detect if the mouse is beign clicked or dragged. (currently this function    |
-| just prevents dragging and will need to be changed                           |
-|                                                                              |
-| TODO this function will need to be changed                                   |
-\******************************************************************************/
-function blockordrag() {
-  downx = currentx;
-  downy = currenty;
-  // there are no drag formats yet
-}
-/******************************** FINSIH INPUT ********************************\
-| detects changes and act accordingly: more documentation required             |
-| This function is run when input to the program has finished                  |
-\******************************************************************************/
-function finishInput() {
-  var equation = document.getElementById("inputbox").value;
-  
-  
-  
-  var c_canvas = document.getElementById("application");
-  var context = c_canvas.getContext("2d");
-  //context.clearRect ((lastx*cellWidth)+1,(lasty*cellHeight)+1,cellWidth-1,cellHeight-1);
-  context.font = "12px sans-serif";
-  if (equation[0]=='=') {
-    context.fillText(eparse(equation.substring(1,equation.length)),(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
-  }
-  else {
-    context.fillText(document.getElementById("inputbox").value,(lastx*cellWidth) +3 ,(lasty*cellHeight)+14);
-  }
-  
-  // reap dead cells
-  if (equation == "") {
-    delete data[lastx+","+lasty];
-  }
-  
-  redrawFrame()
-}
-/********************************* APP SCROLL *********************************\
+/************************** INITILIZE EVENT FUNCTIONS *************************\
 |
-\******************************************************************************/  
-function appScroll() {
-  moveTextBox((lastx*cellWidth),(lasty*cellHeight)-2.5);
-  document.getElementById("application").style.left = document.getElementById("framecontain").scrollLeft + 'px';
-}
-/*********************************** RESIZE ***********************************\
-| This function is called whenever the window is resized, it runs all of the   |
-| functions that need to run in order to redraw the page correctly             |
 \******************************************************************************/
-function resize() {
+$(document).ready( function () {
+  // size the window correctly
+  resizeWindow();
+  window.onresize = resizeWindow;
+  
+  // mouse events
+  document.onmousedown = mousePress;
+  document.getElementById('framecontain').onmouseup = mouseRelease;
+  
+  // general keyboard events (shortcut keys, etc.)
+  document.onkeypress = keypress;
+  
+  
+  // scrolling 
+  document.getElementById("scrollbar").onscroll = resizeWindow;
+  
+  //init input box
+  moveInputBox(1,1);
+  setInputBoxValue(data["1,1"]);
+  
+  document.getElementById("inputbox").onfocus = function () {this.focused = true; inputBoxOnFocus();};
+  document.getElementById("inputbox").onblur = function () {this.focused = false;};
+  document.getElementById("inputbox").focused = false;
+});
+  
+
+function keypress (event) {
+  if (document.getElementById("inputbox").focused == false) {
+    if (event.which == 8) {
+      data[startSelectionX + ',' + startSelectionY] = "";
+      document.getElementById("inputbox").value = "";
+    }
+    else {
+      // TODO some more params to make sure ctrl and alt, etc are not pressed
+      // or that if they are the event is carried through 
+      focusInputBox();
+      document.getElementById("inputbox").value = String.fromCharCode(event.charCode);
+      //simulatekeypress(event.which);
+    }
+  }
+}
+function simulatekeypress(charCode) {
+  var evt = document.createEvent("KeyboardEvent");
+  evt.initKeyEvent ("keypress", true, true, window,
+                    0, 0, 0, 0,
+                    0, charCode) 
+  var canceled = !document.getElementById("inputbox").dispatchEvent(evt);
+  
+  if(canceled) {
+    // A handler called preventDefault
+    //alert("canceled");
+  } else {
+    // None of the handlers called preventDefault
+    //alert("not canceled");
+  }
+  //alert("simulated");
+}
+
+
+function moveInputBox (xcell,ycell) {
+  var pixelx = getCellOffsetLeft(xcell,getScrollXCell());
+  var pixely = getCellOffsetTop(ycell,getScrollYCell());
+  var menuHeight = document.getElementById("framecontain").offsetTop;
+  document.getElementById("datain").style.top  = pixely+menuHeight-0.5+"px";
+  document.getElementById("datain").style.left = pixelx - 0.5 +"px";
+  document.getElementById("datain").style.width = getCellWidth(xcell) - 2.5 + "px";
+  document.getElementById("datain").style.height = getCellHeight(ycell) - 2.5 + "px";
+  document.getElementById("datain").style.border = "2px solid green";
+}
+function setInputBoxValue(value) {
+  if (value == undefined) value = "";
+  document.getElementById("inputbox").value = value;
+}
+
+function focusInputBox() {
+  document.getElementById("inputbox").focus();
+}
+function inputBoxOnFocus() {
+  document.getElementById("inputCornerBox").style.display="none";
+}
+function blurInputBox() {
+  document.getElementById("inputCornerBox").style.display="inline";
+}
+
+
+function syncFunctionBar() {
+  document.getElementById("functionbox").value = document.getElementById("inputbox").value;
+  data[startSelectionX + "," +startSelectionY] = document.getElementById("inputbox").value;
+}
+function syncInputBox() {
+  document.getElementById("inputbox").value = document.getElementById("functionbox").value;
+  data[startSelectionX+","+startSelectionY] = document.getElementById("functionbox").value;
+}
+
+
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// MOUSE EVENTS ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/********************************* MOUSE DOWN *********************************\
+| 
+\******************************************************************************/
+function mousePress (event) {
+  // nothing yet
+  
+}
+/********************************** MOUSE UP **********************************\
+|
+\******************************************************************************/
+function mouseRelease (event) {
+  // nothing yet
+  // for now assume a non drag
+  var menuHeight = document.getElementById("framecontain").offsetTop;
+  var celly = findCellFromY(event.pageY-menuHeight);
+  var cellx = findCellFromX(event.pageX);
+  
+  //TODO these need to be actual drag values, in comparison with the mousepress functions
+  var dragx = cellx;
+  var dragy = celly;
+  
+  
+  if (celly < 1 || cellx < 1) {
+    if (celly < 1) {
+      celly = getScrollYCell();
+      dragy = -1;
+    }
+    if (cellx < 1) {
+      cellx = getScrollXCell();
+      dragx = -1;
+    }
+  }
+  
+  // if the cell is allready selected
+  if (celly == startSelectionY && cellx == startSelectionX && dragx == endSelectionX && dragy == endSelectionY) return;
+  
+  
+  setInputBoxValue(data[cellx+','+celly]);
+  moveInputBox(cellx,celly);
+  blurInputBox();
+  startSelectionX = cellx;
+  startSelectionY = celly;
+  
+  endSelectionX = dragx;
+  endSelectionY = dragy;
+  
+  redrawFrame();
+}
+/********************************* MOUSE MOVE *********************************\
+| The mouse move function is only used for dragging 
+\******************************************************************************/
+
+  //////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////// INTERFACE RESIZING /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/******************************** RESIZE WINDOW *******************************\
+|
+\******************************************************************************/
+function resizeWindow () {
+  // do all of the resizeing functions here
   redrawFrame();
   resizeFunctionBar();
 }
-
-
+/***************************** RESIZE FUNCTION BAR ****************************\
+| This function resizes the function bar that is under the menu bar so that it |
+| occupies the full length of the screen while not passing the edge of the     |
+| screen to avoid scroll bars from being created                               |
+\******************************************************************************/
 function resizeFunctionBar() {
-  // get the initial variables for the calculation
-  var functionBar = document.getElementById('functionbox');
-  functionBar.width = 0+"px";
-  var functionBarLeftOffset = functionBar.offsetLeft;
-  
-  var windowWidth = window.innerWidth;
-  
-  //set size
-  var functionBarNewWidth = windowWidth - functionBarLeftOffset;
-  functionBar.style.width = functionBarNewWidth+"px";
+  var leftOffset = document.getElementById("functionbox").offsetLeft;
+  var pageWidth = window.innerWidth;
+  document.getElementById("functionbox").style.width = pageWidth - leftOffset + "px";
+}
+  //////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////// CELL SIZE API ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/******************************* GET CELL WIDTH *******************************\
+|
+\******************************************************************************/
+function getCellWidth(xCoord) {
+  //return (xCoord%50)+100;
+  return defaultCellWidth;
+}
+/******************************* GET CELL HEIGHT ******************************\
+|
+\******************************************************************************/
+function getCellHeight(yCoord) {
+  //return (yCoord%10)+15;
+  if (yCoord == 10) return 2*defaultCellHeight;
+  return defaultCellHeight;
+}
+  //////////////////////////////////////////////////////////////////////////////
+ ////////////////////////////// CELL POSITION API /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/**************************** GET CELL OFFSET LEFT ****************************\
+|
+\******************************************************************************/
+function getCellOffsetLeft (xCoord) {
+  var leftScreenOffset = getScrollXCell();
+  if (leftScreenOffset > xCoord) return -100;
+  var offset = labelCellWidth;
+  for (var i = leftScreenOffset; i < xCoord; i++) {
+    offset += getCellWidth(i);
+  }
+  return offset;
+}
+/***************************** GET CELL OFFSET TOP ****************************\
+| Get the number of pixels from the top that the current cell is at            |
+\******************************************************************************/
+function getCellOffsetTop (yCoord) {
+  var topScreenOffset = getScrollYCell();
+  if (topScreenOffset > yCoord) return -100;
+  var offset = labelCellHeight;
+  for (var i = topScreenOffset; i < yCoord; i++) {
+    offset += getCellHeight(i);
+  }
+  return offset;
+}
+/****************************** FIND CELL FROM Y ******************************\
+| 
+\******************************************************************************/
+function findCellFromY (pixelY) {
+  var offset = labelCellHeight;
+  var cellCount = getScrollYCell();
+  if (offset > pixelY) return -1;
+  while (offset < pixelY) {
+    offset+= getCellHeight(cellCount);
+    if (offset >= pixelY) break;
+    cellCount += 1;
+  }
+  return cellCount;
+}
+/****************************** FIND CELL FROM X ******************************\
+|
+\******************************************************************************/
+function findCellFromX (pixelX) {
+  var offset = labelCellWidth;
+  var cellCount = getScrollXCell();
+  if (offset > pixelX) return -1;
+  while (offset < pixelX) {
+    offset += getCellWidth(cellCount);
+    if (offset >= pixelX) break;
+    cellCount += 1;
+  }
+  return cellCount;
+}
+  //////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////// SCROLL BAR API ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/**************************** GET SCROLL X POSITION ***************************\
+| reading the scroll bar this returns the leftmost cell position
+\******************************************************************************/
+function getScrollXCell () {  
+  var scrollX = document.getElementById("scrollbar").scrollLeft;
+  return ~~(scrollX / defaultCellWidth)+1;
+}
+
+/**************************** GET SCROLL Y POSITION ***************************\
+| reading the scroll bar this returns the topmost cell position
+\******************************************************************************/
+function getScrollYCell () {
+  var scrollY = document.getElementById("scrollbar").scrollTop;
+  return ~~(scrollY / defaultCellHeight)+1; 
+}
+
+/******************************* TO LETTER LABEL ******************************\
+| This converts a number (starting at 1) to a letter or multi letter           |
+| representation that can be used as an ID, if the number is greater then 26   |
+| (Z) then multiple letters are use (AA, AB, AC, etc)                          |
+\******************************************************************************/
+function toLetterLabel(number) {
+  number= number - 1;
+  var output = "";
+  while (number >= 26) {
+    output = String.fromCharCode(65+number%26) + output;
+    number = (number-+number%26) / 26 -1;
+  }
+  output = String.fromCharCode(65+number%26) + output;
+  return output;
 }

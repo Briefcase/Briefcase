@@ -45,7 +45,7 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 
-// currently incomplete code hilighter inspiered by Colin Kuebler 2012 Part of LDT
+// currently incomplete code hilighter inspiered by  Colin Kuebler 2012 Part of LDT
 
 window.onload = function () {
   document.onkeydown = keypress;
@@ -182,7 +182,6 @@ function findLastNewline() {
 		  currentTextNode = currentTextNode.previousSibling;
 		  //alert("!"+currentTextNode);
 		  currentIndex = currentTextNode.nodeValue.length-1;
-		  break;
 		}
 	}
 	//alert(":" + whiteSpaceReturn + ":");

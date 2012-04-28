@@ -53,12 +53,22 @@ window.onload = function () {
   
   
   var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
+  document.getElementById("codeDoc").onkeypress = syncToColor;
   //backgroundFormat ();
 }
 
 var column = 0;
 var line = 0;
 var undoStack;
+
+function syncToColor () {
+	setTimeout(syncToColorDelay,0);
+}
+
+function syncToColorDelay () {
+	document.getElementById("displayDoc").innerHTML = document.getElementById("codeDoc").innerHTML;
+}
+
   //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////////// USER EVENTS ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

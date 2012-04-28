@@ -151,17 +151,17 @@ function findLastNewline() {
 	
 	var whiteSpaceReturn = "";
 	
-	alert(currentTextNode);
+	alert(currentTextNode + ":" + currentIndex);
 	
 	//make sure that the selected element is a valid text element
 	var parent = document.getElementById("codeDoc");
-	alert(parent);
 	if (currentTextNode == parent) {
 	  currentTextNode = parent.childNodes[currentIndex];
-	  currentIndex = currentTextnode.nodeValue.length-1;
+	  alert(currentTextNode);
+	  currentIndex = currentTextNode.nodeValue.length-1;
 	}
 	
-	alert(currentTextNode);
+	alert(currentTextNode + ":" + currentIndex);
 	
 	//if the node is empty traverse to the previous node
 	while (currentIndex == -1) {

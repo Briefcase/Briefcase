@@ -54,7 +54,7 @@ window.onload = function () {
   
   var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
   document.getElementById("codeDoc").onkeydown = syncToColor;
-  //backgroundFormat ();
+  syncToColor();// sync the background right away
 }
 
 var column = 0;
@@ -67,7 +67,7 @@ function syncToColor () {
 
 function syncToColorDelay () {
   var rawCode = document.getElementById("codeDoc").innerHTML;
-  rawCode.replace("and","<span style='color:red'>and</span>")
+  rawCode = rawCode.replace("and","<span style='color:blue'>and</span>");
 	document.getElementById("displayDoc").innerHTML = rawCode;
 }
 

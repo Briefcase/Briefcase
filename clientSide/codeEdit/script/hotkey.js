@@ -169,7 +169,7 @@ function findLastNewline() {
 
 	while (currentTextNode.nodeValue[currentIndex] != '\n') {
 		if (currentTextNode.nodeValue[currentIndex] == ' ' || currentTextNode.nodeValue[currentIndex] == '	') {
-		  whiteSpaceReturn += currentTextNode.nodeValue[currentIndex];
+		  whiteSpaceReturn = currentTextNode.nodeValue[currentIndex] + whiteSpaceReturn;
 		}
 		else {
 		  whiteSpaceReturn = "";

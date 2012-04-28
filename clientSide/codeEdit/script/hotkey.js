@@ -67,7 +67,7 @@ var undoStack;
 | and enter because their behavior needs to be altered                         |
 \******************************************************************************/
 function keypress(e) {
-  alert(e.keyCode);
+  alert(e.keyCode + " | " + e.charCode);
   if (e.keyCode == 13) {
     // enter
     if (e.preventDefault) {
@@ -81,7 +81,7 @@ function keypress(e) {
     if (e.preventDefault) {
       e.preventDefault();
     }
-    insertTextAtCursor("--->");
+    insertTextAtCursor(">");
   }
   
   // update position
@@ -106,15 +106,19 @@ function insertTextAtCursor(text) {
     if (window.getSelection) {
         sel = window.getSelection();
         if (sel.getRangeAt && sel.rangeCount) {
+            var tempRange = document.createTextNode(text);
+        
             range = sel.getRangeAt(0);
             range.deleteContents();
-            range.insertNode( document.createTextNode(text) );
+            range.insertNode( tempRange );
+            range.setStart(tempRange,text.length);
         }
-        sel.getRangeAt(0)
     } else if (document.selection && document.selection.createRange) {
         document.selection.createRange().text = text;
     }
-    
+    for (var i = 0; i < text.length; i++) {
+        simulatekeypress(39,0);
+    }
 }
 
 
@@ -123,16 +127,17 @@ function newline () {
   //alert("newline");
 }
 
-function simulatekeypress(charCode) {
+function simulatekeypress(keycode,charCode) {
+  //alert(charCode);
   var evt = document.createEvent("KeyboardEvent");
   evt.initKeyEvent ("keypress", true, true, window,
                     0, 0, 0, 0,
-                    0, charCode) 
-  var canceled = !document.getElementById("inputbox").dispatchEvent(evt);
+                    keycode, charCode) 
+  var canceled = !document.getElementById("codeDoc").dispatchEvent(evt);
   
   if(canceled) {
     // A handler called preventDefault
-    //alert("canceled");
+    alert("canceled");
   } else {
     // None of the handlers called preventDefault
     //alert("not canceled");

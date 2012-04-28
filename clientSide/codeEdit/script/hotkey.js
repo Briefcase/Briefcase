@@ -56,7 +56,6 @@ window.onload = function () {
 
 var column = 0;
 var line = 0;
-
 var undoStack;
   //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////////// USER EVENTS ////////////////////////////////
@@ -67,7 +66,7 @@ var undoStack;
 | and enter because their behavior needs to be altered                         |
 \******************************************************************************/
 function keypress(e) {
-  alert(e.keyCode + " | " + e.charCode);
+  //alert(e.keyCode + " | " + e.charCode);
   if (e.keyCode == 13) {
     // enter
     if (e.preventDefault) {
@@ -81,7 +80,7 @@ function keypress(e) {
     if (e.preventDefault) {
       e.preventDefault();
     }
-    insertTextAtCursor(">");
+    insertTextAtCursor("	");
   }
   
   // update position
@@ -117,7 +116,7 @@ function insertTextAtCursor(text) {
         document.selection.createRange().text = text;
     }
     for (var i = 0; i < text.length; i++) {
-        simulatekeypress(39,0);
+        //simulatekeypress(39,0);
     }
 }
 

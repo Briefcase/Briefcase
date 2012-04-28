@@ -48,7 +48,7 @@
 
 
 window.onload = function () {
-  document.onkeypress = keypress;
+  document.onkeydown = keypress;
   //document.onclick = mouseclick;
   
   

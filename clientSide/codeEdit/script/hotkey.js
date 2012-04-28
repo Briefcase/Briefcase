@@ -120,8 +120,6 @@ function insertTextAtCursor(text) {
     }
 }
 
-
-
 function newline () {
   //alert("newline");
 }

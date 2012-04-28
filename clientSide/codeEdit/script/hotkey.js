@@ -150,19 +150,14 @@ function findLastNewline() {
 	var currentIndex = range.startOffset-1;
 	
 	var whiteSpaceReturn = "";
-	
-	alert(currentTextNode + ":" + currentIndex);
-	
+		
 	//make sure that the selected element is a valid text element
 	var parent = document.getElementById("codeDoc");
 	if (currentTextNode == parent) {
 	  currentTextNode = parent.childNodes[currentIndex];
-	  alert(currentTextNode);
 	  currentIndex = currentTextNode.nodeValue.length-1;
 	}
-	
-	alert(currentTextNode + ":" + currentIndex);
-	
+		
 	//if the node is empty traverse to the previous node
 	while (currentIndex == -1) {
 		alert("reached the end of the node:"+currentTextNode.nodeValue);

@@ -101,7 +101,7 @@ function printBeforeCursor (printstring) {
 
 //this is not my function
 function insertTextAtCursor(text) {
-    var sel, range, html;
+    var sel, range;
     if (window.getSelection) {
         sel = window.getSelection();
         if (sel.getRangeAt && sel.rangeCount) {
@@ -121,8 +121,16 @@ function insertTextAtCursor(text) {
 }
 
 function newline () {
-  //alert("newline");
+	var sel, range
+	if (window.getSelection) {
+		
+	}
+	
+  insertTextAtCursor("\n");
+  insertTextAtCursor("");// used to move the cursor to the next line
 }
+
+function findLastNewline()
 
 function simulatekeypress(keycode,charCode) {
   //alert(charCode);

@@ -124,6 +124,8 @@ function insertTextAtCursor(text) {
             range.deleteContents();
             range.insertNode( tempRange );
             range.setStart(tempRange,text.length);
+            sel.removeAllRanges();
+            sel.addRange(range);
         }
     } else if (document.selection && document.selection.createRange) {
         document.selection.createRange().text = text;
@@ -143,8 +145,8 @@ function newline () {
   insertTextAtCursor("");// used to move the cursor to the next line
 }
 
-function findLastNewline()
-{}
+function findLastNewline() {
+}
 
 function simulatekeypress(keycode,charCode) {
   //alert(charCode);

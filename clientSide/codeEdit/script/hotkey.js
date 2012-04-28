@@ -136,16 +136,49 @@ function insertTextAtCursor(text) {
 }
 
 function newline () {
-	var sel, range
-	if (window.getSelection) {
-			
-	}
 	
+	var space = findLastNewline();
   insertTextAtCursor("\n");
-  insertTextAtCursor("");// used to move the cursor to the next line
+  insertTextAtCursor(space);// used to move the cursor to the next line
 }
 
 function findLastNewline() {
+	var currentchar = "";
+	var sel = window.getSelection();
+	var range = sel.getRangeAt(0);
+	var currentTextNode = range.startContainer;
+	var currentIndex = range.startOffset-1;
+	
+	var whiteSpaceReturn = "";
+	
+	
+	//if the node is empty traverse to the previous node
+	while (currentIndex == -1) {
+		alert("reached the end of the node:"+currentTextNode.nodeValue);
+		currentTextNode = currentTextNode.previousSibling;
+		currentIndex = currentTextNode.nodeValue.length-1;
+	} 
+
+	while (currentTextNode.nodeValue[currentIndex] != '\n') {
+		if (currentTextNode.nodeValue[currentIndex] == ' ' || currentTextNode.nodeValue[currentIndex] == '	') {
+		  whiteSpaceReturn += currentTextNode.nodeValue[currentIndex];
+		}
+		else {
+		  whiteSpaceReturn = "";
+		}
+		currentIndex--;
+		
+		//traverse to the previous node while the node is empty
+		while (currentIndex == -1) {
+		  //alert("reached the end of the node:"+currentTextNode.nodeValue);
+		  currentTextNode = currentTextNode.previousSibling;
+		  //alert("!"+currentTextNode);
+		  currentIndex = currentTextNode.nodeValue.length-1;
+		  break;
+		}
+	}
+	//alert(":" + whiteSpaceReturn + ":");
+	return whiteSpaceReturn;
 }
 
 function simulatekeypress(keycode,charCode) {

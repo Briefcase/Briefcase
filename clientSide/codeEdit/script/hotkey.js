@@ -53,7 +53,7 @@ window.onload = function () {
   
   
   var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
-  document.getElementById("codeDoc").onkeypress = syncToColor;
+  document.getElementById("codeDoc").onkeydown = syncToColor;
   //backgroundFormat ();
 }
 
@@ -144,6 +144,7 @@ function newline () {
 }
 
 function findLastNewline()
+{}
 
 function simulatekeypress(keycode,charCode) {
   //alert(charCode);

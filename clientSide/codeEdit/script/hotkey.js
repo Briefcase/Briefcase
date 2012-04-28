@@ -45,6 +45,8 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 
+
+
 window.onload = function () {
   document.onkeypress = keypress;
   //document.onclick = mouseclick;
@@ -81,6 +83,7 @@ function keypress(e) {
       e.preventDefault();
     }
     insertTextAtCursor("	");
+    insertTextAtCursor("");
   }
   
   // update position
@@ -123,7 +126,7 @@ function insertTextAtCursor(text) {
 function newline () {
 	var sel, range
 	if (window.getSelection) {
-		
+			
 	}
 	
   insertTextAtCursor("\n");

@@ -45,7 +45,7 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 
-
+// currently incomplete code hilighter inspiered by Colin Kuebler 2012 Part of LDT
 
 window.onload = function () {
   document.onkeydown = keypress;

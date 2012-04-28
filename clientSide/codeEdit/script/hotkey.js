@@ -66,7 +66,9 @@ function syncToColor () {
 }
 
 function syncToColorDelay () {
-	document.getElementById("displayDoc").innerHTML = document.getElementById("codeDoc").innerHTML;
+  var rawCode = document.getElementById("codeDoc").innerHTML;
+  rawCode.replace("and","<span style='color:red'>and</span>")
+	document.getElementById("displayDoc").innerHTML = rawCode;
 }
 
   //////////////////////////////////////////////////////////////////////////////

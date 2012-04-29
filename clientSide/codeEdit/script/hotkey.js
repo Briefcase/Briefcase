@@ -162,8 +162,9 @@ function findLastNewline() {
 		
 	//if the node is empty traverse to the previous node
 	while (currentIndex == -1) {
-		alert("reached the end of the node:"+currentTextNode.nodeValue);
+		//alert("reached the end of the node:"+currentTextNode.nodeValue);
 		currentTextNode = currentTextNode.previousSibling;
+		if (currentTextNode == null) return "";
 		currentIndex = currentTextNode.nodeValue.length-1;
 	} 
 

@@ -31,7 +31,7 @@ function TextareaDecorator(output, textarea, parser ){
 	var color = function( input, output, parser ){
 		var oldTokens = output.childNodes;
 		var newTokens = parser.tokenize(input);
-		alert("Tokens| New:"+newTokens.length+" Old: "+oldTokens.length);
+		//alert("Tokens| New:"+newTokens.length+" Old: "+oldTokens.length);
 		var firstDiff, lastDiffNew, lastDiffOld;
 		// find the first difference
 		for( firstDiff = 0; firstDiff < newTokens.length && firstDiff < oldTokens.length; firstDiff++ )

@@ -157,7 +157,7 @@ function findLastNewline() {
 	var parent = document.getElementById("codeDoc");
 	if (currentTextNode == parent) {
 	  currentTextNode = parent.childNodes[currentIndex];
-	  currentIndex = currentTextNode.nodeValue.length-1;
+	  currentIndex = currentTextNode.nodeValue.length-1; 
 	}
 		
 	//if the node is empty traverse to the previous node

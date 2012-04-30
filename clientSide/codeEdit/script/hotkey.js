@@ -107,7 +107,20 @@ function keypress(e) {
   
   // update position
   // run text hilighter
-  
+  removeBrTags();
+}
+
+function removeBrTags() {
+  var inputText = document.getElementById("codeDoc");
+  var children = inputText.childNodes;
+  var textChildren = "";
+  for (var i = 0; i < children.length; i++) {
+    if (children[i] == "[object HTMLBRElement]") {
+      inputText.replaceChild(document.createTextNode("\n"), children[i]);
+      textChildren += children[i] + "\n";
+    }
+  }
+  alert(textChildren);
 }
 /*
 // This is my function

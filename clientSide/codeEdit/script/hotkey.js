@@ -117,10 +117,8 @@ function removeBrTags() {
   for (var i = 0; i < children.length; i++) {
     if (children[i] == "[object HTMLBRElement]") {
       inputText.replaceChild(document.createTextNode("\n"), children[i]);
-      textChildren += children[i] + "\n";
     }
   }
-  alert(textChildren);
 }
 /*
 // This is my function

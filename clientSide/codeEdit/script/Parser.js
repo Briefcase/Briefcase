@@ -28,6 +28,7 @@ function Parser( rules, i ){
 	api.identify = function(token){
 		for( var rule in ruleMap ){
 			if( ruleMap[rule].test(token) ){
+			  alert("found rule: "+rule);
 				return rule;
 			}
 		}

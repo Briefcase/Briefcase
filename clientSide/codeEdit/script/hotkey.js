@@ -164,6 +164,7 @@ function findLastNewline() {
 	var parent = document.getElementById("codeDoc");
 	if (currentTextNode == parent) {
 	  currentTextNode = parent.childNodes[currentIndex];
+	  if (currentTextNode == null) return ""; // corner case, if there are no elements
 	  currentIndex = currentTextNode.nodeValue.length-1; 
 	}
 		
@@ -189,6 +190,7 @@ function findLastNewline() {
 		  //alert("reached the end of the node:"+currentTextNode.nodeValue);
 		  currentTextNode = currentTextNode.previousSibling;
 		  //alert("!"+currentTextNode);
+		  if (currentTextNode == null) return "";
 		  currentIndex = currentTextNode.nodeValue.length-1;
 		}
 	}

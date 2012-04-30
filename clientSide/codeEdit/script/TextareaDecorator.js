@@ -104,6 +104,8 @@ function TextareaDecorator(output, textarea, parser ){
 		);
 	}
 	*/
+	
+	textarea.onkeydown = api.update();
 	// initial highlighting
 	api.update();
 

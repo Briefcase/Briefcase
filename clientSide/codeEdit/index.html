@@ -22,13 +22,6 @@
 		      other: /\S+/,
 	      });
 	      // wait for the page to finish loading before accessing the DOM
-	      window.onload = function(){
-		      // get the textarea
-		      var textInput = document.getElementById("codeDoc");
-		      var textOutput = document.getElementById("displayDoc");
-		      // start the decorator
-		      decorator = new TextareaDecorator(textOutput, textInput, parser );
-		    }
 	  </script>
   </head>
   <body spellcheck='false'>

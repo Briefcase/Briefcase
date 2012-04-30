@@ -48,6 +48,7 @@
 // currently incomplete code hilighter inspiered by  Colin Kuebler 2012 Part of LDT
 
 window.onload = function () {
+  alert("hello world");
   document.onkeydown = keypress;
   //document.onclick = mouseclick;
   
@@ -55,6 +56,13 @@ window.onload = function () {
   var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
   document.getElementById("codeDoc").onkeydown = syncToColor;
   syncToColor();// sync the background right away
+  
+  // SET COLORS TO BE COLORS
+  // get the textarea
+  var textInput = document.getElementById("codeDoc");
+  var textOutput = document.getElementById("displayDoc");
+  // start the decorator
+	decorator = new TextareaDecorator(textOutput, textInput, parser );
 }
 
 var column = 0;

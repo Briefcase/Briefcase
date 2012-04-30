@@ -89,6 +89,7 @@ function TextareaDecorator(output, textarea, parser ){
   // ASHER: THIS IS NOT THE RIGHT INPUT CAPTURE
 	// detect all changes to the textarea,
 	// including keyboard input, cut/copy/paste, drag & drop, etc
+	/* REMOVING FOR NOW
 	if( textarea.addEventListener ){
 		// standards browsers: oninput event
 		textarea.addEventListener( "input", api.update, false );
@@ -102,6 +103,7 @@ function TextareaDecorator(output, textarea, parser ){
 			}
 		);
 	}
+	*/
 	// initial highlighting
 	api.update();
 

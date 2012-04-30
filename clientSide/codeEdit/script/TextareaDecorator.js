@@ -7,26 +7,7 @@
 function TextareaDecorator(output, textarea, parser ){
 	/* INIT */
 	var api = this;
-
-  /*
-	// construct editor DOM
-	var parent = document.createElement("div");
-	var output = document.createElement("pre");
-	parent.appendChild(output);
-	var label = document.createElement("label");
-	parent.appendChild(label);
-	// replace the textarea with RTA DOM and reattach on label
-	textarea.parentNode.replaceChild( parent, textarea );
-	label.appendChild(textarea);
-	// transfer the CSS styles to our editor
-	parent.className = 'ldt ' + textarea.className;
-	textarea.className = '';
-	// turn off built-in spellchecking in firefox
-	textarea.spellcheck = false;
-	// turn off word wrap
-	textarea.wrap = "off";
-	*/
-
+	
 	// coloring algorithm
 	var color = function( input, output, parser ){
 		var oldTokens = output.childNodes;
@@ -87,25 +68,7 @@ function TextareaDecorator(output, textarea, parser ){
 	};
   
   
-  // ASHER: THIS IS NOT THE RIGHT INPUT CAPTURE
-	// detect all changes to the textarea,
-	// including keyboard input, cut/copy/paste, drag & drop, etc
-	/* REMOVING FOR NOW
-	if( textarea.addEventListener ){
-		// standards browsers: oninput event
-		textarea.addEventListener( "input", api.update, false );
-	} else {
-		// MSIE: detect changes to the 'value' property
-		textarea.attachEvent( "onpropertychange",
-			function(e){
-				if( e.propertyName.toLowerCase() === 'value' ){
-					api.update();
-				}
-			}
-		);
-	}
-	*/
-	
+  // update hilighting
 	textarea.onkeydown = function() {setTimeout(function() {api.update()},0)};
 	// initial highlighting
 	api.update();

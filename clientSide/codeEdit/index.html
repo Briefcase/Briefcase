@@ -4,6 +4,31 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/colors.css" />
     <script type="text/javascript" src="script/hotkey.js"></script>
+    
+    
+    
+    
+    <script type="text/javascript">
+    var parser = new Parser({
+				whitespace: /\s+/,
+				comment: /\/\*([^\*]|\*[^\/])*(\*\/?)?|(\/\/|#)[^\r\n]*/,
+				string: /"(\\.|[^"\r\n])*"?|'(\\.|[^'\r\n])*'?/,
+				number: /0x[\dA-Fa-f]+|-?(\d+\.?\d*|\.\d+)/,
+				keyword: /(and|as|case|catch|class|const|def|delete|die|do|else|elseif|esac|exit|extends|false|fi|finally|for|foreach|function|global|if|new|null|or|private|protected|public|published|resource|return|self|static|struct|switch|then|this|throw|true|try|var|void|while|xor)(?!\w|=)/,
+				variable: /[\$\%\@](\->|\w)+(?!\w)|\${\w*}?/,
+				define: /[$A-Z_a-z0-9]+/,
+				op: /[\+\-\*\/=<>!]=?|[\(\)\{\}\[\]\.\|]/,
+				other: /\S+/,
+			});
+			// wait for the page to finish loading before accessing the DOM
+			window.onload = function(){
+				// get the textarea
+				var textarea = $('codeArea');
+				// lets set it to something interesting
+				textarea.value = '<!DOCTYPE html>\n<html>\n\t' + document.documentElement.innerHTML + '\n</html>';
+				// start the decorator
+				decorator = new TextareaDecorator( textarea, parser );
+	  </script>
   </head>
   <body spellcheck='false'>
   	

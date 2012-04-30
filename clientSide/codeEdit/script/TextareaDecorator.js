@@ -4,10 +4,11 @@
  * Builds and maintains a styled output layer under a textarea input layer
  */
 
-function TextareaDecorator( textarea, parser ){
+function TextareaDecorator(output, textarea, parser ){
 	/* INIT */
 	var api = this;
 
+  /*
 	// construct editor DOM
 	var parent = document.createElement("div");
 	var output = document.createElement("pre");
@@ -24,6 +25,7 @@ function TextareaDecorator( textarea, parser ){
 	textarea.spellcheck = false;
 	// turn off word wrap
 	textarea.wrap = "off";
+	*/
 
 	// coloring algorithm
 	var color = function( input, output, parser ){

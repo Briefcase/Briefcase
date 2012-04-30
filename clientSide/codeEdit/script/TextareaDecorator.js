@@ -84,7 +84,9 @@ function TextareaDecorator(output, textarea, parser ){
 			textarea.cols = textarea.rows = 1;
 		}
 	};
-
+  
+  
+  // ASHER: THIS IS NOT THE RIGHT INPUT CAPTURE
 	// detect all changes to the textarea,
 	// including keyboard input, cut/copy/paste, drag & drop, etc
 	if( textarea.addEventListener ){

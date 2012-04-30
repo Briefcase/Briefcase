@@ -4,7 +4,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/colors.css" />
     <script type="text/javascript" src="script/hotkey.js"></script>
-    
+    <script type="text/javascript" src="script/Parser.js"></script>
+    <script type="text/javascript" src="script/TextareaDecorator.js"></script>
     
     
     
@@ -23,11 +24,10 @@
 	      // wait for the page to finish loading before accessing the DOM
 	      window.onload = function(){
 		      // get the textarea
-		      var textarea = $('codeArea');
-		      // lets set it to something interesting
-		      textarea.value = '<!DOCTYPE html>\n<html>\n\t' + document.documentElement.innerHTML + '\n</html>';
+		      var textInput = document.getElementById("codeDoc");
+		      var textOutput = document.getElementById("displaydoc");
 		      // start the decorator
-		      decorator = new TextareaDecorator( textarea, parser );
+		      decorator = new TextareaDecorator(textOutput, textInput, parser );
 		    }
 	  </script>
   </head>

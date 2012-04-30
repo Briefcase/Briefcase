@@ -53,7 +53,7 @@ window.onload = function () {
   //document.onclick = mouseclick;
   
   
-  var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\n#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
+  var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\nint main() {}";//#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
   //document.getElementById("codeDoc").onkeydown = //syncToColor;
   //syncToColor();// sync the background right away
   

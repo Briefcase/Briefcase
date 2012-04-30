@@ -106,7 +106,7 @@ function TextareaDecorator(output, textarea, parser ){
 	}
 	*/
 	
-	textarea.onkeydown = api.update();
+	textarea.onkeydown = function() {setTimeout(function() {api.update()},0)};
 	// initial highlighting
 	api.update();
 

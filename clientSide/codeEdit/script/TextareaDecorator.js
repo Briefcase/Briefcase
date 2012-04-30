@@ -58,7 +58,8 @@ function TextareaDecorator(output, textarea, parser ){
 	api.input = textarea;
 	api.output = output;
 	api.update = function(){
-		var input = textarea.value;
+	  alert("updating");
+		var input = textarea.innerHTML;
 		if( input ){
 			color( input, output, parser );
 			// determine the best size for the textarea

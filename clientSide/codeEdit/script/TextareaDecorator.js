@@ -41,6 +41,9 @@ function TextareaDecorator(output, textarea, parser ){
 	api.output = output;
 	api.update = function(){
 		var input = textarea.innerHTML;
+		input = input.replace(/&lt;?/g,"<");
+		input = input.replace(/&gt;?/g,">");
+		input = input.replace(/&amp;?/g,"&");
 		if( input ){
 			color( input, output, parser );
 			// determine the best size for the textarea

@@ -48,7 +48,6 @@
 // currently incomplete code hilighter inspiered by  Colin Kuebler 2012 Part of LDT
 
 window.onload = function () {
-  alert("hello world");
   document.onkeydown = keypress;
   //document.onclick = mouseclick;
   

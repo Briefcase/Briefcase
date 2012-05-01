@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      UTF8 = {
+	      encode: function(s){
+		      for(var c, i = -1, l = (s = s.split("")).length, o = String.fromCharCode; ++i < l;
+			      s[i] = (c = s[i].charCodeAt(0)) >= 127 ? o(0xc0 | (c >>> 6)) + o(0x80 | (c & 0x3f)) : s[i]
+		      );
+		      return s.join("");
+	      },
+	      decode: function(s){
+		      for(var a, b, i = -1, l = (s = s.split("")).length, o = String.fromCharCode, c = "charCodeAt"; ++i < l;
+			      ((a = s[i][c](0)) & 0x80) &&
+			      (s[i] = (a & 0xfc) == 0xc0 && ((b = s[i + 1][c](0)) & 0xc0) == 0x80 ?
+			      o(((a & 0x03) << 6) + (b & 0x3f)) : o(128), s[++i] = "")
+		      );
+		      return s.join("");
+	      }
+      };
+      alert(UTF8.encode("<>hello world"));
+      
+      function dynamicLoad() {
+        document.getElementById("textInput");
+      }
+    </script>
+  </head>
+  <body>
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA
+AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
+    Hello world <br />
+    <a href="data:text/csv,field1%2Cfield2%0Afoo%2Cbar%0Agoo%2Cgai%0A">CSV</a>
+    <br />
+    <a href="data:text/plain,field1%2Cfield2%0Afoo%2Cbar%0Agoo%2Cgai%0A">TEXT</a>
+    <br />
+    <a href="data:text,<html><body>hello world</body></html>">NEW HTML PAGE</a>
+    <br />
+    <a href="data:text/html;charset=utf-8,hello%20world"> UTF-8 </a>
+    
+    <br />
+    <a href="#" onclick="window.open('data:text/html;charset=utf-8,%3C%21DOCTYPE%20' +
+  'html%3E%0D%0A%3Chtml%20lang%3D%22en%22%3E%0D%0A%3Chead%' +
+  '3E%3Ctitle%3EEmbedded%20Window%3C%2Ftitle%3E%3C%2Fhead%' +
+  '3E%0D%0A%3Cbody%3E%3Ch1%3E42%3C%2Fh1%3E%3C%2Fbody%3E%0A' +
+  '%3C%2Fhtml%3E%0A%0D%0A','_self','height=300,width=400');">NEW HTML PAGE2</a>
+  </body>
+</html>

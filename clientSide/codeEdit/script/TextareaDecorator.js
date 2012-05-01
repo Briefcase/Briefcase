@@ -42,9 +42,10 @@ function TextareaDecorator(output, textarea, parser ){
 	api.update = function(){
 		var input = textarea.innerHTML;
 		
-		input = input.replace(/&lt;?/g,"<");
+		/*input = input.replace(/&lt;?/g,"<");
 		input = input.replace(/&gt;?/g,">");
 		input = input.replace(/&amp;?/g,"&");
+		*/
 		//input = input.replace(/<br>/g,"\n");
 		if( input ){
 			color( input, output, parser );

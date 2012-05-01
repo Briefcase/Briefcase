@@ -14,7 +14,7 @@
 			.codeblock .number { color: navy; }
 			/* setting inline-block and margin to avoid misalignment bug in windows */
 			.codeblock .keyword { color: red; font-weight: bold; display: inline-block; margin-bottom: -1px; }
-			.codeblock .variable { color: cyan; }
+			.codeblock .variable { color: green; font-weight: bold;}
 			.codeblock .define { color: blue; }
 		</style>
     
@@ -29,7 +29,7 @@
 		      string: /"(\\.|[^"\r\n])*"?|'(\\.|[^'\r\n])*'?/,
 		      number: /0x[\dA-Fa-f]+|-?(\d+\.?\d*|\.\d+)/,
 		      keyword: /(and|as|case|catch|class|const|def|delete|die|do|else|elseif|esac|exit|extends|false|fi|finally|for|foreach|function|global|if|new|null|or|private|protected|public|published|resource|return|self|static|struct|switch|then|this|throw|true|try|var|void|while|xor)(?!\w|=)/,
-		      variable: /[\$\%\@](\->|\w)+(?!\w)|\${\w*}?/,
+		      variable: /(int|char|long|short|void)/,
 		      define: /#[$A-Z_a-z0-9]+/,
 		      op: /[\+\-\*\/=<>!]=?|[\(\)\{\}\[\]\.\|]/,
 		      other: /\S+/,

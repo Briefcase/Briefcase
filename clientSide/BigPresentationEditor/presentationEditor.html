@@ -22,13 +22,18 @@
       function dynamicLoad() {
         document.getElementById("textInput");
       }
+      
+      function clickLink() {
+        
+        var fullHTML;
+        window.open("data:text/html;charset=utf-8,"+UTF8.encode(fullHTML),'_self','height=300,width=400');
+      }
+      
     </script>
   </head>
   <body>
-  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA
-AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
-9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
     Hello world <br />
+    <textarea></textarea>
     <a href="data:text/csv,field1%2Cfield2%0Afoo%2Cbar%0Agoo%2Cgai%0A">CSV</a>
     <br />
     <a href="data:text/plain,field1%2Cfield2%0Afoo%2Cbar%0Agoo%2Cgai%0A">TEXT</a>
@@ -38,10 +43,6 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
     <a href="data:text/html;charset=utf-8,hello%20world"> UTF-8 </a>
     
     <br />
-    <a href="#" onclick="window.open('data:text/html;charset=utf-8,%3C%21DOCTYPE%20' +
-  'html%3E%0D%0A%3Chtml%20lang%3D%22en%22%3E%0D%0A%3Chead%' +
-  '3E%3Ctitle%3EEmbedded%20Window%3C%2Ftitle%3E%3C%2Fhead%' +
-  '3E%0D%0A%3Cbody%3E%3Ch1%3E42%3C%2Fh1%3E%3C%2Fbody%3E%0A' +
-  '%3C%2Fhtml%3E%0A%0D%0A','_self','height=300,width=400');">NEW HTML PAGE2</a>
+    <a href="#" onclick="clickLink()">NEW HTML PAGE2</a>
   </body>
 </html>

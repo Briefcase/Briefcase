@@ -17,32 +17,30 @@
 		      return s.join("");
 	      }
       };
-      alert(UTF8.encode("<>hello world"));
       
-      function dynamicLoad() {
-        document.getElementById("textInput");
+      function getHTML() {
+        var fullHTML = document.getElementById("markdown").value;
+        return fullHTML;
       }
       
-      function clickLink() {
-        var fullHTML = document.getElementById("markdown").value;
-        alert(fullHTML);
-        window.open("data:text/html;charset=utf-8,"+UTF8.encode(fullHTML),'_self','height=300,width=400');
+      function preview () {
+        window.open("data:text/html;charset=utf-8,"+UTF8.encode(getHTML()),'_blank');
+      }
+      function download () {
+        window.location = "data:text/html;charset=utf-8;filename=tada.txt,"+UTF8.encode(getHTML());
       }
       
     </script>
   </head>
   <body>
-    Hello world <br />
     <textarea id="markdown"></textarea>
-    <a href="data:text/csv,field1%2Cfield2%0Afoo%2Cbar%0Agoo%2Cgai%0A">CSV</a>
     <br />
-    <a href="data:text/plain,field1%2Cfield2%0Afoo%2Cbar%0Agoo%2Cgai%0A">TEXT</a>
-    <br />
-    <a href="data:text,<html><body>hello world</body></html>">NEW HTML PAGE</a>
-    <br />
-    <a href="data:text/html;charset=utf-8,hello%20world"> UTF-8 </a>
-    
-    <br />
-    <a href="#" onclick="clickLink()">NEW HTML PAGE2</a>
+    <a href="#" onclick="preview()">PREVIEW</a>
+    <a href="data:text/txt;charset=utf-8;headers=Content-Disposition%3A%20attachment%3B%20filename%3D%22with%20spaces.txt%22%0D%0AContent-Language%3A%20en;base64,4oiaDQo%3D">OFFLINE DOWNLOAD</a>
+    <a href="#" onclick="alert('error preparing download')">ONLINE DOWNLOAD</a>
   </body>
 </html>
+
+<!--
+data:text/plain;charset=utf-8;filename=tada.txt;content-disposition=attachment,file_data
+-->

@@ -19,7 +19,11 @@
       };
       
       function getHTML() {
-        var fullHTML = document.getElementById("markdown").value;
+        var header = "";
+        
+        var footer = "";
+        
+        var fullHTML = header+document.getElementById("markdown").value +footer;
         return fullHTML;
       }
       
@@ -40,7 +44,3 @@
     <a href="#" onclick="alert('error preparing download')">ONLINE DOWNLOAD</a>
   </body>
 </html>
-
-<!--
-data:text/plain;charset=utf-8;filename=tada.txt;content-disposition=attachment,file_data
--->

@@ -42,11 +42,14 @@
         return fullHTML;
       }
       
-      function preview () {
+      function preview() {
         window.open("data:text/html;charset=utf-8,"+UTF8.encode(getHTML()),'_blank');
       }
-      function download () {
+      function offlineDownload () {
         window.location = "data:text/html;charset=utf-8;filename=tada.txt,"+UTF8.encode(getHTML());
+      }
+      function onlineDownload () {
+        alert("Error: this function is not written yet");
       }
       
     </script>
@@ -57,9 +60,9 @@
     
     <textarea id="markdown"></textarea>
     <br />
-    <a href="#" onclick="preview()">PREVIEW</a>
+    <!--<a href="#" onclick="preview()">PREVIEW</a>
     <a href="data:text/txt;charset=utf-8;headers=Content-Disposition%3A%20attachment%3B%20filename%3D%22with%20spaces.txt%22%0D%0AContent-Language%3A%20en;base64,4oiaDQo%3D">OFFLINE DOWNLOAD</a>
-    <a href="#" onclick="alert('error preparing download')">ONLINE DOWNLOAD</a>
+    <a href="#" onclick="alert('error preparing download')">ONLINE DOWNLOAD</a>-->
     
     
     
@@ -98,64 +101,10 @@
           <break></break>
           <menuitem name="Preferences"  function="alert('preferences')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
         </menu>
-        <menu name="View" iconsrc="icons/action_forward.gif" version="normal">
-          <menuitem name="Tool Bar"  function="alert('tool bar')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Z" version="normal"> </menuItem>
-          <menuitem name="Status Bar"  function="alert('status bar')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+Z" version="normal"> </menuItem>
-          <menuitem name="Side Panel"  function="alert('side panel')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Z" version="normal"> </menuItem>
-          <menuitem name="Botom Panel"  function="alert('botom panel')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+Z" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Full Screen"  function="alert('fullscreen')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+Z" version="normal"> </menuItem>
-          <break></break>
-          <menu name="Hilight Mode" iconsrc="icons/action_forward.gif" version="normal">
-            <menuitem name="Full Screen"  function="alert('fullscreen')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+Z" version="normal"> </menuItem>
-            <menu name="Markup" iconsrc="icons/action_forward.gif" version="normal">
-              <menuitem name="BibTex"  function="alert('BIbtex')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="DocBooks"  function="alert('DocBooks')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="DTD"  function="alert('DTD')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="HTML"  function="alert('HTML')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="Latex"  function="alert('BIbtex')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="Markdown"  function="alert('Markdown')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-            </menu>
-            <menu name="Others" iconsrc="icons/action_forward.gif" version="normal">
-              <menuitem name="Junk"  function="alert('Junk')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="Junk"  function="alert('Junk')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-            </menu>
-            <menu name="Sources" iconsrc="icons/action_forward.gif" version="normal">
-              <menuitem name="C"  function="alert('c')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="C++"  function="alert('c++')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="D"  function="alert('D')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="Java"  function="alert('java')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-              <menuitem name="BrainFuck"  function="alert('brainfuck')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-            </menu>
-          </menu>
-        </menu>
-        <menu name="Search" iconsrc="icons/action_forward.gif" version="normal">
-          <menuitem name="Find"  function="alert('find')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-          <menuitem name="Find Next"  function="alert('findnext')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+G" version="normal"> </menuItem>
-          <menuitem name="Find Previous"  function="alert('findprevious')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+G" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Replace"  function="alert('replace')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+H" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Clear Hilight"  function="alert('clearhiligh')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+shift+K" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Go To Line"  function="alert('gotoline')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+I" version="normal"> </menuItem>
-        </menu>
-        <menu name="Tools" iconsrc="icons/action_forward.gif" version="normal">
-          <menuitem name="Check Spelling..."  function="alert('check spellling')"  iconsrc="icons/flag_white.gif" shortcut="Shift+F7" version="normal"> </menuItem>
-          <menuitem name="Hilight Misspelled Words"  function="alert('hilightwrongwords')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+G" version="normal"> </menuItem>
-          <menuitem name="Set Language..."  function="alert('set language')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+G" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Document Statistics"  function="alert('documentstats  ')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+I" version="normal"> </menuItem>
-        </menu>
-        <menu name="Documents" iconsrc="icons/action_forward.gif" version="normal">
-          <menuitem name="Save All"  function="alert('saveall')"  iconsrc="icons/flag_white.gif" shortcut="Shift+Ctrl+L" version="normal"> </menuItem>
-          <menuitem name="Close All"  function="alert('closeall')"  iconsrc="icons/flag_white.gif" shortcut="Shift+Ctrl+W" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="New Tab Group"  function="alert('new tab group')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Alt+N" version="normal"> </menuItem>
-          <menuitem name="Previous Tab Group"  function="alert('previostabgroup')"  iconsrc="icons/flag_white.gif" shortcut="Shift+Ctrl+Alt+PageUp" version="normal"> </menuItem>
-          <menuitem name="Next Tab Group"  function="alert('nexttabgroup')"  iconsrc="icons/flag_white.gif" shortcut="Shift+Ctrl+L" version="normal"> </menuItem>
-        </menu>
-        <menu name="Help" iconsrc="icons/action_forward.gif" version="normal">
+        <menu name="Publisher" iconsrc="page.gif" version="normal">
+          <menuitem name="Download From Server" function="onlineDownload()"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"></menuItem>
+          <menuitem name="Offline Download"     function="offlineDownload()" iconsrc="icons/flag_white.gif" shortcut="" version="normal"></menuItem>
+          <menuitem name="Preview"              function="preview()"         iconsrc="icons/flag_white.gif" shortcut="" version="normal"></menuItem>
         </menu>
       </XMLMenu>
     </xml>

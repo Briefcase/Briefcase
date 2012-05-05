@@ -1,9 +1,16 @@
 Please specify a file, or a set of files:<br>
 <input type="file" id="datafile">
-<textarea> </textarea>
+<textarea id="textarea" oninput="updateImage()"> </textarea>
 <input type="submit" onclick="check()">
 <div id="Image"></div>
+<img id="clientImage"></img>
 <script>
+function updateImage() {
+  var image = document.getElementById("clientImage");
+  var src = document.getElementById("textarea").value;
+  alert(src);
+  image.src = src;
+}
 function check() {
   var filelist = document.getElementById('datafile').files;
   var outputString = "";

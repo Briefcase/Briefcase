@@ -1,7 +1,10 @@
 body {
   padding: 0px;
   margin: 0px;
-  position: absolute;
+  /*position: absolute;*/
+}
+
+.mainMenu, .subMenu {
   font-family: Verdana;
   font-size: 15px;
 }
@@ -19,7 +22,8 @@ body {
 .mainMenu {
   width: 100%;
   overflow: hidden;
-  background-color: #FCC;
+  background-color: #CCC;
+  
 }
 
 .subMenu {

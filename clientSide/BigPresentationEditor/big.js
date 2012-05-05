@@ -10,12 +10,12 @@ window.onload = function() {
 		e.style.display = 'inline';
 		e.style.fontSize = i + 'px';
 		if (e.firstChild.firstChild.nodeName.toLowerCase() === 'img') {
-			if ( e.firstChild.firstChild.title == "background" ) {
+			if ( e.firstChild.firstChild.title == 'background' ) {
 				document.body.style.background = 'url(' + e.firstChild.firstChild.src + ') no-repeat';
 				e.firstChild.firstChild.style.display = 'none';
 			} else {
-				if ( e.firstChild.firstChild.title == "border" ) {
-					e.firstChild.firstChild.className = "border";
+				if ( e.firstChild.firstChild.title == 'border' ) {
+					e.firstChild.firstChild.className = 'border';
 				}
 				document.body.style.backgroundImage = '';
 			}

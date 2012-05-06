@@ -43,7 +43,9 @@
       
       
       function preview() {
-        window.open("data:text/text;charset=utf-8,"+getHTML(),'_blank');
+        //window.open("data:text/text;charset=utf-8,"+getHTML(),'_blank');
+        var htmlout = document.getElementById('htmlout');
+        htmlout.value = getHTML();
       }
       function offlineDownload () {
         window.location = "data:text/html;charset=utf-8;filename=tada.txt,"+UTF8.encode(getHTML());
@@ -59,7 +61,8 @@
     <!-- Menu Begin -->
     <div class="TitleMenu" id="TitleMenu"></div>
     
-    <textarea id="markdown"></textarea>
+    <textarea id="markdown" style="width:48%; height:700px; float:left"></textarea>
+    <textarea id="htmlout" style="width:48%; height: 700px; float:right"></textarea>
     <br />
     <!--<a href="#" onclick="preview()">PREVIEW</a>
     <a href="data:text/txt;charset=utf-8;headers=Content-Disposition%3A%20attachment%3B%20filename%3D%22with%20spaces.txt%22%0D%0AContent-Language%3A%20en;base64,4oiaDQo%3D">OFFLINE DOWNLOAD</a>

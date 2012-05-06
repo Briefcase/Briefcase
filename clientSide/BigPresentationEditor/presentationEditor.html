@@ -15,8 +15,13 @@
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}components/menu/menuStyle.css" />
     <!--LOCAL--><link rel="stylesheet" type="text/css" href="../components/menu/menuStyle.css" /><!--LOCAL-->
   
+    <!-- INCLUDED SCRIPTS FOR THE PUBLISHED FILES -->
+    <!-- THESE MAY BE INCLUDED IN THE RAW HTML IN THE FUTURE TO REDUCE SERVER REQUESTS -->
+    <script type="text/javascript" src="minibigstring.js"></script>
+    <script type="text/javascript" src="minishowdownstring.js"></script>
+    <script type="text/javascript" src="cssstring.js"></script>
     
-    
+    <script type="text/javascript" src="script/htmlBuilder.js"></script>
     <script type="text/javascript">
       UTF8 = {
 	      encode: function(s){
@@ -35,17 +40,10 @@
 	      }
       };
       
-      function getHTML() {
-        var header = "";
-        
-        var footer = "";
-        
-        var fullHTML = header+document.getElementById("markdown").value +footer;
-        return fullHTML;
-      }
+      
       
       function preview() {
-        window.open("data:text/html;charset=utf-8,"+UTF8.encode(getHTML()),'_blank');
+        window.open("data:text/text;charset=utf-8,"+getHTML(),'_blank');
       }
       function offlineDownload () {
         window.location = "data:text/html;charset=utf-8;filename=tada.txt,"+UTF8.encode(getHTML());

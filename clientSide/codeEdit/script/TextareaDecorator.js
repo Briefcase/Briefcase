@@ -66,15 +66,16 @@ function TextareaDecorator(output, textarea, parser ){
     var endTime = d.getTime();
     
     
-    alert("Tokenized In:    "+(tokenizerTime-startTime)     + "ms\n" +
+    /**/alert("Tokenized In:    "+(tokenizerTime-startTime)     + "ms\n" +
           "FirstDiff In ("+firstDiffSave+"):    "+(firstDiffTime-tokenizerTime) + "ms\n" +
           "Last Diff In ("+lastDiffNew+","+lastDiffOld+"):    "+(lastDiff-firstDiffTime)      + "ms\n" +
           "Update Color In: "+(updateTime-lastDiff)         + "ms\n" +
-          "New Color In:    "+(endTime-updateTime)+"ms");
+          "New Color In:    "+(endTime-updateTime)+"ms");/**/
 	};
 	
 	var sanitizeEscapes = function(input) {
-	  return input.replace(/&lt;?/g,"<").replace(/&gt;?/g,">").replace(/&amp;?/g,"&")
+	  return input.replace(/&lt;?/g,"<").replace(/&gt;?/g,">").replace(/&amp;?/g,"&");
+	  //return input;
 	}
 
 	api.input = textarea;
@@ -82,6 +83,7 @@ function TextareaDecorator(output, textarea, parser ){
 	api.update = function(){
 		var input = textarea.innerHTML;
 		//alert(input);
+		input = sanitizeEscapes(input);
 		/*input = input.replace(/&lt;?/g,"<").replace(/&gt;?/g,">").replace(/&amp;?/g,"&");
 		*/
 		//input = input.replace(/<br>/g,"\n");

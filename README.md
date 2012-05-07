@@ -2,30 +2,33 @@ Briefacse
 =========
 
 Briefcase is under the BSD licence, full text found at the end of this file
-
-Briefcase is an open source version of google docs
-
+Briefcase is an open source online document editor
 The backend is written in Django
-
 Briefcase uses the canvas element and requires the use of modern browsers
+
+Want To Help? Fork the repo and write some functions!
 
 Planned Applications
 ====================
-Spreadsheet [In Development] [31.40%]  
-Math Calculator [--0%--]  
+Spreadsheet [In Development]  
+
+'Big' Presentation Editor [Beginning Development]
 
 Text Editors:  
-  Text Document Editor (RTF) [--0%--]  
-  Latex Editor [--0%--]  
-  Code Editor [--0%--]  
+  Code Editor [In Development]  
+  Live Markdown Renderer[--0%--]  
+  Live Latex Renderer [--0%--]  
+
+ 
+ 
   
-  
-Spreadsheet [In Development] [31.40%]  
+_These Percentages may not be accurate do to refactoring of code, some functions were rewritten and some legacy code was thrown out_
+Spreadsheet [In Development]  
 -------------------------------------
   Cell editing [--100%--]  
-  Cell Resizing [--0%--]  
+  Cell Resizing [--50%--]  
   Saving Loading [--50%--]  
-   - Conversions to and from JSON [--100%--]  
+   - Conversions to and from JSON [--90%--]  
    - Ajax communication with server [--0%--]  
   Function Framework [--100--]  
    - native arithmatic [--100--]  
@@ -42,11 +45,9 @@ Spreadsheet [In Development] [31.40%]
    - -(math.js matrix.js debug.js time.js)  
    - html is searchable [--0%--]  
    
-  Menu [--0%--]  
+  Menu [--80%--]  
   Text Coloring [--0%--]  
   Multiple user edit [--0%--]  
-  
-Math Calculator [--0%--]  
 
 Licence
 =======

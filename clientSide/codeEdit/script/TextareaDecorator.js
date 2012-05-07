@@ -40,8 +40,8 @@ function TextareaDecorator(output, textarea, parser ){
 	api.input = textarea;
 	api.output = output;
 	api.update = function(){
-		var input = textarea.innerHTML;
-		
+		var input = textarea.innerText;
+		alert(input);
 		/*input = input.replace(/&lt;?/g,"<");
 		input = input.replace(/&gt;?/g,">");
 		input = input.replace(/&amp;?/g,"&");

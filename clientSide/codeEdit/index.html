@@ -29,7 +29,7 @@
 		      string: /"(\\.|[^"\r\n])*"?|'(\\.|[^'\r\n])*'?/,
 		      number: /0x[\dA-Fa-f]+|-?(\d+\.?\d*|\.\d+)/,
 		      keyword: /(and|as|case|catch|class|const|def|delete|die|do|else|elseif|esac|exit|extends|false|fi|finally|for|foreach|function|global|if|new|null|or|private|protected|public|published|resource|return|self|static|struct|switch|then|this|throw|true|try|var|void|while|xor)(?!\w|=)/,
-		      variable: /(int|char|long|short|void)/,
+		      variable: /(int|char|long|short|void)(?!\w|=)/,
 		      define: /#[$A-Z_a-z0-9]+/,
 		      op: /[\+\-\*\/=<>!]=?|[\(\)\{\}\[\]\.\|]/,
 		      other: /\S+/,

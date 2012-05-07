@@ -1,17 +1,22 @@
 body {
   background: #FFF;
 }
-div.codeBlock {
+div.codeblock {
   background: #FFF;
   border: black 1px solid;
   padding:0px;
   width:100%;
-  overflow: auto;
 }
 
 pre {
-  padding:5px;
+  padding:0px;
   margin:0px;
+}
+
+pre.codeblock {
+  width: 100%;
+  float:left;
+  /*position: absolute;*/
 }
 
 div.linecount {

@@ -26,25 +26,28 @@ function TextareaDecorator(output, textarea, parser ){
 		// update modified spans
 		for( ; firstDiff <= lastDiffOld; firstDiff++ ){
 			oldTokens[firstDiff].className = parser.identify(newTokens[firstDiff]);
-			oldTokens[firstDiff].textContent = oldTokens[firstDiff].innerText = newTokens[firstDiff];
+			oldTokens[firstDiff].textContent = oldTokens[firstDiff].innerText = sanitizeEscapes( newTokens[firstDiff] );
 		}
 		// add in modified spans
 		for( var insertionPt = oldTokens[firstDiff] || null; firstDiff <= lastDiffNew; firstDiff++ ){
 			var span = document.createElement("span");
 			span.className = parser.identify(newTokens[firstDiff]);
-			span.textContent = span.innerText = newTokens[firstDiff];
+			span.textContent = span.innerText = sanitizeEscapes( newTokens[firstDiff] );
 			output.insertBefore( span, insertionPt );
+			
 		}
 	};
+	
+	var sanitizeEscapes = function(input) {
+	  return input.replace(/&lt;?/g,"<").replace(/&gt;?/g,">").replace(/&amp;?/g,"&")
+	}
 
 	api.input = textarea;
 	api.output = output;
 	api.update = function(){
-		var input = textarea.innerText;
-		alert(input);
-		/*input = input.replace(/&lt;?/g,"<");
-		input = input.replace(/&gt;?/g,">");
-		input = input.replace(/&amp;?/g,"&");
+		var input = textarea.innerHTML;
+		//alert(input);
+		/*input = input.replace(/&lt;?/g,"<").replace(/&gt;?/g,">").replace(/&amp;?/g,"&");
 		*/
 		//input = input.replace(/<br>/g,"\n");
 		if( input ){

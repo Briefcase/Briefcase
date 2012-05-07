@@ -7,6 +7,17 @@
     <script type="text/javascript" src="script/Parser.js"></script>
     <script type="text/javascript" src="script/TextareaDecorator.js"></script>
     
+    <!-- External Libraries -->
+    <script type="text/javascript" src="{{STATIC_URL}}components/jquery-1.6.1.min.js"></script>
+    <!--LOCAL--><script type="text/javascript" src="../components/jquery-1.6.1.min.js"></script><!--LOCAL-->
+    
+    <script type="text/javascript" src="{{STATIC_URL}}components/menu/menu.js"></script>
+    <!--LOCAL--><script type="text/javascript" src="../components/menu/menu.js"></script><!--LOCAL-->
+    
+    <!-- EXTERNAL CSS ATTEMPT -->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}components/menu/menuStyle.css" />
+    <!--LOCAL--><link rel="stylesheet" type="text/css" href="../components/menu/menuStyle.css" /><!--LOCAL-->
+    
     <style>
 			/* highlight styles */
 			.codeblock .comment { color: green; }
@@ -38,13 +49,58 @@
 	  </script>
   </head>
   <body spellcheck='false' style="margin:0px; padding:0px">
+    <!-- Menu Begin -->
+    <div class="TitleMenu" id="TitleMenu"></div>
+    
   	<!--<textarea class="codeblock" id="codeDoc" style="float:left; width: 100%; position: absolute;color:red;"></textarea>
   	<!-->
-  	<div style="padding:0px;width:100%;  position: absolute; float: left;">
-      <pre class="codeblock" contentEditable="true" id="codeDoc" style="color:red;outline:none;background:#CCC" spellcheck='false'></pre>  
+  	<div style="padding:0px;width:100%;  position: absolute; float: left;cursor:text">
+      <pre class="codeblock" contentEditable="true" id="codeDoc" style="color:red;outline:none;background:#EEE" spellcheck='false'></pre>  
     </div>
     <div style="padding:0px;width:100%; position: absolute; float: left; pointer-events:none;">
       <pre class="codeblock" id="displayDoc" style=""></pre>
     </div>
+    
+    
+    <!-- XML Grid for the menu system -->
+    <xml id="xmlMenu" style="display: none">
+      <XMLMenu>
+        <menu name="File" iconsrc="icons/action_forward.gif" version="normal">
+          <menuitem name="New"  function="alert('ptbhtbt nope')"  iconsrc="icons/action_save.gif" shortcut="Ctrl+N" version="normal"> </menuItem>
+          <menuitem name="Open..."  function="load()"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+O" version="normal"> </menuItem>
+          <break></break>
+          <menuitem name="Save"  function="save()"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+S" version="normal"> </menuItem>
+          <menuitem name="Save As..."  function="save()"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+S" version="normal"> </menuItem>
+          <menuitem name="Revert"  function="alert('revert')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+O" version="normal"> </menuItem>
+          <break></break>
+          <menuitem name="Print Preview"  function="alert('print priview')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+P" version="normal"> </menuItem>
+          <menuitem name="Print..."  function="alert('print')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+P" version="normal"> </menuItem>
+          <break></break>
+          <break></break>
+          <menuitem name="Close"  function="alert('close')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+W" version="normal"> </menuItem>
+          <menuitem name="Quit"  function="alert('quit')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Q" version="normal"> </menuItem>
+        </menu>
+        <menu name="Edit" iconsrc="icons/action_forward.gif" version="normal">
+          <menuitem name="Undo"  function="alert('undo')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Z" version="normal"> </menuItem>
+          <menuitem name="Redo"  function="alert('redo')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+Z" version="normal"> </menuItem>
+          <break></break>
+          <menuitem name="Cut"  function="alert('Cut')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+X" version="normal"> </menuItem>
+          <menuitem name="Copy"  function="alert('copy')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+C" version="normal"> </menuItem>
+          <menuitem name="Paste"  function="alert('paste')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+V" version="normal"> </menuItem>
+          <menuitem name="Delete"  function="alert('delete')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
+          <break></break>
+          <menuitem name="Select All"  function="alert('select all')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+A" version="normal"> </menuItem>
+          <break></break>
+          <menuitem name="Insert Date and Time"  function="alert('insert date and time')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
+          <break></break>
+          <menuitem name="Preferences"  function="alert('preferences')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
+        </menu>
+        <menu name="Publisher" iconsrc="page.gif" version="normal">
+          <menuitem name="Download From Server" function="onlineDownload()"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"></menuItem>
+          <menuitem name="Offline Download"     function="offlineDownload()" iconsrc="icons/flag_white.gif" shortcut="" version="normal"></menuItem>
+          <menuitem name="Preview"              function="preview()"         iconsrc="icons/flag_white.gif" shortcut="" version="normal"></menuItem>
+        </menu>
+      </XMLMenu>
+    </xml>
   </body>
 </html>

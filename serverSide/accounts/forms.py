@@ -11,7 +11,7 @@ def isValidUsername(value):
     raise forms.ValidationError('The username is already taken')
 
 def isValidKey(value):
-    if value!= '!!@!!':
+    if value!= '62657468':
         raise forms.ValidationError('Incorrect Key')
         
 class RegistrationForm(forms.Form):

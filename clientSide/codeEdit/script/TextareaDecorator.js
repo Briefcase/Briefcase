@@ -66,7 +66,7 @@ function TextareaDecorator(output, textarea, parser ){
     var endTime = d.getTime();
     
     
-    /**/alert("Tokenized In:    "+(tokenizerTime-startTime)     + "ms\n" +
+    /*alert("Tokenized In:    "+(tokenizerTime-startTime)     + "ms\n" +
           "FirstDiff In ("+firstDiffSave+"):    "+(firstDiffTime-tokenizerTime) + "ms\n" +
           "Last Diff In ("+lastDiffNew+","+lastDiffOld+"):    "+(lastDiff-firstDiffTime)      + "ms\n" +
           "Update Color In: "+(updateTime-lastDiff)         + "ms\n" +

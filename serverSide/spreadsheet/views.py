@@ -40,6 +40,7 @@ def autosave(request):
             
         print("about to put the data in dict")
         print(sp.data)
+        print(type(sp.data))
         cur_data = json.loads(sp.data)
         #parse new data
         changes = json.load(input)

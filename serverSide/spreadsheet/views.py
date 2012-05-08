@@ -43,7 +43,7 @@ def autosave(request):
         
         #find
         #return 
-        return HttpResponse(json.dumps(cur_data));
+        return HttpResponse(json.dumps(cur_data))
     else return HttpResponseBadRequest
                 
                 

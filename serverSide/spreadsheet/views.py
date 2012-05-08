@@ -34,7 +34,7 @@ def autosave(request):
         sp = Spreadsheet.objects.get(pk=id)
         print("got the spreadsheet")
         #if not allowed - forbidden
-        if cur_profile not in s.allowed_user.all() and s.public==False:
+        if cur_profile not in sp.allowed_user.all() and s.public==False:
             print("not allowed")
             return HttpResponseForbidden()
             

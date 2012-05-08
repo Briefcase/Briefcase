@@ -38,9 +38,8 @@ def autosave(request):
             print("not allowed")
             return HttpResponseForbidden()
             
-        d = sp.data
         print("about to put the data in dict")
-        cur_data = json.loads(d)
+        cur_data = json.loads(sp.data)
         #parse new data
         changes = json.load(input)
         #make changes to cur_data

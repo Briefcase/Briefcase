@@ -39,7 +39,7 @@ def autosave(request):
             # return HttpResponseForbidden()
             
         print("about to put the data in dict")
-        print(cur_data)
+        print(sp.data)
         cur_data = json.loads(sp.data)
         print(input)
         print(type(input))

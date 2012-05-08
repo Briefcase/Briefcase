@@ -26,7 +26,7 @@ def autosave(request):
         owner = request.POST['fileowner'] #get file owner
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=owner))
-        sp = Spreadsheet.object.get(owner=own_profile, file_name=fname)
+        sp = Spreadsheet.object.get(owner=own_profile, pk=fname)
         #if not allowed - forbidden
         if s.public==False and cur_profile not in s.allowed_users.all():
             return HttpResponseForbidden()
@@ -43,9 +43,8 @@ def autosave(request):
         sp.save()
         #put user down as saving
         #current[sp.file_name].append([cur_profile,changes])
-        
-        #find
-        #return 
+        #return
+        print(json.dumps(cur_data))
         return HttpResponse(json.dumps(cur_data))
     else:
         return HttpResponseBadRequest()
@@ -91,15 +90,15 @@ def load(request):
         return HttpResponse(s.data)
     else:
         return HttpResponseBadRequest()
-        
-def blank_spreadsheet(request):
+      
+def spreadsheet(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
     #create new spreadsheet
-    #profile = request.user.get_profile()
-   # s=Spreadsheet(owner=profile, file_name='Untitled', data='', public=False)
-    #s.allowed_users.add(profile)
-    #s.save()
-    #add an entry in current
-    #current['Untitled']=[[profile,{}]
+    # profile = request.user.get_profile()
+    # s=Spreadsheet(owner=profile, file_name='Untitled', data='', public=False)
+    # s.allowed_users.add(profile)
+    # s.save()
+    # add an entry in current
+    # current['Untitled']=[[profile,{}]
     return render_to_response('spreadsheet.html', context_instance=RequestContext(request))

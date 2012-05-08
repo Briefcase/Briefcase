@@ -93,17 +93,14 @@ $(document).ajaxSend(function(event, xhr, settings) {
 
 
 function autosave() {
-  var output = "{";
-  for (var i in data) {
-    output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
-  }
+  var cell = JSON.stringify(startSelectionX+','+startSelectionY);
+  var data = JSON.stringify(prompt("New Value:",""));
   
+  var output = "{";
+  output+= cell+":"+data;
   output = output.slice(0, -1)+ "}"; 
   
-  var cell = JSON.strigify(startSelectionX+','+startSelectionY);
-  var data = JSON.strigify(prompt("New Value:",""));
-  
-  if (name==null || name=="") {return;}
+  //    if (name==null || name=="") {return;}
   
   output = "filename="+name+"&filedata="+output;
   

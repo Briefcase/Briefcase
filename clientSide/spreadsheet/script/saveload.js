@@ -92,6 +92,38 @@ $(document).ajaxSend(function(event, xhr, settings) {
 });
 
 
+function autosave() {
+  var output = "{";
+  for (var i in data) {
+    output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
+  }
+  
+  output = output.slice(0, -1)+ "}"; 
+  
+  var cell = JSON.strigify(startSelectionX+','+startSelectionY);
+  var data = JSON.strigify(prompt("New Value:",""));
+  
+  if (name==null || name=="") {return;}
+  
+  output = "filename="+name+"&filedata="+output;
+  
+  var serverURL = "/spreadsheet/autosave";
+  $.ajax({
+    type: "POST",
+    url: serverURL,
+		data: output,
+		dataType: "html",
+		success: function(data){
+        alert (data);
+		},
+		error: function(html){alert("error: "+html)}
+  });
+  
+  
+  // save to a local variable, probably not needed in the end
+  //savedFile = output;
+}
+
 /************************************ SAVE ************************************\
 | this function saves the document by parsing the hash table into a json file  |
 | then sending it over ajax to the server                                      |

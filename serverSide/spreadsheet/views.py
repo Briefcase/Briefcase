@@ -22,27 +22,33 @@ current = {} #this is a dictionary with spreadsheet ids as the keys
 def autosave(request):
     print("in the function")
     if request.is_ajax():
+        print("in the ajax")
         fname = request.POST['fileid'] #get the id
         input = request.POST['filedata'] # get the data
         owner = request.POST['fileowner'] #get file owner
+        print("got the request data")
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=owner))
         sp = Spreadsheet.object.get(owner=own_profile, pk=fname)
-        print("got the data")
+        print("got the spreadsheet")
         #if not allowed - forbidden
-        if s.public==False and cur_profile not in s.allowed_users.all():
+        if cur_profile not in s.allowed_user.all() and s.public==False:
+            print("not allowed")
             return HttpResponseForbidden()
             
         d = sp.data
+        print("about to put the data in dict")
         cur_data = json.loads(d)
         #parse new data
         changes = json.load(input)
         #make changes to cur_data
+        print("about to add changes")
         for key in changes:
             cur_data[key]=changes[key] # will update old value or make new key,value
         #save the file
         sp.data = cur_data
         sp.save()
+        print("saved")
         #put user down as saving
         #current[sp.file_name].append([cur_profile,changes])
         #return

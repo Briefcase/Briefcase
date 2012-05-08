@@ -113,7 +113,10 @@ function autosave() {
 		success: function(data){
         alert (data);
 		},
-		error: function(html){alert("error: "+html)}
+		error: function (xhr, ajaxOptions, thrownError){// not my code this function is
+                    alert(xhr.status);
+                    alert(thrownError);
+                }    
   });
   
   

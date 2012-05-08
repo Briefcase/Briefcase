@@ -59,7 +59,15 @@ $(document).ready( function () {
   document.getElementById("inputbox").focused = false;
 });
   
-
+/*************************** GLOBAL KEY PRESS EVENT ***************************\
+| This function handles all of the global keypresses:                          |
+| - entering textmode when a cell is selected and you start typing             |
+| - deleteing the context of a selected cell                                   |
+| X moving the selected cell via arrow keys                                    |
+| X tabbing to the cell the right when tab is pressed                          |
+| X returning to the first column that was not tabbed away from                |
+|     on the next row                                                          |
+\******************************************************************************/
 function keypress (event) {
   if (document.getElementById("inputbox").focused == false) {
     if (event.which == 8) {
@@ -75,6 +83,10 @@ function keypress (event) {
     }
   }
 }
+/***************************** SIMULATE KEY PRESS *****************************\
+|################################# DEPRECATED #################################|
+| This function simulates a keypress when passed a character code              |
+\******************************************************************************/
 function simulatekeypress(charCode) {
   var evt = document.createEvent("KeyboardEvent");
   evt.initKeyEvent ("keypress", true, true, window,
@@ -92,17 +104,29 @@ function simulatekeypress(charCode) {
   //alert("simulated");
 }
 
-
+/******************************* MOVE INPUT BOX *******************************\
+| This function moves the input box to a specified cell, given the x and y for |
+| the cell. It then resizes the input box to fit the cell                      |
+\******************************************************************************/
 function moveInputBox (xcell,ycell) {
   var pixelx = getCellOffsetLeft(xcell,getScrollXCell());
   var pixely = getCellOffsetTop(ycell,getScrollYCell());
+  //get the 
   var menuHeight = document.getElementById("framecontain").offsetTop;
+  //move the cell
   document.getElementById("datain").style.top  = pixely+menuHeight-0.5+"px";
   document.getElementById("datain").style.left = pixelx - 0.5 +"px";
+  //resize the cell
   document.getElementById("datain").style.width = getCellWidth(xcell) - 2.5 + "px";
   document.getElementById("datain").style.height = getCellHeight(ycell) - 2.5 + "px";
+  //set border color
   document.getElementById("datain").style.border = "2px solid green";
 }
+/***************************** SET INPUT BOX VALUE ****************************\
+| This function sets the value of the input box and initilizes the function    |
+| bar to be the same as the value that the input box is set to. It also        |
+| handles if values are invalid                                                |
+\******************************************************************************/
 function setInputBoxValue(value) {
   if (value == undefined) value = "";
   document.getElementById("inputbox").value = value;

@@ -98,7 +98,8 @@ function autosave() {
   
   var output = "{";
   output+= cell+":"+data;
-  output = output.slice(0, -1)+ "}"; 
+  output+="}";
+  //output = output.slice(0, -1)+ "}"; 
   
   var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
   

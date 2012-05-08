@@ -40,9 +40,8 @@ def autosave(request):
             
         print("about to put the data in dict")
         cur_data = json.loads(sp.data)
-        print(input)
         #parse new data
-        changes = json.load(input)
+        changes = json.loads(input)
         #make changes to cur_data
         print("about to add changes")
         for key in changes:

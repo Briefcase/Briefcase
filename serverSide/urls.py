@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^accounts/register', 'accounts.views.register'),
     url(r'^accounts/logout','accounts.views.userlogout'),
     #spreadsheet stuff
-    url(r'^spreadsheet/$', 'spreadsheet.views.blank_spreadsheet'),
+    url(r'^spreadsheet/$', 'spreadsheet.views.spreadsheet'),
     url(r'^spreadsheet/save', 'spreadsheet.views.save'),
     url(r'^spreadsheet/load', 'spreadsheet.views.load'),
     url(r'^spreadsheet/autosave', 'spreadsheet.views.autosave'),

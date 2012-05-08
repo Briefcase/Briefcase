@@ -20,6 +20,7 @@ current = {} #this is a dictionary with spreadsheet ids as the keys
                 #which has a profile object and a dictionary of changes
 
 def autosave(request):
+    print("in the function")
     if request.is_ajax():
         fname = request.POST['fileid'] #get the id
         input = request.POST['filedata'] # get the data
@@ -27,6 +28,7 @@ def autosave(request):
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=owner))
         sp = Spreadsheet.object.get(owner=own_profile, pk=fname)
+        print("got the data")
         #if not allowed - forbidden
         if s.public==False and cur_profile not in s.allowed_users.all():
             return HttpResponseForbidden()

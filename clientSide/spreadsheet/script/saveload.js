@@ -100,9 +100,16 @@ function autosave() {
   output+= cell+":"+data;
   output = output.slice(0, -1)+ "}"; 
   
-  //    if (name==null || name=="") {return;}
+  var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
   
-  output = "filename="+name+"&filedata="+output;
+  username = splitPath[0];
+  filename = splitPath[1];
+  
+  if (username==null || username=="") {return;}
+  if (filename==null || filename=="") {return;}
+  
+  output = "fileid="+filename+"&fileowner="+username+"&filedata="+output;
+    
   
   var serverURL = "/spreadsheet/autosave";
   $.ajax({
@@ -169,7 +176,7 @@ function load2() {
   if (username==null || username=="") {return;}
   if (filename==null || filename=="") {return;}
   
-  var output = "filename="+filename+"&username="+username;
+  var output = "fileid="+filename+"&fileowner="+username;
   
   //alert (output);
   

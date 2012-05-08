@@ -26,6 +26,7 @@ def autosave(request):
         id = request.POST['fileid'] #get the id
         input = request.POST['filedata'] # get the data
         owner = request.POST['fileowner'] #get file owner
+        print(owner)
         print("got the request data")
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=owner))

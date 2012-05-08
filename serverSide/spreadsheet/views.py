@@ -34,9 +34,9 @@ def autosave(request):
         sp = Spreadsheet.objects.get(pk=id)
         print("got the spreadsheet")
         #if not allowed - forbidden
-        if (not cur_profile in sp.allowed_user.all()) and (s.public==False):
-            print("not allowed")
-            return HttpResponseForbidden()
+        # if (not cur_profile in sp.allowed_user.all()) and (s.public==False):
+            # print("not allowed")
+            # return HttpResponseForbidden()
             
         print("about to put the data in dict")
         cur_data = json.loads(sp.data)

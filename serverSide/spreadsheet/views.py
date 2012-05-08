@@ -14,7 +14,7 @@ from django.template import RequestContext, Context, loader
 
 import json
 
-
+current = {}
 
 def autosave(request):
     if request.is_ajax():
@@ -38,9 +38,9 @@ def autosave(request):
         #save the file
         sp.data = cur_data
         sp.save()
-        
+        #put user down as saving
+        current[sp.file_name].append(cur_profile)
         #return 
-        
         return HttpResponse(json.dumps(cur_data));
     else return HttpResponseBadRequest
                 
@@ -78,6 +78,7 @@ def load(request):
         own_profile=UserProfile.objects.get(user=User.objects.get(username=uname))
         s=Spreadsheet.objects.get(pk=fname)
         if s.public==True or cur_profile in s.allowed_users.all():
+            current[s.file_name] = cur_profile
             return HttpResponse(s.data) #send to frontend the entire file
         else:
             return HttpResponseForbidden()
@@ -89,7 +90,9 @@ def blank_spreadsheet(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
     #create new spreadsheet
+    profile = request.user.get_profile()
     s=Spreadsheet(owner=profile, file_name='Untitled', data='', public=False)
     s.allowed_users.add(profile)
     s.save()
+    current['Untitled']=[profile]
     return render_to_response('spreadsheet.html', context_instance=RequestContext(request))

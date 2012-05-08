@@ -48,21 +48,23 @@
 	      // wait for the page to finish loading before accessing the DOM
 	  </script>
   </head>
-  <body spellcheck='false' style="margin:0px; padding:0px">
+  <body spellcheck='false' style="margin:0px; padding:0px;">
     <!-- Menu Begin -->
     <div class="TitleMenu" id="TitleMenu"></div>
-    
-    <pre style="position: absolute;border-right: 1px solid #000; height:100%">                                                                                </pre>
-
-  	<!--<textarea class="codeblock" id="codeDoc" style="float:left; width: 100%; position: absolute;color:red;"></textarea>
-  	<!-->
-  	<div style="padding:0px;width:100%;  position: absolute; float: left;cursor:text">
-      <pre class="codeblock" contentEditable="true" id="codeDoc" style="color:red;outline:none;" spellcheck='false'></pre>  
+    <div id="containor" style="border: 1px solid #000; height: 50%; overflow: auto; padding: 5px; border-radus: 5px">
+      <div style="position:relative;">
+        <!--
+        <pre style="position: absolute; float:left;border-right: 1px solid #000; height:100%">                                                                                </pre>
+      	<!--<textarea class="codeblock" id="codeDoc" style="float:left; width: 100%; position: absolute;color:red;"></textarea>
+      	<!-->
+      	<div style="padding:0px;width:100%;  position:absolute; float: left;cursor:text">
+          <pre class="codeblock" contentEditable="true" id="codeDoc" style="color:red;outline:none;" spellcheck='false'></pre>  
+        </div>
+        <div style="padding:0px;width:100%; position: absolute; float: left; pointer-events:none;">
+          <pre class="codeblock" id="displayDoc" style=""></pre>
+        </div>
+      </div>
     </div>
-    <div style="padding:0px;width:100%; position: absolute; float: left; pointer-events:none;">
-      <pre class="codeblock" id="displayDoc" style=""></pre>
-    </div>
-    
     
     <!-- XML Grid for the menu system -->
     <xml id="xmlMenu" style="display: none">

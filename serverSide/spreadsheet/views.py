@@ -23,13 +23,14 @@ def autosave(request):
     print("in the function")
     if request.is_ajax():
         print("in the ajax")
-        fname = request.POST['fileid'] #get the id
+        id = request.POST['fileid'] #get the id
         input = request.POST['filedata'] # get the data
         owner = request.POST['fileowner'] #get file owner
         print("got the request data")
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=owner))
-        sp = Spreadsheet.object.get(owner=own_profile, pk=fname)
+        print("got the profiles")
+        sp = Spreadsheet.objects.get(pk=id)
         print("got the spreadsheet")
         #if not allowed - forbidden
         if cur_profile not in s.allowed_user.all() and s.public==False:
@@ -85,11 +86,11 @@ def autosave(request):
     
 def load(request):
     if request.is_ajax():
-        fname=request.POST['fileid']#get the id of requested file
+        id=request.POST['fileid']#get the id of requested file
         uname=request.POST['fileowner'] #get the user that owns the file
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=uname))
-        s=Spreadsheet.objects.get(pk=fname)
+        s=Spreadsheet.objects.get(pk=id)
         if s.public==True or cur_profile in s.allowed_users.all():
             #current[s.file_name] = [[cur_profile,{}]]
             return HttpResponse(s.data) #send to frontend the entire file

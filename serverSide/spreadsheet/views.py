@@ -14,7 +14,10 @@ from django.template import RequestContext, Context, loader
 
 import json
 
-current = {} #this is a dictionary with spreadsheet names
+current = {} #this is a dictionary with spreadsheet ids as the keys
+                #the values are a list
+                # of a list of length 2
+                #which has a profile object and a dictionary of changes
 
 def autosave(request):
     if request.is_ajax():
@@ -24,7 +27,7 @@ def autosave(request):
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=owner))
         sp = Spreadsheet.object.get(owner=own_profile, file_name=fname)
-        #if not allowed - forbitdden
+        #if not allowed - forbidden
         if s.public==False and cur_profile not in s.allowed_users.all():
             return HttpResponseForbidden()
             
@@ -75,7 +78,7 @@ def save(request):
     
 def load(request):
     if request.is_ajax():
-        fname=request.POST['filename']#get the name of requested file
+        fname=request.POST['filename']#get the id of requested file
         uname=request.POST['username'] #get the user that owns the file
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=uname))

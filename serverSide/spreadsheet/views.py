@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.template import RequestContext, Context, loader
 from django.contrib.auth.forms import AuthenticationForm
-from django.utils import *
+from django.utils.encoding import smart_str
 
 import json
 

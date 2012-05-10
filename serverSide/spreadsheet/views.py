@@ -11,6 +11,7 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.template import RequestContext, Context, loader
+from django.contrib.auth.forms import AuthenticationForm
 
 import json
 
@@ -89,15 +90,21 @@ def load(request):
         return HttpResponse(s.data)
     else:
         return HttpResponseBadRequest()
+        
+def new(request):
+    if not request.user.is_authenticated():
+        return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
+    #create new blank spreadsheet and save it
+    profile = request.user.get_profile()
+    s=Spreadsheet(owner=profile, file_name='Untitled', data='{}', public=False)
+    s.allowed_users.add(profile)
+    s.save()
+    #add an entry in current
+    #current['Untitled']=[[profile,{}]
+    return render_to_response('spreadsheet.html', context_instance = RequestContext(request))
+    
       
 def spreadsheet(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
-    #create new spreadsheet
-    # profile = request.user.get_profile()
-    # s=Spreadsheet(owner=profile, file_name='Untitled', data='', public=False)
-    # s.allowed_users.add(profile)
-    # s.save()
-    # add an entry in current
-    # current['Untitled']=[[profile,{}]
     return render_to_response('spreadsheet.html', context_instance=RequestContext(request))

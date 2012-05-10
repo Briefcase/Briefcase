@@ -51,7 +51,7 @@ def autosave(request):
             cur_data[key]=changes[key] # will update old value or make new key,value
         #save the file
         sp.data = cur_data
-        sp.save()
+        #sp.save()
         print("saved")
         #put user down as saving
         #current[sp.file_name].append([cur_profile,changes])

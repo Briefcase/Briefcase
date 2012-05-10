@@ -50,14 +50,13 @@ def autosave(request):
         for key in changes:
             cur_data[key]=changes[key] # will update old value or make new key,value
         #save the file
-        sp.data = cur_data
-        #sp.save()
+        sp.data = json.dumps(cur_data)
+        sp.save()
         print("saved")
         #put user down as saving
         #current[sp.file_name].append([cur_profile,changes])
         #return
-        print(json.dumps(cur_data))
-        return HttpResponse(json.dumps(cur_data))
+        return HttpResponse(sp.data)
     else:
         return HttpResponseBadRequest()
                 

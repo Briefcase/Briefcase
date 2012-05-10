@@ -102,7 +102,7 @@ def new(request):
     s.save()
     #add an entry in current
     #current['Untitled']=[[profile,{}]
-    return render_to_response('spreadsheet.html', context_instance = RequestContext(request))
+    return redirect('/spreadsheet?' + s.owner + '&' + s.pk)
     
       
 def spreadsheet(request):

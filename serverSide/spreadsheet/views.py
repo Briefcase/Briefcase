@@ -102,7 +102,7 @@ def new(request):
     s.save()
     #add an entry in current
     #current['Untitled']=[[profile,{}]
-    return redirect('/spreadsheet?' + s.owner + '&' + s.pk)
+    return redirect('/spreadsheet?' + smart_str(s.owner)+ '&' + smart_str(s.pk))
     
       
 def spreadsheet(request):

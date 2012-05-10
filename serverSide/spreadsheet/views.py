@@ -97,6 +97,7 @@ def new(request):
     #create new blank spreadsheet and save it
     profile = request.user.get_profile()
     s=Spreadsheet(owner=profile, file_name='Untitled', data='{}', public=False)
+    s.save() #need to save here so new spreadsheet generates a pk
     s.allowed_users.add(profile)
     s.save()
     #add an entry in current

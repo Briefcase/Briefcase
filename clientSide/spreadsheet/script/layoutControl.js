@@ -71,11 +71,18 @@ $(document).ready( function () {
 |     on the next row                                                          |
 \******************************************************************************/
 function keypress (event) {
-  if (document.getElementById("inputbox").focused == false) {
+  if (!isInputFocused()) {
+    // delete key, for deleting a cell
     if (event.which == 8) {
       data[startSelectionX + ',' + startSelectionY] = "";
       setInputBoxValue("");
     }
+    // enter key, focus the cell
+    // tab key
+    // up arrow key
+    // down arrow key
+    // left arrow key
+    // right arrow key
     else {
       // TODO some more params to make sure ctrl and alt, etc are not pressed
       // or that if they are the event is carried through 
@@ -84,6 +91,14 @@ function keypress (event) {
       //simulatekeypress(event.which);
     }
   }
+  else { // input is focused
+    // enter key, move down a row
+    
+  }
+}
+
+function isInputFocused() {
+  return (document.getElementById("inputbox").focused == true) ;
 }
 /***************************** SIMULATE KEY PRESS *****************************\
 |################################# DEPRECATED #################################|

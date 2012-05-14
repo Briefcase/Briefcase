@@ -11,6 +11,8 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.template import RequestContext, Context, loader
+from django.contrib.auth.forms import AuthenticationForm
+from django.utils.encoding import smart_str
 
 import json
 
@@ -20,44 +22,31 @@ current = {} #this is a dictionary with spreadsheet ids as the keys
                 #which has a profile object and a dictionary of changes
 
 def autosave(request):
-    print("in the function")
     if request.is_ajax():
-        print("in the ajax")
         id = request.POST['fileid'] #get the id
         input = request.POST['filedata'] # get the data
         owner = request.POST['fileowner'] #get file owner
-        print(owner)
-        print("got the request data")
         cur_profile=UserProfile.objects.get(user=request.user)
         own_profile=UserProfile.objects.get(user=User.objects.get(username=owner))
-        print("got the profiles")
         sp = Spreadsheet.objects.get(pk=id)
-        print("got the spreadsheet")
         #if not allowed - forbidden
-        # if (not cur_profile in sp.allowed_user.all()) and (s.public==False):
-            # print("not allowed")
-            # return HttpResponseForbidden()
+        if cur_profile not in sp.allowed_users.all() and sp.public==False:
+            print("not allowed")
+            return HttpResponseForbidden()
             
-        print("about to put the data in dict")
-        print(sp.data)
         cur_data = json.loads(sp.data)
-        print(input)
-        print(type(input))
         #parse new data
         changes = json.loads(input)
         #make changes to cur_data
-        print("about to add changes")
         for key in changes:
             cur_data[key]=changes[key] # will update old value or make new key,value
         #save the file
-        sp.data = cur_data
+        sp.data = json.dumps(cur_data)
         sp.save()
-        print("saved")
         #put user down as saving
         #current[sp.file_name].append([cur_profile,changes])
         #return
-        print(json.dumps(cur_data))
-        return HttpResponse(json.dumps(cur_data))
+        return HttpResponse(sp.data)
     else:
         return HttpResponseBadRequest()
                 
@@ -102,15 +91,22 @@ def load(request):
         return HttpResponse(s.data)
     else:
         return HttpResponseBadRequest()
+        
+def new(request):
+    if not request.user.is_authenticated():
+        return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
+    #create new blank spreadsheet and save it
+    profile = request.user.get_profile()
+    s=Spreadsheet(owner=profile, file_name='Untitled', data='{}', public=False)
+    s.save() #need to save here so new spreadsheet generates a pk
+    s.allowed_users.add(profile)
+    s.save()
+    #add an entry in current
+    #current['Untitled']=[[profile,{}]
+    return redirect('/spreadsheet?' + smart_str(s.owner)+ '&' + smart_str(s.pk))
+    
       
 def spreadsheet(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))
-    #create new spreadsheet
-    # profile = request.user.get_profile()
-    # s=Spreadsheet(owner=profile, file_name='Untitled', data='', public=False)
-    # s.allowed_users.add(profile)
-    # s.save()
-    # add an entry in current
-    # current['Untitled']=[[profile,{}]
     return render_to_response('spreadsheet.html', context_instance=RequestContext(request))

@@ -82,12 +82,12 @@ function keypress (event) {
     else if (event.keyCode == 13) {
       event.preventDefault();
       focusInputBox();
-      alert("enter + focus")
+      //alert("enter + focus")
     }
     // tab key on focused
     else if (event.keyCode == 9){
       event.preventDefault();
-      alert("tab next");
+      tabToNextColumn();
     }
     
     // left arrow key
@@ -122,18 +122,27 @@ function keypress (event) {
     // enter key, move down a row
     if (event.keyCode == 13) {
       event.preventDefault();
-      alert("move to next row");
+      returnToNextRow();
     }
     // tab key on unfocused (same command)
     else if (event.keyCode == 9){
       event.preventDefault();
-      alert("tab next");
+      tabToNextColumn();
     }
   }
 }
 
 function isInputFocused() {
   return (document.getElementById("inputbox").focused == true) ;
+}
+function returnToNextRow () {
+  alert("move to next row");
+}
+function tabToNextColumn () {
+  //alert("tab next" + (startSelectionX+1));
+  startSelectionX = startSelectionX+1;
+  moveInputBox(startSelectionX, startSelectionY);
+  redrawFrame();
 }
 /***************************** SIMULATE KEY PRESS *****************************\
 |################################# DEPRECATED #################################|
@@ -249,6 +258,7 @@ function mouseRelease (event) {
   setInputBoxValue(data[cellx+','+celly]);
   moveInputBox(cellx,celly);
   blurInputBox();
+  
   startSelectionX = cellx;
   startSelectionY = celly;
   

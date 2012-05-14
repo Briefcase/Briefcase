@@ -139,10 +139,9 @@ function returnToNextRow () {
   alert("move to next row");
 }
 function tabToNextColumn () {
-  //alert("tab next" + (startSelectionX+1));
-  startSelectionX = startSelectionX+1;
-  moveInputBox(startSelectionX, startSelectionY);
-  redrawFrame();
+  var startx = startSelectionX;
+  var starty = startSelectionY;
+  setNewSelection (startx+1, starty, startx+1, starty, true);
 }
 /***************************** SIMULATE KEY PRESS *****************************\
 |################################# DEPRECATED #################################|
@@ -192,6 +191,35 @@ function setInputBoxValue(value) {
   if (value == undefined) value = "";
   document.getElementById("inputbox").value = value;
   document.getElementById("functionbox").value = document.getElementById("inputbox").value;
+}
+
+/****************************** SET NEW SELECTION *****************************\
+| This function handles all of the featutres required for shifting a cell      |
+| selection in directions (blah, this needs to have better documentation       |
+\******************************************************************************/
+function setNewSelection (startx, starty, endx, endy, isTab) {
+  isTab = (typeof isTab == 'undefined')?false:isTab;
+  
+  setInputBoxValue(data[startx+','+starty]);
+  moveInputBox(startx,starty);
+  
+  startSelectionX = startx;
+  startSelectionY = starty;
+  
+  endSelectionX = endx;
+  endSelectionY = endy;
+  
+  
+  if (isTab) {
+    blurInputBox();
+    focusInputBox();
+  }
+  else {
+    blurInputBox();
+    tabReturnColumn = starty;
+  }
+  
+  redrawFrame();
 }
 
 function focusInputBox() {
@@ -254,18 +282,8 @@ function mouseRelease (event) {
   // if the cell is allready selected
   if (celly == startSelectionY && cellx == startSelectionX && dragx == endSelectionX && dragy == endSelectionY) return;
   
-  
-  setInputBoxValue(data[cellx+','+celly]);
-  moveInputBox(cellx,celly);
-  blurInputBox();
-  
-  startSelectionX = cellx;
-  startSelectionY = celly;
-  
-  endSelectionX = dragx;
-  endSelectionY = dragy;
-  
-  redrawFrame();
+  // move the cell and redraw
+  setNewSelection(cellx,celly,dragx,dragy);
 }
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for dragging 

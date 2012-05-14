@@ -89,26 +89,33 @@ function keypress (event) {
       event.preventDefault();
       tabToNextColumn();
     }
-    
     // left arrow key
     else if (event.keyCode == 37) {
       event.preventDefault();
-      alert("move left");
+      var startx = startSelectionX;
+      var starty = startSelectionY;
+      setNewSelection (startx-1, starty, startx-1, starty, false);
     }
     // up arrow key
     else if (event.keyCode == 38){
       event.preventDefault();
-      alert("move up");
+      var startx = startSelectionX;
+      var starty = startSelectionY;
+      setNewSelection (startx, starty-1, startx, starty-1, false);
     }
     // right arrow key
     else if (event.keyCode == 39) {
       event.preventDefault();
-      alert ("move right");
+      var startx = startSelectionX;
+      var starty = startSelectionY;
+      setNewSelection (startx+1, starty, startx+1, starty, false);
     }
     // down arrow key
     else if (event.keyCode == 40) {
       event.preventDefault();
-      alert("move down");
+      var startx = startSelectionX;
+      var starty = startSelectionY;
+      setNewSelection (startx, starty+1, startx, starty+1, false);
     }
     else {
       // TODO some more params to make sure ctrl and alt, etc are not pressed

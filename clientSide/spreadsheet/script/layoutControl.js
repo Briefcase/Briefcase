@@ -71,18 +71,45 @@ $(document).ready( function () {
 |     on the next row                                                          |
 \******************************************************************************/
 function keypress (event) {
+  //alert(event.charCode +"|"+ event.keyCode);
   if (!isInputFocused()) {
     // delete key, for deleting a cell
-    if (event.which == 8) {
+    if (event.keyCode == 8) {
       data[startSelectionX + ',' + startSelectionY] = "";
       setInputBoxValue("");
     }
     // enter key, focus the cell
-    // tab key
-    // up arrow key
-    // down arrow key
+    else if (event.keyCode == 13) {
+      event.preventDefault();
+      focusInputBox();
+      alert("enter + focus")
+    }
+    // tab key on focused
+    else if (event.keyCode == 9){
+      event.preventDefault();
+      alert("tab next");
+    }
+    
     // left arrow key
+    else if (event.keyCode == 37) {
+      event.preventDefault();
+      alert("move left");
+    }
+    // up arrow key
+    else if (event.keyCode == 38){
+      event.preventDefault();
+      alert("move up");
+    }
     // right arrow key
+    else if (event.keyCode == 39) {
+      event.preventDefault();
+      alert ("move right");
+    }
+    // down arrow key
+    else if (event.keyCode == 40) {
+      event.preventDefault();
+      alert("move down");
+    }
     else {
       // TODO some more params to make sure ctrl and alt, etc are not pressed
       // or that if they are the event is carried through 
@@ -93,7 +120,15 @@ function keypress (event) {
   }
   else { // input is focused
     // enter key, move down a row
-    
+    if (event.keyCode == 13) {
+      event.preventDefault();
+      alert("move to next row");
+    }
+    // tab key on unfocused (same command)
+    else if (event.keyCode == 9){
+      event.preventDefault();
+      alert("tab next");
+    }
   }
 }
 

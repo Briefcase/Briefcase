@@ -25,7 +25,7 @@ var endSelectionX = 0;
 var endSelectionY = 0;
 
 // When using tab remember which column you started at when you hit enter
-var tabReturnColumn = -1;
+var tabReturnColumn = 1;
 
 // function focus or bar focus, can focus be determined from the object, or can we use oninput instead of a time delay to sync the two bars (i think oninput will work)
 
@@ -140,10 +140,12 @@ function keypress (event) {
 }
 
 function isInputFocused() {
-  return (document.getElementById("inputbox").focused == true) ;
+  return (document.getElementById("inputbox").focused == true);
 }
 function returnToNextRow () {
-  alert("move to next row");
+  var startx = tabReturnColumn;
+  var starty = startSelectionY+1;
+  setNewSelection (startx, starty, startx, starty, false);
 }
 function tabToNextColumn () {
   var startx = startSelectionX;
@@ -222,8 +224,9 @@ function setNewSelection (startx, starty, endx, endy, isTab) {
     focusInputBox();
   }
   else {
+    alert("not tab");
     blurInputBox();
-    tabReturnColumn = starty;
+    tabReturnColumn = startx;
   }
   
   redrawFrame();

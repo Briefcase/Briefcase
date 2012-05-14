@@ -57,7 +57,7 @@ $(document).ready( function () {
   setInputBoxValue(data["1,1"]);
   
   document.getElementById("inputbox").onfocus = function () {this.focused = true; inputBoxOnFocus();};
-  document.getElementById("inputbox").onblur = function () {this.focused = false;};
+  document.getElementById("inputbox").onblur = function () {this.focused = false; inputBoxOnBlur();};
   document.getElementById("inputbox").focused = false;
 });
   
@@ -81,8 +81,8 @@ function keypress (event) {
     // enter key, focus the cell
     else if (event.keyCode == 13) {
       event.preventDefault();
-      focusInputBox();
-      //alert("enter + focus")
+      //focusInputBox();
+      alert("enter + focus")
     }
     // tab key on focused
     else if (event.keyCode == 9){
@@ -145,7 +145,7 @@ function isInputFocused() {
 function returnToNextRow () {
   var startx = tabReturnColumn;
   var starty = startSelectionY+1;
-  setNewSelection (startx, starty, startx, starty, false);
+  setNewSelection (startx, starty, startx, starty);
 }
 function tabToNextColumn () {
   var startx = startSelectionX;
@@ -221,7 +221,7 @@ function setNewSelection (startx, starty, endx, endy, isTab) {
   
   if (isTab) {
     blurInputBox();
-    focusInputBox();
+    //focusInputBox();
   }
   else {
     blurInputBox();
@@ -238,6 +238,9 @@ function inputBoxOnFocus() {
   document.getElementById("inputCornerBox").style.display="none";
 }
 function blurInputBox() {
+  document.getElementById("inputbox").blur();
+}
+function inputBoxOnBlur() {
   document.getElementById("inputCornerBox").style.display="inline";
 }
 

@@ -34,9 +34,9 @@ var tabReturnColumn = -1;
 \******************************************************************************/
 $(document).ready( function () {
   // AJAX call to load the spreadsheet data
-  try {
-    load2();
-  }
+  
+  try {load2();}
+  catch (e) {}
   // size the window correctly
   resizeWindow();
   window.onresize = resizeWindow;

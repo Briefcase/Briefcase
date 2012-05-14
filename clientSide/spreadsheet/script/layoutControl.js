@@ -224,7 +224,6 @@ function setNewSelection (startx, starty, endx, endy, isTab) {
     focusInputBox();
   }
   else {
-    alert("not tab");
     blurInputBox();
     tabReturnColumn = startx;
   }

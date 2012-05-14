@@ -81,8 +81,8 @@ function keypress (event) {
     // enter key, focus the cell
     else if (event.keyCode == 13) {
       event.preventDefault();
-      //focusInputBox();
-      alert("enter + focus")
+      focusInputBox();
+      //alert("enter + focus")
     }
     // tab key on focused
     else if (event.keyCode == 9){
@@ -221,7 +221,7 @@ function setNewSelection (startx, starty, endx, endy, isTab) {
   
   if (isTab) {
     blurInputBox();
-    //focusInputBox();
+    focusInputBox();
   }
   else {
     blurInputBox();

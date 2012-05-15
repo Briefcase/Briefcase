@@ -22,6 +22,9 @@ var startSelectionY = 1;
 var endSelectionX = 0;
 var endSelectionY = 0;
 
+var tempStartSelection = 0;
+var tempEndSelection = 0;
+
 // When using tab remember which column you started at when you hit enter
 var tabReturnColumn = 1;
 
@@ -255,8 +258,8 @@ function syncInputBox() {
 | 
 \******************************************************************************/
 function mousePress (event) {
-  // nothing yet
-  
+  tempStartSelection = findCellFromY(event.pageY-menuHeight) ;
+  tempEndSelection   = findCellFromX(event.pageX);
 }
 /********************************** MOUSE UP **********************************\
 |

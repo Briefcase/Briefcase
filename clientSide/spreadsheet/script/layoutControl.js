@@ -65,13 +65,12 @@ $(document).ready( function () {
 | This function handles all of the global keypresses:                          |
 | - entering textmode when a cell is selected and you start typing             |
 | - deleteing the context of a selected cell                                   |
-| X moving the selected cell via arrow keys                                    |
-| X tabbing to the cell the right when tab is pressed                          |
-| X returning to the first column that was not tabbed away from                |
+| - moving the selected cell via arrow keys                                    |
+| - tabbing to the cell the right when tab is pressed                          |
+| - returning to the first column that was not tabbed away from                |
 |     on the next row                                                          |
 \******************************************************************************/
 function keypress (event) {
-  //alert(event.charCode +"|"+ event.keyCode);
   if (!isInputFocused()) {
     // delete key, for deleting a cell
     if (event.keyCode == 8) {
@@ -126,7 +125,8 @@ function keypress (event) {
       }
     }
   }
-  else { // input is focused
+  // input is focused
+  else {
     // enter key, move down a row
     if (event.keyCode == 13) {
       event.preventDefault();
@@ -139,7 +139,9 @@ function keypress (event) {
     }
   }
 }
-
+/****************************** IS INPUT FOCUSED ******************************\
+| This function checks to see if the 
+\******************************************************************************/
 function isInputFocused() {
   return (document.getElementById("inputbox").focused == true);
 }

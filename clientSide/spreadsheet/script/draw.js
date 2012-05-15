@@ -55,8 +55,11 @@ function redrawFrame() {
     maxx = c_canvas.width;
   }
   else {
-    minx = getCellOffsetLeft(startSelectionX);
-    maxx = minx + getCellWidth(startSelectionX);
+    var small = startSelectionX;
+    var big = endSelectionX;
+    if (small > big) {small = endSelectionX;big = startSelectionX;}
+    minx = getCellOffsetLeft(small);
+    maxx = getCellOffsetLeft(big)  + getCellWidth(big);
   }
   
   if (endSelectionY < 0) {
@@ -64,8 +67,11 @@ function redrawFrame() {
     maxy = c_canvas.height;
   }
   else {
-    miny = getCellOffsetTop(startSelectionY);
-    maxy = miny + getCellHeight(startSelectionY);
+    var small = startSelectionY;
+    var big = endSelectionY;
+    if (small > big) {small = endSelectionY; big = startSelectionY;};
+    miny = getCellOffsetTop(small);
+    maxy = getCellOffsetTop(big) + getCellHeight(big);
   }
   
   context.fillRect (minx,miny, maxx-minx, maxy-miny);

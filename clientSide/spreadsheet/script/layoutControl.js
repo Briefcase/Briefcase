@@ -155,27 +155,6 @@ function tabToNextColumn () {
   var starty = startSelectionY;
   setNewSelection (startx+1, starty, startx+1, starty, true);
 }
-/***************************** SIMULATE KEY PRESS *****************************\
-|################################# DEPRECATED #################################|
-| This function simulates a keypress when passed a character code              |
-\******************************************************************************/
-function simulatekeypress(charCode) {
-  var evt = document.createEvent("KeyboardEvent");
-  evt.initKeyEvent ("keypress", true, true, window,
-                    0, 0, 0, 0,
-                    0, charCode) 
-  var canceled = !document.getElementById("inputbox").dispatchEvent(evt);
-  
-  if(canceled) {
-    // A handler called preventDefault
-    //alert("canceled");
-  } else {
-    // None of the handlers called preventDefault
-    //alert("not canceled");
-  }
-  //alert("simulated");
-}
-
 /******************************* MOVE INPUT BOX *******************************\
 | This function moves the input box to a specified cell, given the x and y for |
 | the cell. It then resizes the input box to fit the cell                      |

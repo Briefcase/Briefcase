@@ -53,6 +53,7 @@ $(document).ready( function () {
   // scrolling 
   document.getElementById("scrollbar").onscroll = resizeWindow;
   
+  
   //init input box
   moveInputBox(1,1);
   setInputBoxValue(data["1,1"]);

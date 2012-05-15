@@ -34,9 +34,9 @@ var tabReturnColumn = 1;
 \******************************************************************************/
 $(document).ready( function () {
   // AJAX call to load the spreadsheet data
-  
   try {load2();}
   catch (e) {}
+  
   // size the window correctly
   resizeWindow();
   window.onresize = resizeWindow;
@@ -120,9 +120,10 @@ function keypress (event) {
     else {
       // TODO some more params to make sure ctrl and alt, etc are not pressed
       // or that if they are the event is carried through 
-      focusInputBox();
-      setInputBoxValue(String.fromCharCode(event.charCode));
-      //simulatekeypress(event.which);
+      if (event.charCode != 0) {
+        focusInputBox();
+        setInputBoxValue(String.fromCharCode(event.charCode));
+      }
     }
   }
   else { // input is focused

@@ -1,7 +1,5 @@
 // code written by Asher Glick
 
-
-
   //////////////////////////////////////////////////////////////////////////////
  //////////////////////////////// INITILIZATION ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -200,7 +198,6 @@ function setNewSelection (startx, starty, endx, endy, isTab) {
   endSelectionX = endx;
   endSelectionY = endy;
   
-  
   if (isTab) {
     blurInputBox();
     focusInputBox();
@@ -209,7 +206,6 @@ function setNewSelection (startx, starty, endx, endy, isTab) {
     blurInputBox();
     tabReturnColumn = startx;
   }
-  
   redrawFrame();
 }
 

@@ -208,25 +208,40 @@ function setNewSelection (startx, starty, endx, endy, isTab) {
   }
   redrawFrame();
 }
-
+/******************************* FOCUS INPUT BOX ******************************\
+| This function focuses the input box.
+\******************************************************************************/
 function focusInputBox() {
   document.getElementById("inputbox").focus();
 }
-function inputBoxOnFocus() {
-  document.getElementById("inputCornerBox").style.display="none";
-}
+/******************************* BLUR INPUT BOX *******************************\
+| This function blurs the input box.
+\******************************************************************************/
 function blurInputBox() {
   document.getElementById("inputbox").blur();
 }
+/***************************** INPUT BOX ON FOCUS *****************************\
+|
+\******************************************************************************/
+function inputBoxOnFocus() {
+  document.getElementById("inputCornerBox").style.display="none";
+}
+/****************************** INPUT BOX ON BLUR *****************************\
+|
+\******************************************************************************/
 function inputBoxOnBlur() {
   document.getElementById("inputCornerBox").style.display="inline";
 }
-
-
+/********************** SYNC FUNCTION BAR FROM INPUT BOX **********************\
+|
+\******************************************************************************/
 function syncFunctionBar() {
   document.getElementById("functionbox").value = document.getElementById("inputbox").value;
   data[startSelectionX + "," +startSelectionY] = document.getElementById("inputbox").value;
 }
+/********************** SYNC INPUT BOX FROM FUNCTION BAR **********************\
+|
+\******************************************************************************/
 function syncInputBox() {
   document.getElementById("inputbox").value = document.getElementById("functionbox").value;
   data[startSelectionX+","+startSelectionY] = document.getElementById("functionbox").value;
@@ -383,7 +398,6 @@ function getScrollXCell () {
   var scrollX = document.getElementById("scrollbar").scrollLeft;
   return ~~(scrollX / defaultCellWidth)+1;
 }
-
 /**************************** GET SCROLL Y POSITION ***************************\
 | reading the scroll bar this returns the topmost cell position
 \******************************************************************************/
@@ -391,7 +405,6 @@ function getScrollYCell () {
   var scrollY = document.getElementById("scrollbar").scrollTop;
   return ~~(scrollY / defaultCellHeight)+1; 
 }
-
 /******************************* TO LETTER LABEL ******************************\
 | This converts a number (starting at 1) to a letter or multi letter           |
 | representation that can be used as an ID, if the number is greater then 26   |

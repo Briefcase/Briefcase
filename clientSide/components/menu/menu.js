@@ -174,7 +174,18 @@ function isMouseOver(divTag,x,y) {
 //////////////////////////////////////////////////////////////////////////////
 /********************************* CREATE ITEM ********************************\
 /*************************** CORE ELEMENT GENERATION **************************\
-|
+| This function generates a core element for the menu, this includes buttons   |
+| and sub-menu buttons. The HTML looks like the following when completed       |
+|                                                                              |
+|    <div class="menuButton">                                                  |
+|      <div class="image">                                                     |
+|        <img src="~imgsource~"></img>                                         |
+|      </div>                                                                  |
+|      <div class="name">~namesource~</div>                                    |
+|      <div class="shortcutKey">~shortcutkeysource~</div>                      |
+|    </div>                                                                    |
+|                                                                              |
+|======THIS FUNCTION NEEDS TO BE CLEANED===========                            |
 \******************************************************************************/
 function createItem (name, callbackFunction, icon, shortcutKey, version) {
   var element = document.createElement('div');
@@ -272,7 +283,7 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
   return item;
 }
 /****************************** BUTTON GENERATION *****************************\
-|
+| 
 \******************************************************************************/
 function createButton (name, callbackFunction, icon, shortcutKey, version) {
   var item = createItem(name,callbackFunction,icon,shortcutKey, version);

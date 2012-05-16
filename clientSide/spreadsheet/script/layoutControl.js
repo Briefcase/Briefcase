@@ -22,8 +22,8 @@ var startSelectionY = 1;
 var endSelectionX = 0;
 var endSelectionY = 0;
 
-var tempStartSelection = 0;
-var tempEndSelection = 0;
+var tempstartX = 0;
+var tempstartY = 0;
 
 // When using tab remember which column you started at when you hit enter
 var tabReturnColumn = 1;
@@ -43,7 +43,7 @@ $(document).ready( function () {
   window.onresize = resizeWindow;
   
   // mouse events
-  document.onmousedown = mousePress;
+  document.getElementById('framecontain').onmousedown = mousePress;
   document.getElementById('framecontain').onmouseup = mouseRelease;
   
   // general keyboard events (shortcut keys, etc.)
@@ -259,8 +259,9 @@ function syncInputBox() {
 | 
 \******************************************************************************/
 function mousePress (event) {
-  tempStartSelection = findCellFromY(event.pageY-menuHeight) ;
-  tempEndSelection   = findCellFromX(event.pageX);
+  var menuHeight = document.getElementById("framecontain").offsetTop;
+  tempstartY = findCellFromY(event.pageY-menuHeight) ;
+  tempstartX = findCellFromX(event.pageX);
 }
 /********************************** MOUSE UP **********************************\
 |
@@ -269,12 +270,12 @@ function mouseRelease (event) {
   // nothing yet
   // for now assume a non drag
   var menuHeight = document.getElementById("framecontain").offsetTop;
-  var celly = findCellFromY(event.pageY-menuHeight);
-  var cellx = findCellFromX(event.pageX);
+  var cellx = tempstartX;
+  var celly = tempstartY;
   
   //TODO these need to be actual drag values, in comparison with the mousepress functions
-  var dragx = cellx;
-  var dragy = celly;
+  var dragx = findCellFromX(event.pageX);
+  var dragy = findCellFromY(event.pageY-menuHeight);
   
   
   if (celly < 1 || cellx < 1) {

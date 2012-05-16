@@ -300,18 +300,28 @@ function mouseRelease (event) {
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for dragging 
 \******************************************************************************/
-var lastx = 0;
-var lasty = 0;
+var cellLeftBound = 0;
+var cellRightBound = 0;
+var cellTopBound = 0;
+var cellBottomBound = 0;
 function ondrag (event) {
-  var menuHeight = document.getElementById("framecontain").offsetTop;
-  var dragx = findCellFromX(event.pageX);
-  var dragy = findCellFromY(event.pageY-menuHeight);
-  if (dragx != lastx || dragy != lasty) {
-    lastx = dragx;
-    lasty = dragy;
-    var cellx = tempstartX;
-    var celly = tempstartY;
-    setNewSelection(cellx,celly,dragx,dragy);
+  var mousex = event.pageX;
+  var mousey = event.pageY;
+  if (mousex < cellLeftBound || 
+      mousex > cellRightBound ||
+      mousey < cellTopBound ||
+      mousey > cellBottomBound) {
+    var menuHeight = document.getElementById("framecontain").offsetTop;
+    var dragx = findCellFromX(event.pageX);
+    var dragy = findCellFromY(event.pageY-menuHeight);
+
+    cellLeftBound = getCellOffsetLeft(dragx);
+    cellRightBound = cellLeftBound + getCellWidth(dragx);
+    cellTopBound = getCellOffsetTop(dragy);
+    cellBottomBound = cellTopBound + getCellHeight(dragy);
+    
+    
+    setNewSelection(tempstartX,tempstartY,dragx,dragy);
   }
 }
   //////////////////////////////////////////////////////////////////////////////

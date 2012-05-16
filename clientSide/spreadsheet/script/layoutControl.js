@@ -262,11 +262,13 @@ function mousePress (event) {
   var menuHeight = document.getElementById("framecontain").offsetTop;
   tempstartY = findCellFromY(event.pageY-menuHeight) ;
   tempstartX = findCellFromX(event.pageX);
+  document.getElementById('framecontain').onmousemove = ondrag;
 }
 /********************************** MOUSE UP **********************************\
 |
 \******************************************************************************/
 function mouseRelease (event) {
+  document.getElementById('framecontain').onmousemove = null;
   // nothing yet
   // for now assume a non drag
   var menuHeight = document.getElementById("framecontain").offsetTop;
@@ -298,7 +300,20 @@ function mouseRelease (event) {
 /********************************* MOUSE MOVE *********************************\
 | The mouse move function is only used for dragging 
 \******************************************************************************/
-
+var lastx = 0;
+var lasty = 0;
+function ondrag (event) {
+  var menuHeight = document.getElementById("framecontain").offsetTop;
+  var dragx = findCellFromX(event.pageX);
+  var dragy = findCellFromY(event.pageY-menuHeight);
+  if (dragx != lastx || dragy != lasty) {
+    lastx = dragx;
+    lasty = dragy;
+    var cellx = tempstartX;
+    var celly = tempstartY;
+    setNewSelection(cellx,celly,dragx,dragy);
+  }
+}
   //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////// INTERFACE RESIZING /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

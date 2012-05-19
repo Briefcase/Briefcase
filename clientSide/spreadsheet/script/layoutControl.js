@@ -35,8 +35,7 @@ var tabReturnColumn = 1;
 \******************************************************************************/
 $(document).ready( function () {
   // AJAX call to load the spreadsheet data
-  try {load2();}
-  catch (e) {}
+  try{load2()}catch(e){}
   
   // size the window correctly
   resizeWindow();
@@ -88,7 +87,7 @@ function keypress (event) {
     // tab key on focused
     else if (event.keyCode == 9){
       event.preventDefault();
-      tabToNextColumn();
+      tabToNextColumn(event.shiftKey);
     }
     // left arrow key
     else if (event.keyCode == 37) {
@@ -137,7 +136,7 @@ function keypress (event) {
     // tab key on unfocused (same command)
     else if (event.keyCode == 9){
       event.preventDefault();
-      tabToNextColumn();
+      tabToNextColumn(event.shiftKey);
     }
   }
 }
@@ -152,10 +151,15 @@ function returnToNextRow () {
   var starty = startSelectionY+1;
   setNewSelection (startx, starty, startx, starty);
 }
-function tabToNextColumn () {
+function tabToNextColumn (shiftKey) {
   var startx = startSelectionX;
   var starty = startSelectionY;
-  setNewSelection (startx+1, starty, startx+1, starty, true);
+  if (shiftKey) {
+    setNewSelection (startx-1, starty, startx-1, starty, false);
+  }
+  else {
+    setNewSelection (startx+1, starty, startx+1, starty, true);
+  }
 }
 /******************************* MOVE INPUT BOX *******************************\
 | This function moves the input box to a specified cell, given the x and y for |

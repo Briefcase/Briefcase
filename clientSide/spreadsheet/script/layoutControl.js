@@ -316,15 +316,17 @@ function ondrag (event) {
       mousey < cellTopBound ||
       mousey > cellBottomBound) {
     var menuHeight = document.getElementById("framecontain").offsetTop;
+    
     var dragx = findCellFromX(event.pageX);
     var dragy = findCellFromY(event.pageY-menuHeight);
 
+    // set new boundries to check for
     cellLeftBound = getCellOffsetLeft(dragx);
     cellRightBound = cellLeftBound + getCellWidth(dragx);
     cellTopBound = getCellOffsetTop(dragy);
     cellBottomBound = cellTopBound + getCellHeight(dragy);
     
-    
+    // create new selection
     setNewSelection(tempstartX,tempstartY,dragx,dragy);
   }
 }

@@ -50,7 +50,8 @@
 | be able to use it and not have to deal with overwriting each other's         |
 | interrupt functions                                                          |
 \******************************************************************************/
-var _hot_key_list_ = new Array();
+var _HOT_KEY_LIST_ = new Array();
+
 
 function addHotkey(hotkey,functioncall) {
   

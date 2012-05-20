@@ -12,9 +12,13 @@ urlpatterns = patterns('',
     url(r'^accounts/logout','accounts.views.userlogout'),
     #spreadsheet stuff
     url(r'^spreadsheet/$', 'spreadsheet.views.spreadsheet'),
+    #new
     url(r'^spreadsheet/new', 'spreadsheet.views.new'),
     url(r'^spreadsheet/load', 'spreadsheet.views.load'),
+    #autosave
     url(r'^spreadsheet/autosave', 'spreadsheet.views.autosave'),
+    #delete
+    url(r'^spreadsheet/delete/(?P<id>\w{0,100})/$', 'spreadsheet.views.delete'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -105,6 +105,16 @@ def new(request):
     #current['Untitled']=[[profile,{}]
     return redirect('/spreadsheet?' + smart_str(s.owner)+ '&' + smart_str(s.pk))
     
+def delete(request,id):
+    if not request.user.is_authenticated():
+        return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
+    #delete the spreadsheet
+    profile = request.user.get_profile()
+    s=Spreadsheet.objects.get(pk=id)
+    if s.owner==profile:
+        s.delete()
+    return redirect('/accounts')
+    
       
 def spreadsheet(request):
     if not request.user.is_authenticated():

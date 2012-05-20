@@ -1,5 +1,5 @@
 // This function sends a post message to the server
-function sendpost(serverURL, messageVariables) {
+function sendpost(serverURL, messageVariables, callback) {
   var output = "";
   for (var i in messageVariables) {
     output += "&"+i+"="+messageVariables[i];
@@ -12,6 +12,7 @@ function sendpost(serverURL, messageVariables) {
 		dataType: "html",
 		success: function(data){
         console.log("AJAX Sucess: "+data);
+        callback();
 		},
 		error: function (xhr, ajaxOptions, thrownError){// not my code this function is
                     console.log("AJAX FAILURE:"+xhr.status);

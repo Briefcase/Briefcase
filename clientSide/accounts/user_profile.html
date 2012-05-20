@@ -36,8 +36,8 @@
   <br />
     {% for s in user_spreadsheet_list %}
         <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
-        <div onClick="alert('sendpost!'); sendpost('/spreadsheet/rename',{'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">rename</div>
-        <div onClick="alert('sendpost!'); sendpost('/spreadsheet/delete',{'fileid':'{{s.pk}}'})">delete</div>
+        <div onClick="sendpost('/spreadsheet/rename',{'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')},function(){location.reload(true)})">rename</div>
+        <div onClick="sendpost('/spreadsheet/delete',{'fileid':'{{s.pk}}'}                                                ,function(){location.reload(true)})">delete</div>
     {% endfor %}
 {% endif %}
 <br /> <br/ > <br /> <!-- probably should do something other than this here to control spacing-->

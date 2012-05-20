@@ -39,7 +39,7 @@ function redrawFrame() {
  
   //draw the hilights for multiple selected cells
   
-  context.fillStyle = "rgb(250,255,250)";
+
   //if (endSelectionX == -1) endSelectionX = startSelectionX;
   //if (endSelectionY == -1) endSelectionY = startSelectionY;
   
@@ -74,6 +74,7 @@ function redrawFrame() {
     maxy = getCellOffsetTop(big) + getCellHeight(big);
   }
   
+    context.fillStyle = "rgb(250,255,250)";
   context.fillRect (minx,miny, maxx-minx, maxy-miny);
   
   // hilight active cell

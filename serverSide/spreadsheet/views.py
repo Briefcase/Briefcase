@@ -122,8 +122,15 @@ def rename(request):
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
     #rename the spreadsheet
     id=request.POST['fileid']
+    print id
+    print request.POST
     newname=request.POST['newname']
+    print newname
     s=Spreadsheet.objects.get(pk=id)
+    print s
+    print s.owner
+    profile = request.user.get_profile()
+    print profile
     if s.owner==profile:
         s.file_name=newname
         s.save()

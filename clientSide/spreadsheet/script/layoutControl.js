@@ -311,7 +311,7 @@ var cellBottomBound = 0;
 function ondrag (event) {
   var mousex = event.pageX;
   var mousey = event.pageY;
-  if (mousex < cellLeftBound || 
+  if (mousex < cellLeftBound ||   
       mousex > cellRightBound ||
       mousey < cellTopBound ||
       mousey > cellBottomBound) {
@@ -347,6 +347,9 @@ function resizeWindow () {
 | screen to avoid scroll bars from being created                               |
 \******************************************************************************/
 function resizeFunctionBar() {
+  // resize to 0 to prevent the function bar from overflowing to the next line
+  document.getElementById("functionbox").style.width="0px";
+  // expand the function bar to its full size
   var leftOffset = document.getElementById("functionbox").offsetLeft;
   var pageWidth = window.innerWidth;
   document.getElementById("functionbox").style.width = pageWidth - leftOffset + "px";

@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      body {
+        /*background: #F78454;*/
+        background: #999;
+      }
+      div.title {
+        text-align: center;
+        border-radius: 40px;
+        font-family:arial;
+        border: 10px solid #F78454;
+        /*border: 10px solid #CAA162;*/
+        /*background-color:#CAA162;*/
+        background: #EEE;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        margin: -210px;
+        padding: 10px; 
+        width: 400px;
+        height: 400px;
+      }
+      h1 {
+        font-family: 'Mate SC', serif;
+      }
+    </style>
+  </head>
+<div class="title">
+<h1>WELCOME</h1>
+Sign in:
+<form action = "" method="post">{% csrf_token %}
+{{form.as_p}}
+<input type = "submit" value = "Log In" />
+</form>
+
+or
+<input type=button onClick="location.href='accounts/register'" value="Register">
+</div>

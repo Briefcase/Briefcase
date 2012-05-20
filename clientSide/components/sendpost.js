@@ -1,13 +1,12 @@
 // This function sends a post message to the server
 
 
-function sendpost(url, messageVariables) {
+function sendpost(serverURL, messageVariables) {
   var output = "";
   for (var i in messageVariables) {
     output += "&"+i+"="+messageVariables[i];
   }    
   
-  var serverURL = "/spreadsheet/autosave";
   $.ajax({
     type: "POST",
     url: serverURL,

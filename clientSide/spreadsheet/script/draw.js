@@ -76,6 +76,10 @@ function redrawFrame() {
   
   context.fillRect (minx,miny, maxx-minx, maxy-miny);
   
+  // hilight active cell
+  context.fillStyle = "rgb(190,190,190)";
+  context.fillRect (minx,0,maxx-minx,labelCellHeight);
+  context.fillRect (0,miny,labelCellWidth,maxy-miny);
   
   
   // Draw the border Lines  
@@ -97,12 +101,6 @@ function redrawFrame() {
   var integerx = getScrollXCell();
   var currentWidth = labelCellWidth+0.5;
   while (currentWidth < c_canvas.width) {
-    if (integerx == startSelectionX) {  
-      // draw the hilights color for the active cell and column
-      context.fillStyle = "rgb(190,190,190)";
-      context.fillRect (currentWidth,0,getCellWidth(integerx), labelCellHeight);
-      context.fillStyle = "rgb(0,0,0)";
-    }
     currentWidth += getCellWidth(integerx);
     // draw vertical line
     context.moveTo(currentWidth,0);
@@ -120,12 +118,6 @@ function redrawFrame() {
   var integery = getScrollYCell();
   var currentHeight = labelCellHeight+0.5;
   while (currentHeight < c_canvas.height) {
-    if (integery == startSelectionY) {  
-      // draw the hilights color for the active cell and column
-      context.fillStyle = "rgb(190,190,190)";
-      context.fillRect (0,currentHeight,labelCellWidth, getCellHeight(integery));
-      context.fillStyle = "rgb(0,0,0)";
-    }
     currentHeight += getCellHeight(integery);
     
     //draw horizontal Line

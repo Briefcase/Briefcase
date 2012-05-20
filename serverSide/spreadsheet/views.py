@@ -124,7 +124,7 @@ def rename(request):
     id=request.POST['fileid']
     newname=request.POST['newname']
     s=Spreadsheet.objects.get(pk=id)
-    if s.owner=profile:
+    if s.owner==profile:
         s.file_name=newname
         s.save()
         return HttpResponse("name is" + s.file_name)

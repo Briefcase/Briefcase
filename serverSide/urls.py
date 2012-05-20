@@ -35,6 +35,7 @@ urlpatterns = patterns('',
 if settings.DEBUG:
     urlpatterns += patterns('django.contrib.staticfiles.views',
         url(r'^spreadsheet/static/(?P<path>.*)$', 'serve'),
+        url(r'^accounts/static/(?P<path>.*)$','serve'),
     )
     
 urlpatterns+=staticfiles_urlpatterns()

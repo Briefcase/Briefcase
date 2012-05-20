@@ -72,7 +72,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "C:/Users/Bethee/Documents/RPI/Briefcase/clientSide",
+    "C:/Users/Bethee/Documents/RPI/Briefcase/clientSide/",
 )
 
 # List of finder classes that know how to find static files in
@@ -113,8 +113,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'serverSide.urls'
 
 TEMPLATE_DIRS = (
-    "C:/Users/Bethee/Documents/RPI/Briefcase/serverSide/templates",
-    "C:/Users/Bethee/Documents/RPI/Briefcase/serverSide/accounts/templates",
+    "C:/Users/Bethee/Documents/RPI/Briefcase/clientSide/accounts",
     "C:/Users/Bethee/Documents/RPI/Briefcase/clientSide/spreadsheet",
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.

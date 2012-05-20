@@ -44,7 +44,7 @@ def userprofile(request):
     user_spreadsheet_list = UserProfile.objects.get(user=request.user).allowed_spreadsheets.all()
     user_view_list = UserProfile.objects.get(user=request.user).view_only_spreadsheets.all()
     t=loader.get_template('user_profile.html')
-    c = Context({
+    c = RequestContext(request,{
         'user_spreadsheet_list': user_spreadsheet_list,
         'user_view_list': user_view_list,
         'current_user': request.user,

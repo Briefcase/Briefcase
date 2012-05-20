@@ -18,7 +18,8 @@ urlpatterns = patterns('',
     #autosave
     url(r'^spreadsheet/autosave', 'spreadsheet.views.autosave'),
     #delete
-    url(r'^spreadsheet/delete/(?P<id>\w{0,100})/$', 'spreadsheet.views.delete'),
+    url(r'^spreadsheet/delete', 'spreadsheet.views.delete'),
+    url(r'^spreadsheet/rename', 'spreadsheet.views.rename'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

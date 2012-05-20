@@ -105,15 +105,30 @@ def new(request):
     #current['Untitled']=[[profile,{}]
     return redirect('/spreadsheet?' + smart_str(s.owner)+ '&' + smart_str(s.pk))
     
-def delete(request,id):
+def delete(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
     #delete the spreadsheet
+    id=request.POST['fileid'] #get fileid
     profile = request.user.get_profile()
     s=Spreadsheet.objects.get(pk=id)
     if s.owner==profile:
         s.delete()
-    return redirect('/accounts')
+        return HttpResponse("deleted")
+    return HttpResponse("error")
+
+def rename(request):
+    if not request.user.is_authenticated():
+        return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
+    #rename the spreadsheet
+    id=request.POST['fileid']
+    newname=request.POST['newname']
+    s=Spreadsheet.objects.get(pk=id)
+    if s.owner=profile:
+        s.file_name=newname
+        s.save()
+        return HttpResponse("name is" + s.file_name)
+    return HttpResponse("error")
     
       
 def spreadsheet(request):

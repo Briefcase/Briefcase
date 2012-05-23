@@ -118,7 +118,10 @@ def changesettings(request):
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
     id = request.POST['fileid'] #pk of spreadsheet
     print id
-    bval = request.POST['publicbool'] #new val for public bool
+    bval_temp = request.POST['publicbool'] #new val for public bool
+    bval=False
+    if bval_temp=="True":
+        bval=True
     print bval
     new_view_only = json.loads(request.POST['newviewlist']) #new view only users
     print new_view_only
@@ -129,7 +132,9 @@ def changesettings(request):
     delete_allowed = json.loads(request.POST['deleteallowedlist']) #allowed users to be removed
     print delete_allowed
     s= Spreadsheet.objects.get(pk=id) #fetch existing spreadsheet obj
+    print s
     profile = request.user.get_profile() # get current user
+    print profile
     if s.owner==profile: #if user is owner - allow changes
         s.public=bval
         # handle allowed users

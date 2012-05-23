@@ -1,1 +1,3 @@
-python2.7 serverSide/manage.py runserver
+cd serverSide
+python2.7 manage.py runserver
+cd ..

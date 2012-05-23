@@ -1,9 +1,9 @@
+# dynamicly create a static path, if this does not work then create the static
+# path as the variable static_path and run the server again
 import os
 static_path = os.getcwd()
-print static_path
 static_path = static_path[0:len(static_path)-10]
 #static_path = "/home/elhim/Code/projects/Briefcase/"
-print static_path
 
 # Django settings for briefcase project.
 

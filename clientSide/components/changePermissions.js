@@ -42,7 +42,13 @@ function getPermissions() {
 		dataType: "html",
 		success: function(data){
         console.log("AJAX (get permissions) Sucess: "+data);
-        callback();
+        var parsedPermissions = JSON.parse(data);
+        var testOutput = "Public: "+parsedPermissions["publicbool"] + "\n" + "Modify Users:\n";
+        for (user in parsedPermissions["allowedlist"]) {
+          testOutput += " - " + parsedPermissions["allowedlist"][user] + "\n";
+        }
+        testOutput += "View Users:   "+parsedPermissions["viewlist"];
+        alert(testOutput);
 		},
 		error: function (xhr, ajaxOptions, thrownError){// not my code this function is
                     console.log("AJAX FAILURE:"+xhr.status);

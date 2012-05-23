@@ -1,4 +1,3 @@
-alert("changepermissions");
 function sendChangedata(fileid,ispublic,adduserviewlist,removeuserviewlist,adduserallowedlist,removeuserallowedlist) {
   // false = 0
   // true = 1

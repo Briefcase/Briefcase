@@ -138,7 +138,7 @@ def returnsettings(request):
     publicbool = s.public
     viewlist = s.view_only_users
     print viewlist
-    allowedlist=allowed_users
+    allowedlist=s.allowed_users
     print allowedlist
     msg = json.dumps({"publicbool":publicbool, "viewlist":viewlist, "allowedlist":allowedlist})
     print msg

@@ -29,7 +29,10 @@
   </head>
 <div class="title">
 <h1>WELCOME</h1>
-Sign in:
+Sign in BOB:
+{% if form.errors %}
+    <p>Incorrect username or password</p>
+{%endif %}
 <form action = "" method="post">{% csrf_token %}
 {{form.as_p}}
 <input type = "submit" value = "Log In" />

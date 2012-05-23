@@ -1,6 +1,14 @@
 alert("changepermissions");
-function sendChangedata(fileid,ispublic,userviewlist,userallowedlist) {
+function sendChangedata(fileid,ispublic,adduserviewlist,removeuserviewlist,adduserallowedlist,removeuserallowedlist) {
   var output = "";
+  
+  output += "&fileid"+fileid;
+  output += "&publicbool"+ispublic;
+  output += "&newviewlist"+adduserviewlist;
+  output += "&deleteviewlist"+removeuserviewlist;
+  output += "&newallowedlist"+adduserallowedlist;
+  output += "&deleteallowedlist"+removeuserallowedlist;
+  
   var serverURL = "/spreadsheet/changesettings";
   for (var i in messageVariables) {
     output += "&"+i+"="+messageVariables[i];

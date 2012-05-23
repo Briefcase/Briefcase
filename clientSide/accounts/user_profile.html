@@ -6,12 +6,15 @@
     <style type="text/css">
       body {
         background: #FFF;
+        padding:0px;
+        margin:0px;
       }
       div.title {
         font-family:arial;
       }
       a.item {
-        width: 90%;
+        clear: left;
+        width: 80%;
         background: #FFF;
 
         padding: 10px;
@@ -26,6 +29,20 @@
       }
       a.item:hover {
         background: #FFFF32;
+        
+      }
+      div.bbox {
+        float:left;
+        padding: 10px;
+        border-top: 1px solid #F78454;
+        border-bottom: 1px solid #F78454;
+        border-right: 2px solid #F78454;
+        width: 5%;
+        text-align:center;
+        cursor: pointer
+      }
+      div.bbox:hover {
+        background-color: #F80;
       }
     </style>
   </head>
@@ -33,14 +50,17 @@
 <h1> Hi {{current_user.username}} </h1>
 
 {% if user_spreadsheet_list %}
-  <br />
+  <div style="border-top: 1px solid #F78454;border-bottom: 1px solid #F78454; overflow:hidden; position:relative">
     {% for s in user_spreadsheet_list %}
-        <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
-        <div onClick="sendpost('/spreadsheet/rename',{'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')},function(){location.reload(true)})">rename</div>
-        <div onClick="sendpost('/spreadsheet/delete',{'fileid':'{{s.pk}}'}                                                ,function(){location.reload(true)})">delete</div>
+        <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a>
+        <div class="bbox"
+            onClick="sendpost('/spreadsheet/rename',{'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')},function(){location.reload(true)})">rename</div>
+        <div class="bbox"
+            onClick="sendpost('/spreadsheet/delete',{'fileid':'{{s.pk}}'}                                                ,function(){location.reload(true)})">delete</div>
     {% endfor %}
+  </div>
 {% endif %}
-<br /> <br/ > <br /> <!-- probably should do something other than this here to control spacing-->
+<div style="clear:both">
 View Only:
 {% if user_view_list %}
   <br />
@@ -48,7 +68,7 @@ View Only:
         <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
     {% endfor %}
 {% endif %}
-
+</div>
 <div style="clear:both">
 <br />
 <input type=button onClick="location.href='/spreadsheet/new'" value="Spreadsheet"></br ></br>

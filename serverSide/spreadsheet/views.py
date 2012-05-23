@@ -144,42 +144,38 @@ def changesettings(request):
             print username
             try:
                 u = UserProfile.objects.get(user=User.objects.get(username=username))
-            except UserProfile.DoesNotExist:
-                pass
-            else:
                 s.allowed_users.add(u)
-                s.save()
+            except UserProfile.DoesNotExist:
+                print "user does not exist"
+        s.save()
         # delete users
         for deletename in delete_allowed:
             print deletename
             try:
                 u=UserProfile.objects.get(user = User.objects.get(username=deletename))
-            except UserProfile.DoesNotExist:
-                pass
-            else:
                 if u in allowed_users.all():
                     s.allowed_users.remove(u)
-                    s.save()
+            except UserProfile.DoesNotExist:
+                print "user does not exist"
+        s.save()
+                
         for username in new_view_only:
             print username
             try:
                 u = UserProfile.objects.get(user=User.objects.get(username=username))
-            except UserProfile.DoesNotExist:
-                pass
-            else:
                 s.view_only_users.add(u)
-                s.save()
+            except UserProfile.DoesNotExist:
+                print "user does not exist"
+        s.save()
         # delete users
         for deletename in delete_view_only:
             print deletename
             try:
                 u=UserProfile.objects.get(user = User.objects.get(username=deletename))
-            except UserProfile.DoesNotExist:
-                pass
-            else:
                 if u in view_only_users.all():
                     s.view_only_users.remove(u)
-                    s.save()
+            except UserProfile.DoesNotExist:
+                print "user does not exist"
         s.save()
         return HttpResponse("complete")
     return HttpResponse("error")

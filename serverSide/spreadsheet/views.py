@@ -137,9 +137,11 @@ def changesettings(request):
     print profile
     if s.owner==profile: #if user is owner - allow changes
         s.public=bval
+        print s.public
         # handle allowed users
         # add new users
         for username in new_allowed:
+            print username
             try:
                 u = UserProfile.objects.get(user=User.objects.get(username=username))
             except UserProfile.DoesNotExist:
@@ -149,6 +151,7 @@ def changesettings(request):
                 s.save()
         # delete users
         for deletename in delete_allowed:
+            print deletename
             try:
                 u=UserProfile.objects.get(user = User.objects.get(username=deletename))
             except UserProfile.DoesNotExist:

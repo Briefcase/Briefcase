@@ -116,24 +116,7 @@ def rename(request):
 def changesettings(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
-    id = request.POST['fileid'] #pk of spreadsheet
-    bval = request.POST['publicbool'] #new val for public bool
-    view_only = request.POST['viewlist'] #new val for view only users
-    allowed = request.POST['allowedlist'] #new val for allowed users
-    s= Spreadsheet.objects.get(pk=id) #fetch existing spreadsheet obj
-    profile = request.user.get_profile() # get current user
-    if s.owner==profile: #if user is owner - allow changes
-        s.public=bval
-        #change view only users list
-        s.view_only_users.clear()
-       #for i in view_only:
-            #s.view_only_users.
-        #s.view_only_users = view_only
-        #s.allowed_users=allowed
-        s.save()
-        return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
-    return HttpResponse("error")
-
+    
 def returnsettings(request):
     id=request.POST['fileid'] #pk of spreadsheet
     print(id)

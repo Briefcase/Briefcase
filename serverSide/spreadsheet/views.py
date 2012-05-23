@@ -13,7 +13,7 @@ from django.core.context_processors import csrf
 from django.template import RequestContext, Context, loader
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.encoding import smart_str
-from django.core.exceptions import *
+from django.core.exceptions import ObjectDoesNotExist
 
 import json
 
@@ -146,7 +146,7 @@ def changesettings(request):
             try:
                 u = UserProfile.objects.get(user=User.objects.get(username=username))
                 s.allowed_users.add(u)
-            except UserProfile.DoesNotExist:
+            except ObjectDoesNotExist:
                 print "user does not exist"
         s.save()
         # delete users
@@ -156,7 +156,7 @@ def changesettings(request):
                 u=UserProfile.objects.get(user = User.objects.get(username=deletename))
                 if u in allowed_users.all():
                     s.allowed_users.remove(u)
-            except UserProfile.DoesNotExist:
+            except ObjectDoesNotExist:
                 print "user does not exist"
         s.save()
                 
@@ -165,7 +165,7 @@ def changesettings(request):
             try:
                 u = UserProfile.objects.get(user=User.objects.get(username=username))
                 s.view_only_users.add(u)
-            except UserProfile.DoesNotExist:
+            except ObjectDoesNotExist:
                 print "user does not exist"
         s.save()
         # delete users
@@ -175,7 +175,7 @@ def changesettings(request):
                 u=UserProfile.objects.get(user = User.objects.get(username=deletename))
                 if u in view_only_users.all():
                     s.view_only_users.remove(u)
-            except UserProfile.DoesNotExist:
+            except ObjectDoesNotExist:
                 print "user does not exist"
         s.save()
         return HttpResponse("complete")

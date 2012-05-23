@@ -125,6 +125,7 @@ def changesettings(request):
     print bval
     new_view_only = json.loads(request.POST['newviewlist']) #new view only users
     print new_view_only
+    print type(new_view_only)
     delete_view_only = json.loads(request.POST['deleteviewlist']) #view only users to be removed
     print delete_view_only
     new_allowed= json.loads(request.POST['newallowedlist']) #new allowed users

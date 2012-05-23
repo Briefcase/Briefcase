@@ -126,8 +126,8 @@ def changesettings(request):
         s.public=bval
         #change view only users list
         s.view_only_users.clear()
-        for i in view_only:
-            s.view_only_users.
+       #for i in view_only:
+            #s.view_only_users.
         #s.view_only_users = view_only
         #s.allowed_users=allowed
         s.save()

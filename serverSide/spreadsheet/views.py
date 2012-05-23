@@ -132,15 +132,17 @@ def changesettings(request):
 
 def returnsettings(request):
     id=request.POST['fileid'] #pk of spreadsheet
+    print(id)
     s=Spreadsheet.objects.get(pk=id) #fetch spreadsheet
+    print(s)
     publicbool = s.public
     viewlist = s.view_only_users
+    print viewlist
     allowedlist=allowed_users
-    return HttpResponse(json.dumps({
-            "publicbool": publicbool,
-            "viewlist": viewlist,
-            "allowedlist": allowedlist}),
-        content_type="application/json")
+    print allowedlist
+    msg = json.dumps({"publicbool":publicbool, "viewlist":viewlist, "allowedlist":allowedlist})
+    print msg
+    return HttpResponse(msg, content_type = "application/json")
         
 
 #loads the spreadsheet page      

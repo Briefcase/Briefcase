@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 
 #validators
 def isValidUsername(value):
@@ -38,7 +39,7 @@ class RegistrationForm(forms.Form):
 class SaveFileForm(forms.Form):
     file=forms.FileField()
     
-#class MyAuthForm(forms
+        
     
     
     

@@ -13,6 +13,7 @@ from django.core.context_processors import csrf
 from django.template import RequestContext, Context, loader
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.encoding import smart_str
+from django.core.exceptions import *
 
 import json
 

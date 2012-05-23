@@ -125,7 +125,6 @@ def changesettings(request):
     print bval
     new_view_only = json.loads(request.POST['newviewlist']) #new view only users
     print new_view_only
-    print type(new_view_only)
     delete_view_only = json.loads(request.POST['deleteviewlist']) #view only users to be removed
     print delete_view_only
     new_allowed= json.loads(request.POST['newallowedlist']) #new allowed users
@@ -161,8 +160,28 @@ def changesettings(request):
                 if u in allowed_users.all():
                     s.allowed_users.remove(u)
                     s.save()
+       for username in new_view_only:
+            print username
+            try:
+                u = UserProfile.objects.get(user=User.objects.get(username=username))
+            except UserProfile.DoesNotExist:
+                pass
+            else:
+                s.view_only_users.add(u)
+                s.save()
+        # delete users
+        for deletename in delete_view_only:
+            print deletename
+            try:
+                u=UserProfile.objects.get(user = User.objects.get(username=deletename))
+            except UserProfile.DoesNotExist:
+                pass
+            else:
+                if u in view_only_users.all():
+                    s.view_only_users.remove(u)
+                    s.save()
         s.save()
-        return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
+        return HttpResponse("complete")
     return HttpResponse("error")
 
 def returnsettings(request):

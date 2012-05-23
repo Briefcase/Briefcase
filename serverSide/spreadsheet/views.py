@@ -116,7 +116,33 @@ def rename(request):
 def changesettings(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
-    
+    id = request.POST['fileid'] #pk of spreadsheet
+    bval = request.POST['publicbool'] #new val for public bool
+    new_view_only = request.POST['newviewlist'] #new view only users
+    delete_view_only = request.POST['deleteviewlist'] #view only users to be removed
+    new_allowed = request.POST['newallowedlist'] #new allowed users
+    delete_allowed = request.POST['deleteallowedlist'] #allowed users to be removed
+    s= Spreadsheet.objects.get(pk=id) #fetch existing spreadsheet obj
+    profile = request.user.get_profile() # get current user
+    if s.owner==profile: #if user is owner - allow changes
+        s.public=bval
+        # handle allowed users
+        # add new users
+        for username in new_allowed:
+            u = UserProfile.objects.get(user=User.objects.get(username=username))
+            s.allowed_users.add(u)
+        # delete users
+        for deletename in delete_allowed:
+            try:
+                u=UserProfile.objects.get(user = User.objects.get(username=deletename))
+            except UserProfile.DoesNotExist:
+                pass
+            else:
+                s.allowed_users.remove(u)        
+        s.save()
+        return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
+    return HttpResponse("error")
+
 def returnsettings(request):
     id=request.POST['fileid'] #pk of spreadsheet
     print(id)

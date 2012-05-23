@@ -143,7 +143,7 @@ def changesettings(request):
             except UserProfile.DoesNotExist:
                 pass
             else:
-                if u in allowed_users.all()
+                if u in allowed_users.all():
                     s.allowed_users.remove(u)
                     s.save()
         s.save()

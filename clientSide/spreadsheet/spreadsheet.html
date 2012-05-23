@@ -2,7 +2,6 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-     <script type="text/javascript" src="{{STATIC_URL}}components/sendpost.js"></script>
     <!-- External Libraries -->
     <script type="text/javascript" src="{{STATIC_URL}}components/jquery-1.6.1.min.js"></script>
     <!--LOCAL--><script type="text/javascript" src="../components/jquery-1.6.1.min.js"></script><!--LOCAL-->
@@ -14,7 +13,8 @@
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}components/menu/menuStyle.css" />
     <!--LOCAL--><link rel="stylesheet" type="text/css" href="../components/menu/menuStyle.css" /><!--LOCAL-->
   
-    
+    <script type="text/javascript" src="{{STATIC_URL}}components/changePermissions.js"></script>
+    <!--LOCAL--><script type="text/javascript" src="../components/changePermissions.js"></script><!--LOCAL-->
     
     <!-- Page Functionality -->
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/eparse.js"></script>
@@ -137,6 +137,7 @@
           <menuitem name="Save As..."  function="save()"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+S" version="normal"> </menuItem>
           <menuitem name="Revert"  function="alert('revert')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+O" version="normal"> </menuItem>
           <menuitem name="AUTO SAVE" function="autosave()" iconsrc="icon/flag_white.gif" shortcut="Ctrl+alt+shift+w+x+a" version="version"> </menuItem>
+          <menuitem name="Get Permissions" function="getPermissions()" iconsrc="icon/flag_white.gif" shortcut="Ctrl+g+p" version="version"> </menuItem>
           <break></break>
           <menuitem name="Print Preview"  function="alert('print priview')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+P" version="normal"> </menuItem>
           <menuitem name="Print..."  function="alert('print')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+P" version="normal"> </menuItem>

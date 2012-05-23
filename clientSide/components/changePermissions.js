@@ -10,7 +10,7 @@ function sendChangedata(fileid,ispublic,adduserviewlist,removeuserviewlist,addus
   if (filename==null || filename=="") {return;}  
   fileid = filename;
   
-  ispublic = "0";
+  ispublic = "False";
   adduserviewlist = JSON.stringify([]);
   removeuserviewlist = JSON.stringify([]);
   adduserallowedlist = JSON.stringify([]);

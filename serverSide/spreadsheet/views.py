@@ -129,8 +129,13 @@ def changesettings(request):
         # handle allowed users
         # add new users
         for username in new_allowed:
-            u = UserProfile.objects.get(user=User.objects.get(username=username))
-            s.allowed_users.add(u)
+            try:
+                u = UserProfile.objects.get(user=User.objects.get(username=username))
+            except UserProfile.DoesNotExist:
+                pass
+            else:
+                s.allowed_users.add(u)
+                s.save()
         # delete users
         for deletename in delete_allowed:
             try:
@@ -138,7 +143,9 @@ def changesettings(request):
             except UserProfile.DoesNotExist:
                 pass
             else:
-                s.allowed_users.remove(u)        
+                if u in allowed_users.all()
+                    s.allowed_users.remove(u)
+                    s.save()
         s.save()
         return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
     return HttpResponse("error")

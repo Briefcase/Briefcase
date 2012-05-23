@@ -20,6 +20,8 @@ urlpatterns = patterns('',
     #delete
     url(r'^spreadsheet/delete', 'spreadsheet.views.delete'),
     url(r'^spreadsheet/rename', 'spreadsheet.views.rename'),
+    url(r'^spreadsheet/returnsettings', 'spreadsheet.views.returnsettings'),
+    url(r'^spreadsheet/changesettings', 'spreadsheet.views.changesettings'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

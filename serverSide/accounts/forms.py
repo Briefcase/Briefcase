@@ -38,8 +38,7 @@ class RegistrationForm(forms.Form):
 class SaveFileForm(forms.Form):
     file=forms.FileField()
     
-#class LoadFileForm(forms.Form):
-    #FILE_CHOICES = (
+#class MyAuthForm(forms
     
     
     

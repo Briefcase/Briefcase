@@ -113,7 +113,7 @@ def rename(request):
     return HttpResponse("error")
 
 #change the spreadsheet settings - public bool, view list, allowed users list
-def publicbool(request):
+def changesettings(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
     id = request.POST['fileid'] #pk of spreadsheet
@@ -129,7 +129,20 @@ def publicbool(request):
         s.save()
         return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
     return HttpResponse("error")
-    
+
+def returnsettings(request):
+    id=request.POST['fileid'] #pk of spreadsheet
+    s=Spreadsheet.objects.get(pk=id) #fetch spreadsheet
+    publicbool = s.public
+    viewlist = s.view_only_users
+    allowedlist=allowed_users
+    return HttpResponse(json.dumps({
+            "publicbool": publicbool,
+            "viewlist": viewlist,
+            "allowedlist": allowedlist}),
+        content_type="application/json")
+        
+
 #loads the spreadsheet page      
 def spreadsheet(request):
     if not request.user.is_authenticated():

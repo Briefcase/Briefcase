@@ -116,7 +116,40 @@ def rename(request):
 def changesettings(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
-    
+    id = request.POST['fileid'] #pk of spreadsheet
+    bval = request.POST['publicbool'] #new val for public bool
+    new_view_only = json.loads(request.POST['newviewlist']) #new view only users
+    delete_view_only = json.loads(request.POST['deleteviewlist']) #view only users to be removed
+    new_allowed= json.loads(request.POST['newallowedlist']) #new allowed users
+    delete_allowed = json.loads(request.POST['deleteallowedlist']) #allowed users to be removed
+    s= Spreadsheet.objects.get(pk=id) #fetch existing spreadsheet obj
+    profile = request.user.get_profile() # get current user
+    if s.owner==profile: #if user is owner - allow changes
+        s.public=bval
+        # handle allowed users
+        # add new users
+        for username in new_allowed:
+            try:
+                u = UserProfile.objects.get(user=User.objects.get(username=username))
+            except UserProfile.DoesNotExist:
+                pass
+            else:
+                s.allowed_users.add(u)
+                s.save()
+        # delete users
+        for deletename in delete_allowed:
+            try:
+                u=UserProfile.objects.get(user = User.objects.get(username=deletename))
+            except UserProfile.DoesNotExist:
+                pass
+            else:
+                if u in allowed_users.all()
+                    s.allowed_users.remove(u)
+                    s.save()
+        s.save()
+        return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
+    return HttpResponse("error")
+
 def returnsettings(request):
     id=request.POST['fileid'] #pk of spreadsheet
     print(id)

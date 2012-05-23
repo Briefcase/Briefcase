@@ -160,7 +160,7 @@ def changesettings(request):
                 if u in allowed_users.all():
                     s.allowed_users.remove(u)
                     s.save()
-       for username in new_view_only:
+        for username in new_view_only:
             print username
             try:
                 u = UserProfile.objects.get(user=User.objects.get(username=username))

@@ -1,3 +1,10 @@
+import os
+static_path = os.getcwd()
+print static_path
+static_path = static_path[0:len(static_path)-10]
+#static_path = "/home/elhim/Code/projects/Briefcase/"
+print static_path
+
 # Django settings for briefcase project.
 
 DEBUG = True
@@ -72,7 +79,9 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "C:/Users/Bethee/Documents/RPI/Briefcase/clientSide/",
+    
+    static_path+"clientSide/",
+    #static_path,
 )
 
 # List of finder classes that know how to find static files in
@@ -113,8 +122,10 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'serverSide.urls'
 
 TEMPLATE_DIRS = (
-    "C:/Users/Bethee/Documents/RPI/Briefcase/clientSide/accounts",
-    "C:/Users/Bethee/Documents/RPI/Briefcase/clientSide/spreadsheet",
+    #"/home/elhim/Code/projects/Briefcase/clientSide/accounts",
+    static_path+"clientSide/accounts",
+    #"/home/elhim/Code/projects/Briefcase/clientSide/spreadsheet",
+    static_path+"clientSide/spreadsheet",
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

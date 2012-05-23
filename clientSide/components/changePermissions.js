@@ -1,18 +1,31 @@
-alert("changepermissions");
 function sendChangedata(fileid,ispublic,adduserviewlist,removeuserviewlist,adduserallowedlist,removeuserallowedlist) {
+  // false = 0
+  // true = 1
   var output = "";
   
-  output += "&fileid"+fileid;
-  output += "&publicbool"+ispublic;
-  output += "&newviewlist"+adduserviewlist;
-  output += "&deleteviewlist"+removeuserviewlist;
-  output += "&newallowedlist"+adduserallowedlist;
-  output += "&deleteallowedlist"+removeuserallowedlist;
+  // THESE ARE SOME TEST VALUES
+  var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
+  filename = splitPath[1];
+  if (filename==null || filename=="") {return;}  
+  fileid = filename;
+  
+  ispublic = "False";
+  adduserviewlist = JSON.stringify([]);
+  removeuserviewlist = JSON.stringify([]);
+  adduserallowedlist = JSON.stringify([]);
+  removeuserallowedlist = JSON.stringify([]);
+  //
+  
+  output += "&fileid="+fileid;
+  output += "&publicbool="+ispublic;
+  output += "&newviewlist="+adduserviewlist;
+  output += "&deleteviewlist="+removeuserviewlist;
+  output += "&newallowedlist="+adduserallowedlist;
+  output += "&deleteallowedlist="+removeuserallowedlist;
+  
+  alert(output);
   
   var serverURL = "/spreadsheet/changesettings";
-  for (var i in messageVariables) {
-    output += "&"+i+"="+messageVariables[i];
-  }    
   
   $.ajax({
     type: "POST",
@@ -31,7 +44,6 @@ function sendChangedata(fileid,ispublic,adduserviewlist,removeuserviewlist,addus
 }
 
 function getPermissions() {
-  alert('get permissions');
   var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
   
   username = splitPath[0];
@@ -41,7 +53,6 @@ function getPermissions() {
   if (filename==null || filename=="") {return;}  
   
   var output = "&fileid="+filename;
-  alert(output);
   var serverURL = "/spreadsheet/returnsettings"; 
   $.ajax({
     type: "POST",

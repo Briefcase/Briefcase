@@ -29,8 +29,8 @@
   </head>
 <div class="title">
 <h1>WELCOME</h1>
-Sign in BOB:
-{% if form.errors %}
+Sign in:
+{% if showerror %}
     <p>Incorrect username or password</p>
 {%endif %}
 <form action = "" method="post">{% csrf_token %}

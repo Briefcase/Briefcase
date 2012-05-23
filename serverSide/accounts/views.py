@@ -31,12 +31,13 @@ def index(request):
         if user is not None:
             if user.is_active:
                 login(request,user)
+                return redirect("/accounts")
             else:
                 logout(request)
                 return render_to_response('welcome.html', {'form':form}, context_instance=RequestContext(request))
         else:
             logout(request)
-            return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
+            return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request, {'showerror': 1}))
     return render_to_response('welcome.html',{'form':form},context_instance=RequestContext(request))
 
 def userprofile(request):

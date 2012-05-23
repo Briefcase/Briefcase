@@ -32,7 +32,7 @@ function getPermissions() {
   if (username==null || username=="") {return;}
   if (filename==null || filename=="") {return;}  
   
-  var output = "&fileid="+fileid;
+  var output = "&fileid="+filename;
   var serverURL = "/spreadsheet/returnsettings"; 
   $.ajax({
     type: "POST",

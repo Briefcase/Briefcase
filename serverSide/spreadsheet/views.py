@@ -49,33 +49,10 @@ def autosave(request):
         return HttpResponse(sp.data)
     else:
         return HttpResponseBadRequest()
-                
-                
-        
-        
-        
-# def save(request):
-    # if request.is_ajax():
-        # fname=request.POST['filename'] #get the filename
-        # input=request.POST['filedata'] #get the data
-        # profile = request.user.get_profile() # gets the UserProfile related to request.user
-        #check to see if it exists
-        # try:
-            # sp = Spreadsheet.objects.get(owner=profile, file_name=fname)
-        # except Spreadsheet.DoesNotExist:
-#       create new spreadsheet
-            # s = Spreadsheet(owner=profile, file_name=fname, data=input, public=False)
-            # s.save()
-            # s.allowed_users.add(profile)
-            # s.save()
-            # return HttpResponse()
-       #file exists, overwrite the data
-        # sp=Spreadsheet.objects.get(owner=profile, file_name=fname)
-        # sp.data = input
-        # sp.save()
-    # return HttpResponse()
 
-    
+        
+
+#load function use for loading spreadsheets from the user profile page        
 def load(request):
     if request.is_ajax():
         id=request.POST['fileid']#get the id of requested file
@@ -91,7 +68,8 @@ def load(request):
         return HttpResponse(s.data)
     else:
         return HttpResponseBadRequest()
-        
+
+#loads and saves a blank spreadsheet file with the name Untitled        
 def new(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
@@ -104,40 +82,55 @@ def new(request):
     #add an entry in current
     #current['Untitled']=[[profile,{}]
     return redirect('/spreadsheet?' + smart_str(s.owner)+ '&' + smart_str(s.pk))
-    
+
+#deletes the spreadsheet - user must be owner    
 def delete(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
     #delete the spreadsheet
-    id=request.POST['fileid'] #get fileid
-    profile = request.user.get_profile()
-    s=Spreadsheet.objects.get(pk=id)
-    if s.owner==profile:
-        s.delete()
+    id=request.POST['fileid'] #pk of spreadsheet
+    profile = request.user.get_profile()#get current user
+    s=Spreadsheet.objects.get(pk=id)#get existing spreadsheet
+    if s.owner==profile: #if user is owner - allow delete
+        s.delete() #delete
         return HttpResponse("deleted")
     return HttpResponse("error")
 
+#rename the spreadsheet - user must be owner
 def rename(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
     #rename the spreadsheet
-    id=request.POST['fileid']
-    print id
-    print request.POST
-    newname=request.POST['newname']
-    print newname
-    s=Spreadsheet.objects.get(pk=id)
-    print s
-    print s.owner
-    profile = request.user.get_profile()
-    print profile
-    if s.owner==profile:
+    id=request.POST['fileid'] #pk of spreadsheet
+    newname=request.POST['newname'] #new name for spreadsheet
+    s=Spreadsheet.objects.get(pk=id) #fetch existing spreadsheet obj
+    profile = request.user.get_profile() #get current user
+    if s.owner==profile: #if user is owner - allow rename
+        #rename and save
         s.file_name=newname
         s.save()
         return HttpResponse("name is" + s.file_name)
     return HttpResponse("error")
+
+#change the spreadsheet settings - public bool, view list, allowed users list
+def publicbool(request):
+    if not request.user.is_authenticated():
+        return render_to_response('welcome.html', {'form': AuthenticationForm()}, context_instance=RequestContext(request))
+    id = request.POST['fileid'] #pk of spreadsheet
+    bval = request.POST['publicbool'] #new val for public bool
+    view_only = request.POST['viewlist'] #new val for view only users
+    allowed = request.POST['allowedlist'] #new val for allowed users
+    s= Spreadsheet.objects.get(pk=id) #fetch existing spreadsheet obj
+    profile = request.user.get_profile() # get current user
+    if s.owner==profile: #if user is owner - allow changes
+        s.public=bval
+        s.view_only_users = view_only
+        s.allowed_users=allowed
+        s.save()
+        return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
+    return HttpResponse("error")
     
-      
+#loads the spreadsheet page      
 def spreadsheet(request):
     if not request.user.is_authenticated():
         return render_to_response('welcome.html',{'form':AuthenticationForm()}, context_instance=RequestContext(request))

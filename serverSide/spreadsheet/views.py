@@ -124,8 +124,8 @@ def changesettings(request):
     profile = request.user.get_profile() # get current user
     if s.owner==profile: #if user is owner - allow changes
         s.public=bval
-        s.view_only_users = view_only
-        s.allowed_users=allowed
+        #s.view_only_users = view_only
+        #s.allowed_users=allowed
         s.save()
         return HttpResponse("public: " + bval + " view only: " + view_only + " allowed: " + allowed)
     return HttpResponse("error")
@@ -136,9 +136,9 @@ def returnsettings(request):
     s=Spreadsheet.objects.get(pk=id) #fetch spreadsheet
     print(s)
     publicbool = s.public
-    viewlist = s.view_only_users
+    viewlist = s.view_only_users.all()
     print viewlist
-    allowedlist=s.allowed_users
+    allowedlist=s.allowed_users.all()
     print allowedlist
     msg = json.dumps({"publicbool":publicbool, "viewlist":viewlist, "allowedlist":allowedlist})
     print msg

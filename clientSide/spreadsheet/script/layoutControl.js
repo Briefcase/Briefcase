@@ -19,8 +19,8 @@ var dynamicCellWidth  = new Array();
 var startSelectionX = 1;
 var startSelectionY = 1;
 
-var endSelectionX = 0;
-var endSelectionY = 0;
+var endSelectionX = 1;
+var endSelectionY = 1;
 
 var tempstartX = 0;
 var tempstartY = 0;

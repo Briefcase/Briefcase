@@ -10,15 +10,10 @@
       }
     </style>
     <script>
-      onload = function () {
+      onresize =onload = function () {
         var pageHeight = window.innerHeight;
         var divHeight = document.getElementById("title").offsetHeight;
-        var remainingHeight = pageHeight - divHeight;
-        var offset = remainingHeight/2;
-        document.getElementById("title").style.marginTop=offset;
-      }
-      onresize = function () {
-        onload();
+        document.getElementById("title").style.marginTop=(pageHeight-divHeight)/2;
       }
     </script>
   </head>

@@ -2,16 +2,26 @@
   <head>
     <link rel="stylesheet" type="text/css" href="loginstyle.css"  />
     <link rel="stylesheet" type="text/css"  href="{{STATIC_URL}}accounts/loginstyle.css"  />
+    <script>
+      onresize =onload = function () {
+        var pageHeight = window.innerHeight;
+        var divHeight = document.getElementById("title").offsetHeight;
+        document.getElementById("title").style.marginTop=(pageHeight-divHeight)/2;
+      }
+    </script>
   </head>
-  
-<div class="title">
-<form action = "" method="post">{% csrf_token %}
-{{form.as_p}}
-<input type = "submit" value = "Submit" />
-</form>
-<p></p>
-<p>Already have an account?</p>
+  <body>
+    <div class="title" id="title">
+      <form action = "" method="post">{% csrf_token %}
+        <div style="text-align: right; margin-right: 20px">
+        {{form.as_p}}
+        </div>  
+        <input type = "submit" value = "Submit" />
+      </form>
+      <p></p>
+      <p>Already have an account?</p>
 
-<input type=button onClick="location.href='../'" value="Log In">
-</div>
+      <input type=button onClick="location.href='../'" value="Log In">
+    </div>
+  </body>
 </html>

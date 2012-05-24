@@ -12,7 +12,7 @@ function sendChangedata(fileid,ispublic,adduserviewlist,removeuserviewlist,addus
   ispublic = "False";
   adduserviewlist = JSON.stringify([]);
   removeuserviewlist = JSON.stringify([]);
-  adduserallowedlist = JSON.stringify([]);
+  adduserallowedlist = JSON.stringify(["a"]);
   removeuserallowedlist = JSON.stringify([]);
   //
   

@@ -1,0 +1,20 @@
+body {
+  /*background: #F78454;*/
+  background: #999;
+  margin: 0px;
+  padding: 0px;
+}
+div.title {
+  text-align: center;
+  border-radius: 40px;
+  font-family:arial;
+  border: 10px solid #F78454;
+  background: #EEE;
+  padding: 10px; 
+  padding-bottom: 45px;
+  width: 400px;
+  margin-left: auto;
+  margin-right:auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

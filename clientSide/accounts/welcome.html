@@ -1,43 +1,40 @@
-<html>
+<html>	
   <head>
-    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css' />-->
+    <link rel="stylesheet" type="text/css" href="loginstyle.css"  />
+    <link rel="stylesheet" type="text/css"  href="{{STATIC_URL}}accounts/loginstyle.css"  />
     <style type="text/css">
-      body {
-        /*background: #F78454;*/
-        background: #999;
-      }
-      div.title {
-        text-align: center;
-        border-radius: 40px;
-        font-family:arial;
-        border: 10px solid #F78454;
-        /*border: 10px solid #CAA162;*/
-        /*background-color:#CAA162;*/
-        background: #EEE;
-        position: absolute;
-        top:50%;
-        left: 50%;
-        margin: -210px;
-        padding: 10px; 
-        width: 400px;
-        height: 400px;
-      }
+      
       h1 {
         font-family: 'Mate SC', serif;
       }
     </style>
+    <script>
+      onload = function () {
+        var pageHeight = window.innerHeight;
+        var divHeight = document.getElementById("title").offsetHeight;
+        var remainingHeight = pageHeight - divHeight;
+        var offset = remainingHeight/2;
+        document.getElementById("title").style.marginTop=offset;
+      }
+      onresize = function () {
+        onload();
+      }
+    </script>
   </head>
-<div class="title">
-<h1>WELCOME</h1>
-Sign in:
-{% if showerror %}
-    <p>Incorrect username or password</p>
-{%endif %}
-<form action = "" method="post">{% csrf_token %}
-{{form.as_p}}
-<input type = "submit" value = "Log In" />
-</form>
-
-or
-<input type=button onClick="location.href='accounts/register'" value="Register">
-</div>
+  <body>
+    <div class="title" id="title">
+      <h1>WELCOME</h1>
+      Sign in:
+      {% if showerror %}
+        <p>Incorrect username or password</p>
+      {%endif %}
+      <form action = "" method="post">{% csrf_token %}
+        {{form.as_p}}
+        <input type = "submit" value = "Log In" />
+      </form>
+        or
+      <input type=button onClick="location.href='accounts/register'" value="Register">
+    </div>
+  </body>
+</html>

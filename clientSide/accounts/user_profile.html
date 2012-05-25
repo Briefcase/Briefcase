@@ -10,12 +10,12 @@
       div.title {
         font-family:arial;
       }
-      a.item {
-        clear: left;
-        width: 80%;
+      div.item {
+        width: 100%;
         background: #FFF;
 
         padding: 10px;
+        
         border-top: 1px solid #F78454;
         border-bottom: 1px solid #F78454;
         border-left: 2px solid #F78454;
@@ -23,30 +23,50 @@
         
         text-decoration: none;
         color: #000;
-        float: left;
+        
+        overflow: hidden;
+        border-radius: 10px;
       }
-      a.item:hover {
+      div.item:hover {
         background: #FFFF32;
         
       }
       div.bbox {
-        float:left;
-        padding: 10px;
-        border-top: 1px solid #F78454;
-        border-bottom: 1px solid #F78454;
-        border-right: 2px solid #F78454;
-        width: 5%;
+        float:right;
+        border: 2px solid #F78454;
         text-align:center;
-        cursor: pointer
+        vertical-align:middle;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        margin-left: 5px;
+        border-radius: 5px;
       }
       div.bbox:hover {
         background-color: #F80;
       }
       div.surroundingBox {
+        /*
         border-top: 1px solid #F78454;
         border-bottom: 1px solid #F78454;
-        overflow:hidden;
-        position:relative;
+        border-radius: 10px;
+        */
+      }
+      div.menubar {
+        float:left;
+        background: #000;
+        overflow: hidden;
+      }
+      div.filelist {
+        float:left;
+      }
+      div.filename {
+        float:left;
+        line-height:22px;
+      }
+      div.filename:hover {
+        color: blue;
+        cursor: pointer;
       }
     </style>
     <script>
@@ -59,36 +79,41 @@
       function deleteFile(variableMap) {
         sendpost('/spreadsheet/delete', variableMap, function () { location.reload(true); });
       }
+      
+      onload = function () {
+      
+      }
     </script>
   </head>
   <body>
     <div class = "title">
     <h1> Hi {{current_user.username}} </h1>
-    {% if user_spreadsheet_list %}
-      <div class="surroundingBox">
-        {% for s in user_spreadsheet_list %}
-            <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a>
-            <div class="bbox"
-                onClick="rename({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
-            <div class="bbox"
-                onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-    <div style="clear:both">
-      View Only:
-      {% if user_view_list %}
-        <br />
-        {% for s in user_view_list %}
-          <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
-        {% endfor %}
-      {% endif %}
-    </div>
-    <div style="clear:both">
-      <br />
+     <div class="menubar" style="clear:both">
       <input type=button onClick="location.href='/spreadsheet/new'" value="New Spreadsheet"><br />
       <input type=button onClick="location.href='/codedoc/new'" value="New Code Document" active="false"> <br />
       <input type=button onClick="location.href='/accounts/logout'" value="Logout">
+    </div>
+    <div class="filelist"> 
+      {% if user_spreadsheet_list %}
+        <div class="surroundingBox">
+          {% for s in user_spreadsheet_list %}
+              <div class="item" >
+                <div class="filename" onclick="location.href='/spreadsheet?{{s.owner}}&{{s.pk}}'"> {{s.file_name}} - {{s.owner}}</div>
+                <div class="bbox" onClick="renameFile({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
+                <div class="bbox" onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
+              </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div style="clear:both">
+        View Only:
+        {% if user_view_list %}
+          <br />
+          {% for s in user_view_list %}
+            <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a> <br/>
+          {% endfor %}
+        {% endif %}
+      </div>
     </div>
   </body>
 </html>

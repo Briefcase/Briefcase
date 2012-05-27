@@ -21,8 +21,13 @@ function redrawFrame() {
 
   // set the height of the application
   var containingFrame = document.getElementById("framecontain");
-  containingFrame.style.height = window.innerHeight - menuHeight - scrollbarHeight + "px";
-  containingFrame.style.width = window.innerWidth - scrollbarWidth + "px";
+  var applicationHeight = window.innerHeight - menuHeight - scrollbarHeight + "px";
+  var applicationWidth = window.innerWidth - scrollbarWidth + "px";
+  containingFrame.style.height = applicationHeight;
+  containingFrame.style.width = applicationWidth;
+  
+  document.getElementById("scrollVertical").style.width = scrollbarWidth+"px";
+  document.getElementById("scrollVertical").style.height = applicationHeight;
   
   /*
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight - labelCellHeight + "px";  

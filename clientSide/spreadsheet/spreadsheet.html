@@ -77,10 +77,18 @@
         font-size: 12px;
         font-weight: 500;
       }
+      div.scrollVertical {
+        background: green;
+        float:right;
+        overflow: scroll;
+      }
+      div.scrollHorizontal {
+        color: blue;
+      }
     </style>
     
   </head>
-  <body style="margin:0;padding:0;overflow:hidden" id="body">
+  <body style="margin:0;padding:0; overflow: hidden;" id="body">
     
       <!-- Menu -->
       <!-- Menu Begin -->
@@ -100,17 +108,18 @@
         <div class="scrollsize" id="scrollsize" style="pointer-events:none;">
         </div>
       </div>-->
-      
+    <div class="scrollVertical" id="scrollVertical"> <div style="height:200%; width: 1px; background: blue"> </div> </div>
+    <div class="scrollHorizontal" id="scrollHorizontal"> </div>
     <!-- Actual canvas Div for the application -->
-    <div style="width:100%;overflow:hidden;" id="framecontain" class="framecontain">      
+    <div style="width:100%; overflow:hidden" id="framecontain" class="framecontain">
+      
       <div id="applicationDiv">
-        <canvas id="application" name="application" >
+        <canvas id="application" name="application" style="overflow:hidden">
           Im sorry your browser is too outdated to know what this canvas element is <br >
           you should update to the newest version so you can use this program (and keep your computer secure)
         </canvas>
       </div>
-      <div class="scrollVertical" id="scrollVertical"> </div>
-      <div class="scrollHorizontal" id="scrollHorizontal"> </div>
+ 
     </div>
     
     

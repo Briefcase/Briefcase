@@ -2,9 +2,16 @@
   <head>
     <script>
       onload = function () {
-        var outer = document.getElementById("standard1").offsetWidth;
-        var inner = document.getElementById("full1").offsetWidth;
-        alert( outer + ":" + inner );
+        hardcode();
+      }
+      function hardcode() {
+        var outer = document.getElementById("standard1");
+        var inner = document.getElementById("full1");
+        outer.style.display = 'block';
+        var height = outer.offsetHeight - outer.clientHeight;
+        var width = outer.offsetWidth - outer.clientWidth;
+        outer.style.display = 'none';
+        alert( height + ":" + width );
       }
     </script>
     <style>
@@ -15,14 +22,16 @@
       
       .full {
         width: 100%;
-        height: 100%;
+        /*height: 100%;*/
       }
     </style>
   </head>
   <body>
+    <!-- used for getting scrollbar heights and widths -->
     <div class="standard" style="overflow:scroll" id="standard1">
       <div class="full" id="full1">
       </div>
     </div>
+    blah de blah de blah
   </body>
 </html>

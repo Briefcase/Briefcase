@@ -34,9 +34,6 @@ var tabReturnColumn = 1;
 |
 \******************************************************************************/
 $(document).ready( function () {
-  alert(document.getElementById('scrollbar').innerWidth);
-  alert(document.getElementById('scrollbar').offsetWidth);
-  alert(document.getElementById('scrollbar').innerWidth);
   // AJAX call to load the spreadsheet data
   try{load2()}catch(e){}
   
@@ -462,4 +459,18 @@ function toLetterLabel(number) {
   }
   output = String.fromCharCode(65+number%26) + output;
   return output;
+}
+/************************** GET SCROLLBAR DIMENTIONS **************************\
+| This function gets the width of a vertical scrollbar and the height of a     |
+| horizontal scrollbar and returns them in an array (width, height). It is     |
+| used for spacing the scrollbar at the edge of the screen                     |
+\******************************************************************************/
+function getScrollBarDimentions () {
+  var bar = document.createElement('div');
+  bar.style.overflow = "scroll";
+  document.body.appendChild(bar);
+  var width = bar.offsetWidth - bar.clientWidth;
+  var height = bar.offsetHeight - bar.clientHeight;
+  document.body.removeChild(bar);
+  return new Array (width, height);
 }

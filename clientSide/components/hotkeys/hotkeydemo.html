@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <script type="text/javascript" src="hotkeys.js"> </script>
+    <script>
+      onload = function(e) {
+        var key = new KeyObject("Ctrl+Alt+B");
+      }
+      onkeydown = onkeyup = function (e) {
+        var key = new KeyObject (e);
+        e.preventDefault();
+        document.body.innerHTML = key.string();
+      }
+      
+      
+      var shiftKeys = "~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?";
+      var unshiftKeys="`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./";
+      var specialKeys= {"Tab":
+                        "F1":
+                        "F2":
+                        "F3":
+                        "F4":
+                        "F5":
+                        "F6":
+                        "F7":
+                        "F8":
+                        "F9":
+                        "F10":
+                        "F11":
+                        "F12":
+                        "Enter":
+                        "Return":
+                        "Esc":
+                        "PrintScreen":
+                        "ScreenLock":
+                        "Pause":
+                        "Insert":
+                        "Delete":
+                        "Home":
+                        "End":
+                        "PageUp":
+                        "PageDown":
+                       }
+
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

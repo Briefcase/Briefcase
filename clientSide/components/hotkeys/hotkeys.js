@@ -53,6 +53,43 @@
 var _HOT_KEY_UP_LIST_ = new Array();
 var _HOT_KEY_DOWN_LIST_ = new Array();
 
+
+
+var KeyObject = function (value) {
+  this.shiftKey = false;
+  this.metaKey = false;
+  this.altKey = false;
+  this.ctrlKey = false;
+  this.keyCode = 0;
+  this.charCode = 0;
+  this.string = function () {
+    var output = "";
+    var char = String.fromCharCode(this.keyCode)+"("+this.keyCode+")"; 
+    if (this.shiftKey) {output += "Shift+";}
+    if (this.ctrlKey) {output += "Ctrl+";}
+    if (this.altKey) {output += "Alt+";}
+    if (this.metaKey) {output += "Meta+";}
+    output += char;
+    return output;
+  }
+  
+  // parse the input value
+  if (typeof(value) == 'string') {
+    alert("stringman!");
+  }
+  else if (value.toString() == '[object KeyboardEvent]') {
+    this.charCode = value.charCode;
+    this.keyCode = value.keyCode;
+    this.altKey = value.altKey;
+    this.ctrlKey = value.ctrlKey;
+    this.shiftKey = value.shiftKey;
+  }
+  else {
+    console.log("Error, " + value.toString() + " is not a valid keytype");
+  }
+}
+// Shift + Ctrl + Alt + Mod + Del
+
 function addKeyDown(hotkey,functioncall) {
   
 }

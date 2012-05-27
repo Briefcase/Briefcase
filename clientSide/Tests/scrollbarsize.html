@@ -2,36 +2,16 @@
   <head>
     <script>
       onload = function () {
-        hardcode();
-      }
-      function hardcode() {
-        var outer = document.getElementById("standard1");
-        var inner = document.getElementById("full1");
-        outer.style.display = 'block';
-        var height = outer.offsetHeight - outer.clientHeight;
-        var width = outer.offsetWidth - outer.clientWidth;
-        outer.style.display = 'none';
-        alert( height + ":" + width );
+        var bar = document.createElement('div');
+        bar.style.overflow = "scroll";
+        document.body.appendChild(bar);
+        var width = bar.offsetWidth - bar.clientWidth;
+        var height = bar.offsetHeight - bar.clientHeight;
+        document.body.removeChild(bar);
+        alert (width + ":" + height);
       }
     </script>
-    <style>
-      .standard {
-        width: 100px;
-        height: 100px;
-      }
-      
-      .full {
-        width: 100%;
-        /*height: 100%;*/
-      }
-    </style>
   </head>
   <body>
-    <!-- used for getting scrollbar heights and widths -->
-    <div class="standard" style="overflow:scroll" id="standard1">
-      <div class="full" id="full1">
-      </div>
-    </div>
-    blah de blah de blah
   </body>
 </html>

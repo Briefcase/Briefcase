@@ -34,6 +34,9 @@ var tabReturnColumn = 1;
 |
 \******************************************************************************/
 $(document).ready( function () {
+  alert(document.getElementById('scrollbar').innerWidth);
+  alert(document.getElementById('scrollbar').offsetWidth);
+  alert(document.getElementById('scrollbar').innerWidth);
   // AJAX call to load the spreadsheet data
   try{load2()}catch(e){}
   
@@ -44,6 +47,7 @@ $(document).ready( function () {
   // mouse events
   document.getElementById('framecontain').onmousedown = mousePress;
   document.getElementById('framecontain').onmouseup = mouseRelease;
+  
   
   // general keyboard events (shortcut keys, etc.)
   document.onkeypress = keypress;

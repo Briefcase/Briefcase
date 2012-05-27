@@ -69,6 +69,7 @@
       }
       div.filelist {
         float:right;
+        overflow: auto;
       }
       div.filename {
         float:left;
@@ -107,6 +108,11 @@
         var menuWidth = document.getElementById("sideMenu").offsetWidth;
         var windowWidth = window.innerWidth;
         document.getElementById("filelist").style.width = windowWidth - menuWidth -20;
+        var fileListOffsetTop = document.getElementById("filelist").offsetTop;
+        var menuOffsetTop = document.getElementById("sideMenu").offsetTop;
+        var pageHeight = window.innerHeight;
+        document.getElementById("filelist").style.height=pageHeight-fileListOffsetTop;
+        //document.getElementById("sideMenu").style.height=pageHeight-menuOffsetTop - 25;
         /* Animated */
         
       }
@@ -122,7 +128,7 @@
       <div class="createFileButton" onclick="location.href='/codedoc/new'">
         New Code Document
       </div>
-      <div class="createFileButton" onClick="location.href='/accounts/logout'">
+      <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/accounts/logout'">
         Logout
       </div>
     </div>

@@ -30,7 +30,8 @@
         
       }
       div.documentItem:hover {
-        background: #FFFF32;
+        /*background: #FFFF32;*/
+        background: #FFA;
         
       }
       div.filebuttonbox {
@@ -61,7 +62,10 @@
         width: 200px;
         padding: 10px;
         border: 2px solid black;
-        border-radius: 10px;
+        
+        padding-left: 0px;
+        border-left: 0px;
+        border-radius: 0px 10px 10px 0px;
       }
       div.filelist {
         float:right;
@@ -73,6 +77,18 @@
       div.filename:hover {
         color: blue;
         cursor: pointer;
+      }
+      div.createFileButton {
+        /*border: 1px solid black;*/
+        cursor: pointer;
+        padding: 5px;
+        padding-left: 10px;
+        margin-bottom: 5px;
+        border-radius: 0px 5px 5px 0px;
+        background: #BBB;
+      }
+      div.createFileButton:hover {
+        background: #F80;
       }
     </style>
     <script>
@@ -100,9 +116,15 @@
     <div class = "title">
     <h1> Hi {{current_user.username}} </h1>
      <div class="menubar" id="sideMenu" style="clear:both">
-      <input type=button onClick="location.href='/spreadsheet/new'" value="New Spreadsheet"><br>
-      <input type=button onClick="location.href='/codedoc/new'" value="New Code Document" active="false"> <br>
-      <input type=button onClick="location.href='/accounts/logout'" value="Logout">
+      <div class="createFileButton" onClick="location.href='/spreadsheet/new'">
+        New Spreadsheet
+      </div>
+      <div class="createFileButton" onclick="location.href='/codedoc/new'">
+        New Code Document
+      </div>
+      <div class="createFileButton" onClick="location.href='/accounts/logout'">
+        Logout
+      </div>
     </div>
     <div class="filelist" id="filelist"> 
       {% if user_spreadsheet_list %}

@@ -13,9 +13,16 @@ function redrawFrame() {
 
   // get the height offset of the application window / the height of the menu bar
   var menuHeight = document.getElementById("applicationDiv").offsetTop;
+  
+  // get the height and width of scrollbars
+  var scrollbarDimentions = getScrollBarDimentions();
+  var scrollbarWidth = scrollbarDimentions[0];
+  var scrollbarHeight = scrollbarDimentions[1];
 
-  document.getElementById("framecontain").style.height = window.innerHeight - menuHeight + "px";
-  document.getElementById("framecontain").style.width = window.innerWidth + "px";
+  // set the height of the application
+  var containingFrame = document.getElementById("framecontain");
+  containingFrame.style.height = window.innerHeight - menuHeight - scrollbarHeight + "px";
+  containingFrame.style.width = window.innerWidth - scrollbarWidth + "px";
   
   /*
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight - labelCellHeight + "px";  

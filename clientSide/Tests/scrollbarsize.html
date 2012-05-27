@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script>
+      onload = function () {
+        var outer = document.getElementById("standard1").offsetWidth;
+        var inner = document.getElementById("full1").offsetWidth;
+        alert( outer + ":" + inner );
+      }
+    </script>
+    <style>
+      .standard {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .full {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="standard" style="overflow:scroll" id="standard1">
+      <div class="full" id="full1">
+      </div>
+    </div>
+  </body>
+</html>

@@ -17,13 +17,14 @@ function redrawFrame() {
   document.getElementById("framecontain").style.height = window.innerHeight - menuHeight + "px";
   document.getElementById("framecontain").style.width = window.innerWidth + "px";
   
+  /*
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight - labelCellHeight + "px";  
   document.getElementById("scrollbar").style.width = window.innerWidth - labelCellWidth + "px";
   document.getElementById("scrollbar").style.left = labelCellWidth + "px";
   document.getElementById("scrollbar").style.top = labelCellHeight + menuHeight + "px";
   
   document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 200+ "px";
-  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";
+  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";*/
   
   c_canvas.height = window.innerHeight;
   c_canvas.width = window.innerWidth;
@@ -74,7 +75,7 @@ function redrawFrame() {
     maxy = getCellOffsetTop(big) + getCellHeight(big);
   }
   
-    context.fillStyle = "rgb(250,255,250)";
+  context.fillStyle = "rgb(250,255,250)";
   context.fillRect (minx,miny, maxx-minx, maxy-miny);
   
   // hilight active cell

@@ -51,7 +51,7 @@ $(document).ready( function () {
   
   
   // scrolling 
-  document.getElementById("scrollbar").onscroll = resizeWindow;
+  //document.getElementById("scrollbar").onscroll = resizeWindow;
   
   
   //init input box
@@ -434,7 +434,8 @@ function findCellFromX (pixelX) {
 /**************************** GET SCROLL X POSITION ***************************\
 | reading the scroll bar this returns the leftmost cell position
 \******************************************************************************/
-function getScrollXCell () {  
+function getScrollXCell () { 
+  return 1; 
   var scrollX = document.getElementById("scrollbar").scrollLeft;
   return ~~(scrollX / defaultCellWidth)+1;
 }
@@ -442,6 +443,7 @@ function getScrollXCell () {
 | reading the scroll bar this returns the topmost cell position
 \******************************************************************************/
 function getScrollYCell () {
+  return 1;
   var scrollY = document.getElementById("scrollbar").scrollTop;
   return ~~(scrollY / defaultCellHeight)+1; 
 }

@@ -94,8 +94,10 @@
       <!-- Menu Begin -->
       <div class="TitleMenu" id="TitleMenu"></div>
       <!-- Menu End -->
-      <div class='functionIcon' style="float:left; margin-left:5px; padding-right: 5px; margin-right:5px; border-right:1px solid black; height: 25px">Fx</div>
-      <input type="text" id="functionbox" oninput="syncInputBox()" style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
+      <div style="width:101%">
+        <div class='functionIcon' style="float:left; margin-left:5px; padding-right: 5px; margin-right:5px; border-right:1px solid black; height: 25px">Fx</div>
+        <input type="text" id="functionbox" oninput="syncInputBox()" style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
+      </div>
     </div>
   
   
@@ -111,8 +113,19 @@
     <div class="scrollVertical" id="scrollVertical"> <div style="height:200%; width: 1px; background: blue"> </div> </div>
     <div class="scrollHorizontal" id="scrollHorizontal"> </div>
     <!-- Actual canvas Div for the application -->
-    <div style="width:100%; overflow:hidden" id="framecontain" class="framecontain">
-      
+    <div style="width:100%; overflow:hidden; position: relative;" id="framecontain" class="framecontain">
+
+      <!-- Input box -->
+      <div class="datain" id="datain">
+        <div class="cornerbox" id="inputCornerBox"> </div>
+        <div style="width: 100%; height: 100%; background-color: #F00; border: none; overflow: hidden;">
+          <!--<input type="text" oninput="syncFunctionBar()" style="width:100%; height:100%; border:none;" id="inputbox"/>-->
+          <textarea class="inputbox" oninput="syncFunctionBar()" id="inputbox"/> </textarea>
+        </div>
+      </div>
+
+
+
       <div id="applicationDiv">
         <canvas id="application" name="application" style="overflow:hidden">
           Im sorry your browser is too outdated to know what this canvas element is <br >
@@ -124,14 +137,6 @@
     
     
     
-    <!-- Input box -->
-    <div class="datain" id="datain">
-      <div class="cornerbox" id="inputCornerBox"> </div>
-      <div style="width: 100%; height: 100%; background-color: #F00; border: none; overflow: hidden;">
-        <!--<input type="text" oninput="syncFunctionBar()" style="width:100%; height:100%; border:none;" id="inputbox"/>-->
-        <textarea class="inputbox" oninput="syncFunctionBar()" id="inputbox"/> </textarea>
-      </div>
-    </div>
     
     
     

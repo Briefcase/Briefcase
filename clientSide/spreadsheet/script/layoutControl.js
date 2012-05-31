@@ -42,8 +42,10 @@ $(document).ready( function () {
   window.onresize = resizeWindow;
   
   // mouse events
-  document.getElementById('framecontain').onmousedown = mousePress;
-  document.getElementById('framecontain').onmouseup = mouseRelease;
+  onmousedown = mousePress;
+  onmouseup = mouseRelease;
+  /*document.getElementById('framecontain').onmousedown = mousePress;
+  document.getElementById('framecontain').onmouseup = mouseRelease;*/
   
   
   // general keyboard events (shortcut keys, etc.)
@@ -267,13 +269,15 @@ function mousePress (event) {
   var menuHeight = document.getElementById("framecontain").offsetTop;
   tempstartY = findCellFromY(event.pageY-menuHeight) ;
   tempstartX = findCellFromX(event.pageX);
-  document.getElementById('framecontain').onmousemove = ondrag;
+  //document.getElementById('framecontain').onmousemove = ondrag;
+  onmousemove = ondrag;
 }
 /********************************** MOUSE UP **********************************\
 |
 \******************************************************************************/
 function mouseRelease (event) {
-  document.getElementById('framecontain').onmousemove = null;
+  //document.getElementById('framecontain').onmousemove = null;
+  onmousemove = null;
   // nothing yet
   // for now assume a non drag
   var menuHeight = document.getElementById("framecontain").offsetTop;

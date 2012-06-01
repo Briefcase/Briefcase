@@ -172,7 +172,8 @@ function moveInputBox (xcell,ycell) {
   var pixelx = getCellOffsetLeft(xcell,getScrollXCell());
   var pixely = getCellOffsetTop(ycell,getScrollYCell());
   //get the 
-  var menuHeight = document.getElementById("framecontain").offsetTop;
+  //var menuHeight = document.getElementById("framecontain").offsetTop;
+  var menuHeight = 0; // set menu height to 0 because the data-in box was moved to inside the spreadsheet
   //move the cell
   document.getElementById("datain").style.top  = pixely+menuHeight-0.5+"px";
   document.getElementById("datain").style.left = pixelx - 0.5 +"px";

@@ -17,8 +17,8 @@ function redrawFrame() {
   
   // get the height and width of scrollbars
   var scrollbarDimentions = getScrollBarDimentions();
-  var scrollbarWidth = scrollbarDimentions[0];
-  var scrollbarHeight = scrollbarDimentions[1];
+  scrollbarWidth = scrollbarDimentions[0];
+  scrollbarHeight = scrollbarDimentions[1];
 
   // set the height of the application
   var containingFrame = document.getElementById("applicationDiv");

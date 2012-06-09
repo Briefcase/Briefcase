@@ -28,6 +28,10 @@ var tempstartY = 0;
 // When using tab remember which column you started at when you hit enter
 var tabReturnColumn = 1;
 
+
+var scrollbarWidth;
+var scrollbarHeight;
+
 // function focus or bar focus, can focus be determined from the object, or can we use oninput instead of a time delay to sync the two bars (i think oninput will work)
 
 /************************** INITILIZE EVENT FUNCTIONS *************************\
@@ -42,10 +46,10 @@ $(document).ready( function () {
   window.onresize = resizeWindow;
   
   // mouse events
-  onmousedown = mousePress;
+  /*onmousedown = mousePress;*/
   onmouseup = mouseRelease;
-  /*document.getElementById('framecontain').onmousedown = mousePress;
-  document.getElementById('framecontain').onmouseup = mouseRelease;*/
+  document.getElementById('framecontain').onmousedown = mousePress;
+  /*document.getElementById('framecontain').onmouseup = mouseRelease;*/
   
   
   // general keyboard events (shortcut keys, etc.)
@@ -53,7 +57,7 @@ $(document).ready( function () {
   
   
   // scrolling 
-  //document.getElementById("scrollbar").onscroll = resizeWindow;
+  document.getElementById("scrollbar").onscroll = resizeWindow;
   
   
   //init input box
@@ -268,6 +272,12 @@ function syncInputBox() {
 \******************************************************************************/
 function mousePress (event) {
   var menuHeight = document.getElementById("framecontain").offsetTop;
+  var mouse_x = event.pageX;
+  var mouse_y = event.pageY;
+  
+  if (mouse_x > window.innerWidth - scrollbarWidth) return;
+  if (mouse_y > window.innerHeight - scrollbarHeight) return;
+  
   tempstartY = findCellFromY(event.pageY-menuHeight) ;
   tempstartX = findCellFromX(event.pageX);
   //document.getElementById('framecontain').onmousemove = ondrag;
@@ -278,6 +288,7 @@ function mousePress (event) {
 \******************************************************************************/
 function mouseRelease (event) {
   //document.getElementById('framecontain').onmousemove = null;
+  if (onmousemove == null) return;
   onmousemove = null;
   // nothing yet
   // for now assume a non drag
@@ -440,7 +451,6 @@ function findCellFromX (pixelX) {
 | reading the scroll bar this returns the leftmost cell position
 \******************************************************************************/
 function getScrollXCell () { 
-  return 1; 
   var scrollX = document.getElementById("scrollbar").scrollLeft;
   return ~~(scrollX / defaultCellWidth)+1;
 }
@@ -448,7 +458,6 @@ function getScrollXCell () {
 | reading the scroll bar this returns the topmost cell position
 \******************************************************************************/
 function getScrollYCell () {
-  return 1;
   var scrollY = document.getElementById("scrollbar").scrollTop;
   return ~~(scrollY / defaultCellHeight)+1; 
 }

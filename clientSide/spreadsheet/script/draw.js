@@ -40,7 +40,7 @@ function redrawFrame() {
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";
   /**/
   
-  c_canvas.height = window.innerHeight;
+  c_canvas.height = window.innerHeight-menuHeight;
   c_canvas.width = window.innerWidth;
 
   
@@ -185,4 +185,9 @@ function redrawFrame() {
       }
     }
   }
+  
+  // Draw boxes to show the scrollbars impact more (just astetics)
+  context.fillStyle = "rgb(100,100,100)";
+  context.fillRect (c_canvas.width-scrollbarWidth+0.5,0.5,scrollbarWidth,c_canvas.height);
+  context.fillRect (0,c_canvas.height-scrollbarHeight+0.5,labelCellWidth,scrollbarHeight);
 }

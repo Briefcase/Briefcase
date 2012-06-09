@@ -12,7 +12,8 @@ function redrawFrame() {
   var c_canvas = document.getElementById("application");
 
   // get the height offset of the application window / the height of the menu bar
-  var menuHeight = document.getElementById("applicationDiv").offsetTop;
+  var menuHeight = document.getElementById("framecontain").offsetTop;
+  console.log(menuHeight);
   
   // get the height and width of scrollbars
   var scrollbarDimentions = getScrollBarDimentions();
@@ -25,18 +26,19 @@ function redrawFrame() {
   var applicationWidth = window.innerWidth - scrollbarWidth + "px";
   containingFrame.style.height = applicationHeight;
   containingFrame.style.width = applicationWidth;
-  
+  /* Version B
   document.getElementById("scrollVertical").style.width = scrollbarWidth+"px";
   document.getElementById("scrollVertical").style.height = applicationHeight;
-  
-  /*
+  */
+  /* Version A */
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight - labelCellHeight + "px";  
   document.getElementById("scrollbar").style.width = window.innerWidth - labelCellWidth + "px";
   document.getElementById("scrollbar").style.left = labelCellWidth + "px";
   document.getElementById("scrollbar").style.top = labelCellHeight + menuHeight + "px";
   
   document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 200+ "px";
-  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";*/
+  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";
+  /**/
   
   c_canvas.height = window.innerHeight;
   c_canvas.width = window.innerWidth;

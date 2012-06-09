@@ -34,7 +34,7 @@ function redrawFrame() {
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight - labelCellHeight + "px";  
   document.getElementById("scrollbar").style.width = window.innerWidth - labelCellWidth + "px";
   document.getElementById("scrollbar").style.left = labelCellWidth + "px";
-  document.getElementById("scrollbar").style.top = labelCellHeight + menuHeight + "px";
+  document.getElementById("scrollbar").style.top = labelCellHeight + "px";
   
   document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 200+ "px";
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";

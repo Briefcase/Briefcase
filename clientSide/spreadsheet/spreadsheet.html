@@ -105,16 +105,18 @@
       
   
   
-    <!-- Scrollbar div for movement    OLD 
+    <!-- new scrollbar stuff (does not work perfectly)
+    <div class="scrollVertical" id="scrollVertical"> <div style="height:200%; width: 1px; background: blue"> </div> </div>
+    <div class="scrollHorizontal" id="scrollHorizontal"> </div>
+    -->
+    
+    <!-- Actual canvas Div for the application -->
+    <div style="width:100%; overflow:hidden; position: relative;" id="framecontain" class="framecontain">
+      <!-- Scrollbars --> 
       <div class="scrollbar" id="scrollbar" style="display:none">
         <div class="scrollsize" id="scrollsize" style="pointer-events:none;">
         </div>
-      </div>-->
-    <div class="scrollVertical" id="scrollVertical"> <div style="height:200%; width: 1px; background: blue"> </div> </div>
-    <div class="scrollHorizontal" id="scrollHorizontal"> </div>
-    <!-- Actual canvas Div for the application -->
-    <div style="width:100%; overflow:hidden; position: relative;" id="framecontain" class="framecontain">
-
+      </div>
       <!-- Input box -->
       <div class="datain" id="datain">
         <div class="cornerbox" id="inputCornerBox"> </div>

@@ -21,8 +21,8 @@ function redrawFrame() {
   var scrollbarHeight = scrollbarDimentions[1];
 
   // set the height of the application
-  var containingFrame = document.getElementById("framecontain");
-  var applicationHeight = window.innerHeight - menuHeight - scrollbarHeight + "px";
+  var containingFrame = document.getElementById("applicationDiv");
+  var applicationHeight = window.innerHeight - menuHeight + "px";
   var applicationWidth = window.innerWidth - scrollbarWidth + "px";
   containingFrame.style.height = applicationHeight;
   containingFrame.style.width = applicationWidth;

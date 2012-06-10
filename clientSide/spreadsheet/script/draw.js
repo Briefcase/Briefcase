@@ -14,7 +14,7 @@ function redrawFrame() {
   var selectedCellOutlineColor = "rgb(0,200,0)";
   var scrollbarEdgeColor = "rgb(100,100,100)";
   var textColor = "rgb(0,0,0)";
-  var lineColor = "#ddd";
+  var lineColor = "rgb(224,224,224)";
   
 
   // get the application

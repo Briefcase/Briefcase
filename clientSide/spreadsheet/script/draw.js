@@ -8,6 +8,15 @@
 | function, it is a bit confusing right now in my oppinion                     |
 \******************************************************************************/
 function redrawFrame() {
+  var selectedLabelColor = "rgb(190,190,190)";
+  var unselectedLabelColor = "rgb(240,240,240)";
+  var selectedCellColor = "rgb(250,255,250)";
+  var selectedCellOutlineColor = "rgb(0,200,0)";
+  var scrollbarEdgeColor = "rgb(100,100,100)";
+  var textColor = "rgb(0,0,0)";
+  var lineColor = "#ddd";
+  
+
   // get the application
   var c_canvas = document.getElementById("application");
 
@@ -48,7 +57,7 @@ function redrawFrame() {
   var context = c_canvas.getContext("2d");
 
   // draw the hilights color for the label cells
-  context.fillStyle = "rgb(240,240,240)";  
+  context.fillStyle = unselectedLabelColor;  
   context.fillRect (0, 0, c_canvas.width,labelCellHeight);
   context.fillRect (0, 0, labelCellWidth,c_canvas.height);
  
@@ -89,11 +98,11 @@ function redrawFrame() {
     maxy = getCellOffsetTop(big) + getCellHeight(big);
   }
   
-  context.fillStyle = "rgb(250,255,250)";
+  context.fillStyle = selectedCellColor;
   context.fillRect (minx,miny, maxx-minx, maxy-miny);
   
   // hilight active cell
-  context.fillStyle = "rgb(190,190,190)";
+  context.fillStyle = selectedLabelColor;
   context.fillRect (minx,0,maxx-minx,labelCellHeight);
   context.fillRect (0,miny,labelCellWidth,maxy-miny);
   
@@ -111,7 +120,7 @@ function redrawFrame() {
   context.lineTo(c_canvas.width,labelCellHeight+0.5);
   
   context.font = "12px sans-serif";
-  context.fillStyle = "rgb(0,0,0)";
+  context.fillStyle = textColor;
   //Draw the other Grid lines
   //Vertical lines
   var integerx = getScrollXCell();
@@ -152,11 +161,11 @@ function redrawFrame() {
   }
 
   // Write the changes to the screen
-  context.strokeStyle = "#ddd";
+  context.strokeStyle = lineColor;
   context.stroke();
   
   // draw border around muliple selected cells
-  context.strokeStyle = "rgb(0,200,0)";
+  context.strokeStyle = selectedCellOutlineColor;
   context.strokeRect(minx+0.5,miny+0.5,maxx-minx,maxy-miny); 
   
   // write in all of the datapoints
@@ -187,7 +196,7 @@ function redrawFrame() {
   }
   
   // Draw boxes to show the scrollbars impact more (just astetics)
-  context.fillStyle = "rgb(100,100,100)";
+  context.fillStyle = scrollbarEdgeColor;
   context.fillRect (c_canvas.width-scrollbarWidth+0.5,0.5,scrollbarWidth,c_canvas.height);
   context.fillRect (0,c_canvas.height-scrollbarHeight+0.5,labelCellWidth,scrollbarHeight);
 }

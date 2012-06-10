@@ -22,7 +22,6 @@ function redrawFrame() {
 
   // get the height offset of the application window / the height of the menu bar
   var menuHeight = document.getElementById("framecontain").offsetTop;
-  console.log(menuHeight);
   
   // get the height and width of scrollbars
   var scrollbarDimentions = getScrollBarDimentions();

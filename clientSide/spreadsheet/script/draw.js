@@ -172,6 +172,7 @@ function redrawFrame() {
       //to remove overflow
       var nextCell = data[x+1+','+y];
       
+      // Parse the cell briefly to see how it needs to be displayed
       if (cellValue[0]=='=') {
 	      // if the cell needs to be evaluated
 	      if (nextCell == undefined) context.fillText(eparse(cellValue.substring(1,cellValue.length)), leftTextOffset ,topTextOffset);

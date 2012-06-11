@@ -39,11 +39,7 @@ function redrawFrame() {
   var applicationWidth = window.innerWidth - scrollbarWidth + "px";
   containingFrame.style.height = applicationHeight;
   containingFrame.style.width = applicationWidth;
-  /* Version B
-  document.getElementById("scrollVertical").style.width = scrollbarWidth+"px";
-  document.getElementById("scrollVertical").style.height = applicationHeight;
-  */
-  /* Version A */
+  
   document.getElementById("scrollbar").style.height = window.innerHeight - menuHeight - labelCellHeight + "px";  
   document.getElementById("scrollbar").style.width = window.innerWidth - labelCellWidth + "px";
   document.getElementById("scrollbar").style.left = labelCellWidth + "px";
@@ -51,7 +47,6 @@ function redrawFrame() {
   
   document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 200+ "px";
   document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";
-  /**/
   
   c_canvas.height = window.innerHeight-menuHeight;
   c_canvas.width = window.innerWidth;

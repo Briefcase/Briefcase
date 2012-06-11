@@ -7,16 +7,18 @@
 | This function may need to be re written (again) to provide a more coherient  |
 | function, it is a bit confusing right now in my oppinion                     |
 \******************************************************************************/
+
+var selectedLabelColor = "rgb(190,190,190)";
+var unselectedLabelColor = "rgb(240,240,240)";
+var selectedCellColor = "rgb(250,255,250)";
+var selectedCellOutlineColor = "rgb(0,200,0)";
+var scrollbarEdgeColor = "rgb(100,100,100)";
+var textColor = "rgb(0,0,0)";
+var lineColor = "rgb(224,224,224)";
+
+var labelFont = "12px sans-serif";
+
 function redrawFrame() {
-  var selectedLabelColor = "rgb(190,190,190)";
-  var unselectedLabelColor = "rgb(240,240,240)";
-  var selectedCellColor = "rgb(250,255,250)";
-  var selectedCellOutlineColor = "rgb(0,200,0)";
-  var scrollbarEdgeColor = "rgb(100,100,100)";
-  var textColor = "rgb(0,0,0)";
-  var lineColor = "rgb(224,224,224)";
-  
-  var labelFont = "12px sans-serif";
   
   //////////////////////////////////////////////////////////////////////////////
   // Resizeing

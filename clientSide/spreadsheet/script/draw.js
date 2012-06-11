@@ -16,6 +16,11 @@ function redrawFrame() {
   var textColor = "rgb(0,0,0)";
   var lineColor = "rgb(224,224,224)";
   
+  var labelFont = "12px sans-serif";
+  
+  //////////////////////////////////////////////////////////////////////////////
+  // Resizeing
+  //////////////////////////////////////////////////////////////////////////////
 
   // get the application
   var c_canvas = document.getElementById("application");
@@ -52,6 +57,11 @@ function redrawFrame() {
   c_canvas.width = window.innerWidth;
 
   
+  //////////////////////////////////////////////////////////////////////////////
+  // Drawing
+  //////////////////////////////////////////////////////////////////////////////
+  
+  
   // get the context of the canvas so we can draw on it
   var context = c_canvas.getContext("2d");
 
@@ -60,19 +70,8 @@ function redrawFrame() {
   context.fillRect (0, 0, c_canvas.width,labelCellHeight);
   context.fillRect (0, 0, labelCellWidth,c_canvas.height);
  
-  //draw the hilights for multiple selected cells
-  
-
-  //if (endSelectionX == -1) endSelectionX = startSelectionX;
-  //if (endSelectionY == -1) endSelectionY = startSelectionY;
-  
-  
-  var minx = 50;
-  var maxx = 200;
-  var miny = 50;
-  var maxy = 200;
-  
-  
+  // Draw the backgroundcolor for selected cells
+  var minx, maxx, miny, maxy;
   if (endSelectionX < 0) {
     minx = labelCellWidth;
     maxx = c_canvas.width;
@@ -100,13 +99,12 @@ function redrawFrame() {
   context.fillStyle = selectedCellColor;
   context.fillRect (minx,miny, maxx-minx, maxy-miny);
   
-  // hilight active cell
+  // Hilight Selected Cell Labels
   context.fillStyle = selectedLabelColor;
   context.fillRect (minx,0,maxx-minx,labelCellHeight);
   context.fillRect (0,miny,labelCellWidth,maxy-miny);
   
-  
-  // Draw the border Lines  
+  // Draw the border grid lines Lines  
   context.moveTo(0.5,0);
   context.lineTo(0.5,c_canvas.height);
   context.moveTo(0, 0.5);
@@ -118,10 +116,11 @@ function redrawFrame() {
   context.moveTo(0, labelCellHeight+0.5);
   context.lineTo(c_canvas.width,labelCellHeight+0.5);
   
-  context.font = "12px sans-serif";
+  // Set the font and color for the cell labels
+  context.font = labelFont;
   context.fillStyle = textColor;
-  //Draw the other Grid lines
-  //Vertical lines
+  
+  // Draw all the other Vertical Lines and column labels
   var integerx = getScrollXCell();
   var currentWidth = labelCellWidth+0.5;
   while (currentWidth < c_canvas.width) {
@@ -138,16 +137,14 @@ function redrawFrame() {
     integerx+=1;
   }
   
-  // Horizontal Lines
+  // Draw all the other Horizontal lines and row labels
   var integery = getScrollYCell();
   var currentHeight = labelCellHeight+0.5;
   while (currentHeight < c_canvas.height) {
     currentHeight += getCellHeight(integery);
-    
     //draw horizontal Line
     context.moveTo(0,currentHeight);
     context.lineTo(c_canvas.width,currentHeight);
-    
     //draw Row Label
     var assumedTextHeight = 10;
     var rowLabel = integery;
@@ -155,11 +152,10 @@ function redrawFrame() {
     var xPosition = (labelCellWidth - labelWidth)/2;
     var yPosition = currentHeight-(getCellHeight(integery)/2)+(assumedTextHeight/2);
     context.fillText(rowLabel,xPosition,yPosition);
-    
     integery += 1;
   }
 
-  // Write the changes to the screen
+  // Write the grid lines to the screen
   context.strokeStyle = lineColor;
   context.stroke();
   

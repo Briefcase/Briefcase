@@ -188,6 +188,6 @@ function redrawFrame() {
   
   // Draw boxes to show the scrollbars impact more (just astetics)
   context.fillStyle = scrollbarEdgeColor;
-  context.fillRect (c_canvas.width-scrollbarWidth+0.5,0.5,scrollbarWidth,c_canvas.height);
-  context.fillRect (0,c_canvas.height-scrollbarHeight+0.5,labelCellWidth,scrollbarHeight);
+  context.fillRect (c_canvas.width-scrollbarWidth-0.5,0.5,scrollbarWidth+1,c_canvas.height);
+  context.fillRect (0,c_canvas.height-scrollbarHeight-0.5,c_canvas.width,scrollbarHeight+1);
 }

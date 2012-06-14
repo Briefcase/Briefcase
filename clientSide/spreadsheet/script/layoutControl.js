@@ -130,6 +130,7 @@ function keypress (event) {
       if (event.charCode != 0) {
         focusInputBox();
         setInputBoxValue(String.fromCharCode(event.charCode));
+        syncFunctionBar();
       }
     }
   }

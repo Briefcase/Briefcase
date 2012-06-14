@@ -6,6 +6,12 @@
 
 var data = new Array(); // the array that will store the values for the spreadsheet
 
+for (var i = 1; i < 100; i++) {
+  for (var j = 1; j < 100; j++) {
+    data[j+','+i] = "Hello world how are you doing today it is fairly nice outside no?"
+  }
+}
+
 // Width and height for the labled cells
 var labelCellHeight = 18;
 var labelCellWidth = 40;
@@ -39,7 +45,7 @@ var scrollbarHeight;
 \******************************************************************************/
 $(document).ready( function () {
   // AJAX call to load the spreadsheet data
-  try{load2()}catch(e){}
+  //try{load2()}catch(e){}
   
   // size the window correctly
   resizeWindow();
@@ -57,7 +63,7 @@ $(document).ready( function () {
   
   
   // scrolling 
-  document.getElementById("scrollbar").onscroll = resizeWindow;
+  document.getElementById("scrollbar").onscroll = checkScrollDraw;
   
   
   //init input box
@@ -69,6 +75,12 @@ $(document).ready( function () {
   document.getElementById("inputbox").focused = false;
 });
   
+  
+  
+function checkScrollDraw (e) {
+  console.log();
+  resizeWindow();
+}
 /*************************** GLOBAL KEY PRESS EVENT ***************************\
 | This function handles all of the global keypresses:                          |
 | - entering textmode when a cell is selected and you start typing             |

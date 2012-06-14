@@ -110,7 +110,8 @@ function autosave() {
   if (filename==null || filename=="") {return;}
   
   output = "fileid="+filename+"&fileowner="+username+"&filedata="+output;
-    
+  
+  alert(output);
   
   var serverURL = "/spreadsheet/autosave";
   $.ajax({

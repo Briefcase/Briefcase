@@ -47,8 +47,8 @@ function redrawFrame() {
   document.getElementById("scrollbar").style.left = labelCellWidth + "px";
   document.getElementById("scrollbar").style.top = labelCellHeight + "px";
   
-  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 200+ "px";
-  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 200 + "px";
+  document.getElementById("scrollsize").style.height = document.getElementById("scrollbar").offsetHeight * 2+ "px";
+  document.getElementById("scrollsize").style.width  = document.getElementById("scrollbar").offsetWidth  * 2 + "px";
   
   c_canvas.height = window.innerHeight-menuHeight;
   c_canvas.width = window.innerWidth;

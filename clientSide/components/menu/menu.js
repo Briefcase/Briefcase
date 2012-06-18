@@ -202,7 +202,7 @@ function createItem (name, callbackFunction, icon, shortcutKey, version) {
   }
   
   // Add the Icon Name and Shortcut Elements to the Item Element
-  element.appendChild(imageWrapper);
+  element.appendChild(imageDiv);
   element.appendChild(nameDiv);
   element.appendChild(shortcutKeyDiv);
   

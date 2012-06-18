@@ -65,7 +65,9 @@ $(document).ready(function () {
   
 });
 
-// attach dom elements attaches the last layer of xml children to the specified DOM object menu
+/***************************** ATTACK DOM ELEMENTS ****************************\
+| Attaches the DOM Elements from the XMLTree variable to the dommenu variable  |
+\******************************************************************************/
 function attachDOMElements(XMLTree,dommenu) {
   var element = document.createElement("div");
   var name = $(XMLTree).attr("name");
@@ -112,20 +114,16 @@ function attachDOMElements(XMLTree,dommenu) {
   
 }
 
-
-
-
-function hideDiv(divItem){
-}
-
-
-
 function addMenuToStack(menu) {
   menuStack.push(menu);
 }
 
-document.onclick = hideMenus;
-// hide all the menus when clicking outside
+
+/********************************* HIDE MENUS *********************************\
+| This function checks to see if the mouse is over any menu item, if it is not |
+| then it closes all of the menus                                              |
+\******************************************************************************/
+document.onclick = hideMenus; //TODO change this to use the registered events not the onclick variable
 function hideMenus (event) {
   var overADiv = false;
   // check parent main menu 

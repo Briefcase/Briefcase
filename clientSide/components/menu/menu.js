@@ -125,20 +125,15 @@ function addMenuToStack(menu) {
 \******************************************************************************/
 document.onclick = hideMenus; //TODO change this to use the registered events not the onclick variable
 function hideMenus (event) {
-  var overADiv = false;
   // check parent main menu 
-  if (isMouseOver(menu,event.pageX,event.pageY)) {overADiv = true;}
+  if (isMouseOver(menu,event.pageX,event.pageY)) {return}
   // check all open sub menus
   for (menuItem in menuStack) {
-    if (isMouseOver(menuStack[menuItem],event.pageX,event.pageY)) {
-      overADiv = true;
-      break;
-    }
+    if (isMouseOver(menuStack[menuItem],event.pageX,event.pageY)) {return}
   }
-  if (!overADiv) {
-    closeMenusDownTo(menu);
-    menuOpen = false;
-  }
+  // if the mouse is not over a menu, close the menus
+  closeMenusDownTo(menu);
+  menuOpen = false;
 }
 
 function closeMenusDownTo (menuItem) {

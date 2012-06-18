@@ -156,9 +156,7 @@ function isMouseOver(divTag,x,y) {
   var minY = divTag.offsetTop;
   
   
-  if (x < maxX && x > minX && y < maxY && y > minY) {
-    return true;
-  }
+  if (x < maxX && x > minX && y < maxY && y > minY) { return true }
   
   return false;
 }
@@ -177,35 +175,41 @@ function isMouseOver(divTag,x,y) {
 |      <div class="name">~namesource~</div>                                    |
 |      <div class="shortcutKey">~shortcutkeysource~</div>                      |
 |    </div>                                                                    |
-|                                                                              |
-|======THIS FUNCTION NEEDS TO BE CLEANED===========                            |
 \******************************************************************************/
 function createItem (name, callbackFunction, icon, shortcutKey, version) {
+ 
+  // Create Item Element
   var element = document.createElement('div');
-  element.setAttribute('class','menuButton');
-  //name
+      element.setAttribute('class','menuButton');
+      
+  // Create Item's Name Element
   var nameDiv = document.createElement('div');
-  nameDiv.setAttribute('class','name');
-  nameDiv.innerHTML = name;
-  // shortcut
+      nameDiv.setAttribute('class','name');
+      nameDiv.innerHTML = name;
+      
+  // Create Item's Shortcut Key Element
   var shortcutKeyDiv = document.createElement('div');
-  shortcutKeyDiv.innerHTML = shortcutKey;
-  shortcutKeyDiv.setAttribute('class','shortcutKey');
-  // icon
-  var imageWrapper = document.createElement('div');  
-  imageWrapper.setAttribute('class','image');
+      shortcutKeyDiv.setAttribute('class','shortcutKey');
+      shortcutKeyDiv.innerHTML = shortcutKey;
+      
+  // Create Item's Icon Element
+  var imageDiv = document.createElement('div');  
+      imageDiv.setAttribute('class','image');
   if (icon != "") {
     var image = document.createElement('img');
     image.setAttribute('src',icon);
-    imageWrapper.appendChild(image);
+    imageDiv.appendChild(image);
   }
   
+  // Add the Icon Name and Shortcut Elements to the Item Element
   element.appendChild(imageWrapper);
   element.appendChild(nameDiv);
   element.appendChild(shortcutKeyDiv);
   
+  // Set the callback function of the Element
   element.onclick = callbackFunction;
   
+  // Return the newly created element
   return element;
 }
 
@@ -257,7 +261,7 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
     else {closeMenusDownTo(this.parentNode);}
   }
   
-  var item = createItem(name,toggleMenu,icon,'&#9656',version);
+  var item = createItem(name,toggleMenu,icon,'&#9656',version );
   
   item.onmouseover = function() {
     //if (menuOpen) {

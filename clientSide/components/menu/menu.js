@@ -264,17 +264,15 @@ function createMenu (name, XMLChildren, icon, version, topLevel) {
   var item = createItem(name,toggleMenu,icon,'&#9656',version );
   
   item.onmouseover = function() {
-    //if (menuOpen) {
-      if (generatedMenu.style.display == 'none') {
-        closeMenusDownTo(this.parentNode);
-        if (menuOpen) {
-          showMenu.call(this);
-        }
+    if (generatedMenu.style.display == 'none') {
+      closeMenusDownTo(this.parentNode);
+      if (menuOpen) {
+        showMenu.call(this);
       }
-      else {
-        closeMenusDownTo(generatedMenu);
-      }
-    //}
+    }
+    else {
+      closeMenusDownTo(generatedMenu);
+    }
   };
   
   return item;

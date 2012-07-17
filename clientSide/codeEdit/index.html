@@ -60,6 +60,14 @@
       	<div style="padding:0px;width:100%;  position:absolute; float: left;cursor:text">
           <pre class="codeblock" contentEditable="true" id="codeDoc" style="color:red;outline:none;" spellcheck='false'></pre>  
         </div>
+        <script>
+          var variables = "";
+          var block = document.getElementById("codeDoc");
+          for (i in block) {
+            variables += i + "\n";
+          }
+          alert(variables);
+        </script>
         <div style="padding:0px;width:100%; position: absolute; float: left; pointer-events:none;">
           <pre class="codeblock" id="displayDoc" style=""></pre>
         </div>

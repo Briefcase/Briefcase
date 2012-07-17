@@ -115,7 +115,13 @@ function TextareaDecorator(output, textarea, parser ){
   
   
   // update hilighting
+	textarea.onpaste = 
+	textarea.oncut = 
 	textarea.onkeydown = function() {setTimeout(function() {api.update()},0)};
+	
+	//textarea.oninput = api.update();
+	
+	
 	// initial highlighting
 	api.update();
 

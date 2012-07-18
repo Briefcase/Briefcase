@@ -98,6 +98,12 @@ function keypress(e) {
     insertTextAtCursor("	");
     insertTextAtCursor("");
   }
+  else if (e.keyCode  == 38) {
+    // up arrow
+  }
+  else if (e.keyCode == 40) {
+    //down arrow
+  }
   
   //TODO//
   // the removeBrTags should be more optimized and not run on every keypress
@@ -152,7 +158,9 @@ function insertTextAtCursor(text) {
 function newline () {
 	var space = findLastNewline();
   insertTextAtCursor("\n");
+  //insertTextAtCursor("<div>");
   insertTextAtCursor(space);// used to move the cursor to the next line
+  //insertTextAtCursor("</div>");
 }
 
 /****************************** FIND LAST NEWLINE *****************************\

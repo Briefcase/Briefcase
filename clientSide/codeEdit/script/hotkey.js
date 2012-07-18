@@ -45,22 +45,26 @@
 | POSSIBILITY OF SUCH DAMAGE.                                                  |
 \******************************************************************************/
 
-// currently incomplete code hilighter inspiered by  Colin Kuebler 2012 Part of LDT
+// This is a modification of the LDT Text hilighter. A slightly heavier program
+// with more useful features like indentation and automatic indentation
 
+// After the v3 overhaul it will also contain methods for hilighting the line
+// you are on as well as line numbers
+
+
+/*********************************** ONLOAD ***********************************\
+|
+\******************************************************************************/
 window.onload = function () {
   document.onkeydown = keypress;
-  //document.onclick = mouseclick;
   
+  var code = document.getElementById("codeDoc").innerHTML="#include &lt;iostream&gt;\nusing namespace std;\nint main() {\n\tcout << \"Hello World\" << endl;\n}";
   
-  var code = document.getElementById("codeDoc").innerHTML="#define hello \" world\"\nint main() {<>}";//#include &lt;iostream&gt;\nint main() {\n  cout << \"hello\" << hello << endl;\n\nwtf?\n }"
-  //document.getElementById("codeDoc").onkeydown = //syncToColor;
-  //syncToColor();// sync the background right away
-  
-  // SET COLORS TO BE COLORS
-  // get the textarea
+  // Get the text input box and the coloured output box
   var textInput = document.getElementById("codeDoc");
   var textOutput = document.getElementById("displayDoc");
-  // start the decorator
+  
+  // Start the decorator
 	decorator = new TextareaDecorator(textOutput, textInput, parser );
 }
 
@@ -68,15 +72,7 @@ var column = 0;
 var line = 0;
 var undoStack;
 
-function syncToColor () {
-	setTimeout(syncToColorDelay,0);
-}
 
-function syncToColorDelay () {
-  var rawCode = document.getElementById("codeDoc").innerHTML;
-  rawCode = rawCode.replace("and","<span style='color:blue'>and</span>");
-	document.getElementById("displayDoc").innerHTML = rawCode;
-}
 
   //////////////////////////////////////////////////////////////////////////////
  ///////////////////////////////// USER EVENTS ////////////////////////////////
@@ -87,17 +83,15 @@ function syncToColorDelay () {
 | and enter because their behavior needs to be altered                         |
 \******************************************************************************/
 function keypress(e) {
-  //alert(e.keyCode + " | " + e.charCode);
   if (e.keyCode == 13) {
-    // enter
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-    // find number of spaces
+    // Prevent the default actions of the enter key
+    if (e.preventDefault) { e.preventDefault(); }
+
+    // Set the newline character
     newline();
   }
   else if (e.keyCode == 9) {
-    // TAB
+    // Prevent the default action of the Tab key
     if (e.preventDefault) {
       e.preventDefault();
     }
@@ -105,11 +99,18 @@ function keypress(e) {
     insertTextAtCursor("");
   }
   
-  // update position
-  // run text hilighter
+  //TODO//
+  // the removeBrTags should be more optimized and not run on every keypress
+  // but it should be run before the text hilighter run, that way it will
+  // capture all the object. This will be retured to after the new method
+  // of line input is complete
   removeBrTags();
 }
 
+
+/****************************** REMOVE BREAK TAGS *****************************\
+|
+\******************************************************************************/
 function removeBrTags() {
   var inputText = document.getElementById("codeDoc");
   var children = inputText.childNodes;
@@ -120,19 +121,11 @@ function removeBrTags() {
     }
   }
 }
-/*
-// This is my function
-function printBeforeCursor (printstring) {
-  var userSelection;
-  if (window.getSelection) {
-	  userSelection = window.getSelection();
-  }
-  else if (document.selection) { // should come last; Opera!
-	  userSelection = document.selection.createRange();
-  }
-}*/
 
-//this is not my function
+
+/**************************** INSERT TEXT AT CURSOR ***************************\
+|
+\******************************************************************************/
 function insertTextAtCursor(text) {
     var sel, range;
     if (window.getSelection) {
@@ -150,18 +143,21 @@ function insertTextAtCursor(text) {
     } else if (document.selection && document.selection.createRange) {
         document.selection.createRange().text = text;
     }
-    for (var i = 0; i < text.length; i++) {
-        //simulatekeypress(39,0);
-    }
 }
 
+
+/****************************** CREATE A NEW LINE *****************************\
+|
+\******************************************************************************/
 function newline () {
-	
 	var space = findLastNewline();
   insertTextAtCursor("\n");
   insertTextAtCursor(space);// used to move the cursor to the next line
 }
 
+/****************************** FIND LAST NEWLINE *****************************\
+|
+\******************************************************************************/
 function findLastNewline() {
 	var currentchar = "";
 	var sel = window.getSelection();
@@ -207,22 +203,4 @@ function findLastNewline() {
 	}
 	//alert(":" + whiteSpaceReturn + ":");
 	return whiteSpaceReturn;
-}
-
-function simulatekeypress(keycode,charCode) {
-  //alert(charCode);
-  var evt = document.createEvent("KeyboardEvent");
-  evt.initKeyEvent ("keypress", true, true, window,
-                    0, 0, 0, 0,
-                    keycode, charCode) 
-  var canceled = !document.getElementById("codeDoc").dispatchEvent(evt);
-  
-  if(canceled) {
-    // A handler called preventDefault
-    alert("canceled");
-  } else {
-    // None of the handlers called preventDefault
-    //alert("not canceled");
-  }
-  //alert("simulated");
 }

@@ -40,7 +40,7 @@ function TextareaDecorator(output, textarea, parser ){
 		// find the last difference
 		for( lastDiffNew = newTokens.length-1, lastDiffOld = oldTokens.length-1; firstDiff < lastDiffOld; lastDiffNew--, lastDiffOld-- )
 			if( newTokens[lastDiffNew] !== oldTokens[lastDiffOld].textContent ) break;
-			
+		
 		d = new Date();
     var lastDiff = d.getTime();
     var lastDiffNewSave = lastDiffNew;
@@ -50,7 +50,6 @@ function TextareaDecorator(output, textarea, parser ){
 		// update modified spans
 		for( ; firstDiff <= lastDiffOld; firstDiff++ ){
 			oldTokens[firstDiff].className = parser.identify(newTokens[firstDiff]);
-			//oldTokens[firstDiff].textContent = oldTokens[firstDiff].innerText = sanitizeEscapes( newTokens[firstDiff] );
 			oldTokens[firstDiff].textContent = oldTokens[firstDiff].innerText = newTokens[firstDiff];
 		}
 		
@@ -61,7 +60,6 @@ function TextareaDecorator(output, textarea, parser ){
 		for( var insertionPt = oldTokens[firstDiff] || null; firstDiff <= lastDiffNew; firstDiff++ ){
 			var span = document.createElement("span");
 			span.className = parser.identify(newTokens[firstDiff]);
-			//span.textContent = span.innerText = sanitizeEscapes( newTokens[firstDiff] );
 			span.textContent = span.innerText = newTokens[firstDiff];
 			output.insertBefore( span, insertionPt );
 			
@@ -122,7 +120,7 @@ function TextareaDecorator(output, textarea, parser ){
 	};
   
   
-  // update hilighting
+  // Set all the event for when the TextDecorator should update the hilighting
 	textarea.onpaste = 
 	textarea.oncut = 
 	textarea.onkeydown = function() {setTimeout(function() {api.update()},0)};

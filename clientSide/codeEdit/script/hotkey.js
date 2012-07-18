@@ -126,6 +126,24 @@ function removeBrTags() {
       inputText.replaceChild(document.createTextNode("\n"), children[i]);
     }
   }
+  
+  //beginning work with divs (bad code because of the newline split
+  fillExtendedTextInDivs();
+}
+
+function fillExtendedTextInDivs() {
+  var inputbox = document.getElementById("codeDoc");
+  var children = inputbox.childNodes;
+  for (var i = 0; i < children.length; i++) {
+    if (children[i] != "[object HTMLDivElement]") {
+      for (i++; i < children.length; i++) {
+        if (children[i] == "[object HTMLDivElement]") {
+          
+        }
+      }
+      break;
+    }
+  }
 }
 
 
@@ -158,9 +176,9 @@ function insertTextAtCursor(text) {
 function newline () {
 	var space = findLastNewline();
   insertTextAtCursor("\n");
-  //insertTextAtCursor("<div>");
   insertTextAtCursor(space);// used to move the cursor to the next line
-  //insertTextAtCursor("</div>");
+  
+  
 }
 
 /****************************** FIND LAST NEWLINE *****************************\

@@ -1,4 +1,5 @@
-/* TextareaDecorator.js
+/* 
+ * Original TextareaDecorator.js
  * written by Colin Kuebler 2012
  * Part of LDT, dual licensed under GPLv3 and MIT
  * Builds and maintains a styled output layer under a textarea input layer
@@ -22,6 +23,8 @@ function TextareaDecorator(output, textarea, parser ){
 		
 		
 		//alert("Tokens| New:"+newTokens.length+" Old: "+oldTokens.length);
+		
+		
 		var firstDiff, lastDiffNew, lastDiffOld;
 		// find the first difference
 		for( firstDiff = 0; firstDiff < newTokens.length && firstDiff < oldTokens.length; firstDiff++ )
@@ -47,7 +50,8 @@ function TextareaDecorator(output, textarea, parser ){
 		// update modified spans
 		for( ; firstDiff <= lastDiffOld; firstDiff++ ){
 			oldTokens[firstDiff].className = parser.identify(newTokens[firstDiff]);
-			oldTokens[firstDiff].textContent = oldTokens[firstDiff].innerText = sanitizeEscapes( newTokens[firstDiff] );
+			//oldTokens[firstDiff].textContent = oldTokens[firstDiff].innerText = sanitizeEscapes( newTokens[firstDiff] );
+			oldTokens[firstDiff].textContent = oldTokens[firstDiff].innerText = newTokens[firstDiff];
 		}
 		
 		d = new Date();
@@ -57,7 +61,8 @@ function TextareaDecorator(output, textarea, parser ){
 		for( var insertionPt = oldTokens[firstDiff] || null; firstDiff <= lastDiffNew; firstDiff++ ){
 			var span = document.createElement("span");
 			span.className = parser.identify(newTokens[firstDiff]);
-			span.textContent = span.innerText = sanitizeEscapes( newTokens[firstDiff] );
+			//span.textContent = span.innerText = sanitizeEscapes( newTokens[firstDiff] );
+			span.textContent = span.innerText = newTokens[firstDiff];
 			output.insertBefore( span, insertionPt );
 			
 		}
@@ -74,8 +79,11 @@ function TextareaDecorator(output, textarea, parser ){
 	};
 	
 	var sanitizeEscapes = function(input) {
-	  return input.replace(/&lt;?/g,"<").replace(/&gt;?/g,">").replace(/&amp;?/g,"&");
-	  //return input;
+	  input = input.replace(/&lt;?/g,"<");
+	  input = input.replace(/&gt;?/g,">");
+	  input = input.replace(/&amp;?/g,"&");
+	  //return input.replace(/&lt;?/g,"<").replace(/&gt;?/g,">").replace(/&amp;?/g,"&");
+	  return input;
 	}
 
 	api.input = textarea;

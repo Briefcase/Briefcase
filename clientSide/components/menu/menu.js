@@ -46,13 +46,14 @@
 \******************************************************************************/
 
 var menu; // the object that is the original menu bar
-var menuStack = new Array(); // stores the stack of open menus
+var menuStack = []; // stores the stack of open menus
 var menuOpen = false; // stores weather the menu is open or not 
 
 /*********************************** ON LOAD **********************************\
 | This function loads the XML from the web page 
 \******************************************************************************/
 $(document).ready(function () {
+  "use strict";
   var xmlText = document.getElementById('xmlMenu').innerHTML; // read the XML  [[[TO BE CONVERTED IN TO JSON IN V2]]]
   
   menu = document.getElementById('TitleMenu'); // load the menu placeholder from the document
@@ -60,12 +61,12 @@ $(document).ready(function () {
   menu.draggable = false; // prittify the menu when users mis-click
   
   var pxml = $.parseXML(xmlText);
-  var pxml = $(pxml).children();// break out of the global menu
+  pxml = $(pxml).children();// break out of the global menu
   $(pxml).children().each(function() {attachDOMElements(this,menu);});
   
 });
 
-/***************************** ATTACK DOM ELEMENTS ****************************\
+/***************************** ATTACH DOM ELEMENTS ****************************\
 | Attaches the DOM Elements from the XMLTree variable to the dommenu variable  |
 \******************************************************************************/
 function attachDOMElements(XMLTree,dommenu) {

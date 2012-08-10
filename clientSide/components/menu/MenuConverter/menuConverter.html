@@ -1,12 +1,19 @@
 <html>
   <head>
-    <script src="menuconverter.js"></script>
+    <script type="text/javascript" src="../../jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="menuconverter.js"></script>
+    <style type="text/css">
+      textarea{
+        width: 600px;
+        height: 400px;
+      }
+    </style>
   </head>
   <body>
     This is the menu converter
     <br />
-    <textarea></textarea>
-    From <select>
+    <textarea id="originalmenu"></textarea>
+    From <select id="originalmenutype">
       <option value="XML">XML</option>
       <option value="JSON">JSON</option>
     </select>

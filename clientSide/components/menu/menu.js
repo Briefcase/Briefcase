@@ -59,7 +59,7 @@ $(document).ready(function () {
   menu = document.getElementById('TitleMenu'); // load the menu placeholder from the document
   menu.setAttribute('class','mainMenu'); // apply css elements
   menu.draggable = false; // prittify the menu when users mis-click
-  
+  alert(xmlText);
   var pxml = $.parseXML(xmlText);
   pxml = $(pxml).children();// break out of the global menu
   $(pxml).children().each(function() {attachDOMElements(this,menu);});

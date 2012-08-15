@@ -22,16 +22,16 @@ function convertMenu () {
 }
 
 var jsonmenu = {};
-function parseXMLtoJSON(originalXML) {
+function parseXMLtoJSON( originalXML ) {
 	// Parse through each layer of the XML, each time there is a menu object parse it's sublayer
 	alert(originalXML);
 	var pxml = $.parseXML(originalXML);
 	alert("POINT 1");
  	pxml = $(pxml).children();// break out of the global menu
-  	(pxml).children().each(function() {extractElements(this);});
+  	(pxml).children().each(function() {extractXMLElements(this,"");});
 }
 
-function extractXMLElements ( XMLtree ) {
+function extractXMLElements ( XMLtree , precurser) {
 	// Get the name of the element (eg: menu, menuitem, break)
 	var type = XMLtree.nodeName;
 	// Create the new object
@@ -39,17 +39,26 @@ function extractXMLElements ( XMLtree ) {
 	newMenuElement["type"] = name;
 
 	if (type === "menu") {
+		newMenuElement["name"]     = $(XMLtree).attr("name");
+		newMenuElement["iconsrc"]  = $(XMLtree).attr("iconsrc");
+		newMenuElement["shortcut"] = $(XMLtree).attr("shortcut");
+		newMenuElement["version"]  = $(XMLtree).attr("version");
 
+		console.log(precurser + newMenuElement["name"]);
+		var XMLChildren = $(XMLtree).children();
+		XMLChildren.each (function() {extractXMLElements(this,precurser+"|---")});
 	}
 	else if (type === "menuitem") {
-		newMenuElement["name"]     = $(XMLTree).attr("name");
-		newMenuElement["function"] = $(XMLTree).attr("function");
-		newMenuElement["iconsrc"]  = $(XMLTree).attr("iconsrc");
-		newMenuElement["shortcut"] = $(XMLTree).attr("shortcut");
-		newMenuElement["version"]  = $(XMLTree).attr("version");
+		newMenuElement["name"]     = $(XMLtree).attr("name");
+		newMenuElement["function"] = $(XMLtree).attr("function");
+		newMenuElement["iconsrc"]  = $(XMLtree).attr("iconsrc");
+		newMenuElement["shortcut"] = $(XMLtree).attr("shortcut");
+		newMenuElement["version"]  = $(XMLtree).attr("version");
+		console.log(precurser + newMenuElement["name"]);
 	}
 	else if (type === "break") {
 		// DONE! breaks have no variables
+		console.log(precurser + "---------------");
 	}
  
 }

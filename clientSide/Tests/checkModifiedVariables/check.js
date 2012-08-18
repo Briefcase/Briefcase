@@ -8,10 +8,7 @@ onload = function () {alert("Loaded")};
 window._onload = [];
 window._onload.push(window.onload);
 window.onload=function(){for(a in _onload) {_onload[a]()}}
-Object.defineProperty(window,"onload", {
-	get: function () {return this._onload},
-	set: function (n) {this._onload.push(n);}
-});
+Object.defineProperty(window,"onload",{get:function()){return this._onload},set:function(n){this._onload.push(n);}});
 
 // Lets add a few more onloads to test the process
 onload = function () {alert("Loaded2")};

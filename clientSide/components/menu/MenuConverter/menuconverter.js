@@ -22,7 +22,10 @@ function parseXMLtoJSON( originalXML ) {
 	alert("POINT 1");
  	pxml = $(pxml).children();// break out of the global menu
   	(pxml).children().each(function() {jsonmenu.push(extractXMLElements(this));});
+  	console.log(jsonmenu);
 }
+
+var precurser = "";
 
 function extractXMLElements ( XMLtree , parent) {
 	// Get the name of the element (eg: menu, menuitem, break)
@@ -30,6 +33,8 @@ function extractXMLElements ( XMLtree , parent) {
 	// Create the new object
 	var newMenuElement = {};
 	newMenuElement["type"] = name;
+
+	//console.log ( precurser + type);
 
 	if (type === "menu") {
 		newMenuElement["name"]     = $(XMLtree).attr("name");
@@ -40,7 +45,14 @@ function extractXMLElements ( XMLtree , parent) {
 		//console.log(precurser + newMenuElement["name"]);
 		var XMLChildren = $(XMLtree).children();
 		var childrenMenu = [];
+
+		// Debug //
+		//var presave = precurser;
+		//precurser = precurser+"|---";
+
 		XMLChildren.each ( function(){ childrenMenu.push( extractXMLElements( this ) ) } );
+		//precurser = presave;
+		newMenuElement["submenu"] = childrenMenu;
 	}
 	else if (type === "menuitem") {
 		newMenuElement["name"]     = $(XMLtree).attr("name");

@@ -1,7 +1,12 @@
+var jsonmenu = [];
+
 function convertMenu () {
 	var originalMenu = document.getElementById("originalmenu").value;
 	var originalMenuType = document.getElementById("originalmenutype").value;
 	
+	var newMenu = document.getElementById("newmenu");
+	var newMenuType = document.getElementById("newmenutype").value;
+
 	var JSONMenu;
 
 	switch (originalMenuType) {
@@ -12,14 +17,22 @@ function convertMenu () {
 			JSONMenu = originalmenu;
 			break;
 	}
+
+	switch (newMenuType) {
+		case "XML":
+			// no case for this yet
+		case "JSON":
+			newMenu.value = JSON.stringify( jsonmenu );
+			break;
+	}
 }
 
-var jsonmenu = [];
+
 function parseXMLtoJSON( originalXML ) {
 	// Parse through each layer of the XML, each time there is a menu object parse it's sublayer
-	alert(originalXML);
+	//alert(originalXML);
 	var pxml = $.parseXML(originalXML);
-	alert("POINT 1");
+	//alert("POINT 1");
  	pxml = $(pxml).children();// break out of the global menu
   	(pxml).children().each(function() {jsonmenu.push(extractXMLElements(this));});
   	console.log(jsonmenu);

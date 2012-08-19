@@ -49,51 +49,53 @@ var menu; // the object that is the original menu bar
 var menuStack = []; // stores the stack of open menus
 var menuOpen = false; // stores weather the menu is open or not 
 
+var JSONMenuObject = JSON.parse(JSONMenuString);
+
+
 /*********************************** ON LOAD **********************************\
 | This function loads the XML from the web page 
 \******************************************************************************/
 $(document).ready(function () {
   "use strict";
-  var xmlText = document.getElementById('xmlMenu').innerHTML; // read the XML  [[[TO BE CONVERTED IN TO JSON IN V2]]]
-  
   menu = document.getElementById('TitleMenu'); // load the menu placeholder from the document
   menu.setAttribute('class','mainMenu'); // apply css elements
   menu.draggable = false; // prittify the menu when users mis-click
-  alert(xmlText);
-  var pxml = $.parseXML(xmlText);
-  pxml = $(pxml).children();// break out of the global menu
-  $(pxml).children().each(function() {attachDOMElements(this,menu);});
-  
+
+  // Loop through all of the elements in the topmost array of the JSON object
+  for (var element in JSONMenuObject) {
+    attachDOMElements(element, menu);
+  }
 });
 
 /***************************** ATTACH DOM ELEMENTS ****************************\
-| Attaches the DOM Elements from the XMLTree variable to the dommenu variable  |
+| This function take the elemtnts from the json object and attaches their created
+| DOM object to the specified menu
 \******************************************************************************/
-function attachDOMElements(XMLTree,dommenu) {
+function attachDOMElements(JSONTree,dommenu) {
   var element = document.createElement("div");
-  var name = $(XMLTree).attr("name");
+  var name = JSONTree["name"];
   
-  if (XMLTree.nodeName == "menu") {
-    var XMLChildren = $(XMLTree).children();
+  if (JSONTree["type"] == "menu") {
+    var JSONChildren = JSONTree["submenu"];
     var icon = "";
     var version = "normal";
     
-    icon = $(XMLTree).attr("iconsrc");
+    icon = JSONTree["iconsrc"];
     
-    element = createMenu (name, XMLChildren, icon,version,dommenu);
+    element = createMenu (name, JSONChildren, icon,version,dommenu);
   }
-  else if (XMLTree.nodeName == "menuitem") {
+  else if (JSONTree["type"] == "menuitem") {
     var callbackFunction = "";
     var icon = "";
     var shortcutkey = "";
     var version = "normal";
     
-    icon = $(XMLTree).attr("iconsrc");
-    shortcutkey = $(XMLTree).attr("shortcut");
+    icon = JSONTree["iconsrc"];
+    shortcutkey = JSONTree["shortcut"];
     // set the callback function to a parsed version of the xml's text
     callbackFunction = function() {
       try {
-        eval($(XMLTree).attr("function"));
+        eval(JSONTree["function"]);
       }
       catch (err) {console.log(err)}
       // also close the menu
@@ -104,11 +106,12 @@ function attachDOMElements(XMLTree,dommenu) {
     
     element = createButton (name,callbackFunction,icon,shortcutkey,version);
   }
-  else if (XMLTree.nodeName == "break") {
+  else if (JSONTree["type"] == "break") {
     element = createBreak();
   }
   else {
-    alert('error found a ' + XMLTree.nodeName);
+    alert('error found a ' + JSONTree["type"]);
+    console.log(JSONTree);
     return;
   }
   dommenu.appendChild(element);
@@ -227,12 +230,14 @@ function createItem (name, callbackFunction, icon, shortcutKey, version) {
 | The function first creates a new 'sub menu' div and fills it with its        |
 | child buttons recursively.                                                   |
 \******************************************************************************/
-function createMenu (name, XMLChildren, icon, version, topLevel) {
+function createMenu (name, JSONChildren, icon, version, topLevel) {
   
   var generatedMenu = document.createElement('div');
   generatedMenu.setAttribute('class','subMenu');
   
-  $(XMLChildren).each(function() {attachDOMElements(this,generatedMenu)});  
+  for (var child in JSONChildren) {
+    attachDOMElements(child,generatedMenu);
+  }
   
   generatedMenu.style.display = 'none';
   var showMenu = function() {

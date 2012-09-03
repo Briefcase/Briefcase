@@ -45,7 +45,7 @@ function extractXMLElements ( XMLtree , parent) {
 	var type = XMLtree.nodeName;
 	// Create the new object
 	var newMenuElement = {};
-	newMenuElement["type"] = name;
+	newMenuElement["type"] = type;
 
 	//console.log ( precurser + type);
 

@@ -63,7 +63,7 @@ $(document).ready(function () {
 
   // Loop through all of the elements in the topmost array of the JSON object
   for (var element in JSONMenuObject) {
-    attachDOMElements(JSONMENUObject[element], menu);
+    attachDOMElements(JSONMenuObject[element], menu);
   }
 });
 

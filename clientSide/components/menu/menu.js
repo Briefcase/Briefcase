@@ -179,10 +179,12 @@ function isMouseOver(divTag,mousex,mousey) {
   //////////////////////////////////////////////////////////////////////////////
  /////////////////////////// MENU ELEMENT GENERATION //////////////////////////
 //////////////////////////////////////////////////////////////////////////////
+
+
 /********************************* CREATE ITEM ********************************\
 /*************************** CORE ELEMENT GENERATION **************************\
-| This function generates a core element for the menu, this includes buttons   |
-| and sub-menu buttons. The HTML looks like the following when completed       |
+| This function generates a core element for buttons and sub-menu buttons. The |
+| HTML looks like the following when completed                                 |
 |                                                                              |
 |    <div class="menuButton">                                                  |
 |      <div class="image">                                                     |
@@ -232,7 +234,7 @@ function createItem (name, callbackFunction, icon, shortcutKey, version) {
 /******************************* MENU GENERATION ******************************\
 | This function generates a sub menu item.                                     |
 | - Name: A string containing the title of the button                          |
-| - XMLChildren: An XML segment containing of the the menu's children nodes    |
+| - JSONChildren: An array containing of the the menu's children nodes         |
 | - icon: A src path to the image to be used as the menu button's icon         |
 | - version: A 'TBD' variable just incase of new features                      |
 | - topLevel: a div object that represents the parent, it is used to check to  |
@@ -296,7 +298,9 @@ function createMenu (name, JSONChildren, icon, version, topLevel) {
   return item;
 }
 /****************************** BUTTON GENERATION *****************************\
-| 
+| The button generation function creates a core element object then adds a     |
+| slight modification to collapse the menu down to it's parent if it is being  |
+| hilighted currently. This way we will not get menus that stack up all over   |
 \******************************************************************************/
 function createButton (name, callbackFunction, icon, shortcutKey, version) {
   var item = createItem(name,callbackFunction,icon,shortcutKey, version);
@@ -304,7 +308,8 @@ function createButton (name, callbackFunction, icon, shortcutKey, version) {
   return item;
 }
 /****************************** BREAK GENERATION ******************************\
-|
+| A break is just a div with a css class attached. This function creates an    |
+| empty div and attaches the "break" class to it                               |
 \******************************************************************************/
 function createBreak () {
   var element = document.createElement('div');

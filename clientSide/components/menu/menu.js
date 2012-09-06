@@ -85,7 +85,6 @@ function attachDOMElements(JSONTree,dommenu) {
     var icon = JSONTree["iconsrc"];
     var version = "normal";
 
-    
     element = createMenu (name, JSONChildren, icon,version,dommenu);
   }
 
@@ -146,7 +145,11 @@ function hideMenus (event) {
   closeMenusDownTo(menu);
   menuOpen = false;
 }
-
+/************************** CLOSE MENUS DOWN TO LEVEL *************************\
+| This function will close all open menus that are children of the specified   |
+| menuItem. This is used when scrolling through menus or opening and closing   |
+| submenus via clicking on the menu button object                              |
+\******************************************************************************/
 function closeMenusDownTo (menuItem) {
   while (menuStack.length > 0) {
     var entry = menuStack.pop();
@@ -154,20 +157,22 @@ function closeMenusDownTo (menuItem) {
       menuStack.push(entry);
       break;
     }
-    else {
-      entry.style.display = 'none';
-    }
+    else { entry.style.display = 'none'; }
   }
 }
 
-function isMouseOver(divTag,x,y) {
+/******************************** IS MOUSE OVER *******************************\
+| Is mouse over checks to see if the mouse is over a specified rectangular div |
+| tag. The mouse x and mouse y values have to be inputed to the function to    |
+| make sure that the div and the mouse poll have the same parent scope         |
+\******************************************************************************/
+function isMouseOver(divTag,mousex,mousey) {
   var maxX = divTag.offsetLeft + divTag.offsetWidth;
   var minX = divTag.offsetLeft;
   var maxY = divTag.offsetTop + divTag.offsetHeight;
   var minY = divTag.offsetTop;
   
-  
-  if (x < maxX && x > minX && y < maxY && y > minY) { return true }
+  if (mousex < maxX && mousex > minX && mousey < maxY && mousey > minY) { return true }
   
   return false;
 }

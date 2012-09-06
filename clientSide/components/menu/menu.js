@@ -63,7 +63,7 @@ $(document).ready(function () {
 
   // Loop through all of the elements in the topmost array of the JSON object
   for (var element in JSONMenuObject) {
-    attachDOMElements(element, menu);
+    attachDOMElements(JSONMENUObject[element], menu);
   }
 });
 
@@ -72,6 +72,7 @@ $(document).ready(function () {
 | DOM object to the specified menu
 \******************************************************************************/
 function attachDOMElements(JSONTree,dommenu) {
+  alert(JSONTree);
   var element = document.createElement("div");
   var name = JSONTree["name"];
   

@@ -72,7 +72,6 @@ $(document).ready(function () {
 | DOM object to the specified menu
 \******************************************************************************/
 function attachDOMElements(JSONTree,dommenu) {
-  alert(JSONTree);
   var element = document.createElement("div");
   var name = JSONTree["name"];
   

@@ -237,7 +237,7 @@ function createMenu (name, JSONChildren, icon, version, topLevel) {
   generatedMenu.setAttribute('class','subMenu');
   
   for (var child in JSONChildren) {
-    attachDOMElements(child,generatedMenu);
+    attachDOMElements(JSONChildren[child],generatedMenu);
   }
   
   generatedMenu.style.display = 'none';

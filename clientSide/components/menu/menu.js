@@ -53,13 +53,16 @@ var JSONMenuObject = JSON.parse(JSONMenuString);
 
 
 /*********************************** ON LOAD **********************************\
-| This function loads the XML from the web page 
+| The onload function grabs the div that the user created for the menu at the  |
+| top of the screen and applies the css elements to it as well as makes it not |
+| draggable so that it does not look odd if a user clicks and drags it. Then   |
+| it begins iterating through the JSON object and assembeling the menu         |
 \******************************************************************************/
 $(document).ready(function () {
   "use strict";
-  menu = document.getElementById('TitleMenu'); // load the menu placeholder from the document
-  menu.setAttribute('class','mainMenu'); // apply css elements
-  menu.draggable = false; // prittify the menu when users mis-click
+  menu = document.getElementById('TitleMenu'); // TODO it may be better to create the div instead of having the user create it, or at least have the user specify what the name of the div is
+  menu.setAttribute('class','mainMenu');
+  menu.draggable = false;
 
   // Loop through all of the elements in the topmost array of the JSON object
   for (var element in JSONMenuObject) {
@@ -68,47 +71,50 @@ $(document).ready(function () {
 });
 
 /***************************** ATTACH DOM ELEMENTS ****************************\
-| This function take the elemtnts from the json object and attaches their created
-| DOM object to the specified menu
+| This function identifes a JSON Element and calls functions to create that    |
+| type of menu object, then it appends the created object to the parent menu   |
+| that was passed in along with the JSON object                                |
 \******************************************************************************/
 function attachDOMElements(JSONTree,dommenu) {
   var element = document.createElement("div");
   var name = JSONTree["name"];
   
+  // Create A Menu Type Object
   if (JSONTree["type"] == "menu") {
     var JSONChildren = JSONTree["submenu"];
-    var icon = "";
+    var icon = JSONTree["iconsrc"];
     var version = "normal";
-    
-    icon = JSONTree["iconsrc"];
+
     
     element = createMenu (name, JSONChildren, icon,version,dommenu);
   }
+
+  // Create a Item Type Object
   else if (JSONTree["type"] == "menuitem") {
-    var callbackFunction = "";
-    var icon = "";
-    var shortcutkey = "";
+    // Create the arguments for the Button Item
+    var icon = JSONTree["iconsrc"];
+    var shortcutkey = JSONTree["shortcut"] ;
     var version = "normal";
     
-    icon = JSONTree["iconsrc"];
-    shortcutkey = JSONTree["shortcut"];
-    // set the callback function to a parsed version of the xml's text
-    callbackFunction = function() {
-      try {
-        eval(JSONTree["function"]);
-      }
-      catch (err) {console.log(err)}
-      // also close the menu
+    // Create a callback function that closes the menu and runs the attached function
+    var callbackFunction = function() {
       closeMenusDownTo(menu);
       menuOpen = false;
+
+      try { eval(JSONTree["function"]); }
+      catch (err) {console.log(err)}
     };
     
-    
+    // Create the buton element with all of the created attributes
     element = createButton (name,callbackFunction,icon,shortcutkey,version);
   }
+
+  // Create a Break Type Object
   else if (JSONTree["type"] == "break") {
     element = createBreak();
   }
+
+  // Display an error for an Unknown Type of Object
   else {
     alert('error found a ' + JSONTree["type"]);
     console.log(JSONTree);
@@ -127,7 +133,8 @@ function addMenuToStack(menu) {
 | This function checks to see if the mouse is over any menu item, if it is not |
 | then it closes all of the menus                                              |
 \******************************************************************************/
-document.onclick = hideMenus; //TODO change this to use the registered events not the onclick variable
+//TODO change this to use the registered events not the onclick variable
+document.onclick = hideMenus; 
 function hideMenus (event) {
   // check parent main menu 
   if (isMouseOver(menu,event.pageX,event.pageY)) {return}

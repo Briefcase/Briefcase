@@ -1,6 +1,6 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="loginstyle.css"  />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}c/loginstyle.css"  />
     <link rel="stylesheet" type="text/css"  href="{{STATIC_URL}}accounts/loginstyle.css"  />
     <script>
       onresize =onload = function () {
@@ -15,7 +15,7 @@
       <form action = "" method="post">{% csrf_token %}
         <div style="text-align: right; margin-right: 20px">
         {{form.as_p}}
-        </div>  
+        </div>
         <input type = "submit" value = "Submit" />
       </form>
       <p></p>

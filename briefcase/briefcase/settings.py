@@ -116,8 +116,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'accounts',
-    'briefcase',
+    'briefcase.core',
+    'briefcase.core.accounts',
+    'briefcase.core.spreadsheet',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -148,3 +149,5 @@ LOGGING = {
         },
     }
 }
+
+from briefcase.core.settings import *

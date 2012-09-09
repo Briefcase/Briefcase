@@ -1,14 +1,18 @@
-<html>	
-  <head>
+{% extends "accounts/base.html" %}
+
+  {% block css %}
+    {{block.super}}
     <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" type="text/css" href="loginstyle.css"  />
-    <link rel="stylesheet" type="text/css"  href="{{STATIC_URL}}accounts/loginstyle.css"  />
     <style type="text/css">
-      
+
       h1 {
         font-family: 'Mate SC', serif;
       }
     </style>
+  {% endblock css %}
+
+  {% block javascript %}
+    {{block.super}}
     <script>
       onresize =onload = function () {
         var pageHeight = window.innerHeight;
@@ -16,20 +20,15 @@
         document.getElementById("title").style.marginTop=(pageHeight-divHeight)/2;
       }
     </script>
-  </head>
-  <body>
+  {% endblock javascript %}
+
+  {% block content %}
     <div class="title" id="title">
       <h1>WELCOME</h1>
-      Sign in:
-      {% if showerror %}
-        <p>Incorrect username or password</p>
-      {%endif %}
       <form action = "" method="post">{% csrf_token %}
         {{form.as_p}}
+        <input type="hidden" name="next" value="{{ next }}" />
         <input type = "submit" value = "Log In" />
       </form>
-        or
-      <input type=button onClick="location.href='accounts/register'" value="Register">
     </div>
-  </body>
-</html>
+  {% endblock content %}

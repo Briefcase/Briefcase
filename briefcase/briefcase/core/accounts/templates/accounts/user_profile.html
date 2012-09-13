@@ -1,8 +1,9 @@
+{% load url from future %}
 <html>
   <head>
     <script type="text/javascript" src="{{STATIC_URL}}components/jquery-1.6.1.min.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}components/sendpost.js"></script>
-    
+
     <style type="text/css">
       body {
         background: #999;
@@ -16,23 +17,23 @@
         background: #FFF;
 
         padding: 10px;
-        
+
         border-top: 1px solid #F78454;
         border-bottom: 1px solid #F78454;
         border-left: 2px solid #F78454;
         /*border-right: 2px solid #F78454;*/
-        
+
         text-decoration: none;
         color: #000;
-        
+
         overflow: hidden;
         border-radius: 10px 0px 0px 10px;
-        
+
       }
       div.documentItem:hover {
         /*background: #FFFF32;*/
         background: #FFA;
-        
+
       }
       div.filebuttonbox {
         float:right;
@@ -62,7 +63,7 @@
         width: 200px;
         padding: 10px;
         border: 2px solid black;
-        
+
         padding-left: 0px;
         border-left: 0px;
         border-radius: 0px 10px 10px 0px;
@@ -102,7 +103,7 @@
       function deleteFile(variableMap) {
         sendpost('/spreadsheet/delete', variableMap, function () { location.reload(true); });
       }
-      
+
       onresize = onload = function () {
         /* NON ANIMATED */
         var menuWidth = document.getElementById("sideMenu").offsetWidth;
@@ -114,7 +115,7 @@
         document.getElementById("filelist").style.height=pageHeight-fileListOffsetTop;
         //document.getElementById("sideMenu").style.height=pageHeight-menuOffsetTop - 25;
         /* Animated */
-        
+
       }
     </script>
   </head>
@@ -125,21 +126,21 @@
       <div class="createFileButton" onClick="location.href='/spreadsheet/new'">
         New Spreadsheet
       </div>
-      <div class="createFileButton" onclick="location.href='/codedoc/new'">
+      <div class="createFileButton" onclick="loc{% load url from future %}ation.href='/codedoc/new'">
         New Code Document
       </div>
-      <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/accounts/logout'">
+      <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/logout'">
         Logout
       </div>
     </div>
-    <div class="filelist" id="filelist"> 
-      {% if user_spreadsheet_list %}
-        {% for s in user_spreadsheet_list %}
+    <div class="filelist" id="filelist">
+      {% if user_document_list %}
+        {% for s in user_document_list %}
           <div class="documentItem" >
-            <div class="filename" onclick="location.href='/spreadsheet?{{s.owner}}&{{s.pk}}'"> {{s.file_name}} - {{s.owner}}</div>
+            <div class="filename" onclick="location.href='{% url s.module %}{{s.pk}}'"> {{s.file_name}} - {{s.owner}}</div>
             <div class="filebuttonbox" onClick="renameFile({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
             <div class="filebuttonbox" onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
-          </div>  
+          </div>
         {% endfor %}
       {% endif %}
       <div style="clear:both">
@@ -147,7 +148,7 @@
         {% if user_view_list %}
           <br />
           {% for s in user_view_list %}
-            <a class="item" href="/spreadsheet?{{s.owner}}&{{s.pk}}">{{s.file_name}} - {{s.owner}} </a><br>
+            <a class="item" href="{% url s.module %}{{s.pk}}">{{s.file_name}} - {{s.owner}} </a><br>
           {% endfor %}
         {% endif %}
       </div>

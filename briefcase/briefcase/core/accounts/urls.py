@@ -4,6 +4,8 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('briefcase.core.accounts',
     url(r'^$', 'views.home'),
+    url(r'^register/$', 'views.register'),
+    url(r'^logout/$', 'views.logout_user'),
 
  )
 

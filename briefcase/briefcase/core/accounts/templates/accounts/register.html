@@ -1,7 +1,6 @@
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}c/loginstyle.css"  />
-    <link rel="stylesheet" type="text/css"  href="{{STATIC_URL}}accounts/loginstyle.css"  />
+{%extends "accounts/base.html" %}
+    {% block javascript %}
+    {{ block.super }}
     <script>
       onresize =onload = function () {
         var pageHeight = window.innerHeight;
@@ -9,8 +8,8 @@
         document.getElementById("title").style.marginTop=(pageHeight-divHeight)/2;
       }
     </script>
-  </head>
-  <body>
+    {% endblock javascript %}
+    {% block content %}
     <div class="title" id="title">
       <form action = "" method="post">{% csrf_token %}
         <div style="text-align: right; margin-right: 20px">
@@ -23,5 +22,6 @@
 
       <input type=button onClick="location.href='../'" value="Log In">
     </div>
-  </body>
-</html>
+
+    {% endblock content %}
+

@@ -1,6 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
+from briefcase.core.accounts.forms import *
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 @login_required
 def home(request):
-    return render(request, "accounts/user_profile.html")
+    user_document_list = request.user.allowed_docs.all()
+    user_view_list = request.user.view_only_docs.all()
+    return render(request, "accounts/user_profile.html", {'current_user': request.user, 'user_document_list': user_document_list, 'user_view_list': user_view_list})
+
+
+def register(request):
+    form = RegistrationForm()
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            email =  form.cleaned_data['email']
+            password = form.cleaned_data['password_again']
+
+            #create user and save
+            user = User.objects.create_user(username, email, password)
+            user.save()
+
+            #send email - need to set up the email stuff still
+            # send_mail('Registration Successful', 'You\'re registration with briefcasedocs.com was successful.', 'from@example.com',[email],fail_silently=False)
+
+            return HttpResponse("Registration successful")
+
+
+    return render(request,'accounts/register.html', {'form':form})
+
+def logout_user(request):
+    logout(request)
+    return redirect('briefcase.core.accounts.views.home')
+
+

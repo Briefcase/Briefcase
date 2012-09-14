@@ -10,6 +10,5 @@ urlpatterns = patterns('briefcase.core.accounts',
  )
 
 urlpatterns += patterns('',
-    url(r'^login/', 'django.contrib.auth.views.login', {'template_name': 'accounts/welcome.html'}),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name':'accounts/welcome.html'}))
 
-    )

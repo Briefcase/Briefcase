@@ -1,8 +1,8 @@
 {% load url from future %}
 <html>
   <head>
-    <script type="text/javascript" src="{{STATIC_URL}}components/jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}components/sendpost.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}sendpost.js"></script>
 
     <style type="text/css">
       body {
@@ -137,7 +137,7 @@
       {% if user_document_list %}
         {% for s in user_document_list %}
           <div class="documentItem" >
-            <div class="filename" onclick="location.href='{% url s.module %}{{s.pk}}'"> {{s.file_name}} - {{s.owner}}</div>
+            <div class="filename" onclick="location.href='{% url s.module s.pk%}'"> {{s.file_name}} - {{s.owner}}  Last Modified: {{s.modified_date}}</div>
             <div class="filebuttonbox" onClick="renameFile({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
             <div class="filebuttonbox" onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
           </div>
@@ -148,7 +148,7 @@
         {% if user_view_list %}
           <br />
           {% for s in user_view_list %}
-            <a class="item" href="{% url s.module %}{{s.pk}}">{{s.file_name}} - {{s.owner}} </a><br>
+            <a class="item" href="{% url s.module s.pk%}">{{s.file_name}} - {{s.owner}} </a><br>
           {% endfor %}
         {% endif %}
       </div>

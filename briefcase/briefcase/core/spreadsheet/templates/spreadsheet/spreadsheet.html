@@ -1,40 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <title> Briefcase spreadsheet </title>
-    <! does this appear? >
-    <!-- External Libraries -->
-    <script type="text/javascript" src="{{STATIC_URL}}components/jquery-1.6.1.min.js"></script>
-    <!--LOCAL--><script type="text/javascript" src="../components/jquery-1.6.1.min.js"></script><!--LOCAL-->
-  
-    <script type="text/javascript" src="{{STATIC_URL}}components/menu/menu.js"></script>
-    <!--LOCAL--><script type="text/javascript" src="../components/menu/menu.js"></script><!--LOCAL-->
-    
-    <!-- EXTERNAL CSS ATTEMPT -->
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}components/menu/menuStyle.css" />
-    <!--LOCAL--><link rel="stylesheet" type="text/css" href="../components/menu/menuStyle.css" /><!--LOCAL-->
-  
-    <script type="text/javascript" src="{{STATIC_URL}}components/changePermissions.js"></script>
-    <!--LOCAL--><script type="text/javascript" src="../components/changePermissions.js"></script><!--LOCAL-->
-    
-    <!-- Page Functionality -->
-    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/eparse.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/layoutControl.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/saveload.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/draw.js"></script>
-    <!--LOCAL--> <script type="text/javascript" src="script/eparse.js"></script>       <!--LOCAL-->
-    <!--LOCAL--> <script type="text/javascript" src="script/layoutControl.js"></script><!--LOCAL-->
-    <!--LOCAL--> <script type="text/javascript" src="script/saveload.js"></script>     <!--LOCAL-->
-    <!--LOCAL--> <script type="text/javascript" src="script/draw.js"></script>         <!--LOCAL-->
-    
-    <!-- Function Libraries -->
-    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/math.js"></script>
-    <!--LOCAL--> <script type="text/javascript" src="script/math.js"></script><!--LOCAL-->
-    
-    
-    <!-- My simple CSS -->
-    <style type="text/css">
+{% extends "base.html" %}
+    {% block title %}{{file_name}}{% endblock title %}
+
+
+
+      {%block css %}
+      {{ block.super }}
+      <style type="text/css">
+      body
+      {
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+      }
       div.datain
       {
         float:left;
@@ -86,10 +63,21 @@
         color: blue;
       }
     </style>
-    
-  </head>
-  <body style="margin:0;padding:0; overflow: hidden;" id="body">
-    
+    {% endblock css %}
+
+
+    {% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/eparse.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/layoutControl.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/saveload.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/draw.js"></script>
+
+    <!-- Function Libraries -->
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/math.js"></script>
+    {% endblock javascript %}
+
+    {%block content%}
       <!-- Menu -->
       <!-- Menu Begin -->
       <div class="TitleMenu" id="TitleMenu"></div>
@@ -99,22 +87,22 @@
         <input type="text" id="functionbox" oninput="syncInputBox()" style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
       </div>
     </div>
-  
-  
-  
-      
-  
-  
+
+
+
+
+
+
     <!-- new scrollbar stuff (does not work perfectly)
     <div class="scrollVertical" id="scrollVertical"> <div style="height:200%; width: 1px; background: blue"> </div> </div>
     <div class="scrollHorizontal" id="scrollHorizontal"> </div>
     -->
-    
+
     <!-- Actual canvas Div for the application -->
     <div style="width:100%; overflow:hidden; position: relative;" id="framecontain" class="framecontain">
-      
-      
-      
+
+
+
       <div id="applicationDiv" style="">
         <!-- Input box -->
         <div class="datain" id="datain">
@@ -124,30 +112,30 @@
             <textarea class="inputbox" oninput="syncFunctionBar()" id="inputbox"/> </textarea>
           </div>
         </div>
-        
+
         <canvas id="application" name="application" style="overflow:hidden">
           Im sorry your browser is too outdated to know what this canvas element is <br >
           you should update to the newest version so you can use this program (and keep your computer secure)
         </canvas>
       </div>
-      
-      <!-- Scrollbars --> 
+
+      <!-- Scrollbars -->
       <div class="scrollbar" id="scrollbar" style="position:absolute">
         <div class="scrollsize" id="scrollsize" style="pointer-events:none;">
         </div>
       </div>
- 
+
     </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
     <xml id="xmlMenu" style="display: none">
       <XMLMenu>
         <menu name="File" iconsrc="icons/action_forward.gif" version="normal">
@@ -185,5 +173,4 @@
         </menu>
       </XMLMenu>
     </xml>
-  </body>
-</html>
+  {%endblock content%}

@@ -1,16 +1,22 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title>{%block title%}Briefcase{%endblock%}</title>
         {% block css %}
-
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}menu/menuStyle.css" />
         {% endblock css %}
 
         {% block javascript %}
+                <script type="text/javascript" src="{{STATIC_URL}}jquery-1.6.1.min.js"></script>
 
+                <script type="text/javascript" src="{{STATIC_URL}}menu/menu.js"></script>
+
+                <script type="text/javascript" src="{{STATIC_URL}}changePermissions.js"></script>
         {% endblock javascript %}
     </head>
 
-    <body>
+    <body id="body">
         <div id="header">
             {% block header %}
 

@@ -3,5 +3,5 @@ from django.conf.urls import patterns, include, url
 
 
 urlpatterns = patterns('briefcase.core.spreadsheet',
-    url(r'^$', 'views.home')
+    url(r'^(\d{1,})$', 'views.home')
  )

@@ -72,6 +72,13 @@
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/layoutControl.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/saveload.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/draw.js"></script>
+    
+    <script type="text/javascript">
+      var JSONMenuString = "[{\"type\":\"menu\",\"name\":\"File\",\"iconsrc\":\"icons/action_forward.gif\",\"version\":\"normal\",\"submenu\":[{\"type\":\"menuitem\",\"name\":\"New\",\"function\":\"alert('ptbhtbt nope')\",\"iconsrc\":\"icons/action_save.gif\",\"shortcut\":\"Ctrl+N\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Open...\",\"function\":\"load2()\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+O\",\"version\":\"normal\"},{\"type\":\"break\"},{\"type\":\"menuitem\",\"name\":\"Save\",\"function\":\"save()\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+S\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Save As...\",\"function\":\"save()\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+Shift+S\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Revert\",\"function\":\"alert('revert')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+O\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"AUTO SAVE\",\"function\":\"autosave()\",\"iconsrc\":\"icon/flag_white.gif\",\"shortcut\":\"Ctrl+alt+shift+w+x+a\",\"version\":\"version\"},{\"type\":\"menuitem\",\"name\":\"Get Permissions\",\"function\":\"getPermissions()\",\"iconsrc\":\"icon/flag_white.gif\",\"shortcut\":\"Ctrl+g+p\",\"version\":\"version\"},{\"type\":\"menuitem\",\"name\":\"Set Permissions\",\"function\":\"sendChangedata(1,false,[],[],[],[])\",\"iconsrc\":\"icon/flag_white.gif\",\"shortcut\":\"Ctrl+g+p\",\"version\":\"version\"},{\"type\":\"break\"},{\"type\":\"menuitem\",\"name\":\"Print Preview\",\"function\":\"alert('print priview')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+Shift+P\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Print...\",\"function\":\"alert('print')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+P\",\"version\":\"normal\"},{\"type\":\"break\"},{\"type\":\"break\"},{\"type\":\"menuitem\",\"name\":\"Close\",\"function\":\"alert('close')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+W\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Quit\",\"function\":\"alert('quit')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+Q\",\"version\":\"normal\"}]},{\"type\":\"menu\",\"name\":\"Edit\",\"iconsrc\":\"icons/action_forward.gif\",\"version\":\"normal\",\"submenu\":[{\"type\":\"menuitem\",\"name\":\"Undo\",\"function\":\"alert('undo')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+Z\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Redo\",\"function\":\"alert('redo')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+Shift+Z\",\"version\":\"normal\"},{\"type\":\"break\"},{\"type\":\"menuitem\",\"name\":\"Cut\",\"function\":\"alert('Cut')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+X\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Copy\",\"function\":\"alert('copy')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+C\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Paste\",\"function\":\"alert('paste')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+V\",\"version\":\"normal\"},{\"type\":\"menuitem\",\"name\":\"Delete\",\"function\":\"alert('delete')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"\",\"version\":\"normal\"},{\"type\":\"break\"},{\"type\":\"menuitem\",\"name\":\"Select All\",\"function\":\"alert('select all')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"Ctrl+A\",\"version\":\"normal\"},{\"type\":\"break\"},{\"type\":\"menuitem\",\"name\":\"Insert Date and Time\",\"function\":\"alert('insert date and time')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"\",\"version\":\"normal\"},{\"type\":\"break\"},{\"type\":\"menuitem\",\"name\":\"Preferences\",\"function\":\"alert('preferences')\",\"iconsrc\":\"icons/flag_white.gif\",\"shortcut\":\"\",\"version\":\"normal\"}]}]";
+    </script>
+
+
+
 
     <!-- Function Libraries -->
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/math.js"></script>
@@ -136,41 +143,5 @@
 
 
 
-    <xml id="xmlMenu" style="display: none">
-      <XMLMenu>
-        <menu name="File" iconsrc="icons/action_forward.gif" version="normal">
-          <menuitem name="New"  function="alert('ptbhtbt nope')"  iconsrc="icons/action_save.gif" shortcut="Ctrl+N" version="normal"> </menuItem>
-          <menuitem name="Open..."  function="load2()"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+O" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Save"  function="save()"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+S" version="normal"> </menuItem>
-          <menuitem name="Save As..."  function="save()"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+S" version="normal"> </menuItem>
-          <menuitem name="Revert"  function="alert('revert')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+O" version="normal"> </menuItem>
-          <menuitem name="AUTO SAVE" function="autosave()" iconsrc="icon/flag_white.gif" shortcut="Ctrl+alt+shift+w+x+a" version="version"> </menuItem>
-          <menuitem name="Get Permissions" function="getPermissions()" iconsrc="icon/flag_white.gif" shortcut="Ctrl+g+p" version="version"> </menuItem>
-          <menuitem name="Set Permissions" function="sendChangedata(1,false,[],[],[],[])" iconsrc="icon/flag_white.gif" shortcut="Ctrl+g+p" version="version"> </menuItem>
-          <break></break>
-          <menuitem name="Print Preview"  function="alert('print priview')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+P" version="normal"> </menuItem>
-          <menuitem name="Print..."  function="alert('print')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+P" version="normal"> </menuItem>
-          <break></break>
-          <break></break>
-          <menuitem name="Close"  function="alert('close')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+W" version="normal"> </menuItem>
-          <menuitem name="Quit"  function="alert('quit')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Q" version="normal"> </menuItem>
-        </menu>
-        <menu name="Edit" iconsrc="icons/action_forward.gif" version="normal">
-          <menuitem name="Undo"  function="alert('undo')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Z" version="normal"> </menuItem>
-          <menuitem name="Redo"  function="alert('redo')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+Shift+Z" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Cut"  function="alert('Cut')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+X" version="normal"> </menuItem>
-          <menuitem name="Copy"  function="alert('copy')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+C" version="normal"> </menuItem>
-          <menuitem name="Paste"  function="alert('paste')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+V" version="normal"> </menuItem>
-          <menuitem name="Delete"  function="alert('delete')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Select All"  function="alert('select all')"  iconsrc="icons/flag_white.gif" shortcut="Ctrl+A" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Insert Date and Time"  function="alert('insert date and time')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-          <break></break>
-          <menuitem name="Preferences"  function="alert('preferences')"  iconsrc="icons/flag_white.gif" shortcut="" version="normal"> </menuItem>
-        </menu>
-      </XMLMenu>
-    </xml>
+    
   {%endblock content%}

@@ -49,8 +49,8 @@ var menu; // the object that is the original menu bar
 var menuStack = []; // stores the stack of open menus
 var menuOpen = false; // stores weather the menu is open or not 
 
-var JSONMenuObject = JSON.parse(JSONMenuString);
-
+//var JSONMenuObject = JSON.parse(JSONMenuString);
+var JSONMenuObject;
 
 /*********************************** ON LOAD **********************************\
 | The onload function grabs the div that the user created for the menu at the  |
@@ -60,6 +60,12 @@ var JSONMenuObject = JSON.parse(JSONMenuString);
 \******************************************************************************/
 $(document).ready(function () {
   "use strict";
+
+  if (!globalMenu) {
+    console.log("globalMenu not defined in this application");
+  }
+  JSONMenuObject = globalMenu; 
+
   menu = document.getElementById('TitleMenu'); // TODO it may be better to create the div instead of having the user create it, or at least have the user specify what the name of the div is
   menu.setAttribute('class','mainMenu');
   menu.draggable = false;

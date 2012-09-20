@@ -91,7 +91,12 @@ $(document).ajaxSend(function(event, xhr, settings) {
   }
 });
 
-
+/********************************** AUTO SAVE *********************************\
+| The autosave function is a function that will be run every time the client   |
+| wishes to update the server about what it has changed, as well as request    |
+| new data from the server about what other users have changed.                |
+| I beleve that it is currently broken :(                                      |
+\******************************************************************************/
 function autosave() {
   var cell = JSON.stringify(startSelectionX+','+startSelectionY);
   var data = JSON.stringify(prompt("New Value:",""));
@@ -166,6 +171,11 @@ function save() {
   savedFile = output;
 }
 
+/*********************************** LOAD 2 ***********************************\
+| The load2 function is called when the page loads, this is the second version |
+| of the load function and is certianly not the last. It needs to be revised   |
+| to only send JSON data                                                       |
+\******************************************************************************/
 function load2() {
   var serverURL = "/spreadsheet/load";
   

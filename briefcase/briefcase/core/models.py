@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 
 class Document(models.Model):
@@ -16,3 +17,5 @@ class DocumentType(models.Model):
     name = models.CharField(max_length=25, unique=True)
     new_module = models.CharField(max_length=100)
 
+
+admin.site.register(DocumentType)

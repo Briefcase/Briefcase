@@ -125,13 +125,10 @@
     <h1> Hi {{current_user.username}} </h1>
      <div class="menubar" id="sideMenu" style="clear:both">
       {% for type in types %}
-      <div class="createFileButton" onClick=newType({% url type.new_module %})
+      <div class="createFileButton" onClick="newType({% url type.new_module %})">
         New {{type.name}}
       </div>
       {% endfor %}
-      <div class="createFileButton" onclick="location.href='/codedoc/new'">
-        New Code Document
-      </div>
       <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/logout'">
         Logout
       </div>

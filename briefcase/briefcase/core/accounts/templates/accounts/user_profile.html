@@ -117,16 +117,19 @@
         /* Animated */
 
       }
+
     </script>
   </head>
   <body>
     <div class = "title">
     <h1> Hi {{current_user.username}} </h1>
      <div class="menubar" id="sideMenu" style="clear:both">
-      <div class="createFileButton" onClick="location.href='/spreadsheet/new'">
-        New Spreadsheet
+      {% for type in types %}
+      <div class="createFileButton" onClick=newType({% url type.new_module %})
+        New {{type.name}}
       </div>
-      <div class="createFileButton" onclick="loc{% load url from future %}ation.href='/codedoc/new'">
+      {% endfor %}
+      <div class="createFileButton" onclick="location.href='/codedoc/new'">
         New Code Document
       </div>
       <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/logout'">

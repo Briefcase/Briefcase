@@ -182,28 +182,19 @@ function save() {
 | to only send JSON data                                                       |
 \******************************************************************************/
 function load2() {
-  ///
-  alert("LOAD 2 RUNNINGG");
-  ///
 
   var serverURL = "/spreadsheet/load";
-  
-  alert( "CHECKPOINT 1" );
 
   var uri = decodeURIComponent(window.location.href);
-  
   var urisplit = uri.split('/');
-  alert("HELLO");
-  alert(urisplit);
-  alert("GOOD BYE");
-  alert( fileid );
+  var fileid = urisplit[urisplit.length-1];
 
-  var sendData = {"id":fileid};
+  var postData = {"id":fileid};
   
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: output,
+		data: postData,
 		dataType: "html",
 		success: function(savedData) {
 		  savedFile = savedData;

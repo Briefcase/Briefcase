@@ -98,6 +98,11 @@ $(document).ajaxSend(function(event, xhr, settings) {
 | I beleve that it is currently broken :(                                      |
 \******************************************************************************/
 function autosave() {
+
+  ///
+  alert("AUTOSAVE RUNNING");
+  ///
+
   var cell = JSON.stringify(startSelectionX+','+startSelectionY);
   var data = JSON.stringify(prompt("New Value:",""));
   
@@ -177,19 +182,30 @@ function save() {
 | to only send JSON data                                                       |
 \******************************************************************************/
 function load2() {
+  ///
+  alert("LOAD 2 RUNNINGG");
+  ///
+
   var serverURL = "/spreadsheet/load";
   
-    
-  var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
+  alert( "CHECKPOINT 1" );
+
+  var uri = decodeURIComponent(window.location.href);
   
-  username = splitPath[0];
-  filename = splitPath[1];
+  alert( uri );
+
   
+  alert( "CHECKPOINT 3" );
+
   if (username==null || username=="") {return;}
   if (filename==null || filename=="") {return;}
   
+  alert( "CHECKPOINT 4" );
+
   var output = "fileid="+filename+"&fileowner="+username;
   
+  alert("STILL RUNNING");
+
   //alert (output);
   
   $.ajax({
@@ -213,6 +229,11 @@ function load2() {
 		},
 		error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}
   });
+
+  ///
+  alert("LOAD 2 FINISHED");
+  ///
+
 }
 
 /************************************ LOAD ************************************\

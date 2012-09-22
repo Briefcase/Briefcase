@@ -192,21 +192,13 @@ function load2() {
 
   var uri = decodeURIComponent(window.location.href);
   
-  alert( uri );
+  var urisplit = uri.split('/');
+  alert("HELLO");
+  alert(urisplit);
+  alert("GOOD BYE");
+  alert( fileid );
 
-  
-  alert( "CHECKPOINT 3" );
-
-  if (username==null || username=="") {return;}
-  if (filename==null || filename=="") {return;}
-  
-  alert( "CHECKPOINT 4" );
-
-  var output = "fileid="+filename+"&fileowner="+username;
-  
-  alert("STILL RUNNING");
-
-  //alert (output);
+  var sendData = {"id":fileid};
   
   $.ajax({
     type: "POST",
@@ -229,11 +221,6 @@ function load2() {
 		},
 		error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}
   });
-
-  ///
-  alert("LOAD 2 FINISHED");
-  ///
-
 }
 
 /************************************ LOAD ************************************\

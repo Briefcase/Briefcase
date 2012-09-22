@@ -46,7 +46,7 @@ var scrollbarHeight;
 \******************************************************************************/
 $(document).ready( function () {
   // AJAX call to load the spreadsheet data
-  try{load2()}catch(e){}
+  load2();
   
   // size the window correctly
   resizeWindow();

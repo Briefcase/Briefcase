@@ -13,12 +13,12 @@
   {% endblock css %}
 
   {% block javascript %}
-    {{block.super}}
     <script>
-      onresize =onload = function () {
+      onresize = onload = function () {
+        alert("HELLO");
         var pageHeight = window.innerHeight;
         var divHeight = document.getElementById("title").offsetHeight;
-        document.getElementById("title").style.marginTop=(pageHeight-divHeight)/2;
+        document.getElementById("title").style.marginTop=(pageHeight-divHeight)/2 + "px";
       }
     </script>
   {% endblock javascript %}

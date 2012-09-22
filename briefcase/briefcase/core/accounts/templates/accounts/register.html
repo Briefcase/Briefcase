@@ -1,0 +1,27 @@
+{%extends "accounts/base.html" %}
+    {% block javascript %}
+    {{ block.super }}
+    <script>
+      onresize =onload = function () {
+        var pageHeight = window.innerHeight;
+        var divHeight = document.getElementById("title").offsetHeight;
+        document.getElementById("title").style.marginTop=(pageHeight-divHeight)/2;
+      }
+    </script>
+    {% endblock javascript %}
+    {% block content %}
+    <div class="title" id="title">
+      <form action = "" method="post">{% csrf_token %}
+        <div style="text-align: right; margin-right: 20px">
+        {{form.as_p}}
+        </div>
+        <input type = "submit" value = "Submit" />
+      </form>
+      <p></p>
+      <p>Already have an account?</p>
+
+      <input type=button onClick="location.href='../'" value="Log In">
+    </div>
+
+    {% endblock content %}
+

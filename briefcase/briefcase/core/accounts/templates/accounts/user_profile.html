@@ -1,0 +1,157 @@
+{% load url from future %}
+<html>
+  <head>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}sendpost.js"></script>
+
+    <style type="text/css">
+      body {
+        background: #999;
+        padding: 0px;
+        margin: 0px;
+      }
+      div.title {
+        font-family:arial;
+      }
+      div.documentItem {
+        background: #FFF;
+
+        padding: 10px;
+
+        border-top: 1px solid #F78454;
+        border-bottom: 1px solid #F78454;
+        border-left: 2px solid #F78454;
+        /*border-right: 2px solid #F78454;*/
+
+        text-decoration: none;
+        color: #000;
+
+        overflow: hidden;
+        border-radius: 10px 0px 0px 10px;
+
+      }
+      div.documentItem:hover {
+        /*background: #FFFF32;*/
+        background: #FFA;
+
+      }
+      div.filebuttonbox {
+        float:right;
+        border: 2px solid #F78454;
+        text-align:center;
+        vertical-align:middle;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        margin-left: 5px;
+        border-radius: 5px;
+      }
+      div.filebuttonbox:hover {
+        background-color: #F80;
+      }
+      div.list {
+        /*
+        border-top: 1px solid #F78454;
+        border-bottom: 1px solid #F78454;
+        border-radius: 10px;
+        */
+      }
+      div.menubar {
+        float:left;
+        background: #CCC;
+        overflow: hidden;
+        width: 200px;
+        padding: 10px;
+        border: 2px solid black;
+
+        padding-left: 0px;
+        border-left: 0px;
+        border-radius: 0px 10px 10px 0px;
+      }
+      div.filelist {
+        float:right;
+        overflow: auto;
+      }
+      div.filename {
+        float:left;
+        line-height:22px;
+      }
+      div.filename:hover {
+        color: blue;
+        cursor: pointer;
+      }
+      div.createFileButton {
+        /*border: 1px solid black;*/
+        cursor: pointer;
+        padding: 5px;
+        padding-left: 10px;
+        margin-bottom: 5px;
+        border-radius: 0px 5px 5px 0px;
+        background: #BBB;
+      }
+      div.createFileButton:hover {
+        background: #F80;
+      }
+    </style>
+    <script>
+      /****************************** RENAME AND DELETE *****************************\
+      | The rename and delete functions are shorter versions of the calls to sendpost|
+      \******************************************************************************/
+      function renameFile(variableMap){
+        sendpost('/spreadsheet/rename', variableMap, function () { location.reload(true); });
+      }
+      function deleteFile(variableMap) {
+        sendpost('/spreadsheet/delete', variableMap, function () { location.reload(true); });
+      }
+
+      onresize = onload = function () {
+        /* NON ANIMATED */
+        var menuWidth = document.getElementById("sideMenu").offsetWidth;
+        var windowWidth = window.innerWidth;
+        document.getElementById("filelist").style.width = windowWidth - menuWidth -20;
+        var fileListOffsetTop = document.getElementById("filelist").offsetTop;
+        var menuOffsetTop = document.getElementById("sideMenu").offsetTop;
+        var pageHeight = window.innerHeight;
+        document.getElementById("filelist").style.height=pageHeight-fileListOffsetTop;
+        //document.getElementById("sideMenu").style.height=pageHeight-menuOffsetTop - 25;
+        /* Animated */
+
+      }
+    </script>
+  </head>
+  <body>
+    <div class = "title">
+    <h1> Hi {{current_user.username}} </h1>
+     <div class="menubar" id="sideMenu" style="clear:both">
+      <div class="createFileButton" onClick="location.href='/spreadsheet/new'">
+        New Spreadsheet
+      </div>
+      <div class="createFileButton" onclick="loc{% load url from future %}ation.href='/codedoc/new'">
+        New Code Document
+      </div>
+      <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/logout'">
+        Logout
+      </div>
+    </div>
+    <div class="filelist" id="filelist">
+      {% if user_document_list %}
+        {% for s in user_document_list %}
+          <div class="documentItem" >
+            <div class="filename" onclick="location.href='{% url s.module s.pk%}'"> {{s.file_name}} - {{s.owner}}  Last Modified: {{s.modified_date}}</div>
+            <div class="filebuttonbox" onClick="renameFile({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
+            <div class="filebuttonbox" onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
+          </div>
+        {% endfor %}
+      {% endif %}
+      <div style="clear:both">
+        View Only:
+        {% if user_view_list %}
+          <br />
+          {% for s in user_view_list %}
+            <a class="item" href="{% url s.module s.pk%}">{{s.file_name}} - {{s.owner}} </a><br>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

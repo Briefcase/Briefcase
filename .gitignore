@@ -1,2 +1,3 @@
 serverSide/briefcase_db
 *.pyc
+*.sqlite3

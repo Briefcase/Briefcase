@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest, Http404
 from django.contrib.auth.decorators import login_required
 from briefcase.core.spreadsheet.models import Spreadsheet
 import json
@@ -10,9 +10,12 @@ def home(request, id):
     return render(request, "spreadsheet/spreadsheet.html")
 
 @login_required
-def load(request, id):
-    data = Spreadsheet.objects.get(pk=id)
-    return HttpRequest(data)
+def load(request):
+    id = request.POST.get('id')
+    if not id:
+        raise Http404()
+    data = Spreadsheet.objects.get(pk=id).data
+    return HttpResponse(data)
 
 @login_required
 def new(request):

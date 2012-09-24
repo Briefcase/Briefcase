@@ -131,7 +131,7 @@
         var fileid = urisplit[urisplit.length-1];
 
         var postData = {"id":fileid};
-        
+
         $.ajax({
           type: "POST",
           url: serverURL,
@@ -141,11 +141,11 @@
             savedFile = savedData;
             var test = JSON.parse(savedFile);
             delete data;
-            
+
             for (i in data) {
               delete data[i];
             }
-            
+
             for (i in test) {
               data[i] = test[i];
             }
@@ -154,7 +154,7 @@
           error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}
         });
       }
-      
+
     </script>
   </head>
   <body>
@@ -164,7 +164,7 @@
 
 
       {% for type in types %}
-      <div class="createFileButton" onClick="newDocument({% url type.new_module %})">
+      <div class="createFileButton" onClick="newDocument({% url type.module %})">
         New {{type.name}}
       </div>
       {% endfor %}

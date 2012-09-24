@@ -92,7 +92,7 @@
       div.createFileButton:hover {
         background: #F80;
       }
-    </style>
+    </style>`
     <script>
       /****************************** RENAME AND DELETE *****************************\
       | The rename and delete functions are shorter versions of the calls to sendpost|
@@ -117,18 +117,59 @@
         /* Animated */
 
       }
+      /***************************** GO TO NEW DOCUMENT *****************************\
+      | This function sends an ajax request to the serer to create a new document of |
+      | the given type. After the server gives back a url to the newly created       |
+      | document it sends the user to the url given                                  |
+      \******************************************************************************/
+      function newDocument(url) {
+        alert("Creating a new document at" + url);
+        var serverURL = "/spreadsheet/load";
 
+        var uri = decodeURIComponent(window.location.href);
+        var urisplit = uri.split('/');
+        var fileid = urisplit[urisplit.length-1];
+
+        var postData = {"id":fileid};
+        
+        $.ajax({
+          type: "POST",
+          url: serverURL,
+          data: postData,
+          dataType: "html",
+          success: function(savedData) {
+            savedFile = savedData;
+            var test = JSON.parse(savedFile);
+            delete data;
+            
+            for (i in data) {
+              delete data[i];
+            }
+            
+            for (i in test) {
+              data[i] = test[i];
+            }
+            redrawFrame();
+          },
+          error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}
+        });
+      }
+      
     </script>
   </head>
   <body>
     <div class = "title">
     <h1> Hi {{current_user.username}} </h1>
      <div class="menubar" id="sideMenu" style="clear:both">
+
+
       {% for type in types %}
-      <div class="createFileButton" onClick="newType({% url type.new_module %})">
+      <div class="createFileButton" onClick="newDocument({% url type.new_module %})">
         New {{type.name}}
       </div>
       {% endfor %}
+
+
       <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/logout'">
         Logout
       </div>

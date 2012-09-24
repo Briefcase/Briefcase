@@ -137,19 +137,8 @@
           url: serverURL,
           data: postData,
           dataType: "html",
-          success: function(savedData) {
-            savedFile = savedData;
-            var test = JSON.parse(savedFile);
-            delete data;
-
-            for (i in data) {
-              delete data[i];
-            }
-
-            for (i in test) {
-              data[i] = test[i];
-            }
-            redrawFrame();
+          success: function(url) {
+            alert("Redirecting to \n" + url)
           },
           error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}
         });
@@ -164,7 +153,7 @@
 
 
       {% for type in types %}
-      <div class="createFileButton" onClick="newDocument({% url type.module %})">
+      <div class="createFileButton" onclick="newDocument('{% url type.module %}')">
         New {{type.name}}
       </div>
       {% endfor %}

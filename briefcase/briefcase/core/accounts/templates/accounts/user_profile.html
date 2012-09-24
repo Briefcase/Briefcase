@@ -123,14 +123,10 @@
       | document it sends the user to the url given                                  |
       \******************************************************************************/
       function newDocument(url) {
-        alert("Creating a new document at" + url);
-        var serverURL = "/spreadsheet/load";
+        alert("Creating a new document at " + url);
+        var serverURL = url;
 
-        var uri = decodeURIComponent(window.location.href);
-        var urisplit = uri.split('/');
-        var fileid = urisplit[urisplit.length-1];
-
-        var postData = {"id":fileid};
+        var postData = "OHMYWHATSHOULDTHISBE,MAYBEJUSTAGETMESSAGEINSTEADOFAPOST!"
 
         $.ajax({
           type: "POST",
@@ -138,7 +134,9 @@
           data: postData,
           dataType: "html",
           success: function(url) {
-            alert("Redirecting to \n" + url)
+            jsonObject = JSON.parse(url)
+            alert("Redirecting to \n" + jsonObject["url"]);
+            window.location.href= jsonObject["url"];
           },
           error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}
         });

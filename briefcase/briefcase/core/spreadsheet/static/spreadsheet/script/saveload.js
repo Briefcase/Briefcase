@@ -188,9 +188,12 @@ function load2() {
   var uri = decodeURIComponent(window.location.href);
   var urisplit = uri.split('/');
   var fileid = urisplit[urisplit.length-1];
+  if (fileid == "") fileid = urisplit[urisplit.length-2];
 
   var postData = {"id":fileid};
   
+  alert(postData["id"]);
+
   $.ajax({
     type: "POST",
     url: serverURL,

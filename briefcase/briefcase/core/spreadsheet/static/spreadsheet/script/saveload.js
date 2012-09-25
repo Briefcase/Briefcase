@@ -183,7 +183,7 @@ function save() {
 \******************************************************************************/
 function load2() {
 
-  var serverURL = "/spreadsheet/load";
+  var serverURL = "/spreadsheet/load/";
 
   var uri = decodeURIComponent(window.location.href);
   var urisplit = uri.split('/');

@@ -10,13 +10,17 @@ div.welcomebar {
   background: #F0F0F0;
   margin: 20px;
   margin-top: 0px;
+  margin-bottom: 40px;
   padding: 10px;
+  padding-bottom: 2px;
   font-size: 40px;
   font-weight: bold;
   box-shadow: 0px 0px 5px #FFF;
   border-radius: 0px 0px 10px 10px;
   text-align: center;
 }
+
+
 div.documentItem {
   background: #FFF;
 
@@ -24,16 +28,30 @@ div.documentItem {
 
   border-top: 1px solid #F78454;
   border-bottom: 1px solid #F78454;
-  border-left: 2px solid #F78454;
+  /*border-left: 2px solid #F78454;*/
   /*border-right: 2px solid #F78454;*/
 
   text-decoration: none;
   color: #000;
 
   overflow: hidden;
-  border-radius: 10px 0px 0px 10px;
+  /*border-radius: 10px 0px 0px 10px;*/
+}
+
+/*div.top {
 
 }
+div.middle {
+  border-radius: 0px 0px 0px 0px;
+}
+div.bottom {
+
+}
+div.single {
+  border-radius: 10px 0px 0px 10px;
+}*/
+
+
 div.documentItem:hover {
   /*background: #FFFF32;*/
   background: #FFA;
@@ -96,6 +114,10 @@ div.menubar {
 div.filelist {
   float:right;
   overflow: auto;
+  border-radius: 10px 0px 0px 10px;
+  border-top: 1px solid #F78454;
+  border-bottom: 1px solid #F78454;
+border-left: 2px solid #F78454;
 }
 div.filename {
   float:left;

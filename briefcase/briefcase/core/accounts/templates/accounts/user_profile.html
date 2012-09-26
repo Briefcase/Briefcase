@@ -25,11 +25,18 @@
         /* NON ANIMATED */
         var menuWidth = document.getElementById("sideMenu").offsetWidth;
         var windowWidth = window.innerWidth;
-        document.getElementById("filelist").style.width = windowWidth - menuWidth -20 + "px";
-        var fileListOffsetTop = document.getElementById("filelist").offsetTop;
+        document.getElementById("filelist").style.width = windowWidth - menuWidth -40 + "px";
+        var fileListOffsetTop = document.getElementById("filelist").offsetTop+1;
         var menuOffsetTop = document.getElementById("sideMenu").offsetTop;
         var pageHeight = window.innerHeight;
-        document.getElementById("filelist").style.height=pageHeight-fileListOffsetTop + "px";
+
+        // TODO ONLY SET THIS VALUE IF THE HEIGHT IS ABOVE THIS VALUE ALREADY
+        var maxheight = pageHeight-fileListOffsetTop;
+        if (maxheight < document.getElementById("filelist").offsetHeight) {
+          document.getElementById("filelist").style.height=maxheight + "px";
+          document.getElementById("filelist").style.borderBottom = "0px solid black";
+          document.getElementById("filelist").style.borderRadius = "10px 0px 0px 0px";
+        }
         //document.getElementById("sideMenu").style.height=pageHeight-menuOffsetTop - 25;
         /* Animated */
         document.getElementById("body").style.backgroundImage="url('{{STATIC_URL}}accounts/backdrop.jpg')";
@@ -40,7 +47,7 @@
       | document it sends the user to the url given                                  |
       \******************************************************************************/
       function newDocument(url) {
-        alert("Creating a new document at " + url);
+        //alert("Creating a new document at " + url);
         var serverURL = url;
 
         var postData = "OHMYWHATSHOULDTHISBE,MAYBEJUSTAGETMESSAGEINSTEADOFAPOST!"
@@ -67,6 +74,11 @@
           var xOffset = ((window.innerWidth/2-event.pageX)/20);
           var yOffset = ((window.innerHeight/2-event.pageY)/20);
           document.getElementById("body").style.backgroundPosition=xOffset+"px "+yOffset+"px";
+          document.getElementById("welcomebar").style.boxShadow=xOffset/2+"px "+(20)+"px 10px #111";
+          document.getElementById("filelist").style.boxShadow=xOffset/2+"px "+(20)+"px 10px #111";
+          document.getElementById("sideMenu").style.boxShadow=xOffset/2+"px "+(20)+"px 10px #111";
+          
+          
         }
       }
 
@@ -75,7 +87,7 @@
 
 
   {% block content %}
-    <div class="welcomebar">
+    <div class="welcomebar" id="welcomebar">
       Hi {{current_user.username}}
     </div>
     <div class="menubar" id="sideMenu" style="clear:both">
@@ -101,7 +113,10 @@
         </div>
       {% endfor %}
     {% endif %}
+
+    <!--
     <div style="clear:both">
+      
       View Only:
       {% if user_view_list %}
         <br />
@@ -110,5 +125,6 @@
         {% endfor %}
       {% endif %}
     </div>
+  -->
   </div>
   {% endblock content %}

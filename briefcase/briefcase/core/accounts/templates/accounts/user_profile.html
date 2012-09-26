@@ -23,6 +23,7 @@
 
       onresize = onload = function () {
         /* NON ANIMATED */
+        document.getElementById("filelist").style.height = "";
         var menuWidth = document.getElementById("sideMenu").offsetWidth;
         var windowWidth = window.innerWidth;
         document.getElementById("filelist").style.width = windowWidth - menuWidth -40 + "px";

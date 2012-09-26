@@ -39,6 +39,27 @@ div.documentItem:hover {
   background: #FFA;
 
 }
+
+div.centerbox {
+  float:right;
+  width: 220px;
+}
+
+div.filebox {
+  /*margin-left: auto;
+  margin-right: auto;
+  display: table;*/
+
+  border: 2px solid #CCC;
+  text-align:center;
+  vertical-align:middle;
+  height: 18px;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 div.filebuttonbox {
   float:right;
   border: 2px solid #F78454;

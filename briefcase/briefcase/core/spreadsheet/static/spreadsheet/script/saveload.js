@@ -149,7 +149,7 @@ function autosave() {
 \******************************************************************************/
 function save() {
   var output = "{";
-  for (var i in data) {
+  for (var i in spreadsheetCells) {
     output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
   }
   output = output.slice(0, -1)+ "}";  
@@ -202,14 +202,14 @@ function load2() {
 		success: function(savedData) {
 		  savedFile = savedData;
       var test = JSON.parse(savedFile);
-      delete data;
+      delete spreadsheetCells;
       
-      for (i in data) {
-        delete data[i];
+      for (i in spreadsheetCells) {
+        delete spreadsheetCells[i];
       }
       
       for (i in test) {
-        data[i] = test[i];
+        spreadsheetCells[i] = test[i];
       }
       redrawFrame();
 		},
@@ -237,14 +237,14 @@ function load() {
 		success: function(savedData) {
 		  savedFile = savedData;
       var test = JSON.parse(savedFile);
-      delete data;
+      delete spreadsheetCells;
       
-      for (i in data) {
-        delete data[i];
+      for (i in spreadsheetCells) {
+        delete spreadsheetCells[i];
       }
       
       for (i in test) {
-        data[i] = test[i];
+        spreadsheetCells[i] = test[i];
       }
       redrawFrame();
 		},

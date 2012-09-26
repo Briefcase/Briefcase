@@ -1,0 +1,87 @@
+body {
+  background: #999;
+  padding: 0px;
+  margin: 0px;
+}
+div.title {
+  font-family:arial;
+}
+div.documentItem {
+  background: #FFF;
+
+  padding: 10px;
+
+  border-top: 1px solid #F78454;
+  border-bottom: 1px solid #F78454;
+  border-left: 2px solid #F78454;
+  /*border-right: 2px solid #F78454;*/
+
+  text-decoration: none;
+  color: #000;
+
+  overflow: hidden;
+  border-radius: 10px 0px 0px 10px;
+
+}
+div.documentItem:hover {
+  /*background: #FFFF32;*/
+  background: #FFA;
+
+}
+div.filebuttonbox {
+  float:right;
+  border: 2px solid #F78454;
+  text-align:center;
+  vertical-align:middle;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+div.filebuttonbox:hover {
+  background-color: #F80;
+}
+div.list {
+  /*
+  border-top: 1px solid #F78454;
+  border-bottom: 1px solid #F78454;
+  border-radius: 10px;
+  */
+}
+div.menubar {
+  float:left;
+  background: #CCC;
+  overflow: hidden;
+  width: 200px;
+  padding: 10px;
+  border: 2px solid black;
+
+  padding-left: 0px;
+  border-left: 0px;
+  border-radius: 0px 10px 10px 0px;
+}
+div.filelist {
+  float:right;
+  overflow: auto;
+}
+div.filename {
+  float:left;
+  line-height:22px;
+}
+div.filename:hover {
+  color: blue;
+  cursor: pointer;
+}
+div.createFileButton {
+  /*border: 1px solid black;*/
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 10px;
+  margin-bottom: 5px;
+  border-radius: 0px 5px 5px 0px;
+  background: #BBB;
+}
+div.createFileButton:hover {
+  background: #F80;
+}

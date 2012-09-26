@@ -1,13 +1,15 @@
+{% extends "base.html" %}
 {% load url from future %}
 
 
+{% block css %}
 
-<html>
-  <head>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}accounts/c/user_profile.css" />
+{% endblock css %}
+
+    {% block javascript %}
     <script type="text/javascript" src="{{STATIC_URL}}jquery-1.6.1.min.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}sendpost.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}accounts/c/user_profile.css" />
-
     <script>
       /****************************** RENAME AND DELETE *****************************\
       | The rename and delete functions are shorter versions of the calls to sendpost|
@@ -23,11 +25,11 @@
         /* NON ANIMATED */
         var menuWidth = document.getElementById("sideMenu").offsetWidth;
         var windowWidth = window.innerWidth;
-        document.getElementById("filelist").style.width = windowWidth - menuWidth -20;
+        document.getElementById("filelist").style.width = windowWidth - menuWidth -20 + "px";
         var fileListOffsetTop = document.getElementById("filelist").offsetTop;
         var menuOffsetTop = document.getElementById("sideMenu").offsetTop;
         var pageHeight = window.innerHeight;
-        document.getElementById("filelist").style.height=pageHeight-fileListOffsetTop;
+        document.getElementById("filelist").style.height=pageHeight-fileListOffsetTop + "px";
         //document.getElementById("sideMenu").style.height=pageHeight-menuOffsetTop - 25;
         /* Animated */
         document.getElementById("body").style.backgroundImage="url('{{STATIC_URL}}accounts/backdrop.jpg')";
@@ -65,8 +67,10 @@
       }
 
     </script>
-  </head>
-  <body id="body">
+    {% endblock javascript %}
+
+
+    {% block content %}
     <div class = "title">
     <h1> Hi {{current_user.username}} </h1>
      <div class="menubar" id="sideMenu" style="clear:both">
@@ -103,5 +107,4 @@
         {% endif %}
       </div>
     </div>
-  </body>
-</html>
+    {% endblock content %}

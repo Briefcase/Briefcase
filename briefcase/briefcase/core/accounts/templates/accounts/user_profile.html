@@ -2,12 +2,12 @@
 {% load url from future %}
 
 
-{% block css %}
-
+  {% block css %}
+    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}accounts/c/user_profile.css" />
-{% endblock css %}
+  {% endblock css %}
 
-    {% block javascript %}
+  {% block javascript %}
     <script type="text/javascript" src="{{STATIC_URL}}jquery-1.6.1.min.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}sendpost.js"></script>
     <script>
@@ -67,44 +67,41 @@
       }
 
     </script>
-    {% endblock javascript %}
+  {% endblock javascript %}
 
 
-    {% block content %}
-    <div class = "title">
-    <h1> Hi {{current_user.username}} </h1>
-     <div class="menubar" id="sideMenu" style="clear:both">
-
-
+  {% block content %}
+    <div class="welcomebar">
+      Hi {{current_user.username}}
+    </div>
+    <div class="menubar" id="sideMenu" style="clear:both">
       {% for type in types %}
-      <div class="createFileButton" onclick="newDocument('{% url type.module %}')">
-        New {{type.name}}
-      </div>
+        <div class="createFileButton" onclick="newDocument('{% url type.module %}')">
+          New {{type.name}}
+        </div>
       {% endfor %}
-
-
       <div class="createFileButton" style="margin-bottom: 0px; margin-top: 40px;" onClick="location.href='/logout'">
         Logout
       </div>
     </div>
     <div class="filelist" id="filelist">
-      {% if user_document_list %}
-        {% for s in user_document_list %}
-          <div class="documentItem" >
-            <div class="filename" onclick="location.href='{% url s.module s.pk%}'"> {{s.file_name}} - {{s.owner}}  Last Modified: {{s.modified_date}}</div>
-            <div class="filebuttonbox" onClick="renameFile({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
-            <div class="filebuttonbox" onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
-          </div>
+    {% if user_document_list %}
+      {% for s in user_document_list %}
+        <div class="documentItem" >
+          <div class="filename" onclick="location.href='{% url s.module s.pk%}'"> {{s.file_name}} - {{s.owner}}  Last Modified: {{s.modified_date}}</div>
+          <div class="filebuttonbox" onClick="renameFile({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
+          <div class="filebuttonbox" onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div style="clear:both">
+      View Only:
+      {% if user_view_list %}
+        <br />
+        {% for s in user_view_list %}
+          <a class="item" href="{% url s.module s.pk%}">{{s.file_name}} - {{s.owner}} </a><br>
         {% endfor %}
       {% endif %}
-      <div style="clear:both">
-        View Only:
-        {% if user_view_list %}
-          <br />
-          {% for s in user_view_list %}
-            <a class="item" href="{% url s.module s.pk%}">{{s.file_name}} - {{s.owner}} </a><br>
-          {% endfor %}
-        {% endif %}
-      </div>
     </div>
-    {% endblock content %}
+  </div>
+  {% endblock content %}

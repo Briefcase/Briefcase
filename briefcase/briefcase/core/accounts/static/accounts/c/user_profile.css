@@ -2,9 +2,20 @@ body {
   background: #999;
   padding: 0px;
   margin: 0px;
-}
-div.title {
   font-family:arial;
+}
+div.welcomebar {
+  font-family: 'Mate SC', serif;
+  color: #222;
+  background: #F0F0F0;
+  margin: 20px;
+  margin-top: 0px;
+  padding: 10px;
+  font-size: 40px;
+  font-weight: bold;
+  box-shadow: 0px 0px 5px #FFF;
+  border-radius: 0px 0px 10px 10px;
+  text-align: center;
 }
 div.documentItem {
   background: #FFF;

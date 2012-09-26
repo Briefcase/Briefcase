@@ -58,12 +58,16 @@
           error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}
         });
       }
-
+      var count = 0;
       onmousemove = function(event) {
-        //body.style.backgroundImage="url('{{STATIC_URL}}accounts/backdrop.jpg')|none|inherit";
-        var xOffset = ((window.innerWidth/2-event.pageX)/20);
-        var yOffset = ((window.innerHeight/2-event.pageY)/20);
-        document.getElementById("body").style.backgroundPosition=xOffset+"px "+yOffset+"px";
+        count++;
+        if(count > 10) {
+          count = 0;
+          //body.style.backgroundImage="url('{{STATIC_URL}}accounts/backdrop.jpg')|none|inherit";
+          var xOffset = ((window.innerWidth/2-event.pageX)/20);
+          var yOffset = ((window.innerHeight/2-event.pageY)/20);
+          document.getElementById("body").style.backgroundPosition=xOffset+"px "+yOffset+"px";
+        }
       }
 
     </script>

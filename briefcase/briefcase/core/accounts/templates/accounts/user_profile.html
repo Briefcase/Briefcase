@@ -15,10 +15,12 @@
       | The rename and delete functions are shorter versions of the calls to sendpost|
       \******************************************************************************/
       function renameFile(variableMap){
-        sendpost('/spreadsheet/rename', variableMap, function () { location.reload(true); });
+        console.log("renaming " + variableMap);
+        sendpost('/spreadsheet/rename/', variableMap, function () { location.reload(true); });
       }
       function deleteFile(variableMap) {
-        sendpost('/spreadsheet/delete', variableMap, function () { location.reload(true); });
+        sendpost('/spreadsheet/delete/', variableMap, function () { location.reload(true); });
+        console.log("deleting " + variableMap);
       }
 
       onresize = onload = function () {

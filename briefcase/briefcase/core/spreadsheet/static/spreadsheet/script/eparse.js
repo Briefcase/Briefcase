@@ -190,33 +190,33 @@ function letterValue (character) {
 | that are within parenthathes
 \******************************************************************************/
 function _splitcomma (block) {
-  var data = block.split(',');
-  //alert(data.length + " " + data + " " + block);
+  var splitBlock = block.split(',');
+  //alert(splitBlock.length + " " + splitBlock + " " + block);
   var parenCount = 0;
-  for (var i = 0; i < data.length; i++) {
-    for (var j = 0; j < data[i].length; j++) {
-      if (data[i][j] == '(') {
+  for (var i = 0; i < splitBlock.length; i++) {
+    for (var j = 0; j < splitBlock[i].length; j++) {
+      if (splitBlock[i][j] == '(') {
         parenCount++;
       }
-      else if (data[i][j] == ')') {
+      else if (splitBlock[i][j] == ')') {
         parenCount--;
       }
     }
     if (parenCount > 0) {
-      data[i] += ',' + data.splice(i+1,1);
+      splitBlock[i] += ',' + splitBlock.splice(i+1,1);
       parenCount = 0;
       i--;
     }
   }
   //alert(data.length);
-  return data;
+  return splitBlock;
 }
 /******************************* GET CELL VALUE *******************************\
 | This function gets the value of a cell in the spreadsheet. It is a very      |
 | simple function but allows for the code to be read more easily               |
 \******************************************************************************/
 function getCellValue (cell) {
-  return data[cell];
+  return spreadsheetCells[cell];
 }
 
   //////////////////////////////////////////////////////////////////////////////

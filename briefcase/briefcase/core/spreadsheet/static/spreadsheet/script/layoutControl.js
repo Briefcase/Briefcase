@@ -4,7 +4,7 @@
  //////////////////////////////// INITILIZATION ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-var data = new Array(); // the array that will store the values for the spreadsheet
+var spreadsheetCells = new Array(); // the array that will store the values for the spreadsheet
 
 /*
 for (var i = 1; i < 100; i++) {
@@ -46,7 +46,7 @@ var scrollbarHeight;
 \******************************************************************************/
 $(document).ready( function () {
   // AJAX call to load the spreadsheet data
-  try{load2()}catch(e){}
+  load2();
   
   // size the window correctly
   resizeWindow();
@@ -69,7 +69,7 @@ $(document).ready( function () {
   
   //init input box
   moveInputBox(1,1);
-  setInputBoxValue(data["1,1"]);
+  setInputBoxValue(spreadsheetCells["1,1"]);
   
   document.getElementById("inputbox").onfocus = function () {this.focused = true; inputBoxOnFocus();};
   document.getElementById("inputbox").onblur = function () {this.focused = false; inputBoxOnBlur();};
@@ -95,7 +95,7 @@ function keypress (event) {
   if (!isInputFocused()) {
     // delete key, for deleting a cell
     if (event.keyCode == 8) {
-      data[startSelectionX + ',' + startSelectionY] = "";
+      spreadsheetCells[startSelectionX + ',' + startSelectionY] = "";
       setInputBoxValue("");
     }
     // enter key, focus the cell
@@ -219,7 +219,7 @@ function setInputBoxValue(value) {
 function setNewSelection (startx, starty, endx, endy, isTab) {
   isTab = (typeof isTab == 'undefined')?false:isTab;
   
-  setInputBoxValue(data[startx+','+starty]);
+  setInputBoxValue(spreadsheetCells[startx+','+starty]);
   moveInputBox(startx,starty);
   
   startSelectionX = startx;
@@ -267,14 +267,14 @@ function inputBoxOnBlur() {
 \******************************************************************************/
 function syncFunctionBar() {
   document.getElementById("functionbox").value = document.getElementById("inputbox").value;
-  data[startSelectionX + "," +startSelectionY] = document.getElementById("inputbox").value;
+  spreadsheetCells[startSelectionX + "," +startSelectionY] = document.getElementById("inputbox").value;
 }
 /********************** SYNC INPUT BOX FROM FUNCTION BAR **********************\
 |
 \******************************************************************************/
 function syncInputBox() {
   document.getElementById("inputbox").value = document.getElementById("functionbox").value;
-  data[startSelectionX+","+startSelectionY] = document.getElementById("functionbox").value;
+  spreadsheetCells[startSelectionX+","+startSelectionY] = document.getElementById("functionbox").value;
 }
 
 

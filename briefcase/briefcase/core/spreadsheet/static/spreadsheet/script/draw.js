@@ -166,12 +166,12 @@ function redrawFrame() {
       var leftTextOffset = getCellOffsetLeft(x) + 3;
 	    var topTextOffset  = getCellOffsetTop (y) + 14;
       
-      var cellValue = data[x+','+y];
+      var cellValue = spreadsheetCells[x+','+y];
       
       if (cellValue == undefined) continue;
       
       //to remove overflow
-      var nextCell = data[x+1+','+y];
+      var nextCell = spreadsheetCells[x+1+','+y];
       
       // Parse the cell briefly to see how it needs to be displayed
       if (cellValue[0]=='=') {

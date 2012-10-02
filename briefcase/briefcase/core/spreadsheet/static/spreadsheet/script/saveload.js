@@ -98,6 +98,11 @@ $(document).ajaxSend(function(event, xhr, settings) {
 | I beleve that it is currently broken :(                                      |
 \******************************************************************************/
 function autosave() {
+
+  ///
+  alert("AUTOSAVE RUNNING");
+  ///
+
   var cell = JSON.stringify(startSelectionX+','+startSelectionY);
   var data = JSON.stringify(prompt("New Value:",""));
   
@@ -144,7 +149,7 @@ function autosave() {
 \******************************************************************************/
 function save() {
   var output = "{";
-  for (var i in data) {
+  for (var i in spreadsheetCells) {
     output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
   }
   output = output.slice(0, -1)+ "}";  
@@ -177,37 +182,34 @@ function save() {
 | to only send JSON data                                                       |
 \******************************************************************************/
 function load2() {
-  var serverURL = "/spreadsheet/load";
+
+  var serverURL = "/spreadsheet/load/";
+
+  var uri = decodeURIComponent(window.location.href);
+  var urisplit = uri.split('/');
+  var fileid = urisplit[urisplit.length-1];
+  if (fileid == "") fileid = urisplit[urisplit.length-2];
+
+  var postData = {"id":fileid};
   
-    
-  var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
-  
-  username = splitPath[0];
-  filename = splitPath[1];
-  
-  if (username==null || username=="") {return;}
-  if (filename==null || filename=="") {return;}
-  
-  var output = "fileid="+filename+"&fileowner="+username;
-  
-  //alert (output);
-  
+  alert(postData["id"]);
+
   $.ajax({
     type: "POST",
     url: serverURL,
-		data: output,
+		data: postData,
 		dataType: "html",
 		success: function(savedData) {
 		  savedFile = savedData;
       var test = JSON.parse(savedFile);
-      delete data;
+      delete spreadsheetCells;
       
-      for (i in data) {
-        delete data[i];
+      for (i in spreadsheetCells) {
+        delete spreadsheetCells[i];
       }
       
       for (i in test) {
-        data[i] = test[i];
+        spreadsheetCells[i] = test[i];
       }
       redrawFrame();
 		},
@@ -235,14 +237,14 @@ function load() {
 		success: function(savedData) {
 		  savedFile = savedData;
       var test = JSON.parse(savedFile);
-      delete data;
+      delete spreadsheetCells;
       
-      for (i in data) {
-        delete data[i];
+      for (i in spreadsheetCells) {
+        delete spreadsheetCells[i];
       }
       
       for (i in test) {
-        data[i] = test[i];
+        spreadsheetCells[i] = test[i];
       }
       redrawFrame();
 		},

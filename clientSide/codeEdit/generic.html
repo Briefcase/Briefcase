@@ -44,7 +44,12 @@
 
                 SelectHelper.add( textarea );
                 var tFunc = function tabFunc(){
-                    textarea.tabSelection();
+                    if( textarea.selectionStart && textarea.selectionStart !== textarea.selectionEnd ){
+                        textarea.tabSelection();
+                    }
+                    else{
+                        textarea.insertAtCursor('\t');
+                    }
                     decorator.update();
                     return true;
                 }

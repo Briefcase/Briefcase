@@ -4,6 +4,10 @@
  * Convenient utilities for cross browser textarea selection manipulation
  */
 
+function reverseString(s){
+	return s.split("").reverse().join("");
+}
+
 var SelectHelper = {
 	add: function( element ){
 		element.insertAtCursor = element.createTextRange ?
@@ -25,7 +29,18 @@ var SelectHelper = {
             var s = element.selectionStart,
                 e = element.selectionEnd,
                 v = element.value;
+            if( v[s] !== '\n' ){
+                if( v.substring( 0, s ).indexOf('\n') !== -1 ){
+                    s -= reverseString( v.substring( 0, s ) ).indexOf('\n') + 1;
+                }
+                else{
+                    s = 0;
+                }
+            }
             var newText = v.substring( s, e ).replace(/\n/g, "\n\t");
+            if( !s ){
+                newText = '\t' + newText;
+            }
             element.value = v.substring(0, s) + newText + v.substring(e);
             element.setSelectionRange( s, s + newText.length );
         };

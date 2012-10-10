@@ -44,7 +44,7 @@
 
                 SelectHelper.add( textarea );
                 var tFunc = function tabFunc(){
-                    if( textarea.selectionStart && textarea.selectionStart !== textarea.selectionEnd ){
+                    if( textarea.selectionStart !== textarea.selectionEnd ){
                         textarea.tabSelection();
                     }
                     else{

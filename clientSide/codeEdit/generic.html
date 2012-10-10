@@ -43,7 +43,13 @@
 				decorator = new TextareaDecorator( textarea, parser );
 
                 SelectHelper.add( textarea );
-                var tFunc = function tabFunc(){
+                var untabFunc = function(){
+                    textarea.untabSelection();
+                    decorator.update();
+                    return true;
+                }
+
+                var tabFunc = function(){
                     if( textarea.selectionStart !== textarea.selectionEnd ){
                         textarea.tabSelection();
                     }
@@ -53,7 +59,8 @@
                     decorator.update();
                     return true;
                 }
-                var keymap = {"Tab": tFunc};
+
+                var keymap = {"Tab": tabFunc, "Shift-Tab": untabFunc};
 
                 Keybinder.bind( textarea, keymap );
 			};

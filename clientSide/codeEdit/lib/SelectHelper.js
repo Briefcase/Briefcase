@@ -29,6 +29,7 @@ var SelectHelper = {
             var s = element.selectionStart,
                 e = element.selectionEnd,
                 v = element.value;
+            //Change s to beginning of selected line
             if( v[s] !== '\n' ){
                 if( v.substring( 0, s ).indexOf('\n') !== -1 ){
                     s -= reverseString( v.substring( 0, s ) ).indexOf('\n') + 1;
@@ -42,7 +43,50 @@ var SelectHelper = {
                 newText = '\t' + newText;
             }
             element.value = v.substring(0, s) + newText + v.substring(e);
-            element.setSelectionRange( s, s + newText.length );
+            e = s + newText.length;
+            //Change e to end of selected line
+            v = element.value;
+            if( v[e] !== '\n' ){
+                if( v.substring( e ).indexOf( '\n' ) !== -1 ){
+                    e += v.substring( e ).indexOf( '\n' );
+                }
+                else{
+                    e = v.length;
+                }
+            }
+            element.setSelectionRange( s, e );
+        };
+
+        element.untabSelection = function(){
+            var s = element.selectionStart,
+                e = element.selectionEnd,
+                v = element.value;
+            //Change s to beginning of selected line
+            if( v[s] !== '\n' ){
+                if( v.substring( 0, s ).indexOf('\n') !== -1 ){
+                    s -= reverseString( v.substring( 0, s ) ).indexOf('\n') + 1;
+                }
+                else{
+                    s = 0;
+                }
+            }
+            var newText = v.substring( s, e ).replace(/\n\t/g, "\n");
+            if( !s && v[s] === '\t' ){
+                newText = newText.substring( 1, newText.length );
+            }
+            element.value = v.substring(0, s) + newText + v.substring(e);
+            e = s + newText.length;
+            //Change e to end of selected line
+            v = element.value;
+            if( v[e] !== '\n' ){
+                if( v.substring( e ).indexOf( '\n' ) !== -1 ){
+                    e += v.substring( e ).indexOf( '\n' );
+                }
+                else{
+                    e = v.length;
+                }
+            }
+            element.setSelectionRange( s, e );
         };
 	}
 };

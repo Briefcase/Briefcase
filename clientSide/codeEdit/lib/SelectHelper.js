@@ -27,7 +27,7 @@ var SelectHelper = {
                 v = element.value;
             var newText = v.substring( s, e ).replace(/\n/g, "\n\t");
             element.value = v.substring(0, s) + newText + v.substring(e);
-            element.setSelectionRange( s, newText.length );
+            element.setSelectionRange( s, s + newText.length );
         };
 	}
 };

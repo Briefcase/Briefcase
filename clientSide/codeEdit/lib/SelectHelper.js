@@ -20,6 +20,15 @@ var SelectHelper = {
 				s += x.length;
 				element.setSelectionRange(s, s);
 			};
+
+        element.tabSelection = function(){
+            var s = element.selectionStart,
+                e = element.selectionEnd,
+                v = element.value;
+            var newText = v.substring( s, e ).replace(/\n/g, "\n\t");
+            element.value = v.substring(0, s) + newText + v.substring(e);
+            element.setSelectionRange( s, newText.length );
+        };
 	}
 };
 

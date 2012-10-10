@@ -44,7 +44,7 @@
 
                 SelectHelper.add( textarea );
                 var tFunc = function tabFunc(){
-                    textarea.insertAtCursor('\t');
+                    textarea.tabSelection();
                     decorator.update();
                     return true;
                 }

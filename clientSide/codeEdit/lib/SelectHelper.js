@@ -20,7 +20,19 @@ var SelectHelper = {
 				var s = element.selectionStart,
 					e = element.selectionEnd,
 					v = element.value;
-				element.value = v.substring(0, s) + x + v.substring(e);
+
+                //This is for Chrome
+                var event = document.createEvent('TextEvent');
+                if( event.initTextEvent ){
+                    element.setSelectionRange( 0, element.value.length );
+                    event.initTextEvent("textInput", true, true, null, v.substring(0, s) + x + v.substring(e));
+                    element.dispatchEvent(event);
+                }
+                //This is for Firefox
+                else{
+                    element.value = v.substring(0, s) + x + v.substring(e);
+                }
+
 				s += x.length;
 				element.setSelectionRange(s, s);
 			};
@@ -42,7 +54,17 @@ var SelectHelper = {
             if( !s ){
                 newText = '\t' + newText;
             }
-            element.value = v.substring(0, s) + newText + v.substring(e);
+            //This is for Chrome
+            var event = document.createEvent('TextEvent');
+            if( event.initTextEvent ){
+                element.setSelectionRange( 0, element.value.length );
+                event.initTextEvent("textInput", true, true, null, v.substring(0, s) + newText + v.substring(e));
+                element.dispatchEvent(event);
+            }
+            //This is for Firefox
+            else{
+                element.value = v.substring(0, s) + newText + v.substring(e);
+            }
             e = s + newText.length;
             //Change e to end of selected line
             v = element.value;
@@ -74,7 +96,19 @@ var SelectHelper = {
             if( !s && v[s] === '\t' ){
                 newText = newText.substring( 1, newText.length );
             }
-            element.value = v.substring(0, s) + newText + v.substring(e);
+
+            //This is for Chrome
+            var event = document.createEvent('TextEvent');
+            if( event.initTextEvent ){
+                element.setSelectionRange( 0, element.value.length );
+                event.initTextEvent("textInput", true, true, null, v.substring(0, s) + newText + v.substring(e));
+                element.dispatchEvent(event);
+            }
+            //This is for Firefox
+            else{
+                element.value = v.substring(0, s) + newText + v.substring(e);
+            }
+
             e = s + newText.length;
             //Change e to end of selected line
             v = element.value;

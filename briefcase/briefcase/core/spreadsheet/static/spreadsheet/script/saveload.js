@@ -147,19 +147,12 @@ function autosave() {
 | this function saves the document by parsing the hash table into a json file  |
 | then sending it over ajax to the server                                      |
 \******************************************************************************/
-function save() {
-  var output = "{";
-  for (var i in spreadsheetCells) {
-    output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
-  }
-  output = output.slice(0, -1)+ "}";  
+function devsave() {
+  console.log("DEV SAVING");
+  var fileid = getFileId();
+  var output = {"id":fileid,"spreadsheetcells":spreadsheetCells};
   
-  var name = prompt("Filename:","");
-  if (name==null || name=="") {return;}
-  
-  output = "filename="+name+"&filedata="+output;
-  
-  var serverURL = "/spreadsheet/save";
+  var serverURL = "/spreadsheet/devsave";
   $.ajax({
     type: "POST",
     url: serverURL,
@@ -176,6 +169,14 @@ function save() {
   savedFile = output;
 }
 
+function getFileId() {
+  var uri = decodeURIComponent(window.location.href);
+  var urisplit = uri.split('/');
+  var fileid = urisplit[urisplit.length-1];
+  if (fileid == "") fileid = urisplit[urisplit.length-2];
+  return fileid;
+}
+
 /*********************************** LOAD 2 ***********************************\
 | The load2 function is called when the page loads, this is the second version |
 | of the load function and is certianly not the last. It needs to be revised   |
@@ -185,10 +186,7 @@ function load2() {
 
   var serverURL = "/spreadsheet/load/";
 
-  var uri = decodeURIComponent(window.location.href);
-  var urisplit = uri.split('/');
-  var fileid = urisplit[urisplit.length-1];
-  if (fileid == "") fileid = urisplit[urisplit.length-2];
+  var fileid = getFileId();
 
   var postData = {"id":fileid};
   

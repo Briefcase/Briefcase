@@ -14,13 +14,11 @@
       /****************************** RENAME AND DELETE *****************************\
       | The rename and delete functions are shorter versions of the calls to sendpost|
       \******************************************************************************/
-      function renameFile(variableMap){
-        console.log("renaming " + variableMap);
-        sendpost('/spreadsheet/rename/', variableMap, function () { location.reload(true); });
+      function renameFile(id){
+        sendpost('/core/rename/', {'id':id,'newname':prompt("New Name","")} , function () { location.reload(true); });
       }
-      function deleteFile(variableMap) {
-        sendpost('/spreadsheet/delete/', variableMap, function () { location.reload(true); });
-        console.log("deleting " + variableMap);
+      function deleteFile(id) {
+        sendpost('/core/delete/', {'id':id} , function () { location.reload(true); });
       }
 
       onresize = onload = function () {
@@ -109,8 +107,8 @@
         <div class="documentItem" >
           <div class="filename" onclick="location.href='{% url s.module s.pk%}'"> {{s.file_name}} </div>
 
-          <div class="filebuttonbox" onClick="renameFile({'fileid':'{{s.pk}}','newname':prompt('New Name:','{{s.file_name}}')})">R</div>
-          <div class="filebuttonbox" onClick="deleteFile({'fileid':'{{s.pk}}'})">X</div>
+          <div class="filebuttonbox" onClick="renameFile({{s.pk}})">R</div>
+          <div class="filebuttonbox" onClick="deleteFile({{s.pk}})">X</div>
           <div class="centerbox"><div class="filebox">{{s.modified_date}}</div></div>
           <div class="centerbox"><div class="filebox">{{s.owner}}</div></div>
         </div>

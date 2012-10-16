@@ -1,10 +1,5 @@
 // This function sends a post message to the server
-function sendpost(serverURL, messageVariables, callback) {
-  var output = "";
-  for (var i in messageVariables) {
-    output += "&"+i+"="+messageVariables[i];
-  }    
-  
+function sendpost(serverURL, output, callback) {
   $.ajax({
     type: "POST",
     url: serverURL,

@@ -15,10 +15,10 @@
       | The rename and delete functions are shorter versions of the calls to sendpost|
       \******************************************************************************/
       function renameFile(id){
-        sendpost('/core/rename/', {'id':id,'newname':prompt("New Name","")} , function () { location.reload(true); });
+        sendpost('/rename/', {'id':id,'newname':prompt("New Name","")} , function () { location.reload(true); });
       }
       function deleteFile(id) {
-        sendpost('/core/delete/', {'id':id} , function () { location.reload(true); });
+        sendpost('/delete/', {'id':id} , function () { location.reload(true); });
       }
 
       onresize = onload = function () {

@@ -200,6 +200,7 @@ function load2() {
 		data: postData,
 		dataType: "html",
 		success: function(savedData) {
+      console.log(savedData);
 		  savedFile = savedData;
       var test = JSON.parse(savedFile);
       delete spreadsheetCells;
@@ -221,6 +222,7 @@ function load2() {
 | This is the load function, it takes the file and loads it into memory. This  |
 | needs to be tested for memory leaks                                          |
 \******************************************************************************/
+/*
 function load() {
   var serverURL = "/spreadsheet/load";
   
@@ -250,4 +252,4 @@ function load() {
 		},
 		error: function(html){alert("error: "+html)}
   });
-}
+}*/

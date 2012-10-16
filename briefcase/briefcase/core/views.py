@@ -21,7 +21,7 @@ def rename(request):
     id=request.POST.get('id') #pk of document
     s=Document.object.get(pk=id);
     newname = request.POST.get('newname')
-    if s.owner = request.user: #if user is owner, allow rename
+    if s.owner == request.user: #if user is owner, allow rename
         s.file_name=newname
         s.save()
         return HttpResponse("name is " + s.file_name)

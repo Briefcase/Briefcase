@@ -152,7 +152,7 @@ function devsave() {
   var fileid = getFileId();
   var output = {"id":fileid,"spreadsheetcells":spreadsheetCells};
   
-  var serverURL = "/spreadsheet/devsave";
+  var serverURL = "/spreadsheet/devsave/";
   $.ajax({
     type: "POST",
     url: serverURL,

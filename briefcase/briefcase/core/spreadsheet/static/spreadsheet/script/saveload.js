@@ -159,6 +159,7 @@ function devsave() {
 		data: output,
 		dataType: "html",
 		success: function(data){
+        console.log("Returning Data: " + data);
         //alert (data);
 		},
 		error: function(html){alert("error: "+html)}

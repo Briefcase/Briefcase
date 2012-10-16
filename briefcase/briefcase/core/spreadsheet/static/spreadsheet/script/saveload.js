@@ -147,21 +147,12 @@ function autosave() {
 | this function saves the document by parsing the hash table into a json file  |
 | then sending it over ajax to the server                                      |
 \******************************************************************************/
-function save() {
-  var output = "{";
-  for (var i in spreadsheetCells) {
-    output += JSON.stringify(i) + ":" + JSON.stringify(data[i]) + ',';
-  }
-  output = output.slice(0, -1)+ "}";  
-  
-  var name = prompt("Filename:","");
-  if (name==null || name=="") {return;}
-  
+function devsave() {
+  console.log("DEV SAVING");
   var fileid = getFileId();
-
-  output = {"id":fileid,"spreadsheetcells":spreadsheetCells};
+  var output = {"id":fileid,"spreadsheetcells":spreadsheetCells};
   
-  var serverURL = "/spreadsheet/save";
+  var serverURL = "/spreadsheet/devsave";
   $.ajax({
     type: "POST",
     url: serverURL,

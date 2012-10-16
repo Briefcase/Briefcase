@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpRequest, Http404
 from django.contrib.auth.decorators import login_required
 from briefcase.core.spreadsheet.models import Spreadsheet
+from briefcase.core.models import Document
 import json
 
 @login_required
@@ -19,7 +20,7 @@ def delete(request):
 @login_required  
 def rename(request):
     id=request.POST.get('id') #pk of document
-    s=Document.object.get(pk=id);
+    s=Document.objects.get(pk=id);
     newname = request.POST.get('newname')
     if s.owner == request.user: #if user is owner, allow rename
         s.file_name=newname

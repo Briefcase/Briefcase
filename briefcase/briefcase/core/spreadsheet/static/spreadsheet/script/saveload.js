@@ -192,7 +192,7 @@ function load2() {
 
   var postData = {"id":fileid};
   
-  alert(postData["id"]);
+  //alert(postData["id"]);
 
   $.ajax({
     type: "POST",

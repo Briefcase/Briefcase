@@ -27,3 +27,4 @@ def rename(request):
         s.save()
         return HttpResponse("name is " + s.file_name)
     return HttpResponse("error")
+    

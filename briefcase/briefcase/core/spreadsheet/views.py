@@ -1,7 +1,7 @@
 #spreadsheet.views
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpRequest, Http404
+from django.http import HttpResponse, HttpRequest, Http404, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from briefcase.core.spreadsheet.models import Spreadsheet
 import json
@@ -27,6 +27,20 @@ def new(request):
     ss.save()
     url = {"url":reverse('briefcase.core.spreadsheet.views.home', args=[ss.pk])}
     return HttpResponse(json.dumps(url))
+    
+@login_required
+def dev_save(request):
+    id=request.POST.get('id') #pk of spreadsheet
+    data=request.POST.get('spreadsheetcells') #get data
+    s=Spreadsheet.objects.get(pk=id)
+    #check to see if allowed to save
+    if request.user not in s.allowed_users.all() and s.public==False:
+        return HttpResponseForbidden()
+    s.data=data
+    s.save()
+    return HttpResponse()
+    
+    
 
 
     

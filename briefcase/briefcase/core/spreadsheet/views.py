@@ -30,12 +30,21 @@ def new(request):
     
 @login_required
 def dev_save(request):
-    id=request.POST.get('id') #pk of spreadsheet
-    data=request.POST.get('spreadsheetcells') #get data
+    print "1"
+    post = request.POST.copy()
+    print "2"
+    print post
+    print post['spreadsheetcells[2,2]']
+    id=request.POST['id'] #pk of spreadsheet
+    print id
+    #data=request.POST #get data
+    #print request.POST
+    #print data
     s=Spreadsheet.objects.get(pk=id)
     #check to see if allowed to save
     if request.user not in s.allowed_users.all() and s.public==False:
         return HttpResponseForbidden()
+    print data
     s.data=data
     s.save()
     return HttpResponse()

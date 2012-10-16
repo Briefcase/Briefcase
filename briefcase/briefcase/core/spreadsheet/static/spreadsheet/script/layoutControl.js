@@ -4,7 +4,7 @@
  //////////////////////////////// INITILIZATION ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-var spreadsheetCells = new Array(); // the array that will store the values for the spreadsheet
+var spreadsheetCells = {}; // the array that will store the values for the spreadsheet
 
 /*
 for (var i = 1; i < 100; i++) {

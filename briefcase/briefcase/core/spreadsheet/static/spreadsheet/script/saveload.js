@@ -148,10 +148,9 @@ function autosave() {
 | then sending it over ajax to the server                                      |
 \******************************************************************************/
 function devsave() {
-  console.log("DEV SAVING");
   var fileid = getFileId();
   var output = {"id":fileid,"spreadsheetcells":spreadsheetCells};
-  
+  console.log(output);  
   var serverURL = "/spreadsheet/devsave/";
   $.ajax({
     type: "POST",

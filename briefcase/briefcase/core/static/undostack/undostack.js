@@ -23,6 +23,10 @@ function initilizeUndoStack(undoFunction, redoFunction) {
 	_redoFunction = redoFunction;
 }
 
+function setUpdate() {
+	
+}
+
 function putIntoStack(objects) {
 	undoStack.put
 }

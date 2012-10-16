@@ -1,3 +1,4 @@
+#spreadsheet.views
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpRequest, Http404
@@ -11,6 +12,9 @@ def home(request, id):
 
 @login_required
 def load(request):
+
+    # need to add check for allowed users
+    
     id = request.POST.get('id')
     if not id:
         raise Http404()
@@ -23,4 +27,8 @@ def new(request):
     ss.save()
     url = {"url":reverse('briefcase.core.spreadsheet.views.home', args=[ss.pk])}
     return HttpResponse(json.dumps(url))
+
+
+    
+
 

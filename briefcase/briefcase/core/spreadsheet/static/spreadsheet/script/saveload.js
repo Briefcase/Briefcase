@@ -162,7 +162,15 @@ function devsave() {
         console.log("Returning Data: " + data);
         //alert (data);
 		},
-		error: function(html){alert("error: "+html)}
+		error: function(error){
+      /*var errors = "";
+      for (element in error) {
+        errors += element + "\n";
+      }
+      alert("error: "+errors);
+      */
+      alert("Error: " + error.statusCode());
+    }
   });
   
   

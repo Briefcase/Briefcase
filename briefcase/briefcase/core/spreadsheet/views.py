@@ -12,9 +12,9 @@ def home(request, id):
 
 @login_required
 def load(request):
-
+    #
     # need to add check for allowed users
-    
+    #
     id = request.POST.get('id')
     if not id:
         raise Http404()
@@ -27,27 +27,23 @@ def new(request):
     ss.save()
     url = {"url":reverse('briefcase.core.spreadsheet.views.home', args=[ss.pk])}
     return HttpResponse(json.dumps(url))
-    
+   
+#"development" save - saves the whole document   
 @login_required
 def dev_save(request):
-    print "1"
-    post = request.POST.copy()
-    print "2"
-    print post
-    print post['spreadsheetcells[2,2]']
     id=request.POST['id'] #pk of spreadsheet
-    print id
-    #data=request.POST #get data
-    #print request.POST
-    #print data
+    data=request.POST['spreadsheetcells'] #get data
     s=Spreadsheet.objects.get(pk=id)
     #check to see if allowed to save
-    if request.user not in s.allowed_users.all() and s.public==False:
-        return HttpResponseForbidden()
-    print data
+    if not request.user==s.owner and request.user not in s.allowed_users and s.public==False:
+       return "error"
     s.data=data
     s.save()
-    return HttpResponse()
+    return "success"
+    
+#def autosave(request):
+    
+
     
     
 

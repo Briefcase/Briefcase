@@ -217,6 +217,8 @@ function setInputBoxValue(value) {
 | selection in directions (blah, this needs to have better documentation       |
 \******************************************************************************/
 function setNewSelection (startx, starty, endx, endy, isTab) {
+  autosave();
+
   isTab = (typeof isTab == 'undefined')?false:isTab;
   
   setInputBoxValue(spreadsheetCells[startx+','+starty]);

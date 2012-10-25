@@ -104,11 +104,21 @@ var currentCellValue = "";
 
 function autosave() {
   if (waiting==true) {
+    console.log("WAITING FOR UPDATE: "+ JSON.stringify(fullCellBuffer));
     // This code only deals with single cell edits, not multi cell edits
-    var currentCell = [startSelectionX + ',' + startSelectionY];
+    var currentCell = startSelectionX + ',' + startSelectionY;
     //console.log(spreadsheetCells[currentCell]);
     if (currentCellName == currentCell) {
       currentCellValue = spreadsheetCells[currentCell];
+      console.log("SAME CELL CHANGE" + currentCellName + ":" + currentCellValue);
+    }
+    else {
+      if (currentCellName != "") {
+        fullCellBuffer[currentCellName] = currentCellValue;
+      }
+      currentCellName = currentCell;
+      currentCellValue = spreadsheetCells[currentCellName]
+      console.log("MOVE CELL CHANGE");
     }
   }
   else {

@@ -97,7 +97,7 @@ $(document).ajaxSend(function(event, xhr, settings) {
 | new data from the server about what other users have changed.                |
 | I beleve that it is currently broken :(                                      |
 \******************************************************************************/
-var waiting = true;
+var waiting = false;
 var fullCellBuffer = {};
 var currentCellName = "";
 var currentCellValue = "";

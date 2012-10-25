@@ -6,13 +6,6 @@
 
 var spreadsheetCells = {}; // the array that will store the values for the spreadsheet
 
-/*
-for (var i = 1; i < 100; i++) {
-  for (var j = 1; j < 100; j++) {
-    data[j+','+i] = "Hello world how are you doing today it is fairly nice outside no?"
-  }
-}*/
-
 // Width and height for the labled cells
 var labelCellHeight = 18;
 var labelCellWidth = 40;

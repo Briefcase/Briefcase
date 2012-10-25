@@ -49,15 +49,14 @@ def devsave(request):
 def autosave(request):
     id=request.POST['id'] #pk of spreadsheet
     #check to see if new spreadsheet
-    print id
     # (SpreadsheetSession will handle checking if new client)
     if not id in spreadsheetsessions:
         spreadsheetsessions[id]= SpreadsheetSession(id)
     data = request.POST['spreadsheetcells']
-    print data
+    user = request.user.username
     #receive
-    print spreadsheetsessions[id].receive(data,request.user)
-    return HttpResponse(spreadsheetsessions[id].receive(data, request.user))
+    #print spreadsheetsessions[id].receive(data,request.user)
+    return HttpResponse(spreadsheetsessions[id].receive(data,user))
     
  
 

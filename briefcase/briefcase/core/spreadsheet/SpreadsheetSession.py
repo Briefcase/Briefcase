@@ -27,7 +27,7 @@ class SpreadsheetSession:
         self.sheet_id = sheet_id #id (primary key) of the spreadsheet in the db
         self.clientlists=[]
         
-        asherlist = ClientList("asher")
+        asherlist = ClientList(unicode('asher'))
         data = {"2,2":"asher's data"}
         asherlist.add_to_list(data)
         self.clientlists.append(asherlist)
@@ -35,31 +35,24 @@ class SpreadsheetSession:
         
     #receive changes from client
     def receive(self, data, user):
-        print "in receive omg"
         #add data to all other client's lists AND 
         #check to make sure this is not a new client we 
         #are receiving from
         is_new = True
-        print user
-        print len(self.clientlists)
         for c in self.clientlists:
-            print "in loop"
-            if not c.user == user:
-                print "add to list"
+            if  not c.user == user:
+                print "other user, adding data"
                 c.add_to_list(data)
             else:
-                print "else"
+                print "ran into myself"
                 is_new=False
-        print "out of loop"
         if is_new:
             print "new one"
             new_c = ClientList(user)
             self.clientlists.append(new_c)
         
         #also update database
-        print "here 1"
         #self.update_db(data)
-        print "here"
         #send change list back to client
         return self.send_list(user)
                 
@@ -75,7 +68,7 @@ class SpreadsheetSession:
         print "send list"
         for c in self.clientlists:
             if c.user == user:
-                print "found you"
+                print c.changelist
                 return c.changelist
                 
 class ClientList:
@@ -85,4 +78,7 @@ class ClientList:
         self.changelist=[] #list of changes (which are dicts)
         
     def add_to_list(self, data):
+        #print "adding to list"
+        #print self.user
+        #print data
         self.changelist.append(data)

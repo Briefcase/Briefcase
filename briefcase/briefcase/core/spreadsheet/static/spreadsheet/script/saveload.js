@@ -144,7 +144,7 @@ function autosave() {
         //alert (data);
         waiting=false;
         console.log("Receving: " + data);
-        data = data.replace("}{","}{|}{"); ///////////// THIS LINE NEEDS TO CHANGE LATER
+        data = data.replace(/\}\{/ig,"}{|}{"); ///////////// THIS LINE NEEDS TO CHANGE LATER
         console.log("Replaced: " + data);
         changes = data.split("{|}");
         console.log("Split: " + data);

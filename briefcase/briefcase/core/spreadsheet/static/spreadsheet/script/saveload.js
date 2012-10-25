@@ -123,9 +123,9 @@ function autosave() {
   }
   else {
     console.log("AUTOSAVE");
-    var cell = JSON.stringify(startSelectionX+','+startSelectionY);
+    //var cell = JSON.stringify(startSelectionX+','+startSelectionY);
     var fileid = getFileId();
-    output = {"id":fileid,"spreadsheetcells":cell};
+    output = {"id":fileid,"spreadsheetcells":fullCellBuffer};
     var serverURL = "/spreadsheet/autosave/";
     $.ajax({
       type: "POST",

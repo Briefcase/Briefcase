@@ -56,7 +56,10 @@ def autosave(request):
     data = request.POST['spreadsheetcells']
     print data
     #receive
-    return spreadsheetsessions[id].receive(data, request.user)
+    #print spreadsheetsessions[id].receive(data,request.user)
+    return HttpResponse(spreadsheetsessions[id].receive(data, request.user))
+    
+ 
 
     
 def updateDBsheet(sheet_id, data):

@@ -35,24 +35,33 @@ class SpreadsheetSession:
         
     #receive changes from client
     def receive(self, data, user):
+        print "in receive omg"
         #add data to all other client's lists AND 
         #check to make sure this is not a new client we 
         #are receiving from
-        is_new = true
-        for c in clientlists:
+        is_new = True
+        print user
+        print len(self.clientlists)
+        for c in self.clientlists:
+            print "in loop"
             if not c.user == user:
+                print "add to list"
                 c.add_to_list(data)
             else:
-                is_new=false
+                print "else"
+                is_new=False
+        print "out of loop"
         if is_new:
+            print "new one"
             new_c = ClientList(user)
             self.clientlists.append(new_c)
         
         #also update database
-        self.update_db(data)
-        
+        print "here 1"
+        #self.update_db(data)
+        print "here"
         #send change list back to client
-        return send_list(user)
+        return self.send_list(user)
                 
 
     #update the spreadsheet in db
@@ -63,11 +72,11 @@ class SpreadsheetSession:
     
     #send (return) the new changes to the client
     def send_list(self, user):
-        for c in clientlists:
+        print "send list"
+        for c in self.clientlists:
             if c.user == user:
-                templist = c.changelist
-                c.changelist = []
-                return templist
+                print "found you"
+                return c.changelist
                 
 class ClientList:
     #initialize with username

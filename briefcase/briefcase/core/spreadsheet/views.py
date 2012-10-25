@@ -5,6 +5,11 @@ from django.http import HttpResponse, HttpRequest, Http404, HttpResponseForbidde
 from django.contrib.auth.decorators import login_required
 from briefcase.core.spreadsheet.models import Spreadsheet
 import json
+from briefcase.core.spreadsheet.SpreadsheetSession import SpreadsheetSession, ClientList
+
+
+#list of spreadsheetsessions
+spreadsheetsessions = {}
 
 @login_required
 def home(request, id):
@@ -30,7 +35,7 @@ def new(request):
    
 #"development" save - saves the whole document   
 @login_required
-def dev_save(request):
+def devsave(request):
     id=request.POST['id'] #pk of spreadsheet
     data=request.POST['spreadsheetcells'] #get data
     s=Spreadsheet.objects.get(pk=id)
@@ -41,11 +46,21 @@ def dev_save(request):
     s.save()
     return "success"
     
-#def autosave(request):
+def autosave(request):
+    id=request.POST['id'] #pk of spreadsheet
     
+    #check to see if new spreadsheet
+    # (SpreadsheetSession will handle checking if new client)
+    if not id in spreadsheetsessions:
+        spreadsheetsessions[id]= SpreadsheetSession(id)
+    data = request.POST['spreadsheetcells']
+    #receive
+    return spreadsheetsessions[id].receive(data, request.user)
 
     
-    
+def updateDBSheet(sheet_id, data):
+    s = Spreadsheet.objects.get(pk=sheet_id)
+    #right update info here
 
 
     

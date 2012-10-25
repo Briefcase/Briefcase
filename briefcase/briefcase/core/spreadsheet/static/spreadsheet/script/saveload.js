@@ -122,6 +122,7 @@ function autosave() {
   }
 
   if (waiting == false) {
+    waiting=true;
     if (currentCellName != "") {
       fullCellBuffer[currentCellName] = currentCellValue;
     }
@@ -141,8 +142,23 @@ function autosave() {
   		dataType: "html",
   		success: function(data){
         //alert (data);
-        console.log("Receving: " + data);
         waiting=false;
+        console.log("Receving: " + data);
+        data = data.replace("}{","}{|}{"); ///////////// THIS LINE NEEDS TO CHANGE LATER
+        console.log("Replaced: " + data);
+        changes = data.split("{|}");
+        console.log("Split: " + data);
+        for (change in changes){
+          changes[change] = changes[change].replace(/&quot;/ig,'"');
+          changes[change] = changes[change].replace(/'/ig,'"');
+          console.log("Changed Cell: "+changes[change]);
+          var changedCells = JSON.parse(changes[change]);
+          console.log("Parsed Change: "+changedCells);
+          for (cell in changedCells){
+            console.log("Parsing: " + cell + " as " + changedCells[cell]);
+            spreadsheetCells[cell] = changedCells[cell];
+          }
+        }
   		},
   		error: function (xhr, ajaxOptions, thrownError){
         waiting=false;

@@ -41,10 +41,10 @@ def devsave(request):
     s=Spreadsheet.objects.get(pk=id)
     #check to see if allowed to save
     if not request.user==s.owner and request.user not in s.allowed_users and s.public==False:
-       return "error"
+       return HttpResponse("error")
     s.data=data
     s.save()
-    return "success"
+    return HttpResponse("success")
     
 def autosave(request):
     id=request.POST['id'] #pk of spreadsheet
@@ -56,7 +56,7 @@ def autosave(request):
     data = request.POST['spreadsheetcells']
     print data
     #receive
-    #print spreadsheetsessions[id].receive(data,request.user)
+    print spreadsheetsessions[id].receive(data,request.user)
     return HttpResponse(spreadsheetsessions[id].receive(data, request.user))
     
  

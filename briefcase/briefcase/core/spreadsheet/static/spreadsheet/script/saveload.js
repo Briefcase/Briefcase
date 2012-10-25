@@ -141,10 +141,12 @@ function autosave() {
   		dataType: "html",
   		success: function(data){
         //alert (data);
+        console.log("Receving: " + data);
         waiting=false;
   		},
   		error: function (xhr, ajaxOptions, thrownError){
         waiting=false;
+        //console.log("Receving:" + xhr.status)
         //alert(xhr.status);
         //alert(thrownError);
       }    

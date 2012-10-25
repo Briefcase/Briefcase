@@ -97,48 +97,52 @@ $(document).ajaxSend(function(event, xhr, settings) {
 | new data from the server about what other users have changed.                |
 | I beleve that it is currently broken :(                                      |
 \******************************************************************************/
+var waiting = true;
+var fullCellBuffer = {};
+var currentCellName = "";
+var currentCellValue = "";
+
 function autosave() {
-
-  ///
-  alert("AUTOSAVE RUNNING");
-  ///
-
-  var cell = JSON.stringify(startSelectionX+','+startSelectionY);
-  var data = JSON.stringify(prompt("New Value:",""));
-  
-  var output = "{";
-  output+= cell+":"+data;
-  output+="}";
-  //output = output.slice(0, -1)+ "}"; 
-  
-  var splitPath = decodeURIComponent(window.location.href).split('?')[1].split('&');
-  
-  username = splitPath[0];
-  filename = splitPath[1];
-  
-  if (username==null || username=="") {return;}
-  if (filename==null || filename=="") {return;}
-  
-  output = "fileid="+filename+"&fileowner="+username+"&filedata="+output;
-  
-  alert(output);
-  
-  var serverURL = "/spreadsheet/autosave";
-  $.ajax({
-    type: "POST",
-    url: serverURL,
-		data: output,
-		dataType: "html",
-		success: function(data){
-        alert (data);
-		},
-		error: function (xhr, ajaxOptions, thrownError){// not my code this function is
-                    alert(xhr.status);
-                    alert(thrownError);
-                }    
-  });
-  
-  
+  if (waiting==true) {
+    console.log("WAITING FOR UPDATE: "+ JSON.stringify(fullCellBuffer));
+    // This code only deals with single cell edits, not multi cell edits
+    var currentCell = startSelectionX + ',' + startSelectionY;
+    //console.log(spreadsheetCells[currentCell]);
+    if (currentCellName == currentCell) {
+      currentCellValue = spreadsheetCells[currentCell];
+      console.log("SAME CELL CHANGE" + currentCellName + ":" + currentCellValue);
+    }
+    else {
+      if (currentCellName != "") {
+        fullCellBuffer[currentCellName] = currentCellValue;
+      }
+      currentCellName = currentCell;
+      currentCellValue = spreadsheetCells[currentCellName]
+      console.log("MOVE CELL CHANGE");
+    }
+  }
+  else {
+    console.log("AUTOSAVE");
+    var cell = JSON.stringify(startSelectionX+','+startSelectionY);
+    var fileid = getFileId();
+    output = {"id":fileid,"spreadsheetcells":cell};
+    var serverURL = "/spreadsheet/autosave";
+    $.ajax({
+      type: "POST",
+      url: serverURL,
+  		data: output,
+  		dataType: "html",
+  		success: function(data){
+        //alert (data);
+        waiting=false;
+  		},
+  		error: function (xhr, ajaxOptions, thrownError){
+        waiting=false;
+        //alert(xhr.status);
+        //alert(thrownError);
+      }    
+    });
+  }
   // save to a local variable, probably not needed in the end
   //savedFile = output;
 }
@@ -162,7 +166,15 @@ function devsave() {
         console.log("Returning Data: " + data);
         //alert (data);
 		},
-		error: function(html){alert("error: "+html)}
+		error: function(error){
+      /*var errors = "";
+      for (element in error) {
+        errors += element + "\n";
+      }
+      alert("error: "+errors);
+      */
+      alert("Error: " + error.statusCode());
+    }
   });
   
   

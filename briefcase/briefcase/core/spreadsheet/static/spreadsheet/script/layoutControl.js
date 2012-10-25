@@ -217,6 +217,8 @@ function setInputBoxValue(value) {
 | selection in directions (blah, this needs to have better documentation       |
 \******************************************************************************/
 function setNewSelection (startx, starty, endx, endy, isTab) {
+  autosave();
+
   isTab = (typeof isTab == 'undefined')?false:isTab;
   
   setInputBoxValue(spreadsheetCells[startx+','+starty]);
@@ -268,6 +270,7 @@ function inputBoxOnBlur() {
 function syncFunctionBar() {
   document.getElementById("functionbox").value = document.getElementById("inputbox").value;
   spreadsheetCells[startSelectionX + "," +startSelectionY] = document.getElementById("inputbox").value;
+  autosave();
 }
 /********************** SYNC INPUT BOX FROM FUNCTION BAR **********************\
 |
@@ -275,6 +278,7 @@ function syncFunctionBar() {
 function syncInputBox() {
   document.getElementById("inputbox").value = document.getElementById("functionbox").value;
   spreadsheetCells[startSelectionX+","+startSelectionY] = document.getElementById("functionbox").value;
+  autosave();
 }
 
 

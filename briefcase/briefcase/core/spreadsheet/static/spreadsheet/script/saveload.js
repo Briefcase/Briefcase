@@ -149,8 +149,9 @@ function autosave() {
         //console.log("Receving:" + xhr.status)
         //alert(xhr.status);
         //alert(thrownError);
-      }    
+      }
     });
+    delete fullCellBuffer;
   }
   // save to a local variable, probably not needed in the end
   //savedFile = output;

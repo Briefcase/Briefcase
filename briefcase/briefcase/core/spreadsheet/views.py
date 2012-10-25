@@ -48,19 +48,20 @@ def devsave(request):
     
 def autosave(request):
     id=request.POST['id'] #pk of spreadsheet
-    
     #check to see if new spreadsheet
+    print id
     # (SpreadsheetSession will handle checking if new client)
     if not id in spreadsheetsessions:
         spreadsheetsessions[id]= SpreadsheetSession(id)
     data = request.POST['spreadsheetcells']
+    print data
     #receive
     return spreadsheetsessions[id].receive(data, request.user)
 
     
-def updateDBSheet(sheet_id, data):
+def updateDBsheet(sheet_id, data):
     s = Spreadsheet.objects.get(pk=sheet_id)
-    #right update info here
+    # update info here
 
 
     

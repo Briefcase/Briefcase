@@ -126,7 +126,7 @@ function autosave() {
     var cell = JSON.stringify(startSelectionX+','+startSelectionY);
     var fileid = getFileId();
     output = {"id":fileid,"spreadsheetcells":cell};
-    var serverURL = "/spreadsheet/autosave";
+    var serverURL = "/spreadsheet/autosave/";
     $.ajax({
       type: "POST",
       url: serverURL,

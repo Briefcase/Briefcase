@@ -102,14 +102,16 @@ var fullCellBuffer = {};
 var currentCellName = "";
 var currentCellValue = "";
 
+var time
+
 function autosave() {
-  console.log("WAITING FOR UPDATE: "+ JSON.stringify(fullCellBuffer));
+  //console.log("WAITING FOR UPDATE: "+ JSON.stringify(fullCellBuffer));
   // This code only deals with single cell edits, not multi cell edits
   var currentCell = startSelectionX + ',' + startSelectionY;
   //console.log(spreadsheetCells[currentCell]);
   if (currentCellName == currentCell) {
     currentCellValue = spreadsheetCells[currentCell];
-    console.log("SAME CELL CHANGE" + currentCellName + ":" + currentCellValue);
+    //console.log("SAME CELL CHANGE" + currentCellName + ":" + currentCellValue);
   }
 
   else {
@@ -118,7 +120,7 @@ function autosave() {
     }
     currentCellName = currentCell;
     currentCellValue = spreadsheetCells[currentCellName];
-    console.log("MOVE CELL CHANGE");
+    //console.log("MOVE CELL CHANGE");
   }
 
   if (waiting == false) {
@@ -128,49 +130,48 @@ function autosave() {
     }
     currentCellName = currentCell;
     currentCellValue = spreadsheetCells[currentCellName];
-
-
-    console.log("AUTOSAVE");
-    //var cell = JSON.stringify(startSelectionX+','+startSelectionY);
-    var fileid = getFileId();
-    output = {"id":fileid,"spreadsheetcells":JSON.stringify(fullCellBuffer)};
-    var serverURL = "/spreadsheet/autosave/";
-    $.ajax({
-      type: "POST",
-      url: serverURL,
-  		data: output,
-  		dataType: "html",
-  		success: function(data){
-        //alert (data);
-        waiting=false;
-        console.log("Receving: " + data);
-        data = data.replace(/\}\{/ig,"}{|}{"); ///////////// THIS LINE NEEDS TO CHANGE LATER
-        console.log("Replaced: " + data);
-        changes = data.split("{|}");
-        console.log("Split: " + data);
-        for (change in changes){
-          changes[change] = changes[change].replace(/&quot;/ig,'"');
-          changes[change] = changes[change].replace(/'/ig,'"');
-          console.log("Changed Cell: "+changes[change]);
-          var changedCells = JSON.parse(changes[change]);
-          console.log("Parsed Change: "+changedCells);
-          for (cell in changedCells){
-            console.log("Parsing: " + cell + " as " + changedCells[cell]);
-            spreadsheetCells[cell] = changedCells[cell];
-          }
-        }
-  		},
-  		error: function (xhr, ajaxOptions, thrownError){
-        waiting=false;
-        //console.log("Receving:" + xhr.status)
-        //alert(xhr.status);
-        //alert(thrownError);
-      }
-    });
-    delete fullCellBuffer;
   }
-  // save to a local variable, probably not needed in the end
-  //savedFile = output;
+}
+
+function repeatingSave(){
+  console.log("AUTOSAVE");
+  //var cell = JSON.stringify(startSelectionX+','+startSelectionY);
+  var fileid = getFileId();
+  output = {"id":fileid,"spreadsheetcells":JSON.stringify(fullCellBuffer)};
+  var serverURL = "/spreadsheet/autosave/";
+  $.ajax({
+    type: "POST",
+    url: serverURL,
+		data: output,
+		dataType: "html",
+		success: function(data){
+      //alert (data);
+      waiting=false;
+      //console.log("Receving: " + data);
+      data = data.replace(/\}\{/ig,"}{|}{"); ///////////// THIS LINE NEEDS TO CHANGE LATER
+      //console.log("Replaced: " + data);
+      changes = data.split("{|}");
+      //console.log("Split: " + data);
+      for (change in changes){
+        //changes[change] = changes[change].replace(/&quot;/ig,'"');
+        changes[change] = changes[change].replace(/'/ig,'"');
+        //console.log("Changed Cell: "+changes[change]);
+        var changedCells = JSON.parse(changes[change]);
+        //console.log("Parsed Change: "+changedCells);
+        for (cell in changedCells){
+          //console.log("Parsing: " + cell + " as " + changedCells[cell]);
+          spreadsheetCells[cell] = changedCells[cell];
+        }
+      }
+		},
+		error: function (xhr, ajaxOptions, thrownError){
+      waiting=false;
+      //console.log("Receving:" + xhr.status)
+      //alert(xhr.status);
+      //alert(thrownError);
+    }
+  });
+  delete fullCellBuffer;
 }
 
 /************************************ SAVE ************************************\

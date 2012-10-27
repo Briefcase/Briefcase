@@ -69,7 +69,9 @@ class SpreadsheetSession:
         for c in self.clientlists:
             if c.user == user:
                 print c.changelist
-                returnValue = c.changelist
+                returnValue = []
+                returnValue.extend(c.changelist)
+                del self.clientlists[self.clientlists.index(c)].changelist[:]
                 #del c.changelist[:]
                 return returnValue
                 

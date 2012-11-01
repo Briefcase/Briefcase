@@ -75,6 +75,7 @@
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/layoutControl.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/saveload.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/draw.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/tableManager.js"></script>
 
 
 
@@ -118,12 +119,21 @@
             <textarea class="inputbox" oninput="syncFunctionBar()" id="inputbox"/> </textarea>
           </div>
         </div>
-        <!--
-        <canvas id="application" name="application" style="overflow:hidden">
-          Im sorry your browser is too outdated to know what this canvas element is <br >
-          you should update to the newest version so you can use this program (and keep your computer secure)
-        </canvas>
-        -->
+        
+        <style type="text/css">
+          table.datatable {
+            border-collapse: collapse;
+          }
+        </style>
+
+        <table border=1 class="datatable" id="mainTable"><tr><td>hello</td></tr></table>
+
+        <script>
+          //alert("HELLO");
+          tableManager.fillTable([],"mainTable");
+        </script>
+
+
       </div>
 
       <!-- Scrollbars -->

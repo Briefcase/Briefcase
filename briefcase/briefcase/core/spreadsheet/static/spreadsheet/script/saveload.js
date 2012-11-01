@@ -125,8 +125,8 @@ function autosave() {
 
   
 }
-
-window.setInterval(repeatingSave,100);
+////////////// DISABLED WHILE WRITING NEW SPREADSHEET
+//window.setInterval(repeatingSave,100);
 
 function repeatingSave(){
   var currentCell = startSelectionX + ',' + startSelectionY;

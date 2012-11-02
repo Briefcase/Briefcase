@@ -7,7 +7,7 @@
 var spreadsheetCells = {}; // the array that will store the values for the spreadsheet
 
 // Width and height for the labled cells
-var labelCellHeight = 18;
+var labelCellHeight = 18; 
 var labelCellWidth = 40;
 // Cell width and height
 var defaultCellHeight = 20;

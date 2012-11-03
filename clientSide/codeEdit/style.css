@@ -22,17 +22,17 @@
 }
 
 .linenum {
-	width: 2%;
+	width: 3%;
 	height: 100%;
     margin: 0;
     top: 0;
     left 0;
     border-style: none;
-    scroll-x: hidden;
+    overflow: hidden;
 }
 
 .codearea {
-	width: 98%;
+	width: 97%;
 	height: 100%;
     margin: 0;
     top: 0;

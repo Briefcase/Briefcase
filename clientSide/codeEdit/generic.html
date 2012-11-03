@@ -19,9 +19,13 @@
 		<script src="lib/TextareaDecorator.js" type="text/javascript"></script>
 		<script src="lib/Keybinder.js" type="text/javascript"></script>
 		<script src="lib/SelectHelper.js" type="text/javascript"></script>
+		<script src="js/jquery.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			// get element shortcut
-			function $(e){ return document.getElementById(e); };
+
+      function numLines( e ){
+        e.value.match(/\n/g).length + 1;
+      }
 
 			// generic syntax parser
 			var parser = new Parser({
@@ -37,36 +41,54 @@
 			});
 			// wait for the page to finish loading before accessing the DOM
 			window.onload = function(){
+
+        function $$( e ){ return document.getElementById( e ); };
+
 				// get the textarea
-				var textarea = $('codeArea');
-				// start the decorator
+				var textarea = $$('codeArea');
+				var linenums = $$('lineNums');
+        var frame    = $$('frame');
+				var $textarea = $('codeArea');
+				var $linenums = $('lineNums');
+        var $frame    = $('frame');
+
+				// a  tar_ the decorator
 				decorator = new TextareaDecorator( textarea, parser );
+				lnumdecorator = new TextareaDecorator( linenums, parser );
 
-                SelectHelper.add( textarea );
-                var untabFunc = function(){
-                    textarea.untabSelection();
-                    decorator.update();
-                    return true;
-                }
+        //This stuff is for tabbing and shift tabbing
+        SelectHelper.add( textarea );
+        var untabFunc = function(){
+            textarea.untabSelection();
+            decorator.update();
+            return true;
+        }
 
-                var tabFunc = function(){
-                    if( textarea.selectionStart !== textarea.selectionEnd ){
-                        textarea.tabSelection();
-                    }
-                    else{
-                        textarea.insertAtCursor('\t');
-                    }
-                    decorator.update();
-                    return true;
-                }
+        var tabFunc = function(){
+            if( textarea.selectionStart !== textarea.selectionEnd ){
+                textarea.tabSelection();
+            }
+            else{
+                textarea.insertAtCursor('\t');
+            }
+            decorator.update();
+            return true;
+        }
 
-                var keymap = {"Tab": tabFunc, "Shift-Tab": untabFunc};
+        var enterFunc = function(){
+            return false;
+        }
 
-                Keybinder.bind( textarea, keymap );
+        var keymap = {"Tab": tabFunc, "Shift-Tab": untabFunc, "Enter": enterFunc};
+        Keybinder.bind( textarea, keymap );
+
 			};
 		</script>
 	</head>
 	<body>
-		<textarea id='codeArea' class='input' spellcheck='false'>Welcome to the Briefcase Code Editor</textarea>
+    <div class='frame'>
+      <textarea id='lineNums' class='input linenum' spellcheck='false'></textarea>
+      <textarea id='codeArea' class='input codearea' spellcheck='false'>Welcome to the Briefcase Code Editor</textarea>
+    </div>
 	</body>
 </html>

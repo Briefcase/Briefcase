@@ -28,7 +28,7 @@
 
 .ldt {
 	overflow: auto;
-	position: relative;
+    position: absolute;
 }
 
 .ldt pre {

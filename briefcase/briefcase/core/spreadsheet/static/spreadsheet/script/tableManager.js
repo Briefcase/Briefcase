@@ -22,17 +22,18 @@
 			for (var i = 0 ; i < height; i ++){
 				tablematrix[i] = [];
 				for (var j = 0; j < width; j++) {
-					if (j == 5 || j==6)
+					if (j == 5 || j==7)
 						tablematrix[i][j] = i+j+"HELLLLLOOOOOOOOTHERERERERRERE";
-					else        tablematrix[i][j] = "";
+					else
+						tablematrix[i][j] = "";
 				}
 			}
 
-			// create partial document dom
+			// Create partial document DOM
 			newtable = document.createElement('table');
 			newtable.border=1;
 			newtable.borderColor="#CCC";
-			newtable.style.borderCollapse="collapse"
+			newtable.style.borderCollapse="collapse";
 
 			for (var i = 0; i < height; i++) {
 				var newRow = document.createElement('tr');
@@ -46,7 +47,7 @@
 
 					newContent.innerHTML = tablematrix[i][j];
 					if (tablematrix[i][j] != "") {
-							newContent.style.background = "#FFF";
+							newCell.style.background = "#0FF";
 					}	
 
 					newContent.style.position = "absolute";
@@ -82,6 +83,13 @@
 
 			table = document.getElementById(tableid);
 			table.parentNode.replaceChild(newtable,table);
+			newtable.id = tableid;
+
+
+			//table = document.getElementById(tableid);
+			//table.innerHTML="";
+			//newtable.parentNode.replaceChild(newtable,table);
+
 
 			// Loop through an change the widths for cells that are out of bounds
 		},

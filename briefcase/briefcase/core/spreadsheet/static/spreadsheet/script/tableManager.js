@@ -23,8 +23,10 @@
 			for (var i = 0 ; i < height; i ++){
 				tablematrix[i] = [];
 				for (var j = 0; j < width; j++) {
-					if (j == 5 || j==7)
+					if (j == 5 && i != 5)
 						tablematrix[i][j] = i+j+"HELLLLLOOOOOOOOTHERERERERRERE";
+					else if (j == 7)
+						tablematrix[i][j] = i+j+"";
 					else
 						tablematrix[i][j] = "";
 				}
@@ -39,6 +41,8 @@
 			for (var i = 0; i < height; i++) {
 				var newRow = document.createElement('tr');
 				for (var j = 0; j < width; j++) {
+
+					var widthToNextCell = 261;
 
 					// Create all the new Dom objects
 					var newCell = document.createElement('td');
@@ -69,8 +73,9 @@
 					//cellContent.style.minWidth = "100%";
 					//cellContent.style.minHeight = "100%";
 					//cellContent.style.zIndex = "50";
-					cellContent.style.maxHeight = widths[j];
-					cellContent.style.height = widths[j];
+					cellContent.style.maxHeight = heights[j];
+					cellContent.style.height = heights[j];
+					cellContent.style.maxWidth = widthToNextCell+"px";
 					cellContent.style.overflow = "hidden";
 					//cellContent.style.padding = padding+"px";
 					cellContent.style.fontSize = "15px"
@@ -78,7 +83,7 @@
 					// Configure the overflow marker
 					cellContent.appendChild(celloverflowIndicator);
 					celloverflowIndicator.style.position = "absolute";
-					celloverflowIndicator.style.left="5px";
+					celloverflowIndicator.style.left=widthToNextCell-1+"px";
 					celloverflowIndicator.style.top="0px";
 					celloverflowIndicator.style.width = "1px";
 					celloverflowIndicator.style.height = "30px";

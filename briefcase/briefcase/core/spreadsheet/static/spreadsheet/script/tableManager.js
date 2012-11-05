@@ -42,7 +42,13 @@
 				var newRow = document.createElement('tr');
 				for (var j = 0; j < width; j++) {
 
-					var widthToNextCell = 261;
+					// find the width until the next filled cell
+					var widthToNextCell = 130; //261;
+					for (var k = j+1; k < width; k++) {
+						if (tablematrix[i][k] != "") break;
+						widthToNextCell += 130 + 1;
+					}
+					if (tablematrix[i][j] != "") console.log(widthToNextCell);
 
 					// Create all the new Dom objects
 					var newCell = document.createElement('td');

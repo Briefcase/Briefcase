@@ -14,7 +14,8 @@
 			}
 			widths=[];
 			for (var i = 0; i < width; i++) {
-				widths[i] = 130+"px";
+				if (i == 2) widths[i] = 50+"px";
+				else widths[i] = 130+"px";
 			}
 
 			// Create temporary matrix
@@ -53,13 +54,13 @@
 					newCell.style.maxHeight = heights[i];
 					newCell.style.height = heights[i];
 
-					// Confiugre the cell sizeing div
+					// Confiugre the cell sizeing div (maybe not required)
 					newCell.appendChild(cellSize);
 
 					// Configure the new content
 					cellSize.appendChild(cellContent);
 					cellContent.innerHTML = tablematrix[i][j];
-					cellContent.style.position = "absolute";					
+					cellContent.style.position = "absolute"; // Bring the object out so that is will overfow				
 					//cellContent.style.maxWidth = widths[j];
 					//cellContent.style.width = widths[j];
 					//cellContent.style.borderWidth = "1px";
@@ -67,17 +68,20 @@
 					//cellContent.style.borderColor = "#CCC";
 					//cellContent.style.minWidth = "100%";
 					//cellContent.style.minHeight = "100%";
-					cellContent.style.zIndex = "50";
-					cellContent.style.maxHeight = "16px";
-					cellContent.style.height = "16px";
+					//cellContent.style.zIndex = "50";
+					cellContent.style.maxHeight = widths[j];
+					cellContent.style.height = widths[j];
 					cellContent.style.overflow = "hidden";
 					//cellContent.style.padding = padding+"px";
 					cellContent.style.fontSize = "15px"
 
 					// Configure the overflow marker
 					cellContent.appendChild(celloverflowIndicator);
+					celloverflowIndicator.style.position = "absolute";
+					celloverflowIndicator.style.left="5px";
+					celloverflowIndicator.style.top="0px";
 					celloverflowIndicator.style.width = "1px";
-					celloverflowIndicator.style.height = "80px";
+					celloverflowIndicator.style.height = "30px";
 					celloverflowIndicator.style.background = "#F00"
 					//celloverflowIndicator.style.
 

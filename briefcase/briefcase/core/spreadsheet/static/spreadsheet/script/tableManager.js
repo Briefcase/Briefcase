@@ -38,44 +38,50 @@
 			for (var i = 0; i < height; i++) {
 				var newRow = document.createElement('tr');
 				for (var j = 0; j < width; j++) {
+
+					// Create all the new Dom objects
 					var newCell = document.createElement('td');
+					var cellSize = document.createElement('div');
+					var cellContent = document.createElement('div');
+					var celloverflowIndicator = document.createElement('div');
+
+					// Configure the new cell
 					newCell.style.padding="0px";
-
-					var newContent = document.createElement('div');
-					newCell.appendChild(newContent);
-
-
-					newContent.innerHTML = tablematrix[i][j];
-					if (tablematrix[i][j] != "") {
-							newCell.style.background = "#0FF";
-					}	
-
-					newContent.style.position = "absolute";
-
-					newCell.style.maxWidth = widths[j];
-					//newContent.style.maxWidth = widths[j];
-					//newContent.style.width = widths[j];
 					newCell.style.minWidth = widths[j];
 					newCell.style.verticalAlign="top";
-					//newContent.style.borderWidth = "1px";
-					//newContent.style.borderStyle = "solid";
-					//newContent.style.borderColor = "#CCC";
-
-					//newContent.style.minWidth = "100%";
-					//newContent.style.minHeight = "100%";
-
-					newContent.style.zIndex = "50";
-					
-					newContent.style.maxHeight = "16px";
-					newContent.style.height = "16px";
-
+					newCell.style.maxWidth = widths[j];
 					newCell.style.maxHeight = heights[i];
 					newCell.style.height = heights[i];
 
-					newContent.style.overflow = "hidden";
+					// Confiugre the cell sizeing div
+					newCell.appendChild(cellSize);
 
-					newContent.style.padding = padding+"px";
-					newContent.style.fontSize = "15px"
+					// Configure the new content
+					cellSize.appendChild(cellContent);
+					cellContent.innerHTML = tablematrix[i][j];
+					cellContent.style.position = "absolute";					
+					//cellContent.style.maxWidth = widths[j];
+					//cellContent.style.width = widths[j];
+					//cellContent.style.borderWidth = "1px";
+					//cellContent.style.borderStyle = "solid";
+					//cellContent.style.borderColor = "#CCC";
+					//cellContent.style.minWidth = "100%";
+					//cellContent.style.minHeight = "100%";
+					cellContent.style.zIndex = "50";
+					cellContent.style.maxHeight = "16px";
+					cellContent.style.height = "16px";
+					cellContent.style.overflow = "hidden";
+					//cellContent.style.padding = padding+"px";
+					cellContent.style.fontSize = "15px"
+
+					// Configure the overflow marker
+					cellContent.appendChild(celloverflowIndicator);
+					celloverflowIndicator.style.width = "1px";
+					celloverflowIndicator.style.height = "80px";
+					celloverflowIndicator.style.background = "#F00"
+					//celloverflowIndicator.style.
+
+					// Append the newley created table data
 					newRow.appendChild(newCell);
 				}
 				newtable.appendChild(newRow);

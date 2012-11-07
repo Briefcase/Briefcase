@@ -1,3 +1,4 @@
 serverSide/briefcase_db
 *.pyc
 *.sqlite3
+*.swp

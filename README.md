@@ -20,7 +20,7 @@ Text Editors:
   Live Latex Renderer [--0%--]  
 
 
-
+Text editor is in progress
  
  
   

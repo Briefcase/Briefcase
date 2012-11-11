@@ -71,14 +71,14 @@
 					cellSize.appendChild(cellContent);
 					cellContent.innerHTML = tablematrix[i][j];
 					cellContent.style.position = "absolute"; // Bring the object out so that is will overfow				
-					//cellContent.style.maxWidth = widths[j];
-					//cellContent.style.width = widths[j];
-					//cellContent.style.borderWidth = "1px";
-					//cellContent.style.borderStyle = "solid";
-					//cellContent.style.borderColor = "#CCC";
-					//cellContent.style.minWidth = "100%";
-					//cellContent.style.minHeight = "100%";
-					//cellContent.style.zIndex = "50";
+					// cellContent.style.maxWidth = widths[j];
+					// cellContent.style.width = widths[j];
+					// cellContent.style.borderWidth = "1px";
+					// cellContent.style.borderStyle = "solid";
+					// cellContent.style.borderColor = "#CCC";
+					// cellContent.style.minWidth = "100%";
+					// cellContent.style.minHeight = "100%";
+					// cellContent.style.zIndex = "50";
 					cellContent.style.maxHeight = heights[j];
 					cellContent.style.height = heights[j];
 					cellContent.style.maxWidth = widthToNextCell+"px";

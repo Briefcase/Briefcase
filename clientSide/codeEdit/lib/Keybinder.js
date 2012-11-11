@@ -60,10 +60,9 @@ var Keybinder = {
 			/* DEBUG */
 			//console.log("keyEvent: "+query);
 			// try to run the keybinding, cancel the event if it returns true
-			if( element.keymap[query] ){
+			if( element.keymap[query] && element.keymap[query]() ){
 				e.preventDefault && e.preventDefault();
 				e.stopPropagation && e.stopPropagation();
-				element.keymap[query]();
 				return false;
 			}
 			return true;

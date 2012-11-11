@@ -28,7 +28,7 @@ class SpreadsheetSession:
         self.clientlists=[]
         
         asherlist = ClientList(unicode('asher'))
-        data = {"2,2":"asher's data"}
+        data = {"2,2":"ashers data"}
         asherlist.add_to_list(data)
         self.clientlists.append(asherlist)
         
@@ -69,7 +69,11 @@ class SpreadsheetSession:
         for c in self.clientlists:
             if c.user == user:
                 print c.changelist
-                return c.changelist
+                returnValue = []
+                returnValue.extend(c.changelist)
+                del self.clientlists[self.clientlists.index(c)].changelist[:]
+                #del c.changelist[:]
+                return returnValue
                 
 class ClientList:
     #initialize with username

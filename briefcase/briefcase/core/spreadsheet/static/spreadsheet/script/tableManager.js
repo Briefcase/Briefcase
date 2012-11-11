@@ -3,12 +3,12 @@
 	global["tableManager"] = {
 
 
-		/*########################## TABLEMANAGER.FILLTABLE ############################
-		# This function creates a table and fills it with the data contain in the      #
-		# table data matrix. The widths of each cell are defined within the Cell       #
-		# Widths matrix and the heights of the cells are defined within the Cell       #
-		# Heights matrix. All the overflow settings are also set within this function  #
-		\#############################################################################*/
+		/*************************** TABLEMANAGER.FILLTABLE ***************************\
+		| This function creates a table and fills it with the data contain in the      |
+		| table data matrix. The widths of each cell are defined within the Cell       |
+		| Widths matrix and the heights of the cells are defined within the Cell       |
+		| Heights matrix. All the overflow settings are also set within this function  |
+		\******************************************************************************/
 
 		fillTable : function (tablematrix, tableid, cellWidths, cellHeights) {
 			//alert("Plus px")

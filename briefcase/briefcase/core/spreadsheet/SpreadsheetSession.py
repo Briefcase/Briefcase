@@ -78,7 +78,4 @@ class ClientList:
         self.changelist=[] #list of changes (which are dicts)
         
     def add_to_list(self, data):
-        #print "adding to list"
-        #print self.user
-        #print data
         self.changelist.append(data)

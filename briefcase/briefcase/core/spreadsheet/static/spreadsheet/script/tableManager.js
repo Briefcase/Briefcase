@@ -18,19 +18,7 @@
 				else widths[i] = 130+"px";
 			}
 
-			// Create temporary matrix
-			tablematrix = [];
-			for (var i = 0 ; i < height; i ++){
-				tablematrix[i] = [];
-				for (var j = 0; j < width; j++) {
-					if (j == 5 && i != 5)
-						tablematrix[i][j] = i+j+"HELLLLLOOOOOOOOTHERERERERRERE";
-					else if (j == 7)
-						tablematrix[i][j] = i+j+"";
-					else
-						tablematrix[i][j] = "";
-				}
-			}
+			
 
 			// Create partial document DOM
 			newtable = document.createElement('table');
@@ -38,6 +26,8 @@
 			newtable.borderColor="#CCC";
 			newtable.style.borderCollapse="collapse";
 
+
+			//
 			for (var i = 0; i < height; i++) {
 				var newRow = document.createElement('tr');
 				for (var j = 0; j < width; j++) {
@@ -70,20 +60,11 @@
 					// Configure the new content
 					cellSize.appendChild(cellContent);
 					cellContent.innerHTML = tablematrix[i][j];
-					cellContent.style.position = "absolute"; // Bring the object out so that is will overfow				
-					// cellContent.style.maxWidth = widths[j];
-					// cellContent.style.width = widths[j];
-					// cellContent.style.borderWidth = "1px";
-					// cellContent.style.borderStyle = "solid";
-					// cellContent.style.borderColor = "#CCC";
-					// cellContent.style.minWidth = "100%";
-					// cellContent.style.minHeight = "100%";
-					// cellContent.style.zIndex = "50";
+					cellContent.style.position = "absolute"; // Bring the object out so that is will overfow
 					cellContent.style.maxHeight = heights[j];
 					cellContent.style.height = heights[j];
 					cellContent.style.maxWidth = widthToNextCell+"px";
 					cellContent.style.overflow = "hidden";
-					//cellContent.style.padding = padding+"px";
 					cellContent.style.fontSize = "15px"
 
 					// Configure the overflow marker

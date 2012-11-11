@@ -78,11 +78,11 @@
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/draw.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/tableManager.js"></script>
 
-
-
-
     <!-- Function Libraries -->
     <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/math.js"></script>
+
+
+
     {% endblock javascript %}
 
     {%block content%}
@@ -131,7 +131,22 @@
 
         <script>
           //alert("HELLO");
-          tableManager.fillTable([],"mainTable");
+          // Create temporary matrix
+          var height = 20;
+          var width = 20;
+          tablematrix = [];
+          for (var i = 0 ; i < height; i ++){
+            tablematrix[i] = [];
+            for (var j = 0; j < width; j++) {
+              if (j == 5 && i != 5)
+                tablematrix [i][j] = i+j+"HELLLLLOOOOOOOOTHERERERERRERE";
+              else if (j == 7 && i != 4)
+                tablematrix[i][j] = i+j+"";
+              else
+                tablematrix[i][j] = "";
+            }
+          }
+          tableManager.fillTable(tablematrix,"mainTable");
         </script>
 
 

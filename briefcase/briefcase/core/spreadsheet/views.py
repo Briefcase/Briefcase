@@ -60,11 +60,6 @@ def autosave(request):
     
  
 
-    
-def updateDBsheet(sheet_id, data):
-    s = Spreadsheet.objects.get(pk=sheet_id)
-    # update info here
-
 
     
 

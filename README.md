@@ -1,6 +1,8 @@
 Briefacse
 =========
 
+Briefcase is an online document editor. Meant to create usable programs to help people edit and distribute documents.
+
 Briefcase is under the BSD licence, full text found at the end of this file
 Briefcase is an open source online document editor
 The backend is written in Django
@@ -11,27 +13,19 @@ Want To Help? Fork the repo and write some functions!
 Planned Applications
 ====================
 Spreadsheet [In Development]  
-
-'Big' Presentation Editor [Beginning Development]
-
-Text Editors:  
-  Code Editor [In Development]  
-  Live Markdown Renderer[--0%--]  
-  Live Latex Renderer [--0%--]  
-
+Presentation Editor [Beginning Development]
+Code Editor [In Development]  
 
 
  
  
-  
-_These Percentages may not be accurate do to refactoring of code, some functions were rewritten and some legacy code was thrown out_
 Spreadsheet [In Development]  
 -------------------------------------
   Cell editing [--100%--]  
   Cell Resizing [--50%--]  
-  Saving Loading [--50%--]  
-   - Conversions to and from JSON [--90%--]  
-   - Ajax communication with server [--0%--]  
+  Saving Loading [--100%--]  
+   - Conversions to and from JSON [--100%--]  
+   - Ajax communication with server [--100%--]  
   Function Framework [--100--]  
    - native arithmatic [--100--]  
    - cell queries [--100--]  
@@ -48,8 +42,8 @@ Spreadsheet [In Development]
    - html is searchable [--0%--]  
    
   Menu [--80%--]  
-  Text Coloring [--0%--]  
-  Multiple user edit [--0%--]  
+  Text Coloring [--80%--]  
+  Multiple user edit [--90%--]  
 
 Licence
 =======

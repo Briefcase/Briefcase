@@ -13,7 +13,7 @@ Want To Help? Fork the repo and write some functions!
 Planned Applications
 ====================
 Spreadsheet [In Development]  
-Presentation Editor [Beginning Development]
+Presentation Editor [Beginning Development] 
 Code Editor [In Development]  
 
 

@@ -1,3 +1,4 @@
+#spreadsheet.admin.py
 from briefcase.core.spreadsheet.models import Spreadsheet
 from django.contrib import admin
 

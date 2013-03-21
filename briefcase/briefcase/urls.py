@@ -1,3 +1,4 @@
+#briefcase.urls.py
 from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:

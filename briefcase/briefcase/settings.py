@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'briefcase.core',
     'briefcase.core.accounts',
     'briefcase.core.spreadsheet',
+    #'briefcase.core.codeEditor',
 )
 
 # A sample logging configuration. The only tangible logging

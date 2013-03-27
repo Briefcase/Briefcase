@@ -1,4 +1,4 @@
-from briefcase.core.spreadsheet.models import Spreadsheet
+from models import Spreadsheet
 import json
 ##################################################
 ## SpreadsheetSession - used for holding the changeset and

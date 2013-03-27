@@ -1,5 +1,9 @@
 # Django settings for briefcase project.
 
+import os
+
+BASE = os.path.abspath(os.path.dirname(__file__))
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -118,9 +122,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'briefcase.core',
     'briefcase.core.accounts',
-    'briefcase.core.spreadsheet',
-    #'briefcase.core.codeEditor',
 )
+
+INSTALLED_APPS += tuple("briefcase.apps.%s" % o for o in os.listdir(os.path.join(BASE, "apps")) if os.path.isdir(os.path.join(BASE, "apps",o)))
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

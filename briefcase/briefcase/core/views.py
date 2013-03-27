@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpRequest, Http404
 from django.contrib.auth.decorators import login_required
-from briefcase.core.spreadsheet.models import Spreadsheet
 from briefcase.core.models import Document
 import json
 

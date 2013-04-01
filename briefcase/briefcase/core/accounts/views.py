@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -32,7 +33,6 @@ def register(request):
             # send_mail('Registration Successful', 'You\'re registration with briefcasedocs.com was successful.', 'from@example.com',[email],fail_silently=False)
 
             return HttpResponse("Registration successful")
-
 
     return render(request,'accounts/register.html', {'form':form})
 

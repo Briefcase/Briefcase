@@ -29,6 +29,7 @@ def load(request):
 @login_required
 def new(request):
     ss = Spreadsheet(owner=request.user, file_name="New Spreadsheet", module="briefcase.apps.spreadsheet.views.home")
+    ss.data = "{}"
     ss.save()
     url = {"url":reverse('briefcase.apps.spreadsheet.views.home', args=[ss.pk])}
     return HttpResponse(json.dumps(url))

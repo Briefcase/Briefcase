@@ -53,7 +53,7 @@ $(document).ready( function () {
   
   
   // general keyboard events (shortcut keys, etc.)
-  document.onkeypress = keypress;
+  document.onkeydown = keypress;
   
   
   // scrolling 
@@ -73,7 +73,7 @@ $(document).ready( function () {
   
 function checkScrollDraw (e) {
   //console.log();
-  
+
   resizeWindow();
 }
 /*************************** GLOBAL KEY PRESS EVENT ***************************\
@@ -86,6 +86,7 @@ function checkScrollDraw (e) {
 |     on the next row                                                          |
 \******************************************************************************/
 function keypress (event) {
+  console.log("KEYPRESSED!");
   if (!isInputFocused()) {
     // delete key, for deleting a cell
     if (event.keyCode == 8) {
@@ -134,9 +135,11 @@ function keypress (event) {
     else {
       // TODO some more params to make sure ctrl and alt, etc are not pressed
       // or that if they are the event is carried through 
-      if (event.charCode != 0) {
+      console.log("keypress, not cought: Key "+event.keyCode);
+      if (event.keyCode != 0) {
+        console.log("keypress, not zero");
         focusInputBox();
-        setInputBoxValue(String.fromCharCode(event.charCode));
+        //setInputBoxValue(String.fromCharCode(event.charCode));
         syncFunctionBar();
       }
     }

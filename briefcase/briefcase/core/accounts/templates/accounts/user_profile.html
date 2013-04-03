@@ -60,7 +60,7 @@
           dataType: "html",
           success: function(url) {
             jsonObject = JSON.parse(url)
-            alert("Redirecting to \n" + jsonObject["url"]);
+            //alert("Redirecting to \n" + jsonObject["url"]);
             window.location.href= jsonObject["url"];
           },
           error: function(jqXHR, textStatus, errorThrown){alert("error: "+jqXHR+":"+textStatus+":"+errorThrown)}

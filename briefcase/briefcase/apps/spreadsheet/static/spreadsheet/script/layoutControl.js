@@ -73,7 +73,7 @@ $(document).ready( function () {
   
 function checkScrollDraw (e) {
   //console.log();
-
+  moveInputBox(startSelectionX,startSelectionY);
   resizeWindow();
 }
 /*************************** GLOBAL KEY PRESS EVENT ***************************\

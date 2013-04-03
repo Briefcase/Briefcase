@@ -136,7 +136,7 @@ function repeatingSave(){
   currentCellName = "";//currentCell;
   currentCellValue = "";//spreadsheetCells[currentCellName];
 
-  console.log("Autosaving: " + JSON.stringify(fullCellBuffer));
+  //console.log("Autosaving: " + JSON.stringify(fullCellBuffer));
 
   //var cell = JSON.stringify(startSelectionX+','+startSelectionY);
   var fileid = getFileId();
@@ -158,11 +158,13 @@ function repeatingSave(){
         data = data.replace(/\}\{/ig,"}{|}{"); ///////////// THIS LINE NEEDS TO CHANGE LATER
         //console.log("Replaced: " + data);
         changes = data.split("{|}");
+        console.log(data);
         //console.log("Split: " + data);
         for (change in changes){
           //changes[change] = changes[change].replace(/&quot;/ig,'"');
           changes[change] = changes[change].replace(/'/ig,'"');
           //console.log("Changed Cell: "+changes[change]);
+          if (changes[change] == "") continue;
           var changedCells = JSON.parse(changes[change]);
           //console.log("Parsed Change: "+changedCells);
           for (cell in changedCells){

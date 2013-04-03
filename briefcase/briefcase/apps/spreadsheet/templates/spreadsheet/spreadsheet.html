@@ -108,8 +108,8 @@
     <div style="width:100%; overflow:hidden; position: relative;" id="framecontain" class="framecontain">
 
 
-
-      <div id="applicationDiv" style="">
+      <div class="scrollbar" id="scrollbar" style="position:absolute">
+        <div style="">
         <!-- Input box -->
         <div class="datain" id="datain">
           <div class="cornerbox" id="inputCornerBox"> </div>
@@ -118,6 +118,14 @@
             <textarea class="inputbox" oninput="syncFunctionBar()" id="inputbox"/> </textarea>
           </div>
         </div>
+      </div>
+
+
+        <div class="scrollsize" id="scrollsize" style="pointer-events:none;">
+        </div>
+      </div>
+      <div id="applicationDiv" style="">
+       
 
         <canvas id="application" name="application" style="overflow:hidden">
           Im sorry your browser is too outdated to know what this canvas element is <br >
@@ -126,10 +134,7 @@
       </div>
 
       <!-- Scrollbars -->
-      <div class="scrollbar" id="scrollbar" style="position:absolute">
-        <div class="scrollsize" id="scrollsize" style="pointer-events:none;">
-        </div>
-      </div>
+      
 
     </div>
 

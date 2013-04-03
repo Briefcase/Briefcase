@@ -73,6 +73,7 @@ $(document).ready( function () {
   
 function checkScrollDraw (e) {
   //console.log();
+  
   resizeWindow();
 }
 /*************************** GLOBAL KEY PRESS EVENT ***************************\
@@ -180,8 +181,8 @@ function tabToNextColumn (shiftKey) {
 | the cell. It then resizes the input box to fit the cell                      |
 \******************************************************************************/
 function moveInputBox (xcell,ycell) {
-  var pixelx = getCellOffsetLeft(xcell,getScrollXCell());
-  var pixely = getCellOffsetTop(ycell,getScrollYCell());
+  var pixelx = getCellOffsetLeft(xcell,getScrollXCell()) - labelCellWidth + document.getElementById("scrollbar").scrollLeft;
+  var pixely = getCellOffsetTop(ycell,getScrollYCell()) - labelCellHeight + document.getElementById("scrollbar").scrollTop;
   //get the 
   //var menuHeight = document.getElementById("framecontain").offsetTop;
   var menuHeight = 0; // set menu height to 0 because the data-in box was moved to inside the spreadsheet

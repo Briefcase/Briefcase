@@ -13,32 +13,25 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {}
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#         'NAME': 'briefcase_db.sqlite3',                      # Or path to database file if using sqlite3.
-#         'USER': '',                      # Not used with sqlite3.
-#         'PASSWORD': '',                  # Not used with sqlite3.
-#         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-#         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-#     }
-# }
+DATABASES = {'default':{}}
 
+# Parse database configuration from $DATABASE_URL [HEROKU STUFF]
 try:
-	# Parse database configuration from $DATABASE_URL [HEROKU STUFF]
-	import dj_database_url
-	DATABASES['default'] = dj_database_url.config()
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
+except ImportError:
+    pass
 
-except:
-	# Use local database configuration
-	DATABASES['default'] = {
-		'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-		'NAME': 'briefcase_db.sqlite3',                      # Or path to database file if using sqlite3.
-		'USER': '',                      # Not used with sqlite3.
-		'PASSWORD': '',                  # Not used with sqlite3.
-		'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-		'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-	}
+# if the default database has not been set
+if DATABASES['default'] == {}:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'briefcase_db.sqlite3',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure() [HEROKU STUFF]

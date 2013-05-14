@@ -87,11 +87,8 @@ var KeyObject = function (value) {
   
   // parse the input value as a string //
   if (typeof(value) == 'string') {
-    console.log("Received a String, No parsing mechanism yet");
     var totalKeys = value.split('+');
-    console.log(totalKeys);
     for (key in totalKeys) {
-      console.log(totalKeys[key]);
       var keyval;
       keyval = regKeys[totalKeys[key]];
       if (keyval == undefined) keyval = specialKeys[totalKeys[key]];
@@ -105,7 +102,7 @@ var KeyObject = function (value) {
         this.keyCode = keyval;
       }
     }
-    console.log(this.string());
+    console.log("Adding HotKey: "+this.string());
   }
   // parset the input value as a keyboard event //
   else if (value.toString() == '[object KeyboardEvent]') {
@@ -134,8 +131,10 @@ function addKeyUp(hotkey,functioncall) {
 document.onkeydown = function (e) {
   var key = new KeyObject(e);
   var functionToRun = _HOT_KEY_DOWN_LIST_[key.string()];
-  if (functionToRun != undefined) functionToRun();
-  else console.log("No Trigger");
+  if (functionToRun != undefined) {
+    e.preventDefault();
+    functionToRun();
+  }
 }
 document.onkeyup = function (event) {
 }

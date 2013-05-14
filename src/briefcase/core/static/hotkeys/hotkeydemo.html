@@ -2,18 +2,8 @@
   <head>
     <script type="text/javascript" src="hotkeys.js"> </script>
     <script>
-      onload = function(e) {
-        var key = new KeyObject("Ctrl+Alt+B");
-      }
-      onkeydown = onkeyup = function (e) {
-        var key = new KeyObject (e);
-        e.preventDefault();
-        document.body.innerHTML = key.string();
-      }
-
-
-      addKeyDown("Ctrl+Tab",function() {alert("Save!")});
-
+      addKeyDown("Ctrl+S",function() {alert("Save!")});
+      addKeyDown("")
       
       
       var shiftKeys = "~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?";

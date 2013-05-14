@@ -311,6 +311,7 @@ function createMenu (name, JSONChildren, icon, version, topLevel) {
 function createButton (name, callbackFunction, icon, shortcutKey, version) {
   var item = createItem(name,callbackFunction,icon,shortcutKey, version);
   item.onmouseover = function() {closeMenusDownTo(item.parentNode)};
+  Hotkey.addKeyDown(shortcutKey,callbackFunction); // Enable shortcut key
   return item;
 }
 /****************************** BREAK GENERATION ******************************\

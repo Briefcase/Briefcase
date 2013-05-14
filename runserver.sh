@@ -1,4 +1,4 @@
-cd briefcase
+cd src
 find . -name "*.pyc" -exec rm {} \;
 python2.7 manage.py runserver
 cd ..

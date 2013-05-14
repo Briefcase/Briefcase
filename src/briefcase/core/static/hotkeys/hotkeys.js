@@ -63,78 +63,97 @@ var specialKeysReverse={9: "Tab",8: "Backspace",112: "F1",113: "F2",114: "F3",11
 var modKeysReverse = {16: "Shift",17: "Ctrl",18: "Alt",224: "Alt"};
 var modKeys = {"Shift":16,"Ctrl":17,"Alt":18,"Alt":224};
 
-//Key class for creating key objects
-var KeyObject = function (value) {
-  this.shiftKey = false;
-  this.metaKey = false;
-  this.altKey = false;
-  this.ctrlKey = false;
-  this.keyCode = 0;
-  this.charCode = 0;
-  this.string = function () {
-    var output = "";
-    var char;//= String.fromCharCode(this.keyCode)+"("+this.keyCode+")"; 
-    char = regKeysReverse[this.keyCode];
-    char = char==undefined?specialKeysReverse[this.keyCode]:char;
-    char = char==undefined?(modKeysReverse[this.keyCode]==undefined?this.keyCode:""):char;
-    if (this.shiftKey) {output += "Shift+";}
-    if (this.ctrlKey) {output += "Ctrl+";}
-    if (this.altKey) {output += "Alt+";}
-    if (this.metaKey) {output += "Meta+";}
-    output += char;
-    return output;
-  }
-  
-  // parse the input value as a string //
-  if (typeof(value) == 'string') {
-    var totalKeys = value.split('+');
-    for (key in totalKeys) {
-      var keyval;
-      keyval = regKeys[totalKeys[key]];
-      if (keyval == undefined) keyval = specialKeys[totalKeys[key]];
-      if (keyval == undefined) {
-        if (totalKeys[key] == "Shift") this.shiftKey = true;
-        else if (totalKeys[key] == "Ctrl") this.ctrlKey = true;
-        else if (totalKeys[key] == "Alt") this.altKey = true;
-        else if (totalKeys[key] == "Meta") this.metaKey = true; 
-      }
-      else {
-        this.keyCode = keyval;
-      }
+
+var Hotkey = {
+
+  downCatchall : function(e){},
+
+  //Key class for creating key objects
+  KeyObject : function (value) {
+    this.shiftKey = false;
+    this.metaKey = false;
+    this.altKey = false;
+    this.ctrlKey = false;
+    this.keyCode = 0;
+    this.charCode = 0;
+    this.string = function () {
+      var output = "";
+      var char;//= String.fromCharCode(this.keyCode)+"("+this.keyCode+")"; 
+      char = regKeysReverse[this.keyCode];
+      char = char==undefined?specialKeysReverse[this.keyCode]:char;
+      char = char==undefined?(modKeysReverse[this.keyCode]==undefined?this.keyCode:""):char;
+      if (this.shiftKey) {output += "Shift+";}
+      if (this.ctrlKey) {output += "Ctrl+";}
+      if (this.altKey) {output += "Alt+";}
+      if (this.metaKey) {output += "Meta+";}
+      output += char;
+      return output;
     }
-    console.log("Adding HotKey: "+this.string());
-  }
-  // parset the input value as a keyboard event //
-  else if (value.toString() == '[object KeyboardEvent]') {
-    this.charCode = value.charCode;
-    this.keyCode = value.keyCode;
-    this.altKey = value.altKey;
-    this.ctrlKey = value.ctrlKey;
-    this.shiftKey = value.shiftKey;
-  }
-  else {
-    console.log("Error, " + value.toString() + " is not a valid keytype");
-  }
-}
-// Shift + Ctrl + Alt + Mod + Del
+    
+    // parse the input value as a string //
+    if (typeof(value) == 'string') {
+      var totalKeys = value.split('+');
+      for (key in totalKeys) {
+        var keyval;
+        keyval = regKeys[totalKeys[key]];
+        if (keyval == undefined) keyval = specialKeys[totalKeys[key]];
+        if (keyval == undefined) {
+          if (totalKeys[key] == "Shift") this.shiftKey = true;
+          else if (totalKeys[key] == "Ctrl") this.ctrlKey = true;
+          else if (totalKeys[key] == "Alt") this.altKey = true;
+          else if (totalKeys[key] == "Meta") this.metaKey = true; 
+        }
+        else {
+          this.keyCode = keyval;
+        }
+      }
+      console.log("Adding HotKey: "+this.string());
+    }
+    // parset the input value as a keyboard event //
+    else if (value.toString() == '[object KeyboardEvent]') {
+      this.charCode = value.charCode;
+      this.keyCode = value.keyCode;
+      this.altKey = value.altKey;
+      this.ctrlKey = value.ctrlKey;
+      this.shiftKey = value.shiftKey;
+    }
+    else {
+      console.log("Error, " + value.toString() + " is not a valid keytype");
+    }
+  },
+  // Shift + Ctrl + Alt + Mod + Del
 
-// Register a new key event //
-function addKeyDown(hotkey,functioncall) {
-  var key = new KeyObject(hotkey);
-  _HOT_KEY_DOWN_LIST_[key.string()] = functioncall;
-}
-function addKeyUp(hotkey,functioncall) {
-  var key = new KeyObject(hotkey);
-  _HOT_KEY_UP_LIST_[key.string()] = functioncall;
+  // Register a new key event //
+  addKeyDown : function (hotkey,functioncall) {
+    var key = new Hotkey.KeyObject(hotkey);
+    _HOT_KEY_DOWN_LIST_[key.string()] = functioncall;
+  },
+  addKeyUp : function (hotkey,functioncall) {
+    var key = new Hotkey.KeyObject(hotkey);
+    _HOT_KEY_UP_LIST_[key.string()] = functioncall;
+  },
+
+  
+
+  addDownKeyCatchall : function(functioncall) {
+    Hotkey.downCatchall = functioncall;
+  },
+
+  keydownEvent : function (e) {
+    var key = new Hotkey.KeyObject(e);
+    var functionToRun = _HOT_KEY_DOWN_LIST_[key.string()];
+    if (functionToRun != undefined) {
+      e.preventDefault();
+      functionToRun();
+    }
+    else Hotkey.downCatchall(e);
+  },
+
+  keyupEvent : function (e) {
+
+  }
+
 }
 
-document.onkeydown = function (e) {
-  var key = new KeyObject(e);
-  var functionToRun = _HOT_KEY_DOWN_LIST_[key.string()];
-  if (functionToRun != undefined) {
-    e.preventDefault();
-    functionToRun();
-  }
-}
-document.onkeyup = function (event) {
-}
+document.onkeydown = Hotkey.keydownEvent;
+document.onkeyup = Hotkey.keyupEvent;

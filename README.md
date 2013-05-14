@@ -1,4 +1,4 @@
-Briefacse
+Briefcase
 =========
 
 Briefcase is an online document editor. Meant to create usable programs to help people edit and distribute documents.

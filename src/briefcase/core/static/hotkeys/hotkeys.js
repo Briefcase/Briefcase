@@ -61,6 +61,7 @@ var regKeys={"0": 48,"1": 49,"2": 50,"3": 51,"4": 52,"5": 53,"6": 54,"7": 55,"8"
 var specialKeys={"Tab": 9,"Backspace": 8,"F1": 112,"F2": 113,"F3": 114,"F4": 115,"F5": 116,"F6": 117,"F7": 118,"F8": 119,"F9": 120,"F10": 121,"F11": 122,"F12": 123,"Enter": 13,"Esc": 27,"PrintScreen": 42,"ScrollLock": 145,"Pause": 19,"Insert": 45,"Delete": 46,"Home": 36,"End": 35,"PageUp": 33,"PageDown": 34,"CapsLock": 20,"Up": 38,"Down": 40,"Left": 37,"Right": 39,"`": 192,"-": 109,"[": 219,"]": 221,"\\": 220,"'": 222,",": 188,".": 190,"/": 191,"Space": 32};
 var specialKeysReverse={9: "Tab",8: "Backspace",112: "F1",113: "F2",114: "F3",115: "F4",116: "F5",117: "F6",118: "F7",119: "F8",120: "F9",121: "F10",122: "F11",123: "F12",13: "Enter",27: "Esc",42: "PrintScreen",145: "ScrollLock",19: "Pause",45: "Insert",46: "Delete",36: "Home",35: "End",33: "PageUp",34: "PageDown",20: "CapsLock",38: "Up",40: "Down",37: "Left",39: "Right",192: "`",109: "-",219: "[",221: "]",220: "\\",222: "'",188: ",",190: ".",191: "/",32: "Space"};
 var modKeysReverse = {16: "Shift",17: "Ctrl",18: "Alt",224: "Alt"};
+var modKeys = {"Shift":16,"Ctrl":17,"Alt":18,"Alt":224};
 
 //Key class for creating key objects
 var KeyObject = function (value) {
@@ -86,7 +87,25 @@ var KeyObject = function (value) {
   
   // parse the input value as a string //
   if (typeof(value) == 'string') {
-    alert("stringman!");
+    console.log("Received a String, No parsing mechanism yet");
+    var totalKeys = value.split('+');
+    console.log(totalKeys);
+    for (key in totalKeys) {
+      console.log(totalKeys[key]);
+      var keyval;
+      keyval = regKeys[totalKeys[key]];
+      if (keyval == undefined) keyval = specialKeys[totalKeys[key]];
+      if (keyval == undefined) {
+        if (totalKeys[key] == "Shift") this.shiftKey = true;
+        else if (totalKeys[key] == "Ctrl") this.ctrlKey = true;
+        else if (totalKeys[key] == "Alt") this.altKey = true;
+        else if (totalKeys[key] == "Meta") this.metaKey = true; 
+      }
+      else {
+        this.keyCode = keyval;
+      }
+    }
+    console.log(this.string());
   }
   // parset the input value as a keyboard event //
   else if (value.toString() == '[object KeyboardEvent]') {
@@ -104,14 +123,19 @@ var KeyObject = function (value) {
 
 // Register a new key event //
 function addKeyDown(hotkey,functioncall) {
-  
+  var key = new KeyObject(hotkey);
+  _HOT_KEY_DOWN_LIST_[key.string()] = functioncall;
 }
 function addKeyUp(hotkey,functioncall) {
-  
+  var key = new KeyObject(hotkey);
+  _HOT_KEY_UP_LIST_[key.string()] = functioncall;
 }
 
-document.onkeydown = function (event) {
-  
+document.onkeydown = function (e) {
+  var key = new KeyObject(e);
+  var functionToRun = _HOT_KEY_DOWN_LIST_[key.string()];
+  if (functionToRun != undefined) functionToRun();
+  else console.log("No Trigger");
 }
 document.onkeyup = function (event) {
 }

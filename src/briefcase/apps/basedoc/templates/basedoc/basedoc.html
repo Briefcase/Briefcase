@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+    {% block title %}{{file_name}}{% endblock title %}
+
+
+
+      {%block css %}
+      {{ block.super }}
+      <style type="text/css">
+      body
+      {
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+      }
+      div.datain
+      {
+        float:left;
+        position:absolute;
+        width: 100px;
+        height: 30px;
+        left:100px;
+        top:100px;
+        margin: 0px;
+        padding: 0px;
+      }
+      div.scrollbar
+      {
+        overflow:scroll;
+        width: 100%;
+        float: left;
+        position:absolute;
+      }
+      div.scrollsize
+      {
+      }
+      div.cornerbox {
+        width: 5px;
+        height: 5px;
+        position:absolute;
+        background-color: green;
+        top: 100%;
+        left: 100%;
+        border: 2px solid white;
+        margin-left: -3px;
+        margin-top: -3px;
+      }
+      textarea.inputbox {
+        width:200%;
+        height:200%;
+        border:none;
+        resize: none;
+        overflow: hidden;
+        font-family:sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      div.scrollVertical {
+        background: green;
+        float:right;
+        overflow: scroll;
+      }
+      div.scrollHorizontal {
+        color: blue;
+      }
+    </style>
+    {% endblock css %}
+
+
+    {% block javascript %}
+    <script type="text/javascript">
+      var globalMenu = [{"type":"menu","name":"File","iconsrc":"{{STATIC_URL}}menu/icons/action_forward.gif","version":"normal","submenu":[{"type":"menuitem","name":"New","function":"alert('ptbhtbt nope')","iconsrc":"{{STATIC_URL}}menu/icons/action_save.gif","shortcut":"Ctrl+N","version":"normal"},{"type":"menuitem","name":"Open...","function":"load2()","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+O","version":"normal"},{"type":"break"},{"type":"menuitem","name":"Save","function":"devsave()","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+S","version":"normal"},{"type":"menuitem","name":"Save As...","function":"devsave()","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+Shift+S","version":"normal"},{"type":"menuitem","name":"Revert","function":"alert('revert')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+O","version":"normal"},{"type":"menuitem","name":"AUTO SAVE","function":"autosave()","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+alt+shift+w+x+a","version":"version"},{"type":"menuitem","name":"Get Permissions","function":"getPermissions()","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+g+p","version":"version"},{"type":"menuitem","name":"Set Permissions","function":"sendChangedata(1,false,[],[],[],[])","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+g+p","version":"version"},{"type":"break"},{"type":"menuitem","name":"Print Preview","function":"alert('print priview')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+Shift+P","version":"normal"},{"type":"menuitem","name":"Print...","function":"alert('print')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+P","version":"normal"},{"type":"break"},{"type":"break"},{"type":"menuitem","name":"Close","function":"alert('close')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+W","version":"normal"},{"type":"menuitem","name":"Quit","function":"alert('quit')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+Q","version":"normal"}]},{"type":"menu","name":"Edit","iconsrc":"{{STATIC_URL}}menu/icons/action_forward.gif","version":"normal","submenu":[{"type":"menuitem","name":"Undo","function":"alert('undo')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+Z","version":"normal"},{"type":"menuitem","name":"Redo","function":"alert('redo')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+Shift+Z","version":"normal"},{"type":"break"},{"type":"menuitem","name":"Cut","function":"alert('Cut')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+X","version":"normal"},{"type":"menuitem","name":"Copy","function":"alert('copy')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+C","version":"normal"},{"type":"menuitem","name":"Paste","function":"alert('paste')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+V","version":"normal"},{"type":"menuitem","name":"Delete","function":"alert('delete')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"","version":"normal"},{"type":"break"},{"type":"menuitem","name":"Select All","function":"alert('select all')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"Ctrl+A","version":"normal"},{"type":"break"},{"type":"menuitem","name":"Insert Date and Time","function":"alert('insert date and time')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"","version":"normal"},{"type":"break"},{"type":"menuitem","name":"Preferences","function":"alert('preferences')","iconsrc":"{{STATIC_URL}}menu/icons/flag_white.gif","shortcut":"","version":"normal"}]}];
+    </script>
+    {{ block.super }}
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/eparse.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/layoutControl.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/saveload.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/draw.js"></script>
+
+
+
+
+    <!-- Function Libraries -->
+    <script type="text/javascript" src="{{STATIC_URL}}spreadsheet/script/math.js"></script>
+    {% endblock javascript %}
+
+    {%block content%}
+      <!-- Menu -->
+      <!-- Menu Begin -->
+      <div class="TitleMenu" id="TitleMenu"></div>
+      <!-- Menu End -->
+      <div style="width:101%;">
+        <div class='functionIcon' style="float:left; margin-left:5px; padding-right: 5px; margin-right:5px; border-right:1px solid black; height: 25px;">Fx</div>
+        <input type="text" id="functionbox" oninput="syncInputBox()" style="height:25px; border:0px solid black; padding:0px; margin-left:0px;float:left" />
+      </div>
+    </div>
+
+
+
+
+
+
+    <!-- new scrollbar stuff (does not work perfectly)
+    <div class="scrollVertical" id="scrollVertical"> <div style="height:200%; width: 1px; background: blue"> </div> </div>
+    <div class="scrollHorizontal" id="scrollHorizontal"> </div>
+    -->
+
+    <!-- Actual canvas Div for the application -->
+    <div style="width:100%; overflow:hidden; position: relative;" id="framecontain" class="framecontain">
+
+
+      <div class="scrollbar" id="scrollbar" style="position:absolute">
+        <div style="">
+        <!-- Input box -->
+        <div class="datain" id="datain">
+          <div class="cornerbox" id="inputCornerBox"> </div>
+          <div style="width: 100%; height: 100%; background-color: #F00; border: none; overflow: hidden;">
+            <!--<input type="text" oninput="syncFunctionBar()" style="width:100%; height:100%; border:none;" id="inputbox"/>-->
+            <textarea class="inputbox" oninput="syncFunctionBar()" id="inputbox"/> </textarea>
+          </div>
+        </div>
+      </div>
+
+
+        <div class="scrollsize" id="scrollsize" style="pointer-events:none;">
+        </div>
+      </div>
+      <div id="applicationDiv" style="">
+       
+
+        <canvas id="application" name="application" style="overflow:hidden">
+          Im sorry your browser is too outdated to know what this canvas element is <br >
+          you should update to the newest version so you can use this program (and keep your computer secure)
+        </canvas>
+      </div>
+
+      <!-- Scrollbars -->
+      
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  {%endblock content%}

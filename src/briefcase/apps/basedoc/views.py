@@ -13,7 +13,8 @@ spreadsheetsessions = {}
 
 @login_required
 def home(request, id):
-    return render(request, "basedoc/spreadsheet.html")
+    print "Hit Home Request"
+    return render(request, "basedoc/basedoc.html")
 
 @login_required
 def load(request):
@@ -26,17 +27,14 @@ def load(request):
     data = Spreadsheet.objects.get(pk=id).data
     return HttpResponse(data)
 
+
+# the new function is called whenever the user requests to create a new document of the given type
 @login_required
 def new(request):
-    print "Made it to new [Mark1]"
-    newDocument = Basedoc(owner=request.user, file_name="New Basedoc", module="briefcase.apps.basedoc.views.home")
-    print "Created the variable [Mark2]"
-    newDocument.data = "{}"
-    print "Initilized the new data [Mark3]"
-    newDocument.save()
-    print "Saved the document [Mark4]"
-    url = {"url":reverse('briefcase.apps.basedoc.views.home', args=[newDocument.pk])}
-    print "Fnished the function [Mark5]"
+    newDocument = Basedoc(owner=request.user, file_name="New Basedoc", module="briefcase.apps.basedoc.views.home") # initlize the document
+    newDocument.data = "{}" # initilized the data to an empty document
+    newDocument.save() # save the data to the database
+    url = {"url":reverse('briefcase.apps.basedoc.views.home', args=[newDocument.pk])} # Send the user back the url of the newly created document
     return HttpResponse(json.dumps(url))
    
 #"development" save - saves the whole document   

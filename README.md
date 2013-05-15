@@ -16,6 +16,16 @@ Spreadsheet [In Development]
 Presentation Editor [Beginning Development]   
 Code Editor [In Development]  
 
+Developer Setup Instructions
+============================
+Briefcase works with a sepearate socketio process so there will be two processes that will be running  
+`python manage.py runserver_socketio` Begin the Socket Server  
+`python manage.py runserver` Begin the Django Server  
+before you start you will also need to sync the database to the current model view  
+`python manage.py syncdb` To sync the database  
+If you want to use the flashsocket fallback for socketio you will need to run `runserver_socketio` using `sudo`  
+`sudo python manage.py runserver_socketio`  
+
 Licence
 =======
 Copyright 2011 Asher Glick. All rights reserved.  

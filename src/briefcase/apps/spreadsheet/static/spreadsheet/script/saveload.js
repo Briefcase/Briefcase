@@ -126,7 +126,43 @@ function autosave() {
   
 }
 
-window.setInterval(repeatingSave,100);
+// Hopefully the last save protocol that needs to be created
+$(function() {
+  var socket;
+  //socket.send(data);
+  var connected = function() {
+    console.log("connected");
+    socket.subscribe('spreadsheet-' + getFileId() );
+    alert("this is a delay");
+    socket.send({room:"Test Message"});
+  };
+
+  var disconnected = function() {
+    console.log("disconnected");
+  };
+
+  var messaged = function(data) {
+    console.log("revieved Data");
+    console.log(data);
+  };
+
+  var start = function() {
+    socket = new io.Socket();
+    socket.connect();
+    socket.on('connect', connected);
+    socket.on('disconnect', disconnected);
+    socket.on('message', messaged);
+
+  };
+
+  start();
+
+});
+
+
+
+
+//window.setInterval(repeatingSave,100);
 
 function repeatingSave(){
   var currentCell = startSelectionX + ',' + startSelectionY;

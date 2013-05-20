@@ -11,4 +11,5 @@ core.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('briefcase.core.urls')),
+    url("", include("django_socketio.urls")), # allow url connection for socketio
 )

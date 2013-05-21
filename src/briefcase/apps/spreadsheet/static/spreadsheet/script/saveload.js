@@ -132,9 +132,11 @@ $(function() {
   //socket.send(data);
   var connected = function() {
     console.log("connected");
-    socket.subscribe('spreadsheet-' + getFileId() );
-    alert("this is a delay");
-    socket.send({room:"Test Message"});
+    socket.subscribe('spreadsheet');
+    ///$("#session_key").val()
+    socket.send({"action":"connect","id":getFileId(), "sessionid":session_key})
+    socket.send({"action":"update", "data":"Test Message"});
+    socket.send({"action":"unique", "data":"Cursor Moved"});
   };
 
   var disconnected = function() {

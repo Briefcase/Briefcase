@@ -13,7 +13,7 @@ spreadsheetsessions = {}
 
 @login_required
 def home(request, id):
-    return render(request, "spreadsheet/spreadsheet.html",{'file_name':Spreadsheet.objects.get(pk=id).file_name})
+    return render(request, "spreadsheet/spreadsheet.html",{'file_name':Spreadsheet.objects.get(pk=id).file_name,'session_key':request.session.session_key})
 
 @login_required
 def load(request):

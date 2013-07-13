@@ -47,8 +47,8 @@ def message(request, socket, context, message):
         # user allowed, add socket id to the spreadsheet
         if documentID not in openSpreadsheets:
             openSpreadsheets[documentID] = []
-        #openSpreadsheets[documentID].append(socket.session.session_id)
-        print socket.socket.session.session_id
+        openSpreadsheets[documentID].append(socket.session.session_id)
+        print socket.session.session_id
 
         #print "New Active Lists"
         #print openSpreadsheets[documentID]
@@ -56,13 +56,17 @@ def message(request, socket, context, message):
     if message['action'] == 'update':
         # run the update through the send
         # regressor to all users
-        pass
+        if socket.session.sessionid in openSpreadsheets[documentID]:
+            pass
     if message['action'] == 'unique':
         # echo the action to all the users on the same document
         pass
     socket.broadcast_channel({'message': 'hello world'})  # send to everyone but the sender
     #socket.send({'message':'not hello world','ID':generateToken(size=64)}) # send to the sender
 
+
+def rebasefunction(message, last):
+    pass
 
 # @login_required
 # @events.on_subscribe(channel="spreadsheet")
@@ -100,13 +104,13 @@ def generateToken(size=6, chars=string.ascii_uppercase + string.ascii_lowercase 
 # 	print "Socket Connected! (spreadsheet)"
 
 
-@events.on_error(channel="spreadsheet")
-def error(request, socket, context, exception):
-    # - occurs when an error is raised. Takes an extra exception argument which contains the exception for the error.
-    print "SOCKET ERROR! (Spreadsheet)"
+# @events.on_error(channel="spreadsheet")
+# def error(request, socket, context, exception):
+#     # - occurs when an error is raised. Takes an extra exception argument which contains the exception for the error.
+#     print "SOCKET ERROR! (Spreadsheet)"
 
 
-@events.on_disconnect(channel="spreadsheet")
-def disconnect(request, socket, context):
-    # - occurs once when the WebSocket disconnects.
-    print "Client Disconnect! (Spreadsheet)"
+# @events.on_disconnect(channel="spreadsheet")
+# def disconnect(request, socket, context):
+#     # - occurs once when the WebSocket disconnects.
+#     print "Client Disconnect! (Spreadsheet)"

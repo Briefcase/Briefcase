@@ -61,7 +61,13 @@ def autosave(request):
     
  
 
-
+def socketTest(request):
+    print request
+    print HttpResponse("Hello")
+    djangoHacker = None
+    djangoHacker.status_code = "201"
+    djangoHacker.socket_handler = "some function here"
+    return djangoHacker
     
 
 

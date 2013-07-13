@@ -170,4 +170,3 @@ LOGGING = {
 }
 
 from briefcase.core.settings import *
-

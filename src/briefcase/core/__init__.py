@@ -1,4 +1,5 @@
 from briefcase.core.register import module
+from briefcase.core.async import sockets  # add the sokets variable to the namespace
 
 def autodiscover():
     """

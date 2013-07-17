@@ -13,8 +13,8 @@ spreadsheetsessions = {}
 
 @login_required
 def home(request, id):
-    from briefcase import core
-    core.sockets.testFunction()
+    #from briefcase import core
+    #core.sockets.testFunction()
     #print [method for method in dir(core) ]#if callable(getattr(core.sockets, method))]
     print "tested function"
     return render(request, "spreadsheet/spreadsheet.html",{'file_name':Spreadsheet.objects.get(pk=id).file_name,'session_key':request.session.session_key})

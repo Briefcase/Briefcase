@@ -40,7 +40,8 @@ class Sockets(object):
 
         while 1:
             t, _ = sock.accept()
-            handle(t)
+            print "Got Connectino: Handling"
+            self.handle(t)
             #threading.Thread(target=handle, args=(t,)).start()
 
     
@@ -84,7 +85,7 @@ class Sockets(object):
 
 
 
-    def handle(sock):
+    def handle(self,sock):
         print '--- Got message! ---'
 
         data = sock.recv(4096)
@@ -114,7 +115,7 @@ class Sockets(object):
         base64Key = base64.b64encode(hashedKey)
         print "Final Key:".ljust(15), base64Key
 
-        websocketHeader = ("HTTP/1.1 101 Switching Protocols\r\n" + "Upgrade: websocket\r\n" + "Connection: Upgrade\r\n" + "Sec-WebSocket-Accept: " + base64Key)
+        websocketHeader = "HTTP/1.1 101 Switching Protocols\r\n" + "Upgrade: websocket\r\n" + "Connection: Upgrade\r\n" + "Sec-WebSocket-Accept: " + base64Key
 
         print websocketHeader
 

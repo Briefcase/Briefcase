@@ -340,3 +340,16 @@ function load() {
 		error: function(html){alert("error: "+html)}
   });
 }*/
+
+
+
+// Websocket saving and loading stuffs
+// Currently just testing out the features
+window.onload = function() {
+  console.log("Attempting to start connection")
+  var s = new WebSocket("ws://localhost:8080/");
+  
+  s.onopen = function(e) {console.log("WebSocket Opened!");}
+  s.onclose = function(e) {console.log("WebSocket Closed");}
+  s.onmessage = function(e) {console.log("Websocket Got: " + e.data);}
+};

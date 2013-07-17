@@ -1,6 +1,6 @@
 from briefcase.core.register import module
 print "auto detects?", __name__
-#from briefcase.core.async import sockets  # add the sokets variable to the namespace
+from briefcase.core.async import sockets  # add the sokets variable to the namespace
 
 
 # this function checks through all the 

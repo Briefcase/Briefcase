@@ -10,6 +10,9 @@ from briefcase.core import module
 
 @login_required
 def home(request):
+    from briefcase import core
+    # core.sockets.testFunction()
+    print "request home"
     types = module.getTypes()
     user_document_list = sorted(list(request.user.allowed_docs.all()) + list(request.user.owner.all()), key=lambda doc: doc.modified_date, reverse=True)
 

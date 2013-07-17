@@ -40,7 +40,8 @@ class Sockets(object):
 
         while 1:
             t, _ = sock.accept()
-            threading.Thread(target=handle, args=(t,)).start()
+            handle(t)
+            #threading.Thread(target=handle, args=(t,)).start()
 
     
     def sendWebsocketData(socket, frameType):
@@ -113,10 +114,7 @@ class Sockets(object):
         base64Key = base64.b64encode(hashedKey)
         print "Final Key:".ljust(15), base64Key
 
-        websocketHeader = """HTTP/1.1 101 Switching Protocols\r
-        Upgrade: websocket\r
-        Connection: Upgrade\r
-        Sec-WebSocket-Accept: """ + base64Key
+        websocketHeader = ("HTTP/1.1 101 Switching Protocols\r\n" + "Upgrade: websocket\r\n" + "Connection: Upgrade\r\n" + "Sec-WebSocket-Accept: " + base64Key)
 
         print websocketHeader
 
@@ -147,3 +145,13 @@ class Sockets(object):
 
 print " -- running server from", __name__
 sockets = Sockets()
+
+
+
+# how will this work, how does a websocket thread get made?
+
+# one thread per document but how do you determine the document type? does that get passed into the thread
+# and also how do you get which thread to send the new socket to?
+# there needs to be a way to parse the "documentid"
+# maybe there is in the "origin tag"
+# lets try printing out basic connect messages with instant disconnects

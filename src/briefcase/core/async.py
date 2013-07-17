@@ -62,7 +62,7 @@ class Sockets(object):
     # text data is assumed all other methods will be ignored from this function
     # current method only uses 7 and 16 bit lengths (no 64bit lengths yet)
     # base framing protocal can be found on page 27 of RFC6455 websocket protocol
-    def sendWebsocketText(sock, text):
+    def sendWebsocketText(self, sock, text):
         maskAndLengthByte = ''
         extendedPayloadLength = ''
         length = len(text)
@@ -94,6 +94,18 @@ class Sockets(object):
 
         metadata = {}
 
+        requestType = ""  # get push etc.
+        requestLocation = ""  # url it is accessing
+        requestProtocol = ""  # HTTP/1.1
+
+        requestLine = lines[0].split(' ')
+        requestType = requestLine[0]
+        requestLocation = requestLine[1]
+        requestProtocol = requestLine[2]
+
+        print requestLocation
+
+
         for line in lines:
             tokens= line.split(':')
             if len(tokens) < 2:
@@ -123,11 +135,11 @@ class Sockets(object):
 
         time.sleep(1)
         print "Sent Hello?"
-        sendWebsocketText(sock, "hello")
+        self.sendWebsocketText(sock, "hello")
 
         time.sleep(1)
         print "Sent World?"
-        sendWebsocketText(sock, "Ok lets try somehting a little longer then what we have been doing before. A nice long sentance will suffice to prove that we can also send data taht is much longer then what we would normally send but possibly have hte ability to do a longer message if needed. 125 bytes is a little short when sending a webpage or some junk")
+        self.sendWebsocketText(sock, "Ok lets try somehting a little longer then what we have been doing before. A nice long sentance will suffice to prove that we can also send data taht is much longer then what we would normally send but possibly have hte ability to do a longer message if needed. 125 bytes is a little short when sending a webpage or some junk")
 
         time.sleep(1)
         print "Finished"
@@ -142,6 +154,21 @@ class Sockets(object):
     # while 1:
     #     t, _ = sock.accept()
     #     threading.Thread(target=handle, args=(t,)).start()
+
+    callingFunctions = {}
+
+    # the register functions are used to register a websoket url
+    # when the register funciton is called the 'name' variable is the name of the app
+    # when a socket connects under that app name eg: /spreadsheets/asdf8239jhas
+    # that message would be sent to the functions registered with the name spreadsheet
+    # though that is only nessasary for the initial connection in the onconnect
+    def registerFunctions(self, name, onconnect, onmessage, ondisconnect):
+        # onconnect is blocking on websocket thread
+        # onmessssage and ondisconnect is blocking on the document's thread
+        self.callingFunctions[name] = (onconnect, onmessssage, ondisconnect)
+        # this function could use some sanitization too...
+
+
 
 
 print " -- running server from", __name__

@@ -162,10 +162,10 @@ class Sockets(object):
     # when a socket connects under that app name eg: /spreadsheets/asdf8239jhas
     # that message would be sent to the functions registered with the name spreadsheet
     # though that is only nessasary for the initial connection in the onconnect
-    def registerFunctions(self, name, onconnect, onmessage, ondisconnect):
+    def register(self, name, onconnect, onmessage, ondisconnect):
         # onconnect is blocking on websocket thread
-        # onmessssage and ondisconnect is blocking on the document's thread
-        self.callingFunctions[name] = (onconnect, onmessssage, ondisconnect)
+        # onmessage and ondisconnect is blocking on the document's thread
+        self.callingFunctions[name] = (onconnect, onmessage, ondisconnect)
         # this function could use some sanitization too...
 
 

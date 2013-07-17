@@ -347,7 +347,7 @@ function load() {
 // Currently just testing out the features
 window.onload = function() {
   console.log("Attempting to start connection")
-  var s = new WebSocket("ws://localhost:8080/");
+  var s = new WebSocket("ws://localhost:8080/spreadsheet/q3o4nmasuasdf");
   
   s.onopen = function(e) {console.log("WebSocket Opened!");}
   s.onclose = function(e) {console.log("WebSocket Closed");}

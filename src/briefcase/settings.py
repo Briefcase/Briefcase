@@ -135,7 +135,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'briefcase.core',
     'briefcase.core.accounts',
-    'django_socketio', # allow for the django_socketio library to be used
 )
 
 INSTALLED_APPS += tuple("briefcase.apps.%s" % o for o in os.listdir(os.path.join(BASE, "apps")) if os.path.isdir(os.path.join(BASE, "apps",o)))

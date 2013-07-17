@@ -1,4 +1,3 @@
-print "beginnning of settings"
 # Django settings for briefcase project.
 
 import os
@@ -170,8 +169,12 @@ LOGGING = {
     }
 }
 
-print "started core settings"
+#from briefcase.core.settings import * # <- This line is causing things to be run in __init__.py in core (nothing should really be in __init__)
 
-from briefcase.core.settings import * # <- This line is causing things to be run in __init__.py in core (nothing should really be in __init__)
 
-print "finished settings"
+# these lines were imported from the above commented out statement (core.settings)
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/login'
+
+AUTH_PROFILE_MODULE = 'brifcase.core.accounts.Profile'

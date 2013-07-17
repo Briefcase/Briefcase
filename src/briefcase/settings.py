@@ -1,3 +1,4 @@
+print "beginnning of settings"
 # Django settings for briefcase project.
 
 import os
@@ -169,4 +170,8 @@ LOGGING = {
     }
 }
 
-from briefcase.core.settings import *
+print "started core settings"
+
+from briefcase.core.settings import * # <- This line is causing things to be run in __init__.py in core (nothing should really be in __init__)
+
+print "finished settings"

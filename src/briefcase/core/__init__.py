@@ -1,7 +1,12 @@
 from briefcase.core.register import module
-from briefcase.core.async import sockets  # add the sokets variable to the namespace
+print "auto detects?", __name__
+#from briefcase.core.async import sockets  # add the sokets variable to the namespace
 
+
+# this function checks through all the 
 def autodiscover():
+
+    print "Auto discover Called!"
     """
     Auto-discover INSTALLED_APPS briefcaseRegister.py modules and fail silently when
     not present. This forces an import on them to register any document types they

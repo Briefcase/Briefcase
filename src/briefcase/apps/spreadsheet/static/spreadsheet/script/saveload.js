@@ -123,6 +123,8 @@ function autosave() {
     //console.log("MOVE CELL CHANGE");
   }
 
+  console.log("Saving?")
+  s.send("Saving")
   
 }
 
@@ -345,9 +347,10 @@ function load() {
 
 // Websocket saving and loading stuffs
 // Currently just testing out the features
+var s;
 window.onload = function() {
   console.log("Attempting to start connection")
-  var s = new WebSocket("ws://localhost:8080/spreadsheet/q3o4nmasuasdf");
+  s = new WebSocket("ws://localhost:8080/spreadsheet/q3o4nmasuasdf");
   
   s.onopen = function(e) {console.log("WebSocket Opened!");}
   s.onclose = function(e) {console.log("WebSocket Closed");}

@@ -4,7 +4,7 @@ def onConnect(requestData):
     #socket.sendToAll("Test All")
     #socket.sendToAllButMe("Test Not Me")
     #socket.sendToMe("Test Me")
-    return False
+    return True
     
 def onDisconnect():
     pass

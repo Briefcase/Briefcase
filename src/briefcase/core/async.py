@@ -18,11 +18,11 @@ from django.contrib.auth.models import User
 ################################################################################
 class Sockets(object):
 
-    _serverSocket = None
-    _socketPort = 8080
-    callingFunctions = {}
-    _threads = {}
-    _communicationQueue = None
+    _serverSocket = None  # the socket that is listeneing for new connections
+    _socketPort = 8080  # the port that the listening socket is listening on
+    callingFunctions = {}  # the map of registered document functions to call
+    _documents = {}  # the list of documents that are open
+    _socketList = {}  # the map of sockets to the classes they are in
 
     # Create the socket for people to connect to!
     def __init__(self,):
@@ -55,7 +55,8 @@ class Sockets(object):
                 if sock == self._serverSocket:
                     t, _ = sock.accept()
                     print "Got Connectino: Handling"
-                    self.handle(t)
+                    if self.handle(t):
+                        read_list.append(t)
                 else:
                     print "Got a data connection"
             #threading.Thread(target=handle, args=(t,)).start()
@@ -198,7 +199,7 @@ class Sockets(object):
             websocketHeader = "HTTP/1.1 401 Unauthorized"
             sock.send(websocketHeader + "\r\n\r\n")
             sock.close()
-            return
+            return False # return the socket failed and should be ignored
 
         # if the socket was allowed continue
         print "socket allow check run"
@@ -222,14 +223,13 @@ class Sockets(object):
         # now add the socket to the process it is supposed to go to
 
         # first check to see if the threadprocess exists for that file
-        if requestDocumentId not in self._threads:
-            print "Creating new Process for document:",
-            queue = multiprocessing.Queue()
-            process = multiprocessing.Process(target=self.documentProcess, args=(queue,))
-            self._threads[requestDocumentId] = (process, queue)
+        if requestDocumentId not in self._documents:
+            print "Creating a new array for this document:", requestDocumentId
+            self._documents[requestDocumentId] = []
 
         # give the new socket to the thread
-        self._threads[requestDocumentId][1].put(sock)
+        self._documents[requestDocumentId].append(sock)
+        return True # reutrn that the socket succeded and should be added to the read list
 
 
 

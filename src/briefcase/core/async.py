@@ -64,50 +64,50 @@ class Sockets(object):
 
 
     
-    def sendWebsocketData(socket, frameType):
-        # frameTypes
-        # %x0 denotes a continuation frame
-        # %x1 denotes a text frame
-        # %x2 denotes a binary frame
-        # %x3-7 are reserved for further non-control frames
-        # %x8 denotes a connection close
-        # %x9 denotes a ping
-        # %xA denotes a pong
-        # %xB-F are reserved for further control frames
-        pass
+    # def sendWebsocketData(socket, frameType):
+    #     # frameTypes
+    #     # %x0 denotes a continuation frame
+    #     # %x1 denotes a text frame
+    #     # %x2 denotes a binary frame
+    #     # %x3-7 are reserved for further non-control frames
+    #     # %x8 denotes a connection close
+    #     # %x9 denotes a ping
+    #     # %xA denotes a pong
+    #     # %xB-F are reserved for further control frames
+    #     pass
 
 
 
 
 
 
-    # this is a function that runs a set of processes
-    def documentProcess (self, inputQueue, outputQueue): # maybe no inital socket
-        socketList = [] # this is the list of sockets that are connected on this thread
+    # # this is a function that runs a set of processes
+    # def documentProcess (self, inputQueue, outputQueue): # maybe no inital socket
+    #     socketList = [] # this is the list of sockets that are connected on this thread
 
-        class ThreadedSock():
-            me_socket = None
-            def sendToAll(self, data):
-                for client_socket in socketList:
-                    sendWebsocketText(client_socket, data)
+    #     class ThreadedSock():
+    #         me_socket = None
+    #         def sendToAll(self, data):
+    #             for client_socket in socketList:
+    #                 sendWebsocketText(client_socket, data)
 
-            def sendToMe(self, data):
-                sendWebsocketText(me_socket, data)
+    #         def sendToMe(self, data):
+    #             sendWebsocketText(me_socket, data)
 
-            def sendToAllButMe(self, data):
-                for client_socket in socketList:
-                    if client_socket != me_socket:
-                        sendWebsocketText(client_socket, data)
-            def disconnect(self, data):
-                pass
-            # im going a little insane wrapping my brain around all of this so far
+    #         def sendToAllButMe(self, data):
+    #             for client_socket in socketList:
+    #                 if client_socket != me_socket:
+    #                     sendWebsocketText(client_socket, data)
+    #         def disconnect(self, data):
+    #             pass
+    #         # im going a little insane wrapping my brain around all of this so far
 
-        while 1: # loop until break
-            pass
-            timeout = 1  # set timeout for 1 second maybe
+    #     while 1: # loop until break
+    #         pass
+    #         timeout = 1  # set timeout for 1 second maybe
 
-            select.select(self.socketList, [], [], timeout)
-            print "Got message"
+    #         select.select(self.socketList, [], [], timeout)
+    #         print "Got message"
 
 
 

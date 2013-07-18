@@ -1,10 +1,10 @@
 import multiprocessing
 import socket
-import threading
 import time
 import hashlib
 import base64
 import struct
+import select
 
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
@@ -16,17 +16,17 @@ from django.contrib.auth.models import User
 # Lets do some cool stuff with this. I hope it all gets documented well and I  #
 # will change this opening message                                             #
 ################################################################################
-
-
 class Sockets(object):
 
-    _openSocket = None
+    _serverSocket = None
     _socketPort = 8080
     callingFunctions = {}
     _threads = {}
+    _communicationQueue = None
 
     # Create the socket for people to connect to!
     def __init__(self,):
+        _communicationQueue = multiprocessing.Queue()
         pass
 
     def begin(self):
@@ -39,20 +39,25 @@ class Sockets(object):
         # this is the function that handles all of the incoming socket data!?
         print "creating socket"
         # create the socket
-        sock = socket.socket()
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind(('localhost', self._socketPort))  # connect to localhost on port 9876
+        self._serverSocket = socket.socket()
+        self._serverSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self._serverSocket.bind(('localhost', self._socketPort))  # connect to localhost on port 9876
 
         print "socket bound to port", self._socketPort
 
-        sock.listen(1)
+        self._serverSocket.listen(1)
 
-
+        read_list = [self._serverSocket]
         # Loop through a bunch of different stuff
         while 1:
-            t, _ = sock.accept()
-            print "Got Connectino: Handling"
-            self.handle(t)
+            readable, writeable, errored = select.select(read_list, [], [])  # wait for one of the sockets to do something
+            for sock in readable:
+                if sock == self._serverSocket:
+                    t, _ = sock.accept()
+                    print "Got Connectino: Handling"
+                    self.handle(t)
+                else:
+                    print "Got a data connection"
             #threading.Thread(target=handle, args=(t,)).start()
 
 
@@ -97,7 +102,11 @@ class Sockets(object):
             # im going a little insane wrapping my brain around all of this so far
 
         while 1: # loop until break
-            break
+            pass
+            timeout = 1  # set timeout for 1 second maybe
+
+            select.select(self.socketList, [], [], timeout)
+            print "Got message"
 
 
 
@@ -213,11 +222,14 @@ class Sockets(object):
         # now add the socket to the process it is supposed to go to
 
         # first check to see if the threadprocess exists for that file
-        if requestDocumentId not in _threads:
-            q = new queue
-            p = #new process        
+        if requestDocumentId not in self._threads:
+            print "Creating new Process for document:",
+            queue = multiprocessing.Queue()
+            process = multiprocessing.Process(target=self.documentProcess, args=(queue,))
+            self._threads[requestDocumentId] = (process, queue)
 
-        _threads[requestDocumentId][1].put
+        # give the new socket to the thread
+        self._threads[requestDocumentId][1].put(sock)
 
 
 

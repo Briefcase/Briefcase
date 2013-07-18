@@ -5,4 +5,4 @@ core.module.register("Spreadsheet", "briefcase.apps.spreadsheet.views.new", r'^s
 
 import events  # the locoal copy of this application's event
 
-core.sockets.register("Spreadsheet", events.onConnect, events.onMessage, events.onDisconnect)
+core.sockets.register("spreadsheet", events.onConnect, events.onMessage, events.onDisconnect)

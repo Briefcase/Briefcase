@@ -58,12 +58,53 @@ class Sockets(object):
                     if self.handle(t):
                         read_list.append(t)
                 else:
-                    print "Got a data connection"
+                    print "Got a data connection:"
+                    print self.readWebsocketData(sock.recv(4096))
             #threading.Thread(target=handle, args=(t,)).start()
 
+    def readWebsocketData(self, data):
+        header = data[0]
+        mask = struct.unpack(">B", data[1])[0] & 0x80           # B1000000
+        print "Mask", mask
+        payloadLength = struct.unpack(">B", data[1])[0] & 0x7F  # B0111111
+
+        dataindex = 2
+
+        # get correct payload length
+        if payloadLength == 126:
+            payloadLength = struct.unpack(">H", data[dataindex:dataindex+2])  # parse into a 2 byte unsigned short
+            dataindex += 2
+
+        elif payloadLength == 127:
+            payloadLength = struct.unpack(">Q", data[dataindex:dataindex+8])  # parse into a 8 byte unsigned long long
+            dataindex += 8
+
+        # get the 32bit masking key
+        maskingKey = [None]*4
+        if mask != 0:
+            maskingKey[0] = struct.unpack(">B", data[dataindex+0])[0]  # parse into four unsigned bytes
+            maskingKey[1] = struct.unpack(">B", data[dataindex+1])[0]
+            maskingKey[2] = struct.unpack(">B", data[dataindex+2])[0]
+            maskingKey[3] = struct.unpack(">B", data[dataindex+3])[0]
+            dataindex += 4
+            print "masking Key", maskingKey
+
+        payload = data[dataindex:dataindex+payloadLength]
+
+        if maskingKey != "":
+            transformedpayload = ""
+            for (i, char) in enumerate(payload):
+                j = i % 4
+                transform = struct.unpack(">B", char)[0] ^ maskingKey[j]
+                transformedpayload += struct.pack(">B", transform)
+        payload = transformedpayload
+        return payload
 
 
-    
+
+
+
+
     # def sendWebsocketData(socket, frameType):
     #     # frameTypes
     #     # %x0 denotes a continuation frame

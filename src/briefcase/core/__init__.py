@@ -37,3 +37,5 @@ def autodiscover():
             # attempting to import it, otherwise we want it to bubble up.
             if module_has_submodule(mod, 'briefcaseRegister'):
                 raise
+    print "finished parsing"
+    sockets.begin() # after all the documents have registerd start the websocket

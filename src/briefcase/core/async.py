@@ -9,6 +9,7 @@ import select
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 
+
 ##################################### ASYNC ####################################
 # The async program is ment to introduce a socketio like interface for         #
 # briefcase, however becuase I can write the specific functions for the        #
@@ -16,13 +17,39 @@ from django.contrib.auth.models import User
 # Lets do some cool stuff with this. I hope it all gets documented well and I  #
 # will change this opening message                                             #
 ################################################################################
+
+
+# the fake request object is a hack to emulate part of the actual django request object
+# in the future this object may come to be able to fully handle any type of requets
+# thet the regular request object can handle
+class fakeRequest(object):
+    path = ""  # the path that can be requested by the user
+    user = None  # the user that created the websocket
+    session = None  # to be implemented!
+    extra = {}
+
+    def __init__(self, path, session_key):
+        # Initilize the session variable
+        self.session = Session.objects.get(session_key=session_key)
+
+        # Initilize the User variable from the session variable
+        userid = self.session.get_decoded().get('_auth_user_id')
+        self.user = User.objects.get(pk=userid)
+
+        # initilize the path
+        self.path = path
+
+
+# This is the socket class, it handles the sockets and the data that is sent
+# between them, as well as handling the calling of functions that are needed
 class Sockets(object):
 
     _serverSocket = None  # the socket that is listeneing for new connections
     _socketPort = 8080  # the port that the listening socket is listening on
     callingFunctions = {}  # the map of registered document functions to call
     _documents = {}  # the list of documents that are open
-    _socketList = {}  # the map of sockets to the classes they are in
+    _socketToDocumentIdMap = {}  # maps the currently open sockets to their user ids
+    _socketToDocumentTypeMap = {} # maps the currently open sockets to their document types
 
     # Create the socket for people to connect to!
     def __init__(self,):
@@ -33,6 +60,7 @@ class Sockets(object):
         print "Beginning socket"
         coreSocket = multiprocessing.Process(target=self.connectionSocket)
         coreSocket.start()
+
 
     # This function runs in a seperate multiprocess process waiting for new websocket connections
     def connectionSocket(self):
@@ -59,8 +87,32 @@ class Sockets(object):
                         read_list.append(t)
                 else:
                     print "Got a data connection:"
-                    print self.readWebsocketData(sock.recv(4096))
-            #threading.Thread(target=handle, args=(t,)).start()
+                    data = self.readWebsocketData(sock.recv(4096))
+                    # call function for that socket
+
+                    socketList = self._documents[self._socketToDocumentIdMap[sock]]
+
+                    # a simple set of functioncalls to handle the application
+                    class ThreadedSock():
+                        me_socket = None
+                        def sendToAll(self, data):
+                            for client_socket in socketList:
+                                sendWebsocketText(client_socket, data)
+
+                        def sendToMe(self, data):
+                            sendWebsocketText(me_socket, data)
+
+                        def sendToAllButMe(self, data):
+                            for client_socket in socketList:
+                                if client_socket != me_socket:
+                                    sendWebsocketText(client_socket, data)
+                        def disconnect(self, data):
+                            pass
+
+                    request = {'user':user, 'id':requestDocumentId}
+
+                    self.callingFunctions[self._socketToDocumentTypeMap[sock]][1](request, data, socketObject)
+
 
     def readWebsocketData(self, data):
         header = data[0]
@@ -205,14 +257,16 @@ class Sockets(object):
         
         # get the user trying to subscribe to the spreadsheet
         print metadata
-        sessionid = metadata['Cookie'].split(';')[1].strip()[10:]
-        print "SESSION ID! (HACKSQ!)", sessionid
-        session = Session.objects.get(session_key=sessionid)
-        uid = session.get_decoded().get('_auth_user_id')
-        user = User.objects.get(pk=uid)
 
+        # parse the cookie data to get the session id
+        cookies = self.parseCookie(metadata['Cookie'])
+        print "cookies: ", cookies
+        session_key = cookies['sessionid']
 
-        request = {'user':user, 'id':requestDocumentId}
+        # create a fake request object to pass to the socket handling function
+        request = fakeRequest(requestLocation, session_key)
+
+        #= {'user':user, 'id':requestDocumentId}
 
         # class ThreadedSock():
         #     me_socket = None
@@ -270,8 +324,22 @@ class Sockets(object):
 
         # give the new socket to the thread
         self._documents[requestDocumentId].append(sock)
-        return True # reutrn that the socket succeded and should be added to the read list
 
+        self._socketToDocumentIdMap[sock] = requestDocumentId
+        self._socketToDocumentTypeMap[sock] = requestApplication
+        return True  # reutrn that the socket succeded and should be added to the read list
+
+    def parseCookie(self, cookie):
+        cookieObjects = {}
+
+        cookieElements = cookie.split(";")
+        for cookieElement in cookieElements:
+            cookieElementSplit = cookieElement.split('=')
+            cookieElementKey = cookieElementSplit[0].strip()
+            cookieElementValue = cookieElementSplit[1].strip()
+            cookieObjects[cookieElementKey] = cookieElementValue
+
+        return cookieObjects
 
 
 

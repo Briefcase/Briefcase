@@ -278,34 +278,24 @@ class Sockets(object):
         print self.callingFunctions
         allowSocket = self.callingFunctions[requestApplication][0](request)
 
-        websocketHeader = ""
-
+        # Check to see if the socket should be accepted or ignored
         if allowSocket is False:
             websocketHeader = "HTTP/1.1 401 Unauthorized"
             sock.send(websocketHeader + "\r\n\r\n")
             sock.close()
-            return False # return the socket failed and should be ignored
+            # return the socket failed and should be ignored
+            return False
 
-        # if the socket was allowed continue
-        print "socket allow check run"
-
+        # Get the base websocket key and create the response key
         baseKey = metadata['Sec-WebSocket-Key'].strip()
-        #baseKey = "dGhlIHNhbXBsZSBub25jZQ=="
-        print "Key:".ljust(15), baseKey
-        concatinatedKey = baseKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
-        print "Concat Key:".ljust(15), concatinatedKey
-        hashedKey = hashlib.sha1(concatinatedKey).digest()
-        print "Hashed Key:".ljust(15), hashedKey
-        base64Key = base64.b64encode(hashedKey)
-        print "Final Key:".ljust(15), base64Key
+        websocketResponseKey = createWebsocketResponseKey(baseKey)
 
+        # respond with a sucess message to the websocket
         websocketHeader = "HTTP/1.1 101 Switching Protocols\r\n"
         websocketHeader += "Upgrade: websocket\r\n"
         websocketHeader += "Connection: Upgrade\r\n"
-        websocketHeader += "Sec-WebSocket-Accept: " + base64Key
+        websocketHeader += "Sec-WebSocket-Accept: " + websocketResponseKey
         sock.send(websocketHeader + "\r\n\r\n")
-
-        # now add the socket to the process it is supposed to go to
 
         # first check to see if the threadprocess exists for that file
         if requestDocumentId not in self._documentSocketLists:
@@ -317,6 +307,25 @@ class Sockets(object):
         self._socketToRequestMap[sock] = request
 
         return True  # reutrn that the socket succeded and should be added to the read list
+
+    ####################### CREATE WEBSOCKET RESPONSE KEY ######################
+    # This function takes in the key that was sent to the server by the        #
+    # websocket and creates the response key from it. It first concatinates    #
+    # the websocket string to the end of the base64 key, takes the sha1 of     #
+    # that concatination and then converts the resulting sha1 hash into        #
+    # base64 which is the response key.                                        #
+    ############################################################################
+    def createWebsocketResponseKey(baseKey):
+
+        #print "Key:".ljust(15), baseKey
+        concatinatedKey = baseKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+        #print "Concat Key:".ljust(15), concatinatedKey
+        hashedKey = hashlib.sha1(concatinatedKey).digest()
+        #print "Hashed Key:".ljust(15), hashedKey
+        base64Key = base64.b64encode(hashedKey)
+        #print "Final Key:".ljust(15), base64Key
+
+        return base64Key
 
     ############################### PARSE COOKIE ###############################
     # This function takes in a string containing the value of the HTTP         #
@@ -357,10 +366,12 @@ class Sockets(object):
         # this function could use some sanitization too...
 
 
-# sending data from the server requires no masking bit
-# text data is assumed all other methods will be ignored from this function
-# current method only uses 7 and 16 bit lengths (no 64bit lengths yet)
-# base framing protocal can be found on page 27 of RFC6455 websocket protocol
+############################## SEND WEBSOCKET TEXT #############################
+# This function takes in a string and sends it over a websocket. It adds the   #
+# required header bytes in order to send the message and then sends it.        #
+# The base framing protocol can be found on page 27 with a diagram on 28 of    #
+# the RFC6455 Websocket Protocol document                                      #
+################################################################################
 def sendWebsocketText(sock, text):
     maskAndLengthByte = ''
     extendedPayloadLength = ''
@@ -383,15 +394,5 @@ def sendWebsocketText(sock, text):
     sock.send(message)
 
 
-print " -- running server from", __name__
+# Initilize the Sockets class as a callable object
 sockets = Sockets()
-
-
-
-# how will this work, how does a websocket thread get made?
-
-# one thread per document but how do you determine the document type? does that get passed into the thread
-# and also how do you get which thread to send the new socket to?
-# there needs to be a way to parse the "documentid"
-# maybe there is in the "origin tag"
-# lets try printing out basic connect messages with instant disconnects

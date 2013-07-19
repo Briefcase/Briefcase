@@ -53,10 +53,6 @@ class Sockets(object):
     _socketToRequestMap = {}
 
     # Create the socket for people to connect to!
-    def __init__(self,):
-        _communicationQueue = multiprocessing.Queue()
-        pass
-
     def begin(self):
         print "Beginning socket"
         coreSocket = multiprocessing.Process(target=self.connectionSocket)
@@ -110,11 +106,10 @@ class Sockets(object):
                             for client_socket in socketList:
                                 if client_socket != sock:
                                     sendWebsocketText(client_socket, data)
+
                         def disconnect(self, data):
                             pass
 
-                    #request = {'user':user, 'id':requestDocumentId}
-                    
                     # create a dummy socket object
                     socketObject = ThreadedSock()
 
@@ -159,70 +154,18 @@ class Sockets(object):
         payload = transformedpayload
         return payload
 
-
-
-
-
-
-    # def sendWebsocketData(socket, frameType):
-    #     # frameTypes
-    #     # %x0 denotes a continuation frame
-    #     # %x1 denotes a text frame
-    #     # %x2 denotes a binary frame
-    #     # %x3-7 are reserved for further non-control frames
-    #     # %x8 denotes a connection close
-    #     # %x9 denotes a ping
-    #     # %xA denotes a pong
-    #     # %xB-F are reserved for further control frames
-    #     pass
-
-
-
-
-
-
-    # # this is a function that runs a set of processes
-    # def documentProcess (self, inputQueue, outputQueue): # maybe no inital socket
-    #     socketList = [] # this is the list of sockets that are connected on this thread
-
-    #     class ThreadedSock():
-    #         me_socket = None
-    #         def sendToAll(self, data):
-    #             for client_socket in socketList:
-    #                 sendWebsocketText(client_socket, data)
-
-    #         def sendToMe(self, data):
-    #             sendWebsocketText(me_socket, data)
-
-    #         def sendToAllButMe(self, data):
-    #             for client_socket in socketList:
-    #                 if client_socket != me_socket:
-    #                     sendWebsocketText(client_socket, data)
-    #         def disconnect(self, data):
-    #             pass
-    #         # im going a little insane wrapping my brain around all of this so far
-
-    #     while 1: # loop until break
-    #         pass
-    #         timeout = 1  # set timeout for 1 second maybe
-
-    #         select.select(self.socketList, [], [], timeout)
-    #         print "Got message"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    def handle(self,sock):
+    ############################# HANDLE NEW SOCKET ############################
+    # The handle new socket functions takes in a new socket that has           #
+    # connected to the server. It first reads the metatags on the socket and   #
+    # parses out the application it is trying to communicate with and the ID   #
+    # of the document it is trying to communicate with. It then grabs the      #
+    # other metadata to build a psuedo request object to send to the           #
+    # onConnect function assigned to the requested application. If the         #
+    # onConnect function returns false the connection is terminated. If it     #
+    # returns tru the conenction is accepted and the socket is added to the    #
+    # list of connected sockets.                                               #
+    ############################################################################
+    def handle(self, sock):
         print '--- Got message! ---'
 
         data = sock.recv(4096)
@@ -247,11 +190,11 @@ class Sockets(object):
         requestDocumentId = splitLocatoin[2]
 
         print "Requested Application:", requestApplication
-        print "Requested Document ID:",requestDocumentId
+        print "Requested Document ID:", requestDocumentId
 
         # get all the other data given in the header
         for line in lines:
-            tokens= line.split(':')
+            tokens = line.split(':')
             if len(tokens) < 2:
                 continue
             name = tokens[0]
@@ -288,7 +231,7 @@ class Sockets(object):
 
         # Get the base websocket key and create the response key
         baseKey = metadata['Sec-WebSocket-Key'].strip()
-        websocketResponseKey = createWebsocketResponseKey(baseKey)
+        websocketResponseKey = self.createWebsocketResponseKey(baseKey)
 
         # respond with a sucess message to the websocket
         websocketHeader = "HTTP/1.1 101 Switching Protocols\r\n"
@@ -315,7 +258,7 @@ class Sockets(object):
     # that concatination and then converts the resulting sha1 hash into        #
     # base64 which is the response key.                                        #
     ############################################################################
-    def createWebsocketResponseKey(baseKey):
+    def createWebsocketResponseKey(self, baseKey):
 
         #print "Key:".ljust(15), baseKey
         concatinatedKey = baseKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"

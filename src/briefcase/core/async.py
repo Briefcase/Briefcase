@@ -47,9 +47,10 @@ class Sockets(object):
     _serverSocket = None  # the socket that is listeneing for new connections
     _socketPort = 8080  # the port that the listening socket is listening on
     callingFunctions = {}  # the map of registered document functions to call
-    _documents = {}  # the list of documents that are open
-    _socketToDocumentIdMap = {}  # maps the currently open sockets to their user ids
-    _socketToDocumentTypeMap = {} # maps the currently open sockets to their document types
+    _documentSocketLists = {}  # the list of documents that are open
+    #_socketToDocumentIdMap = {}  # maps the currently open sockets to their user ids
+    #_socketToDocumentTypeMap = {}  # maps the currently open sockets to their document types
+    _socketToRequestMap = {}
 
     # Create the socket for people to connect to!
     def __init__(self,):
@@ -90,28 +91,34 @@ class Sockets(object):
                     data = self.readWebsocketData(sock.recv(4096))
                     # call function for that socket
 
-                    socketList = self._documents[self._socketToDocumentIdMap[sock]]
+                    request = self._socketToRequestMap[sock]
+                    documentId = request.extra['documentId']
+                    documentType = request.extra['documentType']
+
+                    socketList = self._documentSocketLists[documentId]
 
                     # a simple set of functioncalls to handle the application
                     class ThreadedSock():
-                        me_socket = None
                         def sendToAll(self, data):
                             for client_socket in socketList:
                                 sendWebsocketText(client_socket, data)
 
                         def sendToMe(self, data):
-                            sendWebsocketText(me_socket, data)
+                            sendWebsocketText(sock, data)
 
                         def sendToAllButMe(self, data):
                             for client_socket in socketList:
-                                if client_socket != me_socket:
+                                if client_socket != sock:
                                     sendWebsocketText(client_socket, data)
                         def disconnect(self, data):
                             pass
 
-                    request = {'user':user, 'id':requestDocumentId}
+                    #request = {'user':user, 'id':requestDocumentId}
+                    
+                    # create a dummy socket object
+                    socketObject = ThreadedSock()
 
-                    self.callingFunctions[self._socketToDocumentTypeMap[sock]][1](request, data, socketObject)
+                    self.callingFunctions[documentType][1](request, data, socketObject)
 
 
     def readWebsocketData(self, data):
@@ -252,9 +259,9 @@ class Sockets(object):
 
             metadata[name] = value
             print ("("+name+")").ljust(27), value
-        
+
         # call function
-        
+
         # get the user trying to subscribe to the spreadsheet
         print metadata
 
@@ -265,24 +272,7 @@ class Sockets(object):
 
         # create a fake request object to pass to the socket handling function
         request = fakeRequest(requestLocation, session_key)
-
-        #= {'user':user, 'id':requestDocumentId}
-
-        # class ThreadedSock():
-        #     me_socket = None
-        #     def __init__(self, me_socket):
-        #         self.me_socket = me_socket
-        #     def sendToAll(self, data): # cheating: no other sockets exist so only send to you HACKS
-        #         sendWebsocketText(self.me_socket, data)
-        #     def sendToMe(self, data):
-        #         sendWebsocketText(self.me_socket, data)
-        #     def sendToAllButMe(self, data): # cheating: no other sockets exist so only send to NOBBODY HACKS
-        #         pass
-        #     def disconnect(self, data):
-        #         me_socket.close()
-
-
-        # tsocket = ThreadedSock(sock)
+        request.extra = {'documentId': requestDocumentId, 'documentType': requestApplication}
 
         print '\n\n\n\n'
         print self.callingFunctions
@@ -312,23 +302,28 @@ class Sockets(object):
         websocketHeader = "HTTP/1.1 101 Switching Protocols\r\n"
         websocketHeader += "Upgrade: websocket\r\n"
         websocketHeader += "Connection: Upgrade\r\n"
-        websocketHeader += "Sec-WebSocket-Accept: "+ base64Key
+        websocketHeader += "Sec-WebSocket-Accept: " + base64Key
         sock.send(websocketHeader + "\r\n\r\n")
 
         # now add the socket to the process it is supposed to go to
 
         # first check to see if the threadprocess exists for that file
-        if requestDocumentId not in self._documents:
+        if requestDocumentId not in self._documentSocketLists:
             print "Creating a new array for this document:", requestDocumentId
-            self._documents[requestDocumentId] = []
+            self._documentSocketLists[requestDocumentId] = []
 
-        # give the new socket to the thread
-        self._documents[requestDocumentId].append(sock)
+        # add the data that will be needed later to the class's variables
+        self._documentSocketLists[requestDocumentId].append(sock)
+        self._socketToRequestMap[sock] = request
 
-        self._socketToDocumentIdMap[sock] = requestDocumentId
-        self._socketToDocumentTypeMap[sock] = requestApplication
         return True  # reutrn that the socket succeded and should be added to the read list
 
+    ############################### PARSE COOKIE ###############################
+    # This function takes in a string containing the value of the HTTP         #
+    # metadata named Cookie. It then parses the data and returns a map of the  #
+    # elements of the cookie with the element names as the key and the         #
+    # element values as the values                                             #
+    ############################################################################
     def parseCookie(self, cookie):
         cookieObjects = {}
 
@@ -340,8 +335,6 @@ class Sockets(object):
             cookieObjects[cookieElementKey] = cookieElementValue
 
         return cookieObjects
-
-
 
     ############################ REGISTER FUNCTIONS ############################
     # The register functions function takes in a set of three functions as     #

@@ -115,7 +115,13 @@ class Sockets(object):
 
                     self.callingFunctions[documentType][1](request, data, socketObject)
 
-
+    ############################ READ WEBSOCKET DATA ###########################
+    # This function takes in a message sent to it by a websocket and converts  #
+    # it into a regular string. First it determines the length of the message  #
+    # as well as the mask of the message. Then it takes each byte of the       #
+    # message and XORs it with a byte of the mask. Once it is done the         #
+    # unmasked string is returned in a readable form.                          #
+    ############################################################################
     def readWebsocketData(self, data):
         header = data[0]
         mask = struct.unpack(">B", data[1])[0] & 0x80           # B1000000
